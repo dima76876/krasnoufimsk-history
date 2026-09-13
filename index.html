@@ -123,14 +123,37 @@
         }
 
         @media (max-width: 768px) {
-            header { top: 0; left: 0; width: 100%; border-radius: 0; padding: 15px 20px; background: rgba(0,0,0,0.8); }
-            .logo { font-size: 16px; }
-            .nav-links a { margin-left: 15px; font-size: 13px; }
+            header { 
+                top: 0; 
+                left: 0; 
+                width: 100%; 
+                border-radius: 0; 
+                padding: 12px 20px; 
+                background: rgba(0, 0, 0, 0.85); /* Делаем фон чуть темнее на телефоне для читаемости */
+                flex-direction: column; /* Выстраиваем название и ссылки друг под другом */
+                gap: 8px;
+                text-align: center;
+            }
+            .logo { 
+                font-size: 16px; 
+                width: 100%;
+                text-align: center;
+            }
+            .nav-links { 
+                display: flex; 
+                justify-content: center; 
+                width: 100%; 
+            }
+            .nav-links a { 
+                margin: 0 10px; 
+                font-size: 13px; 
+            }
             .hero h1 { font-size: 36px; letter-spacing: 2px; }
             .hero p { font-size: 16px; }
             .time-btn { padding: 8px 16px; font-size: 13px; }
             .event-card { padding: 25px 20px; }
         }
+
     </style>
 </head>
 <body>
@@ -229,43 +252,43 @@
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // 1. КОД АВТОМАТИЧЕСКОЙ СМЕНЫ ДИЗАЙНА ПО СЕЗОНАМ
+            
             const currentMonth = new Date().getMonth();
             const root = document.documentElement;
             const heroTitle = document.getElementById('hero-title');
 
             if (currentMonth === 11 || currentMonth === 0 || currentMonth === 1) {
-                root.style.setProperty('--main-color', '#0288d1'); // Зима: морозный синий
+                root.style.setProperty('--main-color', '#0288d1'); 
                 root.style.setProperty('--bg-accent', '#e1f5fe');
                 heroTitle.innerText = "КРАСНОУФИМСК ЗИМНИЙ";
             } 
             else if (currentMonth >= 2 && currentMonth <= 4) {
-                root.style.setProperty('--main-color', '#388e3c'); // Весна: нежно-зеленый
+                root.style.setProperty('--main-color', '#388e3c'); 
                 root.style.setProperty('--bg-accent', '#e8f5e9');
                 heroTitle.innerText = "КРАСНОУФИМСК ВЕСЕННИЙ";
             } 
             else if (currentMonth >= 5 && currentMonth <= 7) {
-                root.style.setProperty('--main-color', '#2e7d32'); // Лето: сочный зеленый
+                root.style.setProperty('--main-color', '#2e7d32'); 
                 root.style.setProperty('--bg-accent', '#f4fbf4');
                 heroTitle.innerText = "КРАСНОУФИМСК ЛЕТНИЙ";
             } 
             else {
-                root.style.setProperty('--main-color', '#e65100'); // Осень: теплый оранжевый
+                root.style.setProperty('--main-color', '#e65100'); 
                 root.style.setProperty('--bg-accent', '#fff3e0');
                 heroTitle.innerText = "КРАСНОУФИМСК ОСЕННИЙ";
             }
 
-            // 2. КОД ПЛАВНОГО ПОЯВЛЕНИЯ КАРТОЧЕК ПРИ СКРОЛЛЕ
+            
             const cards = document.querySelectorAll('.event-card');
 
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('show'); // Включаем видимость карточки
+                        entry.target.classList.add('show'); 
                     }
                 });
             }, {
-                threshold: 0.15 // Анимация сработает, когда карточка покажется на 15%
+                threshold: 0.15 
             });
 
             cards.forEach(card => {
