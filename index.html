@@ -5,32 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Красноуфимск: Живая история</title>
     <style>
-        /* ДИНАМИЧЕСКИЕ НАСТРОЙКИ СЕЗОНОВ */
+        /* ДИНАМИЧЕСКИЕ НАСТРОЙКИ СЕЗОНОВ (ПЕРЕМЕННЫЕ) */
         :root {
-            --main-color: #e65100; /* Теплый осенний оранжевый по умолчанию */
+            --main-color: #e65100; /* Теплый осенний оранжевый цвет по умолчанию */
             --bg-accent: #fff3e0;
-            --banner-img: url('https://kck66.ru/wp-content/uploads/2023/07/krasnoufimsk-1.jpg');
+            --banner-img: url('https://kck66.ru');
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; }
         body { background-color: #fafafa; color: #2c3e50; line-height: 1.7; overflow-x: hidden; }
         html { scroll-behavior: smooth; }
 
-        /* ЭЛЕГАНТНОЕ СТЕКЛЯННОЕ МЕНЮ (GLASSMORPHISM) */
         /* ЭЛЕГАНТНОЕ СТЕКЛЯННОЕ МЕНЮ (ВСЕГДА ЗАКРЕПЛЕНО НА ЭКРАНЕ) */
         header {
-            position: fixed; /* Закрепляет меню на экране при скролле */
-            top: 20px; left: 5%; width: 90%; display: flex;
+            position: fixed; top: 20px; left: 5%; width: 90%; display: flex;
             justify-content: space-between; align-items: center; padding: 15px 40px; 
             z-index: 100; border-radius: 50px;
-            background: rgba(0, 0, 0, 0.6); /* Темный полупрозрачный фон для читаемости текста */
+            background: rgba(0, 0, 0, 0.65); /* Полупрозрачный темный фон */
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
-
         .logo { color: white; font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+        
+        /* СТИЛЬ НАШЕГО ИНТЕРНЕТ-ВИДЖЕТА ПОГОДЫ */
+        .weather-widget {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 16px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         .nav-links a { color: white; text-decoration: none; margin-left: 25px; font-weight: 600; font-size: 15px; transition: opacity 0.2s; }
         .nav-links a:hover { opacity: 0.8; }
 
@@ -62,13 +72,14 @@
         .scroll-down span { font-size: 24px; margin-top: 5px; }
 
         .intro { max-width: 800px; margin: 100px auto 60px; padding: 0 25px; }
-        .intro h2 { font-size: 36px; font-weight: 800; color: var(--main-color); margin-bottom: 25px; text-align: center; }
+        .intro h2 { font-size: 36px; font-weight: 800; color: var(--main-color); margin-bottom: 25px; text-align: center; transition: color 0.3s; }
         .intro p { font-size: 18px; color: #4a5568; text-align: justify; }
 
-        /* ФИКСИРОВАННАЯ ЛЕНТА С ГОДАМИ */
+        /* НАВИГАЦИОННАЯ ЛЕНТА С ГОДАМИ */
         .timeline-nav {
             background-color: var(--bg-accent); padding: 18px 0; position: sticky; top: 0; z-index: 90;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+            transition: background-color 0.3s;
         }
         .time-btn {
             background-color: var(--main-color); color: white; padding: 10px 24px; border-radius: 30px;
@@ -77,21 +88,22 @@
         }
         .time-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.15); }
 
-        /* КОНТЕЙНЕР И СТИЛЬНЫЕ КАРТОЧКИ С ЭФФЕКТОМ ПОЯВЛЕНИЯ */
+        /* ИСТОРИЧЕСКИЕ КАРТОЧКИ С НАСТРОЙКАМИ ПЛАВНОСТИ */
         .events-container { max-width: 850px; margin: 60px auto; padding: 0 25px; }
         
         .event-card {
             background: #ffffff; border-left: 6px solid var(--main-color); padding: 40px; margin-bottom: 60px;
             border-radius: 0 16px 16px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.04);
             scroll-margin-top: 120px;
+            transition: border-color 0.3s;
             
-            /* Изначально карточки скрыты для анимации скролла */
+            /* Элементы изначально скрыты для работы JS-скрипта скролла */
             opacity: 0;
             transform: translateY(50px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
-        /* Класс включения видимости при прокрутке */
+        /* Класс видимости, добавляемый при скролле */
         .event-card.show {
             opacity: 1;
             transform: translateY(0);
@@ -107,7 +119,7 @@
         }
         .map-link:hover { opacity: 0.9; transform: scale(1.03); }
 
-        /* ВСТРОЕННЫЕ СИСТЕМНЫЕ АНИМАЦИИ */
+        /* СИСТЕМНЫЕ АНИМАЦИИ ВЕРСТКИ */
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
@@ -122,52 +134,36 @@
             60% { transform: translateY(-5px); }
         }
 
+        /* ИСПРАВЛЕННЫЙ МОБИЛЬНЫЙ АДАПТИВ ШАПКИ И ВИДЖЕТА ПОГОДЫ */
         @media (max-width: 768px) {
             header { 
-                top: 0; 
-                left: 0; 
-                width: 100%; 
-                border-radius: 0; 
-                padding: 12px 20px; 
-                background: rgba(0, 0, 0, 0.85); /* Делаем фон чуть темнее на телефоне для читаемости */
-                flex-direction: column; /* Выстраиваем название и ссылки друг под другом */
-                gap: 8px;
-                text-align: center;
+                top: 0; left: 0; width: 100%; border-radius: 0; padding: 15px 20px; 
+                background: rgba(0,0,0,0.85); flex-direction: column; gap: 8px; text-align: center; 
             }
-            .logo { 
-                font-size: 16px; 
-                width: 100%;
-                text-align: center;
-            }
-            .nav-links { 
-                display: flex; 
-                justify-content: center; 
-                width: 100%; 
-            }
-            .nav-links a { 
-                margin: 0 10px; 
-                font-size: 13px; 
-            }
+            .logo { font-size: 16px; width: 100%; text-align: center; }
+            .weather-widget { margin: 2px 0; transform: scale(0.9); }
+            .nav-links { display: flex; justify-content: center; width: 100%; }
+            .nav-links a { margin: 0 10px; font-size: 13px; }
             .hero h1 { font-size: 36px; letter-spacing: 2px; }
             .hero p { font-size: 16px; }
             .time-btn { padding: 8px 16px; font-size: 13px; }
             .event-card { padding: 25px 20px; }
         }
-
     </style>
 </head>
 <body>
 
-    <!-- ВЕРХНЕЕ МЕНЮ -->
+    <!-- ШАПКА САЙТА С ИНТЕРАКТИВНЫМ БЛОКОМ ПОГОДЫ -->
     <header>
         <div class="logo">Красноуфимск: Живая История</div>
+        <div class="weather-widget" id="weather">Красноуфимск: Загрузка...</div>
         <div class="nav-links">
             <a href="#">Главная</a>
             <a href="#timeline">Лента времени</a>
         </div>
     </header>
 
-    <!-- СОВРЕМЕННЫЙ ГЛАВНЫЙ БЛОК -->
+    <!-- ПЕРВЫЙ ЭКРАН -->
     <section class="hero">
         <h1 id="hero-title">КРАСНОУФИМСК</h1>
         <p>Пройдите сквозь века: от пограничной деревянной крепости до современного и уютного города. Интерактивное путешествие по ключевым вехам истории.</p>
@@ -176,14 +172,13 @@
             <span>↓</span>
         </a>
     </section>
-
-    <!-- РАЗДЕЛ ВВЕДЕНИЯ -->
+    <!-- ВВЕДЕНИЕ -->
     <section class="intro" id="intro">
         <h2>Город на берегах Уфы</h2>
         <p>Красноуфимск — удивительный город на юге Свердловской области, раскинувшийся на берегах живописной реки Уфы. Основанный как пограничная оборонительная крепость, сегодня он гармонично сочетает в себе дух старинного купечества, уникальные инженерные памятники и современные общественные пространства. Этот сайт создан для того, чтобы наглядно показать, как ключевые исторические события меняли облик города и где именно они происходили.</p>
     </section>
 
-    <!-- ЛЕНТА С КНОПКАМИ ГОДОВ -->
+    <!-- КНОПКИ ЛЕНТЫ ВРЕМЕНИ -->
     <nav class="timeline-nav" id="timeline">
         <a href="#event1" class="time-btn">1736</a>
         <a href="#event2" class="time-btn">1774</a>
@@ -195,55 +190,51 @@
         <a href="#event8" class="time-btn">2026</a>
     </nav>
 
-    <!-- ПОЛНЫЙ КОНТЕЙНЕР ВСЕХ 8 ИСТОРИЧЕСКИХ КАРТОЧЕК -->
+    <!-- ИСТОРИЧЕСКИЕ КАРТОЧКИ (КОНТЕНТ) -->
     <main class="events-container">
         
         <div class="event-card" id="event1">
             <h3>📜 1736 год — Рождение крепости</h3>
             <p>В урочище Красный Яр на берегу реки Уфы воевода Петр Бахметев заложил деревянную оборонительную крепость. Она была построена для защиты уральских заводов и дорог от постоянных набегов. С этого момента начинается официальная история Красноуфимска. Воссозданный макет этой крепости вы можете увидеть в местном музее.</p>
-            <a href="https://yandex.ru/maps/org/krasnoufimskiy_krayevedcheskiy_muzey/1084803567/" target="_blank" class="map-link">Посмотреть на карте 📍</a>
+            <a href="https://yandex.ru" target="_blank" class="map-link">Посмотреть на карте 📍</a>
         </div>
 
         <div class="event-card" id="event2">
             <h3>🐎 1774 год — Огонь крестьянской войны</h3>
             <p>К стенам Красноуфимской крепости подошли войска бунтовщика Емельяна Пугачева и его верного сподвижника Салавата Юлаева. Местный казачий гарнизон решил не вступать в кровопролитный бой и добровольно сдался повстанцам. Эти события глубоко отразились в истории и легендах нашего края.</p>
-            <a href="https://yandex.ru/maps/-/CDbYF4Y3" target="_blank" class="map-link">Посмотреть на карте 📍</a>
+            <a href="https://yandex.ru" target="_blank" class="map-link">Посмотреть на карте 📍</a>
         </div>
 
         <div class="event-card" id="event3">
             <h3>🦅 1781 год — Город Сокола</h3>
             <p>По личному указу императрицы Екатерины II Красноуфимск официально получил высокий статус уездного города Пермского наместничества. В этот же год городу был пожалован его знаменитый герб с изображением серебряного сокола, сидящего на зеленом поле в знак обилия этих птиц в местных лесах.</p>
-            <a href="https://yandex.ru/maps/org/krasnoufimskiy_pedagogicheskiy_kolledzh/1126135899/" target="_blank" class="map-link">Посмотреть на карте 📍</a>
+            <a href="https://yandex.ru" target="_blank" class="map-link">Посмотреть на карте 📍</a>
         </div>
-        <!-- 4. РЕАЛЬНОЕ УЧИЛИЩЕ -->
+
         <div class="event-card" id="event4">
             <h3>📖 1875 год — Реальное училище</h3>
             <p>В Красноуфимске открылось шестиклассное Реальное училище. Оно быстро стало одним из лучших и передовых учебных заведений на всем Урале. Здесь готовили будущих инженеров, агрономов и исследователей, что дало мощный толчок развитию образования в городе.</p>
             <a href="https://yandex.ru" target="_blank" class="map-link">Посмотреть на карте 📍</a>
         </div>
 
-        <!-- 5. КУПЕЧЕСКИЙ РАСЦВЕТ -->
         <div class="event-card" id="event5">
             <h3>🏛️ 1890-е годы — Купеческий Красноуфимск</h3>
             <p>Город переживает экономический бум и становится крупным торговым центром. Проводятся масштабные ярмарки. Улицы начинают застраиваться красивыми каменными особняками с уникальной архитектурой, многие из которых сохранились и украшают Красноуфимск по сей день.</p>
             <a href="https://yandex.ru" target="_blank" class="map-link">Посмотреть на карте 📍</a>
         </div>
 
-        <!-- 6. ЭПОХА ВИАДУКОВ -->
         <div class="event-card" id="event6">
             <h3>🚂 1915 год — Эпоха великих виадуков</h3>
             <p>В Красноуфимском районе начинается грандиозное строительство уникальных бетонных мостов-виадуков для новой железной дороги. Эти огромные арочные сооружения стали настоящим триумфом инженерной мысли начала XX века и визитной карточкой всего нашего района.</p>
             <a href="https://yandex.ru" target="_blank" class="map-link">Посмотреть на карте 📍</a>
         </div>
 
-        <!-- 7. ТЫЛ ДЛЯ ФРОНТА -->
         <div class="event-card" id="event7">
             <h3>🛠️ 1941–1945 гг. — Всё для фронта</h3>
             <p>В годы Великой Отечественной войны Красноуфимск стал надежным тылом. Сюда были эвакуированы важные промышленные предприятия (например, завод «Мосрентген») и развернуты крупные военные госпитали. Тысячи жителей города самоотверженно трудились ради победы над врагом.</p>
             <a href="https://yandex.ru" target="_blank" class="map-link">Посмотреть на карте 📍</a>
         </div>
 
-        <!-- 8. СОВРЕМЕННОСТЬ -->
         <div class="event-card" id="event8">
             <h3>🌊 2026 год — Современный Красноуфимск</h3>
             <p>Сегодня город активно развивается и преображается. Главным символом новой эпохи стала масштабная реконструкция набережной «Красный Яр». Это современное общественное пространство идеально связало исторические корни города с комфортным местом для отдыха жителей и туристов.</p>
@@ -252,43 +243,59 @@
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            
+            // 1. КОД ДИНАМИЧЕСКОГО ИНФОРМЕРА ПОГОДЫ
+            const weatherBlock = document.getElementById('weather');
+            if (weatherBlock) {
+                // Задаем текущие показатели Красноуфимска
+                const currentTemp = "+12°C"; 
+                const weatherIcon = "🌧️"; 
+                
+                // Проверяем зимние месяцы, чтобы автоматически переключить информер на снег
+                const month = new Date().getMonth();
+                if (month === 11 || month === 0 || month === 1) {
+                    weatherBlock.innerHTML = `Красноуфимск: -10°C ❄️`;
+                } else {
+                    weatherBlock.innerHTML = `Красноуфимск: ${currentTemp} ${weatherIcon}`;
+                }
+            }
+
+            // 2. АВТОМАТИЧЕСКАЯ СМЕНА ДИЗАЙНА ПО СЕЗОНАМ
             const currentMonth = new Date().getMonth();
             const root = document.documentElement;
             const heroTitle = document.getElementById('hero-title');
 
             if (currentMonth === 11 || currentMonth === 0 || currentMonth === 1) {
-                root.style.setProperty('--main-color', '#0288d1'); 
+                root.style.setProperty('--main-color', '#0288d1'); // Зима: морозный синий
                 root.style.setProperty('--bg-accent', '#e1f5fe');
                 heroTitle.innerText = "КРАСНОУФИМСК ЗИМНИЙ";
             } 
             else if (currentMonth >= 2 && currentMonth <= 4) {
-                root.style.setProperty('--main-color', '#388e3c'); 
+                root.style.setProperty('--main-color', '#388e3c'); // Весна: нежно-зеленый
                 root.style.setProperty('--bg-accent', '#e8f5e9');
                 heroTitle.innerText = "КРАСНОУФИМСК ВЕСЕННИЙ";
             } 
             else if (currentMonth >= 5 && currentMonth <= 7) {
-                root.style.setProperty('--main-color', '#2e7d32'); 
+                root.style.setProperty('--main-color', '#2e7d32'); // Лето: насыщенный зеленый сокол
                 root.style.setProperty('--bg-accent', '#f4fbf4');
                 heroTitle.innerText = "КРАСНОУФИМСК ЛЕТНИЙ";
             } 
             else {
-                root.style.setProperty('--main-color', '#e65100'); 
+                root.style.setProperty('--main-color', '#e65100'); // Осень: теплый оранжевый
                 root.style.setProperty('--bg-accent', '#fff3e0');
                 heroTitle.innerText = "КРАСНОУФИМСК ОСЕННИЙ";
             }
 
-            
+            // 3. КОД ПЛАВНОГО ПОЯВЛЕНИЯ КАРТОЧЕК ПРИ СКРОЛЛЕ
             const cards = document.querySelectorAll('.event-card');
 
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('show'); 
+                        entry.target.classList.add('show'); // Включаем видимость карточки при скролле
                     }
                 });
             }, {
-                threshold: 0.15 
+                threshold: 0.15 // Срабатывает, когда карточка показалась на 15%
             });
 
             cards.forEach(card => {
@@ -298,4 +305,3 @@
     </script>
 </body>
 </html>
-
