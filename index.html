@@ -166,7 +166,6 @@
     <!-- ШАПКА САЙТА С ИНТЕРАКТИВНЫМ БЛОКОМ ПОГОДЫ -->
     <header>
         <div class="logo">Красноуфимск: Живая История</div>
-        <div class="weather-widget" id="weather">Красноуфимск: Загрузка...</div>
         <div class="nav-links">
             <a href="#">Главная</a>
             <a href="#timeline">Лента времени</a>
@@ -321,39 +320,8 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            // 2. ИНЖЕНЕРНЫЙ СКРИПТ ЖИВОЙ ПОГОДЫ ЧЕРЕЗ API С АВТОСТРАХОВКОЙ
-            const weatherText = document.getElementById('weather-text');
-            const weatherIcon = document.getElementById('weather-icon');
-            const apiUrl = 'https://open-meteo.com';
 
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 2000);
-
-            fetch(apiUrl, { signal: controller.signal })
-                .then(response => response.json())
-                .then(data => {
-                    clearTimeout(timeoutId);
-                    if (data && data.current_weather) {
-                        const temp = Math.round(data.current_weather.temperature);
-                        const code = data.current_weather.weathercode;
-                        let icon = "🌤️";
-                        
-                        if (code >= 1 && code <= 3) icon = "☁️";
-                        else if (code >= 51 && code <= 67) icon = "🌧️";
-                        else if (code >= 71 && code <= 86) icon = "❄️";
-                        else if (code >= 95) icon = "⛈️";
-
-                        if (weatherIcon) weatherIcon.innerText = icon;
-                        if (weatherText) weatherText.innerText = `Красноуфимск: ${temp > 0 ? '+' : ''}${temp}°C`;
-                    }
-                })
-                .catch(() => {
-                    clearTimeout(timeoutId);
-                    if (weatherIcon) weatherIcon.innerText = "🌧️";
-                    if (weatherText) weatherText.innerText = "Красноуфимск: +12°C";
-                });
-
-            // 3. АВТОМАТИЧЕСКАЯ СМЕНА СЕЗОНОВ И ЦВЕТОВОЙ ТЕМЫ САЙТА
+            // 2. АВТОМАТИЧЕСКАЯ СМЕНА СЕЗОНОВ И ЦВЕТОВОЙ ТЕМЫ САЙТА
             const currentMonth = new Date().getMonth();
             const root = document.documentElement;
             const heroTitle = document.getElementById('hero-title');
