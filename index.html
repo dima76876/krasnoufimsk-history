@@ -1,351 +1,3204 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <!-- 
+      ==========================================================================
+      ПРОЕКТ: «Красноуфимск: Живая история»
+      АВТОР: Ужегов Дмитрий, учащийся 10 класса (Технологический профиль)
+      ГОД: 2026
+      ТЕХНОЛОГИИ: HTML5, CSS3 (Glassmorphism, Grid, Flexbox), нативный JavaScript
+      ========================================================================== 
+    -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Красноуфимск: Живая история</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Интерактивный историко-краеведческий путеводитель «Красноуфимск: Живая история». 11 ключевых эпох от деревянной крепости 1736 года до 2026 года.">
+    <meta name="theme-color" content="#ea580c" id="theme-color-meta">
+    <title>Красноуфимск: Живая история — Интерактивный путеводитель</title>
+
     <style>
-        /* ДИНАМИЧЕСКИЕ НАСТРОЙКИ СЕЗОНОВ */
+        /* ==========================================================================
+           [1. CSS-ПЕРЕМЕННЫЕ И СЕЗОННЫЕ ПАЛИТРЫ]
+           Здесь задаются основные цвета оформления сайта.
+           Скрипт автоматически меняет класс на теге <body>, благодаря чему
+           сайт мгновенно перекрашивается под текущее время года (или по клику).
+           ========================================================================== */
         :root {
-            --main-color: #e65100; /* Цвет осени по умолчанию */
-            --bg-accent: #fff3e0;
-            --banner-img: url('https://kck66.ru');
+            /* Тема "Осень" (по умолчанию) */
+            --main-color: #ea580c;           /* Основной акцентный цвет (оранжево-терракотовый) */
+            --main-hover: #c2410c;           /* Цвет при наведении */
+            --main-light: #ffedd5;           /* Светлый оттенок для фонов и бейджей */
+            --bg-accent: #fff7ed;            /* Мягкий тёплый фон блоков */
+            --accent-glow: rgba(234, 88, 12, 0.25);
+            --gradient-hero: linear-gradient(135deg, rgba(38, 20, 12, 0.86) 0%, rgba(65, 31, 14, 0.76) 100%);
+            --particle-color: 253, 186, 116;
+
+            /* Общие нейтральные цвета интерфейса */
+            --text-main: #1e293b;            /* Основной цвет текста (тёмно-серый) */
+            --text-muted: #64748b;           /* Второстепенный цвет текста */
+            --text-light: #94a3b8;           /* Цвет мелких подписей и дат */
+            --bg-body: #f8fafc;              /* Цвет фона страницы */
+            --bg-card: #ffffff;              /* Цвет фона карточек */
+            --border-card: rgba(0, 0, 0, 0.08); /* Тонкая рамка карточек */
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 12px 24px -4px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.12);
+            --radius-sm: 10px;
+            --radius-md: 18px;
+            --radius-lg: 28px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; }
-        body { background-color: #fafafa; color: #2c3e50; line-height: 1.7; overflow-x: hidden; }
-        html { scroll-behavior: smooth; }
+        /* ТЕМА: ЗИМА (Морозно-синяя гамма) */
+        body.season-winter {
+            --main-color: #0284c7;
+            --main-hover: #0369a1;
+            --main-light: #e0f2fe;
+            --bg-accent: #f0f9ff;
+            --accent-glow: rgba(2, 132, 199, 0.25);
+            --gradient-hero: linear-gradient(135deg, rgba(12, 28, 48, 0.88) 0%, rgba(15, 42, 74, 0.78) 100%);
+            --particle-color: 186, 230, 253;
+        }
 
-        /* ЭЛЕГАНТНОЕ СТЕКЛЯННОЕ МЕНЮ */
+        /* ТЕМА: ВЕСНА (Изумрудная свежая зелень) */
+        body.season-spring {
+            --main-color: #16a34a;
+            --main-hover: #15803d;
+            --main-light: #dcfce7;
+            --bg-accent: #f0fdf4;
+            --accent-glow: rgba(22, 163, 74, 0.25);
+            --gradient-hero: linear-gradient(135deg, rgba(13, 38, 23, 0.88) 0%, rgba(20, 56, 33, 0.78) 100%);
+            --particle-color: 134, 239, 172;
+        }
+
+        /* ТЕМА: ЛЕТО (Солнечная бирюза) */
+        body.season-summer {
+            --main-color: #0d9488;
+            --main-hover: #0f766e;
+            --main-light: #ccfbf1;
+            --bg-accent: #f0fdfa;
+            --accent-glow: rgba(13, 148, 136, 0.25);
+            --gradient-hero: linear-gradient(135deg, rgba(10, 37, 39, 0.88) 0%, rgba(13, 53, 56, 0.78) 100%);
+            --particle-color: 94, 234, 212;
+        }
+
+        /* ТЕМА: ОСЕНЬ (Тёплая охра) */
+        body.season-autumn {
+            --main-color: #ea580c;
+            --main-hover: #c2410c;
+            --main-light: #ffedd5;
+            --bg-accent: #fff7ed;
+            --accent-glow: rgba(234, 88, 12, 0.25);
+            --gradient-hero: linear-gradient(135deg, rgba(38, 20, 12, 0.88) 0%, rgba(59, 29, 12, 0.78) 100%);
+            --particle-color: 253, 186, 116;
+        }
+
+        /* ==========================================================================
+           [2. БАЗОВЫЙ СБРОС И ШРИФТЫ]
+           ========================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.4s ease;
+        }
+
+        /* Полоса прогресса чтения страницы вверху экрана */
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--main-color), #f59e0b);
+            z-index: 1200;
+            transition: width 0.1s ease-out;
+        }
+
+        /* ==========================================================================
+           [3. ШАПКА В СТИЛЕ GLASSMORPHISM (МАТОВОЕ СТЕКЛО)]
+           ========================================================================== */
+        .header-wrapper {
+            position: fixed;
+            top: 14px;
+            left: 0;
+            width: 100%;
+            padding: 0 20px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
         header {
-            position: fixed; top: 20px; left: 5%; width: 90%; display: flex;
-            justify-content: space-between; align-items: center; padding: 15px 40px; 
-            z-index: 100; border-radius: 50px;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-        }
-        .logo { color: white; font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
-        
-        .weather-widget {
-            color: #ffffff; font-weight: 700; font-size: 15px;
-            background: rgba(255, 255, 255, 0.15); padding: 6px 16px;
-            border-radius: 20px; letter-spacing: 0.5px; border: 1px solid rgba(255, 255, 255, 0.1);
+            pointer-events: auto;
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 24px;
+            border-radius: 50px;
+            background: rgba(15, 23, 42, 0.84); /* Полупрозрачный темный фон */
+            backdrop-filter: blur(16px);       /* Эффект матового размытия */
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+            transition: var(--transition);
         }
 
-        .nav-links a { color: white; text-decoration: none; margin-left: 25px; font-weight: 600; font-size: 15px; transition: opacity 0.2s; }
-        .nav-links a:hover { opacity: 0.8; }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
 
-        /* ПОЛНОЭКРАННЫЙ ГЛАВНЫЙ БЛОК */
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .logo-text {
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-sub {
+            font-size: 10px;
+            font-weight: 600;
+            color: #94a3b8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ВИДЖЕТ ПОГОДЫ (ВЫВОДИТ ТЕМПЕРАТУРУ ИЗ OPEN-METEO) */
+        .weather-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 6px 14px;
+            border-radius: 30px;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            transition: var(--transition);
+        }
+
+        .weather-pill:hover {
+            background: rgba(255, 255, 255, 0.22);
+            transform: translateY(-1px);
+        }
+
+        .weather-status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #22c55e;
+            animation: pulseDot 2s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.6; }
+        }
+
+        /* Выпадающее окно с подробной погодой */
+        .weather-details-card {
+            position: absolute;
+            top: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            opacity: 0;
+            visibility: hidden;
+            background: rgba(15, 23, 42, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+            border-radius: 20px;
+            padding: 20px;
+            width: 275px;
+            color: white;
+            z-index: 1100;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        .weather-details-card.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .weather-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .weather-card-header h4 {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .weather-card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 12px;
+        }
+
+        .weather-card-item {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 8px 10px;
+            border-radius: 10px;
+        }
+
+        .weather-card-item span {
+            display: block;
+            color: #94a3b8;
+            font-size: 11px;
+            margin-bottom: 2px;
+        }
+
+        .weather-card-item strong {
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .weather-card-footer {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #94a3b8;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 8px;
+        }
+
+        .btn-refresh-weather {
+            background: none;
+            border: none;
+            color: #38bdf8;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА (RU / EN) */
+        .lang-switch-btn {
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .lang-switch-btn:hover {
+            background: rgba(255, 255, 255, 0.26);
+            transform: translateY(-1px);
+        }
+
+        /* НАВИГАЦИЯ В ШАПКЕ */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-link {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        /* ==========================================================================
+           [4. ПЕРВЫЙ ЭКРАН (HERO) И ХОЛСТ ЧАСТИЦ]
+           ========================================================================== */
         .hero {
-            height: 100vh; 
-            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), var(--banner-img);
-            background-size: cover; background-position: center; background-attachment: fixed;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            color: white; text-align: center; padding: 0 20px; position: relative;
-        }
-        .hero h1 { 
-            font-size: 64px; font-weight: 900; letter-spacing: 5px; margin-bottom: 20px; 
-            text-shadow: 0 4px 20px rgba(0,0,0,0.4); animation: fadeInDown 1s ease-out;
-        }
-        
-        /* ВЫРАВНИВАНИЕ ТЕКСТА ПО ШИРИНЕ И ОТСТУП ВНИЗ ДЛЯ СМАРТФОНОВ И ПК */
-        .hero p { 
-            font-size: 20px; max-width: 700px; font-weight: 400; opacity: 0.95;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.4); margin-bottom: 60px; /* Увеличили отступ до кнопки */
-            animation: fadeInUpMain 1s ease-out 0.3s backwards;
-            text-align: justify; /* Текст ровно по ширине */
-            text-align-last: center; /* Последняя строчка по центру */
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            color: #ffffff;
+            overflow: hidden;
+            background: var(--gradient-hero), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            background-attachment: fixed;
+            transition: background 0.6s ease;
         }
 
-        .scroll-down {
-            position: absolute; bottom: 40px; display: flex; flex-direction: column;
-            align-items: center; color: white; text-decoration: none; font-size: 14px;
-            font-weight: 600; letter-spacing: 1px; opacity: 0.8; transition: 0.3s; animation: bounce 2s infinite;
+        /* Холст сезонных частиц (падающие листья/снежинки) */
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
-        .scroll-down span { font-size: 24px; margin-top: 5px; }
 
-        /* ВВЕДЕНИЕ */
-        .intro { max-width: 800px; margin: 120px auto 60px; padding: 0 25px; } /* Опустили блок intro чуть ниже */
-        .intro h2 { font-size: 36px; font-weight: 800; color: var(--main-color); margin-bottom: 25px; text-align: center; transition: color 0.3s; }
-        .intro p { font-size: 18px; color: #4a5568; text-align: justify; } /* Текст введения по ширине */
-
-        /* НАВИГАЦИОННАЯ ЛЕНТА ВРЕМЕНИ */
-        .timeline-nav {
-            background-color: var(--bg-accent); padding: 18px 0; position: sticky; top: 0; z-index: 90;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
-            transition: background-color 0.3s;
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 860px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 6vw, 68px);
+            font-weight: 900;
+            letter-spacing: clamp(1px, 0.4vw, 4px);
+            line-height: 1.15;
+            margin-bottom: 22px;
+            text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero h1 span.season-title {
+            color: #ffffff;
+            background: linear-gradient(120deg, #ffffff 40%, var(--main-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-top: 6px;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2vw, 20px);
+            max-width: 720px;
+            font-weight: 400;
+            opacity: 0.95;
+            line-height: 1.8;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 36px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 36px;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.38);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 16px;
+            padding: 12px 22px;
+            min-width: 140px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-3px);
+            background: rgba(0, 0, 0, 0.52);
+        }
+
+        .stat-number {
+            font-size: 26px;
+            font-weight: 900;
+            color: #ffffff;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .scroll-down-btn {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.9;
+            transition: var(--transition);
+            animation: bounce 2.2s infinite;
+        }
+
+        .scroll-arrow {
+            font-size: 22px;
+            margin-top: 4px;
+        }
+
+        /* ==========================================================================
+           [5. ВВЕДЕНИЕ И СЕЛЕКТОР СЕЗОНОВ]
+           ========================================================================== */
+        .intro-section {
+            max-width: 900px;
+            margin: -40px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .intro-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 40px 45px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-card);
+            transition: var(--transition);
+        }
+
+        .intro-card h2 {
+            font-size: clamp(26px, 4vw, 36px);
+            font-weight: 900;
+            color: var(--main-color);
+            margin-bottom: 20px;
+            text-align: center;
+            transition: color 0.4s;
+        }
+
+        .intro-card p {
+            font-size: 17px;
+            color: #475569;
+            text-align: justify;
+            line-height: 1.85;
+            margin-bottom: 28px;
+        }
+
+        .season-switch-box {
+            background: var(--bg-accent);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.4s;
+        }
+
+        .season-switch-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .season-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .season-btn {
+            background: white;
+            border: 1.5px solid rgba(0, 0, 0, 0.08);
+            color: var(--text-main);
+            padding: 7px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .season-btn:hover {
+            border-color: var(--main-color);
+            color: var(--main-color);
+            transform: translateY(-2px);
+        }
+
+        .season-btn.active {
+            background: var(--main-color);
+            border-color: var(--main-color);
+            color: white;
+            box-shadow: 0 4px 14px var(--accent-glow);
+        }
+
+        /* ==========================================================================
+           [6. ЛЕНТА ВРЕМЕНИ (TIMELINE NAVIGATION)]
+           ========================================================================== */
+        .timeline-section {
+            position: sticky;
+            top: 74px;
+            z-index: 900;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            padding: 12px 0;
+            transition: var(--transition);
+        }
+
+        .timeline-scroll-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
+
+        .timeline-scroll-container::-webkit-scrollbar { height: 4px; }
+        .timeline-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--main-color);
+            border-radius: 4px;
+        }
+
         .time-btn {
-            background-color: transparent; color: var(--main-color); padding: 10px 24px; border-radius: 30px;
-            text-decoration: none; font-weight: 700; font-size: 15px; border: 2px solid var(--main-color);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
-        }
-        .time-btn.active, .time-btn:hover {
-            background-color: var(--main-color); color: white !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); transform: translateY(-2px);
+            flex-shrink: 0;
+            background: transparent;
+            color: #475569;
+            padding: 9px 18px;
+            border-radius: 30px;
+            border: 1.5px solid rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            white-space: nowrap;
         }
 
-        /* НАСТРОЙКА КАРТОЧЕК: ОНИ СКРЫТЫ И ЖДУТ ПЛАВНОГО ВСПЛЫВАНИЯ */
-        .events-container { max-width: 750px; margin: 40px auto 100px; padding: 0 20px; position: relative; z-index: 2; }
-        
+        .time-btn:hover {
+            color: var(--main-color);
+            border-color: var(--main-color);
+            background: var(--bg-accent);
+            transform: translateY(-2px);
+        }
+
+        .time-btn.active {
+            background: var(--main-color);
+            border-color: var(--main-color);
+            color: #ffffff !important;
+            box-shadow: 0 6px 16px var(--accent-glow);
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .time-btn .tag {
+            font-size: 11px;
+            opacity: 0.85;
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           [8. КАРТОЧКИ 11 ИСТОРИЧЕСКИХ ЭПОХ]
+           ========================================================================== */
+        .events-container {
+            max-width: 860px;
+            margin: 40px auto 60px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
         .event-card {
-            background: #ffffff; border-radius: 20px; padding: 45px; 
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04); border: 1px solid rgba(0,0,0,0.03);
-            
-            /* Строго скрываем карточку, убирая серое пустое место */
-            display: none; 
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 44px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-card);
+            display: none;
             opacity: 0;
             transform: translateY(20px);
-        }
-        
-        /* Этот класс мгновенно включает анимацию при клике на год */
-        .event-card.active { 
-            display: block;
-            animation: smoothFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: opacity 0.35s ease, transform 0.35s ease;
         }
 
-        /* Сама независимая анимация мягкого появления из прозрачности */
-        @keyframes smoothFadeUp {
-            from { opacity: 0; transform: translateY(20px); }
+        .event-card.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            animation: cardFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(24px) scale(0.99); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .card-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .epoch-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-accent);
+            color: var(--main-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            border: 1px solid var(--border-card);
+        }
+
+        .event-card-index {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .event-card h3 {
+            font-size: clamp(24px, 3.5vw, 32px);
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .event-card p.event-desc {
+            color: #334155;
+            font-size: 17px;
+            line-height: 1.85;
+            text-align: justify;
+            margin-bottom: 24px;
+        }
+
+        .historical-fact-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--main-color);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 16px 20px;
+            margin-bottom: 26px;
+            font-size: 15px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .historical-fact-box strong {
+            color: var(--main-color);
+            display: block;
+            margin-bottom: 4px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Инфографический блок достопримечательности с переходом на карту */
+        .map-container {
+            width: 100%;
+            padding: 0;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-photo-preview {
+            width: 100%;
+            max-width: 580px;
+            height: 260px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 18px;
+            /* Музейная выразительная двойная обводка вокруг фото */
+            border: 3.5px solid var(--main-color);
+            box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.95), 0 10px 28px rgba(0, 0, 0, 0.16);
+            background: #e2e8f0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .map-container:hover .map-photo-preview {
+            border-color: var(--main-hover);
+            box-shadow: 0 0 0 5px #ffffff, 0 16px 36px var(--accent-glow);
+            transform: translateY(-3px);
+        }
+
+        .map-photo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .map-container:hover .map-photo-img {
+            transform: scale(1.05);
+        }
+
+        .map-title {
+            color: var(--main-color);
+            font-size: 19px;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        /* Отдельный блок адреса с кнопкой Яндекс.Карт */
+        .landmark-address-card {
+            width: 100%;
+            max-width: 580px;
+            background: #ffffff;
+            border: 1.5px solid var(--border-card);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin-top: 10px;
+            text-align: center;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .landmark-address-card:hover {
+            border-color: var(--main-color);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .address-header {
+            margin-bottom: 8px;
+        }
+
+        .address-badge {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--main-color);
+            background: var(--bg-accent);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .address-details {
+            font-size: 15px;
+            font-weight: 600;
+            color: #334155;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .address-map-btn-wrap {
+            display: flex;
+            justify-content: center;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-open-map {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            color: var(--main-color);
+            border: 1.5px solid var(--main-color);
+            padding: 9px 22px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn-open-map:hover {
+            background: var(--main-color);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px var(--accent-glow);
+        }
+
+        /* Кнопки перелистывания эпох внутри карточки */
+        .card-nav-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-card);
+            padding-top: 24px;
+            gap: 12px;
+        }
+
+        .btn-step-nav {
+            background: #f1f5f9;
+            color: #334155;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-step-nav:hover:not(:disabled) {
+            background: var(--main-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .btn-step-nav:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        /* ==========================================================================
+           [9. ГОТОВЫЕ ТУРИСТИЧЕСКИЕ МАРШРУТЫ]
+           ========================================================================== */
+        .routes-section {
+            max-width: 1000px;
+            margin: 0 auto 70px;
+            padding: 0 20px;
+        }
+
+        .routes-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .routes-badge {
+            display: inline-block;
+            background: var(--bg-accent);
+            color: var(--main-color);
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 10px;
+        }
+
+        .routes-header h2 {
+            font-size: clamp(26px, 4vw, 36px);
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .routes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 24px;
+        }
+
+        .route-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-md);
+            padding: 28px 24px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .route-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--main-color);
+        }
+
+        .route-icon-box {
+            font-size: 38px;
+            margin-bottom: 14px;
+            display: inline-block;
+        }
+
+        .route-card h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .route-card p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .route-meta-list {
+            list-style: none;
+            border-top: 1px dashed rgba(0, 0, 0, 0.1);
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+            padding: 12px 0;
+            margin-bottom: 18px;
+            font-size: 13px;
+            color: #475569;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .route-meta-list li strong {
+            color: var(--main-color);
+        }
+
+        .route-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .btn-view-route {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1.5px solid var(--border-card);
+            padding: 9px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn-view-route:hover {
+            background: var(--main-color);
+            border-color: var(--main-color);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px var(--accent-glow);
+        }
+
+        .btn-route-timeline {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1.5px solid var(--border-card);
+            padding: 9px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn-route-timeline:hover {
+            background: var(--main-color);
+            border-color: var(--main-color);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px var(--accent-glow);
+        }
+
+        /* ==========================================================================
+           [10. ИНТЕРАКТИВНАЯ ВИКТОРИНА «ЗНАТОК КРАСНОУФИМСКА»]
+           ========================================================================== */
+        .quiz-section {
+            max-width: 860px;
+            margin: 0 auto 70px;
+            padding: 0 20px;
+        }
+
+        .quiz-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 44px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-card);
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .quiz-badge {
+            display: inline-block;
+            background: var(--bg-accent);
+            color: var(--main-color);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .quiz-header h2 {
+            font-size: clamp(24px, 3.5vw, 34px);
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .btn-toggle-quiz {
+            background: var(--main-color);
+            color: #ffffff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 16px;
+            box-shadow: 0 6px 18px var(--accent-glow);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-toggle-quiz:hover {
+            transform: translateY(-3px);
+            background: var(--main-hover);
+            box-shadow: 0 8px 22px var(--accent-glow);
+        }
+
+        .question-box {
+            background: #f8fafc;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: var(--transition);
+        }
+
+        .question-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .question-num {
+            background: var(--main-color);
+            color: white;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            background: #ffffff;
+            border: 1.5px solid rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 12px 18px;
+            font-size: 15px;
+            color: var(--text-main);
+            text-align: left;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .option-btn:hover:not(.disabled) {
+            border-color: var(--main-color);
+            background: var(--bg-accent);
+            transform: translateX(4px);
+        }
+
+        .option-btn.correct {
+            background: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #15803d !important;
+            font-weight: 700;
+        }
+
+        .option-btn.wrong {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c !important;
+            font-weight: 700;
+        }
+
+        .option-btn.disabled {
+            cursor: default;
+        }
+
+        .question-feedback {
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            display: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .quiz-results-banner {
+            display: none;
+            text-align: center;
+            background: var(--bg-accent);
+            border: 2px dashed var(--main-color);
+            padding: 24px;
+            border-radius: var(--radius-md);
+            margin-top: 20px;
+        }
+
+        .quiz-results-banner h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--main-color);
+            margin-bottom: 8px;
+        }
+
+        .btn-restart-quiz {
+            background: var(--main-color);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 14px;
+            box-shadow: 0 4px 12px var(--accent-glow);
+            transition: var(--transition);
+        }
+
+        /* ==========================================================================
+           [11. ПАМЯТКА ДЛЯ ТУРИСТА]
+           ========================================================================== */
+        .tourist-guide-section {
+            max-width: 1000px;
+            margin: 0 auto 70px;
+            padding: 0 20px;
+        }
+
+        .tourist-guide-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 44px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-card);
+        }
+
+        .guide-header {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+
+        .guide-badge {
+            display: inline-block;
+            background: var(--bg-accent);
+            color: var(--main-color);
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 10px;
+        }
+
+        .guide-header h2 {
+            font-size: clamp(24px, 3.5vw, 34px);
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .guide-header p {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .guide-item {
+            background: #f8fafc;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: var(--radius-md);
+            padding: 24px 22px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .guide-item:hover {
+            transform: translateY(-4px);
+            background: var(--bg-accent);
+            border-color: var(--main-color);
+            box-shadow: 0 8px 24px var(--accent-glow);
+        }
+
+        .guide-item-icon {
+            font-size: 34px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .guide-item h4 {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .guide-item p {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        .guide-item-action,
+        .guide-item-action-btn {
+            background: transparent;
+            border: none;
+            padding: 0;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--main-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: auto;
+            cursor: pointer;
+            text-align: left;
+            transition: var(--transition);
+        }
+
+        .guide-item:hover .guide-item-action,
+        .guide-item:hover .guide-item-action-btn,
+        .guide-item-action-btn:hover {
+            color: var(--main-hover);
+            transform: translateX(4px);
+        }
+
+        .guide-footer-action {
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-print-guide {
+            background: linear-gradient(135deg, var(--main-color), #f59e0b);
+            color: white;
+            border: none;
+            padding: 13px 28px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            transition: var(--transition);
+            box-shadow: 0 6px 18px var(--accent-glow);
+        }
+
+        .btn-print-guide:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px var(--accent-glow);
+        }
+
+        /* ==========================================================================
+           [12. ПЛАВНОЕ ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ ПРИ СКРОЛЛЕ (REVEAL-ON-SCROLL)]
+           ========================================================================== */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.12s; }
+        .reveal-delay-2 { transition-delay: 0.22s; }
+        .reveal-delay-3 { transition-delay: 0.32s; }
+        .reveal-delay-4 { transition-delay: 0.42s; }
+
+        /* ==========================================================================
+           [12. ПОДВАЛ (FOOTER)]
+           ========================================================================== */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 60px 20px 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-meta {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #cbd5e1;
+        }
+
+        .footer-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .footer-chip {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            color: #64748b;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            width: 100%;
+            padding-top: 20px;
+            margin-top: 10px;
+        }
+
+        /* Кнопка "Наверх" */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--main-color);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 25px var(--accent-glow);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 990;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: var(--transition);
+        }
+
+        #btn-back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        #btn-back-to-top:hover {
+            transform: translateY(-4px);
+            background: var(--main-hover);
+        }
+
+        /* ==========================================================================
+           [13. АНИМАЦИИ]
+           ========================================================================== */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-24px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .event-card h3 { font-size: 28px; font-weight: 800; color: #1a202c; margin-bottom: 18px; }
-        .event-card p { color: #4a5568; font-size: 17px; text-align: justify; margin-bottom: 30px; line-height: 1.8; }
-
-        
-        /* СТИЛЬ ИНФОГРАФИКИ (ВЫРАВНИВАНИЕ ПО ЦЕНТРУ ДЛЯ ПК И МОБИЛЬНЫХ) */
-        .map-container {
-            width: 100%; padding: 30px 20px; border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.04); margin-top: 15px;
-            text-align: center; /* Центрирует иконки и текст на ПК */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* СИСТЕМНЫЕ АНИМАЦИИ */
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUpMain { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
+            60% { transform: translateY(-4px); }
+        }
 
-        /* ИСПРАВЛЕННЫЙ МОБИЛЬНЫЙ АДАПТИВ (ВЫРАВНИВАНИЕ АДРЕСОВ ПО ЦЕНТРУ НА ТЕЛЕФОНЕ) */
-        @media (max-width: 768px) {
-            header { top: 0; left: 0; width: 100%; border-radius: 0; padding: 15px 20px; background: rgba(0,0,0,0.85); flex-direction: column; gap: 8px; text-align: center; }
-            .logo { font-size: 16px; width: 100%; text-align: center; }
-            .weather-widget { margin: 2px 0; transform: scale(0.9); }
-            .nav-links { display: flex; justify-content: center; width: 100%; }
-            .nav-links a { margin: 0 10px; font-size: 13px; }
-            
-            .hero h1 { font-size: 36px; letter-spacing: 2px; }
-            .hero p { font-size: 16px; text-align: justify; text-align-last: center; margin-bottom: 40px; }
-            .intro { margin: 60px auto 40px; }
-            
-            .time-btn { padding: 8px 16px; font-size: 13px; }
-            .event-card { padding: 25px 20px; }
-            
-            /* Жёсткое центрирование адреса и названий мест на смартфонах */
-            .map-container { 
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                justify-content: center !important;
-                text-align: center !important;
-                padding: 20px 15px;
+        /* ==========================================================================
+           [14. АДАПТИВНОСТЬ ДЛЯ СМАРТФОНОВ И ПЛАНШЕТОВ]
+           ========================================================================== */
+        @media (max-width: 900px) {
+            .header-wrapper { top: 8px; padding: 0 10px; }
+            header { padding: 8px 16px; border-radius: 30px; }
+            .logo-sub { display: none; }
+            .nav-links { display: none; }
+            .timeline-section { top: 64px; }
+            .print-promo-card { flex-direction: column; text-align: center; }
+        }
+
+        @media (max-width: 600px) {
+            .hero { padding: 100px 16px 50px; }
+            .hero h1 { font-size: 32px; }
+            .hero p { font-size: 15px; }
+            .intro-section { margin: -25px auto 25px; padding: 0 14px; }
+            .intro-card, .event-card, .quiz-card { padding: 22px 16px; border-radius: var(--radius-md); }
+            .card-nav-footer { flex-direction: column; }
+            .btn-step-nav { width: 100%; justify-content: center; }
+            .weather-details-card { width: calc(100vw - 28px); left: 50%; transform: translateX(-50%) translateY(10px); }
+            .map-photo-preview { height: 180px; }
+            .guide-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ==========================================================================
+           [15. СТИЛИ ДЛЯ ПЕЧАТИ (КРАСИВЫЙ БУКЛЕТ ДЛЯ КОМИССИИ И ТУРИСТОВ)]
+           При нажатии Ctrl+P или кнопки "Печать" страница форматируется в
+           аккуратный печатный буклет без фонов и кнопок.
+           ========================================================================== */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                font-size: 12pt;
+                line-height: 1.5;
             }
-            .map-container strong, .map-container span {
-                text-align: center !important;
-                width: 100%;
+
+            .header-wrapper, #reading-progress, #particle-canvas,
+            .season-switch-box, .timeline-section, .card-nav-footer,
+            .btn-open-map, .quiz-section, .print-promo-section,
+            #btn-back-to-top, .scroll-down-btn {
+                display: none !important;
+            }
+
+            .hero {
+                min-height: auto !important;
+                background: none !important;
+                color: black !important;
+                padding: 20px 0 !important;
+            }
+
+            .hero h1 {
+                font-size: 26pt !important;
+                color: black !important;
+                text-shadow: none !important;
+            }
+
+            .hero p {
+                color: #333 !important;
+                text-shadow: none !important;
+            }
+
+            .event-card {
+                display: block !important;
+                opacity: 1 !important;
+                transform: none !important;
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 25px !important;
+                page-break-inside: avoid;
+            }
+
+            .map-container {
+                border: 1px solid #999 !important;
+                background: #f9f9f9 !important;
             }
         }
     </style>
 </head>
 
-<body>
+<body class="season-autumn">
 
-    <!-- ШАПКА САЙТА С ИНТЕРАКТИВНЫМ БЛОКОМ ПОГОДЫ -->
-    <header>
-        <div class="logo">Красноуфимск: Живая История</div>
-        <div class="nav-links">
-            <a href="#">Главная</a>
-            <a href="#timeline">Лента времени</a>
+    <!-- Индикатор прогресса чтения -->
+    <div id="reading-progress"></div>
+
+    <!-- ==========================================================================
+       1. ШАПКА: ЛОГОТИП, ЖИВАЯ ПОГОДА, ПЕРЕКЛЮЧАТЕЛЬ RU/EN И МЕНЮ
+       ========================================================================== -->
+    <div class="header-wrapper">
+        <header>
+            <div class="header-left">
+                <!-- Логотип города сокола -->
+                <a href="#" class="logo-group" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+                    <span class="logo-icon">🦅</span>
+                    <div class="logo-text">
+                        <span data-i18n="logoTitle">Красноуфимск</span>
+                        <span class="logo-sub" data-i18n="logoSub">Живая история 2026</span>
+                    </div>
+                </a>
+
+                <!-- Кнопка переключения языка (RU / EN) -->
+                <button class="lang-switch-btn" id="lang-switch-btn" title="Switch Language / Переключить язык">
+                    <span>🌐</span>
+                    <span id="lang-label">EN</span>
+                </button>
+            </div>
+
+            <!-- Виджет живой погоды из открытого API Open-Meteo -->
+            <div style="position: relative;">
+                <div class="weather-pill" id="weather-pill" title="Прогноз погоды Красноуфимска">
+                    <span class="weather-status-dot"></span>
+                    <span id="weather-icon">🌤️</span>
+                    <span id="weather-temp">--°C</span>
+                    <span id="weather-city" data-i18n="cityName">Красноуфимск</span>
+                </div>
+
+                <!-- Всплывающая детальная карточка погоды -->
+                <div class="weather-details-card" id="weather-details-card">
+                    <div class="weather-card-header">
+                        <h4 id="weather-card-desc" data-i18n="weatherTitle">Погода в Красноуфимске</h4>
+                        <span id="weather-card-badge" style="font-size: 11px; background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 2px 8px; border-radius: 10px;" data-i18n="weatherLive">Онлайн</span>
+                    </div>
+                    <div class="weather-card-grid">
+                        <div class="weather-card-item">
+                            <span data-i18n="weatherFeels">Ощущается</span>
+                            <strong id="weather-feels">--°C</strong>
+                        </div>
+                        <div class="weather-card-item">
+                            <span data-i18n="weatherWind">Ветер</span>
+                            <strong id="weather-wind">-- м/с</strong>
+                        </div>
+                        <div class="weather-card-item">
+                            <span data-i18n="weatherHumidity">Влажность</span>
+                            <strong id="weather-humidity">--%</strong>
+                        </div>
+                        <div class="weather-card-item">
+                            <span data-i18n="weatherPrecip">Осадки</span>
+                            <strong id="weather-precip">0.0 мм</strong>
+                        </div>
+                    </div>
+                    <div class="weather-card-footer">
+                        <span id="weather-time" data-i18n="weatherUpdated">Обновлено только что</span>
+                        <button class="btn-refresh-weather" id="btn-refresh-weather" data-i18n="weatherRefresh">🔄 Обновить</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Навигационные ссылки -->
+            <nav class="nav-links">
+                <a href="#hero" class="nav-link" data-i18n="navHome" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Главная</a>
+                <a href="#intro" class="nav-link" data-i18n="navIntro">О городе</a>
+                <a href="#timeline" class="nav-link" data-i18n="navTimeline">Лента времени</a>
+                <a href="#routes" class="nav-link" data-i18n="navRoutes">Маршруты</a>
+                <a href="#guide" class="nav-link" data-i18n="navGuide">Памятка</a>
+                <a href="#quiz" class="nav-link" data-i18n="navQuiz">Викторина</a>
+            </nav>
+        </header>
+    </div>
+
+    <!-- Холст для анимированных сезонных частиц -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- ==========================================================================
+       2. ПЕРВЫЙ ЭКРАН (HERO): НАЗВАНИЕ, ЦИФРЫ И СЕЗОН
+       ========================================================================== -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge" data-i18n="heroBadge">🏛️ Краеведческий веб-проект • 2026</div>
+            <h1 id="hero-title">
+                <span data-i18n="heroMain">КРАСНОУФИМСК</span>
+                <span class="season-title" id="hero-season-title" data-i18n="heroSeason">ЖИВАЯ ИСТОРИЯ</span>
+            </h1>
+            <p data-i18n="heroDesc">
+                Интерактивное путешествие сквозь века: от пограничной казачьей крепости на берегах реки Уфы 
+                до уютного современного города с уникальным архитектурным и природным наследием.
+            </p>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">1736</span>
+                    <span class="stat-label" data-i18n="statFounded">Год основания</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">11</span>
+                    <span class="stat-label" data-i18n="statEpochs">Ключевых эпох</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="city-age-stat">290 лет</span>
+                    <span class="stat-label" data-i18n="statYears">Истории города</span>
+                </div>
+            </div>
+
+            <a href="#intro" class="scroll-down-btn">
+                <span data-i18n="exploreHistory">Исследовать историю</span>
+                <span class="scroll-arrow">↓</span>
+            </a>
         </div>
-    </header>
-
-    <!-- ПЕРВЫЙ ЭКРАН -->
-    <section class="hero">
-        <h1 id="hero-title">КРАСНОУФИМСК</h1>
-        <p>Пройдите сквозь века: от пограничной деревянной крепости до современного и уютного города. Интерактивное путешествие по ключевым векам истории.</p>
-        <a href="#intro" class="scroll-down">
-            Исследовать историю
-            <span>↓</span>
-        </a>
     </section>
 
-    <!-- ВВЕДЕНИЕ -->
-    <section class="intro" id="intro">
-        <h2>Город на берегах Уфы</h2>
-        <p>Красноуфимск — удивительный город на юге Свердловской области, раскинувшийся на берегах живописной реки Уфы. Основанный как пограничная оборонительная крепость, сегодня он гармонично сочетает в себе дух старинного купечества, уникальные инженерные памятники и современные общественные пространства. Этот сайт создан для того, чтобы наглядно показать, как ключевые исторические события меняли облик города и где именно они происходили.</p>
+    <!-- ==========================================================================
+       3. ВВЕДЕНИЕ И СЕЛЕКТОР СЕЗОНОВ (ДЛЯ ДЕМОНСТРАЦИИ НА ЗАЩИТЕ)
+       ========================================================================== -->
+    <section class="intro-section reveal-on-scroll" id="intro">
+        <div class="intro-card">
+            <h2 id="intro-heading" data-i18n="introHeading">Город на живописных берегах реки Уфы</h2>
+            <p data-i18n="introText">
+                Красноуфимск — старейший исторический город на юго-западе Свердловской области. Заложенный как форпост 
+                для защиты уральских заводов, город вобрал в себя летопись пугачёвского восстания, купеческие традиции, 
+                триумф инженерной мысли в виде знаменитых виадуков и трудовой подвиг в годы Великой Отечественной войны. 
+                Ниже представлена интерактивная летопись из 11 важнейших вех, определивших судьбу Красноуфимска.
+            </p>
+
+            <!-- Демонстрационный переключатель сезонов -->
+            <div class="season-switch-box">
+                <span class="season-switch-label" data-i18n="seasonSwitchLabel">🎨 Режим визуализации темы сайта (для демонстрации):</span>
+                <div class="season-buttons">
+                    <button class="season-btn" data-season="auto" id="btn-season-auto" data-i18n="btnAuto">🔄 Авто (по дате)</button>
+                    <button class="season-btn" data-season="winter" data-i18n="btnWinter">❄️ Зима</button>
+                    <button class="season-btn" data-season="spring" data-i18n="btnSpring">🌱 Весна</button>
+                    <button class="season-btn" data-season="summer" data-i18n="btnSummer">☀️ Лето</button>
+                    <button class="season-btn active" data-season="autumn" data-i18n="btnAutumn">🍂 Осень</button>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- ЛЕНТА С КНОПКАМИ ГОДОВ -->
-    <nav class="timeline-nav" id="timeline">
-        <button class="time-btn active" onclick="openEvent(event, 'event1')">1736</button>
-        <button class="time-btn" onclick="openEvent(event, 'event2')">1774</button>
-        <button class="time-btn" onclick="openEvent(event, 'event3')">1781</button>
-        <button class="time-btn" onclick="openEvent(event, 'event4')">1875</button>
-        <button class="time-btn" onclick="openEvent(event, 'event5')">1890-е</button>
-        <button class="time-btn" onclick="openEvent(event, 'event6')">1915</button>
-        <button class="time-btn" onclick="openEvent(event, 'event7')">1941</button>
-        <button class="time-btn" onclick="openEvent(event, 'event8')">2026</button>
+    <!-- ==========================================================================
+       4. ЛЕНТА ВРЕМЕНИ: 11 КЛЮЧЕВЫХ ЭПОХ
+       ========================================================================== -->
+    <div id="timeline-top-marker" style="position: relative; height: 1px; margin-top: -1px; visibility: hidden; pointer-events: none;"></div>
+    <nav class="timeline-section reveal-on-scroll" id="timeline">
+        <div class="timeline-scroll-container">
+            <button class="time-btn active" onclick="openEvent(0, 'event1')">
+                <span>1736</span>
+                <span class="tag" data-i18n="tag1">• Крепость</span>
+            </button>
+            <button class="time-btn" onclick="openEvent(1, 'event2')">
+                <span>1774</span>
+                <span class="tag" data-i18n="tag2">• Пугачёв</span>
+            </button>
+            <button class="time-btn" onclick="openEvent(2, 'event3')">
+                <span>1781</span>
+                <span class="tag" data-i18n="tag3">• Герб Сокола</span>
+            </button>
+            <button class="time-btn" onclick="openEvent(3, 'event4')">
+                <span>1828</span>
+                <span class="tag" data-i18n="tag4">• Собор</span>
+            </button>
+            <button class="time-btn" onclick="openEvent(4, 'event5')">
+                <span>1875</span>
+                <span class="tag" data-i18n="tag5">• Реальное училище</span>
+            </button>
+            <button class="time-btn" onclick="openEvent(5, 'event6')">
+                <span>1886</span>
+                <span class="tag" data-i18n="tag6">• Метеослужба</span>
+            </button>
+            <button class="time-btn" onclick="openEvent(6, 'event7')">
+                <span>1890-е</span>
+                <span class="tag" data-i18n="tag7">• Купечество</span>
+            </button>
+            <button class="time-btn" onclick="openEvent(7, 'event8')">
+                <span>1915</span>
+                <span class="tag" data-i18n="tag8">• Виадуки</span>
+            </button>
+            <button class="time-btn" onclick="openEvent(8, 'event9')">
+                <span>1941–45</span>
+                <span class="tag" data-i18n="tag9">• Всё для фронта</span>
+            </button>
+            <button class="time-btn" onclick="openEvent(9, 'event10')">
+                <span>1960-е</span>
+                <span class="tag" data-i18n="tag10">• Житница Урала</span>
+            </button>
+            <button class="time-btn" onclick="openEvent(10, 'event11')">
+                <span>2026</span>
+                <span class="tag" data-i18n="tag11">• Новая набережная</span>
+            </button>
+        </div>
     </nav>
 
-   
-    <!-- ИСТОРИЧЕСКИЕ КАРТОЧКИ С СЕЗОННОЙ ИНФОГРАФИКОЙ -->
-    <main class="events-container">
-        
-        <!-- 1736 -->
-        <!-- 1736 -->
-        <div class="event-card active" id="event1">
-            <h3>📜 1736 год — Рождение крепости</h3>
-            <p>В урочище Красный Яр на берегу реки Уфы воевода Пётр Бахметев заложил деревянную оборонительную крепость. Она была построена для защиты уральских заводов и дорог от постоянных набегов. С этого момента начинается официальная история Красноуфимска. Воссозданный макет этой крепости вы можете увидеть в местном музее.</p>
-            <div class="map-container" style="background: var(--bg-accent); border: 2px dashed var(--main-color);">
-                <!-- ТУТ МЫ УБРАЛИ СЛОВО BASE, ОСТАВИЛИ ТОЛЬКО ИКОНКУ -->
-                <span style="font-size: 64px; margin-bottom: 10px; display: block;">🏛️</span>
-                
-                <!-- А ТУТ НАЗВАНИЕ КРУПНЫМ ШРИФТОМ НА РУССКОМ -->
-                <strong style="color: var(--main-color); font-size: 16px; display: block; padding: 0 10px;">Красноуфимский краеведческий музей</strong>
-                
-                <span style="color: #718096; font-size: 14px; margin-top: 5px; display: block;">ул. Советская, д. 42</span>
-            </div>
-        </div>
-
-
-        <!-- 1774 -->
-        <div class="event-card" id="event2">
-            <h3>🐎 1774 год — Огонь крестьянской войны</h3>
-            <p>К стенам Красноуфимской крепости подошли войска бунтовщика Емельяна Пугачева и его верного сподвижника Салавата Юлаева. Местный казачий гарнизон решил не вступать в кровопролитный бой и добровольно сдался повстанцам. Эти события глубоко отразились в истории и легендах нашего края.</p>
-            <div class="map-container" style="background: var(--bg-accent); border: 2px dashed var(--main-color);">
-                <span style="font-size: 64px; margin-bottom: 10px; display: block;">🐎</span>
-                <strong style="color: var(--main-color); font-size: 16px; display: block; padding: 0 10px;">Смотровая площадка на Крепостной горе</strong>
-                <span style="color: #718096; font-size: 14px; margin-top: 5px; display: block;">ул. Пролетарская (Дивизионная гора)</span>
-            </div>
-        </div>
-
-        <!-- 1781 -->
-        <div class="event-card" id="event3">
-            <h3>🦅 1781 год — Город Сокола</h3>
-            <p>По личному указу императрицы Екатерины II Красноуфимск официально получил высокий статус уездного города Пермского наместничества. В этот же год городу был пожалован его знаменитый герб с изображением серебряного сокола, сидящего на зеленом поле в знак обилия этих птиц в местных лесах.</p>
-            <div class="map-container" style="background: var(--bg-accent); border: 2px dashed var(--main-color);">
-                <span style="font-size: 64px; margin-bottom: 10px; display: block;">🦅</span>
-                <strong style="color: var(--main-color); font-size: 16px; display: block; padding: 0 10px;">Здание бывшей Земской управы</strong>
-                <span style="color: #718096; font-size: 14px; margin-top: 5px; display: block;">ул. Советская, д. 25</span>
-            </div>
-        </div>
-
-        <!-- 1875 -->
-        <div class="event-card" id="event4">
-            <h3>📖 1875 год — Реальное училище</h3>
-            <p>В Красноуфимске открылось шестиклассное Реальное училище. Оно быстро стало одним из лучших и передовых учебных заведений на всем Урале. Здесь готовили будущих инженеров, агрономов и исследователей, что дало мощный толчок развитию образования в городе.</p>
-            <div class="map-container" style="background: var(--bg-accent); border: 2px dashed var(--main-color);">
-                <span style="font-size: 64px; margin-bottom: 10px; display: block;">📖</span>
-                <strong style="color: var(--main-color); font-size: 16px; display: block; padding: 0 10px;">Красноуфимский педагогический колледж</strong>
-                <span style="color: #718096; font-size: 14px; margin-top: 5px; display: block;">ул. Интернациональная, д. 20</span>
-            </div>
-        </div>
-
-        <!-- 1890-е -->
-        <div class="event-card" id="event5">
-            <h3>🏛️ 1890-е годы — Купеческий Красноуфимск</h3>
-            <p>Город переживает экономический бум и становится крупным торговым центром. Проводятся масштабные ярмарки. Улицы начинают застраиваться красивыми каменными особняками с уникальной архитектурой, многие из которых сохранились и украшают Красноуфимск по сей день.</p>
-            <div class="map-container" style="background: var(--bg-accent); border: 2px dashed var(--main-color);">
-                <span style="font-size: 64px; margin-bottom: 10px; display: block;">🏛️</span>
-                <strong style="color: var(--main-color); font-size: 16px; display: block; padding: 0 10px;">Исторический центр / Дом купца Луканина</strong>
-                <span style="color: #718096; font-size: 14px; margin-top: 5px; display: block;">ул. Мизерова, д. 66</span>
-            </div>
-        </div>
-
-        <!-- 1915 -->
-        <div class="event-card" id="event6">
-            <h3>🚂 1915 год — Эпоха великих виадуков</h3>
-            <p>В Красноуфимском районе начинается грандиозное строительство уникальных бетонных мостов-виадуков для новой железной дороги. Эти огромные арочные сооружения стали настоящим триумфом инженерной мысли начала XX века и визитной карточкой всего нашего района.</p>
-            <div class="map-container" style="background: var(--bg-accent); border: 2px dashed var(--main-color);">
-                <span style="font-size: 64px; margin-bottom: 10px; display: block;">🚂</span>
-                <strong style="color: var(--main-color); font-size: 16px; display: block; padding: 0 10px;">Рябиновский железнодорожный виадук</strong>
-                <span style="color: #718096; font-size: 14px; margin-top: 5px; display: block;">Красноуфимский округ, поселок Рябиновка</span>
-            </div>
-        </div>
-
-        <!-- 1941 -->
-        <div class="event-card" id="event7">
-            <h3>🛠️ 1941–1945 гг. — Всё для фронта</h3>
-            <p>В годы Великой Отечественной войны Красноуфимск стал надежным тылом. Сюда были эвакуированы важные промышленные предприятия (например, завод «Мосрентген») и развернуты крупные военные госпитали. Тысячи жителей города самоотверженно трудились ради победы над врагом.</p>
-            <div class="map-container" style="background: var(--bg-accent); border: 2px dashed var(--main-color);">
-                <span style="font-size: 64px; margin-bottom: 10px; display: block;">🎖️</span>
-                <strong style="color: var(--main-color); font-size: 16px; display: block; padding: 0 10px;">Мемориальный комплекс «Аллея Памяти»</strong>
-                <span style="color: #718096; font-size: 14px; margin-top: 5px; display: block;">ул. Советская (Городской парк культуры и отдыха)</span>
-            </div>
-        </div>
-
-        <!-- 2026 -->
-        <div class="event-card" id="event8">
-            <h3>🌊 2026 год — Современный Красноуфимск</h3>
-            <p>Сегодня город активно развивается и преображается. Главным символом новой эпохи стала масштабная реконструкция набережной «Красный Яр». Это современное общественное пространство идеально связало исторические корни города с комфортным местом для отдыха жителей и туристов.</p>
-            <div class="map-container" style="background: var(--bg-accent); border: 2px dashed var(--main-color);">
-                <span style="font-size: 64px; margin-bottom: 10px; display: block;">🌊</span>
-                <strong style="color: var(--main-color); font-size: 16px; display: block; padding: 0 10px;">Обновленная набережная «Красный Яр»</strong>
-                <span style="color: #718096; font-size: 14px; margin-top: 5px; display: block;">ул. Набережная (вдоль реки Уфы)</span>
-            </div>
-        </div>
+    <!-- КАРТОЧКИ ЭПОХ (КОНТЕНТ ЗАПОЛНЯЕТСЯ С ПОДДЕРЖКОЙ RU/EN) -->
+    <main class="events-container reveal-on-scroll" id="events-container">
+        <!-- Карточки генерируются и управляются через JS renderCards() -->
     </main>
 
-    <!-- ПРОГРАММНАЯ СИСТЕМА ДИНАМИКИ, АНИМАЦИЙ И ЖИВОЙ ПОГОДЫ -->
-    <script>
-        // 1. АЛГОРИТМ БЕЗУПРЕЧНОГО ПЕРЕКЛЮЧЕНИЯ КНОПОК И КАРТОЧЕК
-        function openEvent(evt, eventId) {
-            // Мгновенно находим ВООБЩЕ ВСЕ элементы на сайте с классом active и тушим их
-            const activeElements = document.querySelectorAll('.active');
-            activeElements.forEach(element => {
-                element.classList.remove('active');
-            });
+    <!-- ==========================================================================
+       5. ГОТОВЫЕ ТУРИСТИЧЕСКИЕ МАРШРУТЫ
+       ========================================================================== -->
+    <section class="routes-section reveal-on-scroll" id="routes">
+        <div class="routes-header">
+            <span class="routes-badge" data-i18n="routesBadge">Пешеходные гиды</span>
+            <h2 data-i18n="routesHeading">Туристические маршруты по Красноуфимску</h2>
+            <p data-i18n="routesSub">Готовые маршруты для самостоятельного знакомства с историческим наследием города</p>
+        </div>
 
-            // Плавно зажигаем строго одну выбранную карточку события
-            const selectedCard = document.getElementById(eventId);
-            if (selectedCard) { 
-                selectedCard.classList.add('active'); 
+        <div class="routes-grid">
+            <!-- Маршрут 1 -->
+            <div class="route-card reveal-on-scroll reveal-delay-1">
+                <div>
+                    <span class="route-icon-box">🏛️</span>
+                    <h3 data-i18n="r1Title">«Историческое ядро»</h3>
+                    <p data-i18n="r1Desc">Знакомство со старейшими каменными особняками уездного купечества и духовными центрами города.</p>
+                    <ul class="route-meta-list">
+                        <li>⏱️ <span data-i18n="rTime">Время:</span> <strong>~45 минут</strong></li>
+                        <li>📏 <span data-i18n="rDist">Дистанция:</span> <strong>1.8 км (~2 500 шагов)</strong></li>
+                        <li>📍 <span data-i18n="rPoints">Точки:</span> Музей → Земская управа → Свято-Троицкий собор</li>
+                    </ul>
+                </div>
+                <div class="route-btn-group">
+                    <a href="https://yandex.ru/maps/?rtext=Красноуфимск+Советская+42~Красноуфимск+Советская+25~Красноуфимск+Куйбышева+5&rtt=pd" target="_blank" rel="noopener noreferrer" class="btn-view-route">
+                        🗺️ <span data-i18n="btnRouteOpenMap">Открыть маршрут на Яндекс.Картах</span>
+                    </a>
+                    <button class="btn-route-timeline" onclick="jumpToTimelineEvent(0, 'event1')">
+                        📜 <span data-i18n="btnRouteTimeline">Смотреть объекты в ленте времени</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Маршрут 2 -->
+            <div class="route-card reveal-on-scroll reveal-delay-2">
+                <div>
+                    <span class="route-icon-box">🌊</span>
+                    <h3 data-i18n="r2Title">«Панорама Уфы и Красный Яр»</h3>
+                    <p data-i18n="r2Desc">Прогулка по видовым холмам крепости с выходом на обновлённую набережную реки Уфы.</p>
+                    <ul class="route-meta-list">
+                        <li>⏱️ <span data-i18n="rTime">Время:</span> <strong>~1 час 15 минут</strong></li>
+                        <li>📏 <span data-i18n="rDist">Дистанция:</span> <strong>2.6 км (~3 600 шагов)</strong></li>
+                        <li>📍 <span data-i18n="rPoints">Точки:</span> Дивизионная гора → Красный Яр → Амфитеатр</li>
+                    </ul>
+                </div>
+                <div class="route-btn-group">
+                    <a href="https://yandex.ru/maps/?rtext=Красноуфимск+Крепостная+гора~Красноуфимск+набережная+Красный+Яр&rtt=pd" target="_blank" rel="noopener noreferrer" class="btn-view-route">
+                        🗺️ <span data-i18n="btnRouteOpenMap">Открыть маршрут на Яндекс.Картах</span>
+                    </a>
+                    <button class="btn-route-timeline" onclick="jumpToTimelineEvent(1, 'event2')">
+                        📜 <span data-i18n="btnRouteTimeline">Смотреть объекты в ленте времени</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Маршрут 3 -->
+            <div class="route-card reveal-on-scroll reveal-delay-3">
+                <div>
+                    <span class="route-icon-box">🚂</span>
+                    <h3 data-i18n="r3Title">«Инженерное чудо: Виадуки»</h3>
+                    <p data-i18n="r3Desc">Автомобильно-велосипедный маршрут к грандиозным арочным бетонным мостам начала XX века.</p>
+                    <ul class="route-meta-list">
+                        <li>⏱️ <span data-i18n="rTime">Время:</span> <strong>~2.5 часа</strong></li>
+                        <li>📏 <span data-i18n="rDist">Дистанция:</span> <strong>32 км (авто / вело)</strong></li>
+                        <li>📍 <span data-i18n="rPoints">Точки:</span> Рябиновский виадук → Саранинский виадук</li>
+                    </ul>
+                </div>
+                <div class="route-btn-group">
+                    <a href="https://yandex.ru/maps/?rtext=Красноуфимск+Рябиновский+виадук~Красноуфимск+Саранинский+виадук&rtt=auto" target="_blank" rel="noopener noreferrer" class="btn-view-route">
+                        🗺️ <span data-i18n="btnRouteOpenMap">Открыть маршрут на Яндекс.Картах</span>
+                    </a>
+                    <button class="btn-route-timeline" onclick="jumpToTimelineEvent(7, 'event8')">
+                        📜 <span data-i18n="btnRouteTimeline">Смотреть объекты в ленте времени</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       6. ПАМЯТКА ДЛЯ ТУРИСТА
+       ========================================================================== -->
+    <section class="tourist-guide-section reveal-on-scroll" id="guide">
+        <div class="tourist-guide-card">
+            <div class="guide-header">
+                <span class="guide-badge" data-i18n="guideBadge">🎒 Полезно для поездки</span>
+                <h2 data-i18n="guideTitle">Памятка для туриста: Красноуфимск</h2>
+                <p data-i18n="guideSubtitle">Всё самое важное для комфортного путешествия по старейшему городу юга Свердловской области</p>
+            </div>
+
+            <div class="guide-grid">
+                <!-- Памятка 1: Как добраться -->
+                <div class="guide-item reveal-on-scroll reveal-delay-1" onclick="window.open('https://yandex.ru/maps/?text=Красноуфимск+ЖД+вокзал', '_blank')" role="button" tabindex="0">
+                    <span class="guide-item-icon">🚆</span>
+                    <h4 data-i18n="g1Title">Как добраться</h4>
+                    <p data-i18n="g1Desc">Скоростные электропоезда «Ласточка» Екатеринбург — Красноуфимск (3 ч 15 мин) и поезда дальнего следования. На автомобиле — по федеральной трассе Р-242 (Пермский тракт) и скоростной магистрали М-12 «Восток».</p>
+                    <button type="button" class="guide-item-action-btn" data-i18n="g1Btn" onclick="event.stopPropagation(); window.open('https://yandex.ru/maps/?text=Красноуфимск+ЖД+вокзал', '_blank');">🚆 Маршрут к ж/д вокзалу →</button>
+                </div>
+
+                <!-- Памятка 2: Что посмотреть -->
+                <div class="guide-item reveal-on-scroll reveal-delay-2" onclick="jumpToTimelineEvent(0, 'event1')" role="button" tabindex="0">
+                    <span class="guide-item-icon">🏛️</span>
+                    <h4 data-i18n="g2Title">Что посмотреть</h4>
+                    <p data-i18n="g2Desc">Краеведческий музей с макетом крепости 1736 года, панорама с Дивизионной горы на реку Уфу, обновлённая набережная «Красный Яр», исторический вокзал архитектора Щусева и вековые виадуки.</p>
+                    <button type="button" class="guide-item-action-btn" data-i18n="g2Btn" onclick="event.stopPropagation(); jumpToTimelineEvent(0, 'event1');">📜 Смотреть объекты в ленте →</button>
+                </div>
+
+                <!-- Памятка 3: Где отдохнуть и поесть -->
+                <div class="guide-item reveal-on-scroll reveal-delay-3" onclick="window.open('https://yandex.ru/maps/?text=Красноуфимск+кафе+рестораны', '_blank')" role="button" tabindex="0">
+                    <span class="guide-item-icon">☕</span>
+                    <h4 data-i18n="g3Title">Где отдохнуть и поесть</h4>
+                    <p data-i18n="g3Desc">Уютные городские кафе и кофейни на пешеходной улице Советской и смотровые площадки у реки Уфы. Попробуйте знаменитую уральскую выпечку, шаньги и травяной чай.</p>
+                    <button type="button" class="guide-item-action-btn" data-i18n="g3Btn" onclick="event.stopPropagation(); window.open('https://yandex.ru/maps/?text=Красноуфимск+кафе+рестораны', '_blank');">🍽️ Найти кафе на Яндекс.Картах →</button>
+                </div>
+
+                <!-- Памятка 4: Советы для прогулки -->
+                <div class="guide-item reveal-on-scroll reveal-delay-1" onclick="scrollToSection('routes', 85)" role="button" tabindex="0">
+                    <span class="guide-item-icon">👟</span>
+                    <h4 data-i18n="g4Title">Советы для прогулки</h4>
+                    <p data-i18n="g4Desc">Красноуфимск расположен на живописных холмах — выбирайте удобную обувь для прогулок. Исторический центр города компактен: ключевые особняки легко обойти пешком за 1.5–2 часа.</p>
+                    <button type="button" class="guide-item-action-btn" data-i18n="g4Btn" onclick="event.stopPropagation(); scrollToSection('routes', 85);">🚶 Выбрать пеший маршрут →</button>
+                </div>
+
+                <!-- Памятка 5: Лучшие фотолокации -->
+                <div class="guide-item reveal-on-scroll reveal-delay-2" onclick="window.open('https://yandex.ru/maps/?text=Рябиновский+виадук+Красноуфимск', '_blank')" role="button" tabindex="0">
+                    <span class="guide-item-icon">📸</span>
+                    <h4 data-i18n="g5Title">Лучшие фотолокации</h4>
+                    <p data-i18n="g5Desc">1) Панорама с Дивизионной горы на излучину реки Уфы; 2) Белоснежный амфитеатр набережной; 3) Арочный Рябиновский виадук; 4) Резные карнизы купеческих кирпичных особняков XIX века.</p>
+                    <button type="button" class="guide-item-action-btn" data-i18n="g5Btn" onclick="event.stopPropagation(); window.open('https://yandex.ru/maps/?text=Рябиновский+виадук+Красноуфимск', '_blank');">📷 Открыть виадуки на карте →</button>
+                </div>
+
+                <!-- Памятка 6: Сувениры и гостинцы -->
+                <div class="guide-item reveal-on-scroll reveal-delay-3" onclick="window.open('https://yandex.ru/maps/?text=Красноуфимск+Советская+42+краеведческий+музей', '_blank')" role="button" tabindex="0">
+                    <span class="guide-item-icon">🎁</span>
+                    <h4 data-i18n="g6Title">Сувениры и гостинцы</h4>
+                    <p data-i18n="g6Desc">Сувениры с серебряным соколом и древней спиралью геликоприона в краеведческом музее, знаменитая свежая красноуфимская выпечка, таёжный мёд и ферментированный иван-чай.</p>
+                    <button type="button" class="guide-item-action-btn" data-i18n="g6Btn" onclick="event.stopPropagation(); window.open('https://yandex.ru/maps/?text=Красноуфимск+Советская+42+краеведческий+музей', '_blank');">🏛️ Сувенирная лавка в музее →</button>
+                </div>
+            </div>
+
+            <div class="guide-footer-action">
+                <button class="btn-print-guide" onclick="window.print()">
+                    <span>🖨️</span>
+                    <span data-i18n="btnPrint">Распечатать памятку / Сохранить в PDF</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       7. ИНТЕРАКТИВНАЯ ВИКТОРИНА «ЗНАТОК КРАСНОУФИМСКА» (ПО КНОПКЕ)
+       ========================================================================== -->
+    <section class="quiz-section reveal-on-scroll" id="quiz">
+        <div class="quiz-card">
+            <div class="quiz-header">
+                <span class="quiz-badge" data-i18n="quizBadge">💡 Проверь свои знания</span>
+                <h2 data-i18n="quizHeading">Викторина: «Знаток Красноуфимска»</h2>
+                <p data-i18n="quizSub">Ответьте на 4 вопроса по ключевым вехам истории города и узнайте свой результат!</p>
+                <button class="btn-toggle-quiz" id="btn-toggle-quiz" onclick="toggleQuiz()">
+                    🎯 <span id="quiz-toggle-text" data-i18n="btnStartQuiz">Начать викторину</span>
+                </button>
+            </div>
+
+            <!-- Блок вопросов скрыт по умолчанию и раскрывается по кнопке -->
+            <div id="quiz-body" style="display: none;">
+                <div id="quiz-container">
+                    <!-- Генерируется через JS renderQuiz() для поддержки RU / EN -->
+                </div>
+
+                <!-- Баннер результатов викторины -->
+                <div class="quiz-results-banner" id="quiz-results">
+                    <h3 id="quiz-score-text">Поздравляем!</h3>
+                    <p id="quiz-desc-text">Вы ответили на все вопросы викторины.</p>
+                    <button class="btn-restart-quiz" onclick="restartQuiz()" data-i18n="quizRestart">Пройти викторину заново</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       9. ПОДВАЛ (FOOTER)
+       ========================================================================== -->
+    <footer class="reveal-on-scroll">
+        <div class="footer-content">
+            <div class="footer-logo" data-i18n="footerLogo">Красноуфимск: Живая история</div>
+            <div class="footer-meta">
+                <span data-i18n="footerProject">Практико-ориентированный индивидуальный проект по информационным технологиям и краеведению.</span><br>
+                <strong data-i18n="footerAuthor">Автор:</strong> Ужегов Дмитрий, учащийся 10 класса (Технологический профиль).
+            </div>
+            <div class="footer-badges">
+                <span class="footer-chip">HTML5</span>
+                <span class="footer-chip">CSS3 (Glassmorphism)</span>
+                <span class="footer-chip">Vanilla JavaScript</span>
+                <span class="footer-chip">Open-Meteo API</span>
+                <span class="footer-chip">Bilingual (RU / EN)</span>
+                <span class="footer-chip">100% Native Code</span>
+            </div>
+            <div class="footer-copy" data-i18n="footerCopy">
+                Красноуфимск • 2026 год. Разработано с гордостью за родной край.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Кнопка быстрого возврата наверх -->
+    <button id="btn-back-to-top" title="Вернуться к началу страницы">↑</button>
+
+    <!-- ==========================================================================
+       10. НАШ СКРИПТ: ПОГОДА, ЯЗЫК, СЕЗОНЫ, ТАЙМЛАЙН, СЛАЙДЕР И ВИКТОРИНА
+       ========================================================================== -->
+    <script>
+        /* ==========================================================================
+           ДАННЫЕ: СЛОВАРЬ ПЕРЕВОДА (RU / EN)
+           Позволяет переключать язык всего сайта в 1 клик без перезагрузки.
+           ========================================================================== */
+        let currentLang = localStorage.getItem('krasnoufimsk_lang') || 'ru';
+
+        const i18n = {
+            ru: {
+                logoTitle: 'Красноуфимск',
+                logoSub: 'Живая история 2026',
+                cityName: 'Красноуфимск',
+                weatherTitle: 'Погода в Красноуфимске',
+                weatherLive: 'Онлайн',
+                weatherFeels: 'Ощущается',
+                weatherWind: 'Ветер',
+                weatherHumidity: 'Влажность',
+                weatherPrecip: 'Осадки',
+                weatherUpdated: 'Обновлено',
+                weatherRefresh: '🔄 Обновить',
+                navHome: 'Главная',
+                navIntro: 'О городе',
+                navTimeline: 'Лента времени',
+                navRoutes: 'Маршруты',
+                navGuide: 'Памятка',
+                navQuiz: 'Викторина',
+                heroBadge: '🏛️ Краеведческий веб-проект • 2026',
+                heroMain: 'КРАСНОУФИМСК',
+                heroSeason: 'ЖИВАЯ ИСТОРИЯ',
+                heroDesc: 'Интерактивное путешествие сквозь века: от пограничной казачьей крепости на берегах реки Уфы до уютного современного города с уникальным архитектурным и природным наследием.',
+                statFounded: 'Год основания',
+                statEpochs: 'Ключевых эпох',
+                statYears: 'Истории города',
+                exploreHistory: 'Исследовать историю',
+                introHeading: 'Город на живописных берегах реки Уфы',
+                introText: 'Красноуфимск — старейший исторический город на юго-западе Свердловской области. Заложенный как форпост для защиты уральских заводов, город вобрал в себя летопись пугачёвского восстания, купеческие традиции, триумф инженерной мысли в виде знаменитых виадуков и трудовой подвиг в годы Великой Отечественной войны. Ниже представлена интерактивная летопись из 11 важнейших вех, определивших судьбу Красноуфимска.',
+                seasonSwitchLabel: '🎨 Режим визуализации темы сайта (для демонстрации):',
+                btnAuto: '🔄 Авто (по дате)',
+                btnWinter: '❄️ Зима',
+                btnSpring: '🌱 Весна',
+                btnSummer: '☀️ Лето',
+                btnAutumn: '🍂 Осень',
+                routesBadge: 'Пешеходные гиды',
+                routesHeading: 'Туристические маршруты по Красноуфимску',
+                routesSub: 'Готовые маршруты для самостоятельного знакомства с историческим наследием города',
+                r1Title: '«Историческое ядро»',
+                r1Desc: 'Знакомство со старейшими каменными особняками уездного купечества и духовными центрами города.',
+                r2Title: '«Панорама Уфы и Красный Яр»',
+                r2Desc: 'Прогулка по видовым холмам крепости с выходом на обновлённую набережную реки Уфы.',
+                r3Title: '«Инженерное чудо: Виадуки»',
+                r3Desc: 'Автомобильно-велосипедный маршрут к грандиозным арочным бетонным мостам начала XX века.',
+                rTime: 'Время:',
+                rDist: 'Дистанция:',
+                rPoints: 'Точки:',
+                btnRouteOpenMap: 'Открыть маршрут на Яндекс.Картах',
+                btnRouteTimeline: 'Смотреть объекты в ленте времени',
+                guideBadge: '🎒 Полезно для поездки',
+                guideTitle: 'Памятка для туриста: Красноуфимск',
+                guideSubtitle: 'Всё самое важное для комфортного путешествия по старейшему городу юга Свердловской области',
+                g1Title: 'Как добраться',
+                g1Desc: 'Скоростные электропоезда «Ласточка» Екатеринбург — Красноуфимск (3 ч 15 мин) и поезда дальнего следования. На автомобиле — по федеральной трассе Р-242 (Пермский тракт) и скоростной магистрали М-12 «Восток».',
+                g1Btn: '🚆 Маршрут к ж/д вокзалу →',
+                g2Title: 'Что посмотреть',
+                g2Desc: 'Краеведческий музей с макетом крепости 1736 года, панорама с Дивизионной горы на реку Уфу, обновлённая набережная «Красный Яр», исторический вокзал архитектора Щусева и вековые виадуки.',
+                g2Btn: '📜 Смотреть объекты в ленте →',
+                g3Title: 'Где отдохнуть и поесть',
+                g3Desc: 'Уютные городские кафе и кофейни на пешеходной улице Советской и смотровые площадки у реки Уфы. Попробуйте знаменитую уральскую выпечку, шаньги и травяной чай.',
+                g3Btn: '🍽️ Найти кафе на Яндекс.Картах →',
+                g4Title: 'Советы для прогулки',
+                g4Desc: 'Красноуфимск расположен на живописных холмах — выбирайте удобную обувь для прогулок. Исторический центр города компактен: ключевые особняки легко обойти пешком за 1.5–2 часа.',
+                g4Btn: '🚶 Выбрать пеший маршрут →',
+                g5Title: 'Лучшие фотолокации',
+                g5Desc: '1) Панорама с Дивизионной горы на излучину реки Уфы; 2) Белоснежный амфитеатр набережной; 3) Арочный Рябиновский виадук; 4) Резные карнизы купеческих кирпичных особняков XIX века.',
+                g5Btn: '📷 Открыть виадуки на карте →',
+                g6Title: 'Сувениры и гостинцы',
+                g6Desc: 'Сувениры с серебряным соколом и древней спиралью геликоприона в краеведческом музее, знаменитая свежая красноуфимская выпечка, таёжный мёд и ферментированный иван-чай.',
+                g6Btn: '🏛️ Сувенирная лавка в музее →',
+                btnPrint: 'Распечатать памятку / Сохранить в PDF',
+                quizBadge: '💡 Проверь свои знания',
+                quizHeading: 'Викторина: «Знаток Красноуфимска»',
+                quizSub: 'Ответьте на 4 вопроса по ключевым вехам истории города и узнайте свой результат!',
+                btnStartQuiz: 'Начать викторину',
+                btnCollapseQuiz: 'Свернуть викторину',
+                quizRestart: 'Пройти викторину заново',
+                footerLogo: 'Красноуфимск: Живая история',
+                footerProject: 'Практико-ориентированный индивидуальный проект по информационным технологиям и краеведению.',
+                footerAuthor: 'Автор:',
+                footerCopy: 'Красноуфимск • 2026 год. Разработано с гордостью за родной край.',
+                addressLabel: 'Адрес объекта',
+                btnMap: 'Показать на Яндекс.Картах',
+                btnPrev: '← Предыдущая эпоха',
+                btnNext: 'Следующая эпоха →',
+                btnFinal: 'Финал ленты времени ✓',
+                epochWord: 'Эпоха',
+                fromWord: 'из 11',
+                factTitle: 'Исторический факт:'
+            },
+            en: {
+                logoTitle: 'Krasnoufimsk',
+                logoSub: 'Living History 2026',
+                cityName: 'Krasnoufimsk',
+                weatherTitle: 'Weather in Krasnoufimsk',
+                weatherLive: 'Live',
+                weatherFeels: 'Feels like',
+                weatherWind: 'Wind',
+                weatherHumidity: 'Humidity',
+                weatherPrecip: 'Precip.',
+                weatherUpdated: 'Updated',
+                weatherRefresh: '🔄 Refresh',
+                navHome: 'Home',
+                navIntro: 'About',
+                navTimeline: 'Timeline',
+                navRoutes: 'Routes',
+                navGuide: 'Tourist Guide',
+                navQuiz: 'Quiz',
+                heroBadge: '🏛️ Educational Web Project • 2026',
+                heroMain: 'KRASNOUFIMSK',
+                heroSeason: 'LIVING HISTORY',
+                heroDesc: 'An interactive journey through centuries: from a frontier wooden fortress on the banks of the Ufa River to a charming modern city with rich cultural and natural heritage.',
+                statFounded: 'Year founded',
+                statEpochs: 'Key epochs',
+                statYears: 'Years of history',
+                exploreHistory: 'Explore history',
+                introHeading: 'City on the scenic banks of the Ufa River',
+                introText: 'Krasnoufimsk is one of the oldest historical cities in southwestern Sverdlovsk Oblast. Founded as an outpost to protect Ural factories, it witnessed Pugachev’s rebellion, merchant prosperity, landmark viaduct engineering, and wartime labor heroics. Below is an interactive chronicle of 11 defining milestones.',
+                seasonSwitchLabel: '🎨 Site theme visualization mode (for defense presentation):',
+                btnAuto: '🔄 Auto (by date)',
+                btnWinter: '❄️ Winter',
+                btnSpring: '🌱 Spring',
+                btnSummer: '☀️ Summer',
+                btnAutumn: '🍂 Autumn',
+                routesBadge: 'Walking guides',
+                routesHeading: 'Tourist Routes in Krasnoufimsk',
+                routesSub: 'Ready-made itineraries for exploring the city’s rich historical landmarks',
+                r1Title: '«Historic Core»',
+                r1Desc: 'Explore the oldest stone merchant mansions and spiritual center of the town.',
+                r2Title: '«Ufa River Panorama»',
+                r2Desc: 'Scenic walk along fortress hills leading to the newly restored embankment.',
+                r3Title: '«Engineering Marvel: Viaducts»',
+                r3Desc: 'Car or bicycle route to magnificent early 20th-century concrete arched railway viaducts.',
+                rTime: 'Time:',
+                rDist: 'Distance:',
+                rPoints: 'Waypoints:',
+                btnRouteOpenMap: 'Open route on Yandex.Maps',
+                btnRouteTimeline: 'View landmarks in timeline',
+                guideBadge: '🎒 Travel Tips',
+                guideTitle: 'Tourist Guide: Krasnoufimsk',
+                guideSubtitle: 'Essential information for a comfortable visit to the oldest city in southwestern Sverdlovsk Oblast',
+                g1Title: 'How to get here',
+                g1Desc: 'High-speed "Lastochka" electric trains from Yekaterinburg (3h 15m) and long-distance trains. By car via federal highway R-242 and the modern M-12 Vostok expressway.',
+                g1Btn: '🚆 Directions to railway station →',
+                g2Title: 'What to see',
+                g2Desc: 'Regional Lore Museum with 1736 fortress model, panoramic view from Division Mountain over Ufa River, Krasny Yar embankment, Shchusev railway station, and historic viaducts.',
+                g2Btn: '📜 View landmarks in timeline →',
+                g3Title: 'Where to eat & relax',
+                g3Desc: 'Cozy cafes along pedestrian Sovetskaya Street and scenic viewpoints on the Ufa River. Try traditional Ural shangi, fresh bakery, and wild herbal tea.',
+                g3Btn: '🍽️ Find cafes on Yandex.Maps →',
+                g4Title: 'Walking tips',
+                g4Desc: 'Krasnoufimsk is situated on scenic hills — wear comfortable walking shoes. The historic downtown is compact: all key merchant mansions can be easily explored on foot in 1.5–2 hours.',
+                g4Btn: '🚶 Choose walking route →',
+                g5Title: 'Top photo spots',
+                g5Desc: '1) Panorama from Division Mountain over the Ufa River bend; 2) Embankment amphitheater; 3) Arched Ryabinovsky viaduct; 4) Elaborate brick masonry of 19th-century merchant mansions.',
+                g5Btn: '📷 Open viaducts on map →',
+                g6Title: 'Souvenirs & Delicacies',
+                g6Desc: 'Silver falcon & helicoprion spiral souvenirs at the museum, famous local fresh bakery, natural Bashkir-Ural honey, and authentic fermented Ivan-tea.',
+                g6Btn: '🏛️ Museum souvenir shop →',
+                btnPrint: 'Print guide / Save as PDF',
+                quizBadge: '💡 Test your knowledge',
+                quizHeading: 'Quiz: «Krasnoufimsk Expert»',
+                quizSub: 'Answer 4 questions on key city milestones and check your score!',
+                btnStartQuiz: 'Start Quiz',
+                btnCollapseQuiz: 'Collapse Quiz',
+                quizRestart: 'Restart Quiz',
+                footerLogo: 'Krasnoufimsk: Living History',
+                footerProject: 'Practical educational individual project in IT and regional local lore.',
+                footerAuthor: 'Author:',
+                footerCopy: 'Krasnoufimsk • 2026. Built with pride for our homeland.',
+                addressLabel: 'Location Address',
+                btnMap: 'Show on Yandex.Maps',
+                btnPrev: '← Previous epoch',
+                btnNext: 'Next epoch →',
+                btnFinal: 'Timeline Complete ✓',
+                epochWord: 'Epoch',
+                fromWord: 'of 11',
+                factTitle: 'Historical fact:'
             }
-            
-            // Зажигаем оранжевым цветом строго ту кнопку, на которую нажали
-            evt.currentTarget.classList.add('active');
+        };
+
+        // ТЕКСТЫ ДЛЯ 11 КАРТОЧЕК ЭПОХ (ДВУЯЗЫЧНЫЕ)
+        const eventsData = [
+            {
+                year: '1736',
+                tag: { ru: '• Крепость', en: '• Fortress' },
+                badge: { ru: '📜 Основание крепости • XVIII век', en: '📜 Fortress Founding • 18th Century' },
+                title: { ru: '1736 год — Рождение Красноуфимской крепости', en: '1736 — Birth of the Krasnoufimsk Fortress' },
+                desc: {
+                    ru: 'В живописном урочище Красный Яр на правом берегу реки Уфы воевода Пётр Бахметев заложил укреплённую деревянную крепость. Её задача заключалась в защите уральских заводов и караванных дорог от постоянных набегов. Вокруг оборонительных стен с пушками выросла казачья слобода.',
+                    en: 'In the scenic Krasny Yar tract on the right bank of the Ufa River, Voivode Pyotr Bakhmetev founded a fortified wooden fortress to protect emerging Ural factories and roads. A Cossack settlement rapidly grew around its defensive walls.'
+                },
+                fact: {
+                    ru: 'Название «Красный Яр» произошло от сочетания красивого речного яра и красноватого оттенка обнажённых пород.',
+                    en: 'The name "Krasny Yar" originates from the beautiful steep riverbank and reddish sandstone cliffs.'
+                },
+                image: 'images/museum.jpg',
+                icon: '🏛️',
+                mapTitle: { ru: 'Красноуфимский краеведческий музей', en: 'Krasnoufimsk Regional Lore Museum' },
+                address: { ru: 'ул. Советская, д. 42 (здесь хранится макет крепости)', en: '42 Sovetskaya St. (houses scale model of fortress)' },
+                mapQuery: 'Красноуфимск+Советская+42+краеведческий+музей'
+            },
+            {
+                year: '1774',
+                tag: { ru: '• Пугачёв', en: '• Pugachev' },
+                badge: { ru: '🐎 Крестьянская война • Восстание', en: '🐎 Peasant War • Uprising' },
+                title: { ru: '1774 год — В огне Пугачёвского бунта', en: '1774 — In the Fire of Pugachev’s Rebellion' },
+                desc: {
+                    ru: 'В разгар Крестьянской войны отряды повстанцев Емельяна Пугачёва и Салавата Юлаева подошли к Красноуфимску. Казачий гарнизон и жители сдали крепость без кровопролития, передав повстанцам продовольствие и пушки.',
+                    en: 'During the Peasant War, rebel forces of Yemelyan Pugachev and Salavat Yulayev reached Krasnoufimsk. The garrison surrendered the fortress peacefully, providing rebels with provisions and artillery.'
+                },
+                fact: {
+                    ru: 'С вершины Дивизионной горы повстанцы обозревали реку Уфу и окрестные тракты.',
+                    en: 'From the summit of Division Mountain, rebels monitored movements along the Ufa River and trade routes.'
+                },
+                image: null,
+                icon: '🐎',
+                mapTitle: { ru: 'Смотровая площадка на Дивизионной горе', en: 'Division (Fortress) Mountain Viewpoint' },
+                address: { ru: 'ул. Пролетарская (панорама исторического русла реки Уфы)', en: 'Proletarskaya St. (panoramic view of the river)' },
+                mapQuery: 'Красноуфимск+Крепостная+гора'
+            },
+            {
+                year: '1781',
+                tag: { ru: '• Герб Сокола', en: '• Falcon Coat of Arms' },
+                badge: { ru: '🦅 Императорский указ • Символика', en: '🦅 Imperial Decree • Heraldry' },
+                title: { ru: '1781 год — Статус уездного города и герб с соколом', en: '1781 — District Town Status & Falcon Emblem' },
+                desc: {
+                    ru: 'Указом императрицы Екатерины II Красноуфимск стал уездным городом Пермского наместничества. Вскоре был высочайше утверждён герб: серебряный сокол на зелёном поле — символ обилия этих благородных птиц в окрестных лесах.',
+                    en: 'By decree of Empress Catherine the Great, Krasnoufimsk gained district town status. Soon after, its coat of arms was granted: a silver falcon on a green field, symbolizing the abundance of these birds in local forests.'
+                },
+                fact: {
+                    ru: 'Образ сокола остаётся главным символом города, олицетворяя зоркость, благородство и свободу.',
+                    en: 'The falcon remains the city’s proud emblem, representing vigilance, nobility, and freedom.'
+                },
+                image: null,
+                icon: '🦅',
+                mapTitle: { ru: 'Центральная площадь и памятный знак герба города', en: 'Central Square & Town Emblem Landmark' },
+                address: { ru: 'пл. Ленина / ул. Советская (сердце исторического Красноуфимска)', en: 'Lenina Sq. / Sovetskaya St. (historic town center)' },
+                mapQuery: 'Красноуфимск+площадь+Ленина'
+            },
+            {
+                year: '1828',
+                tag: { ru: '• Собор', en: '• Cathedral' },
+                badge: { ru: '⛪ Каменное зодчество • Духовный центр', en: '⛪ Stone Architecture • Spiritual Center' },
+                title: { ru: '1828 год — Свято-Троицкий собор: величие классицизма', en: '1828 — Holy Trinity Cathedral: Classicist Grandeur' },
+                desc: {
+                    ru: 'В Красноуфимске развернулось каменное строительство. Архитектурной доминантой стал Свято-Троицкий собор в стиле строгого русского классицизма. Белокаменное здание с портиками и колокольней было видно за многие версты.',
+                    en: 'A grand stone construction era unfolded. The Holy Trinity Cathedral, built in classicist style, became the town’s spiritual and architectural centerpiece, visible for miles across the river.'
+                },
+                fact: {
+                    ru: 'Собор строился на пожертвования горожан и уездного купечества как главный кафедральный храм.',
+                    en: 'The cathedral was built through donations of residents and local merchants as the main town temple.'
+                },
+                image: 'images/sobor.jpg',
+                icon: '⛪',
+                mapTitle: { ru: 'Свято-Троицкий собор', en: 'Holy Trinity Cathedral' },
+                address: { ru: 'ул. Куйбышева, д. 5 (действующий храм и памятник зодчества)', en: '5 Kuybysheva St. (active historic cathedral)' },
+                mapQuery: 'Красноуфимск+Куйбышева+5+собор'
+            },
+            {
+                year: '1875',
+                tag: { ru: '• Реальное училище', en: '• Non-Classical College' },
+                badge: { ru: '📖 Просвещение • Научные кадры', en: '📖 Enlightenment • Science & Education' },
+                title: { ru: '1875 год — Реальное училище: колыбель науки', en: '1875 — Real College: Cradle of Ural Science' },
+                desc: {
+                    ru: 'Открылось Красноуфимское шестиклассное Реальное училище с горнозаводским и сельскохозяйственным отделениями — одно из лучших в Российской империи. Здесь готовили передовых агрономов и инженеров.',
+                    en: 'The Krasnoufimsk six-grade Non-Classical College opened with mining and agricultural departments, quickly becoming one of the most advanced educational institutions across the Russian Empire.'
+                },
+                fact: {
+                    ru: 'Колыбелью уральской агрономии в 1875 г. стало Реальное училище на ул. Ленина, 79 (ныне Аграрный колледж). Из-за созвучия названий его часто путают с Педагогическим колледжем (педучилищем на ул. Интернациональной, 20), открытым в 1930-е гг.',
+                    en: 'Ural agronomy took root in 1875 at the Real School on 79 Lenina St. (now Agrarian College). Due to historical naming, it is sometimes confused with the Pedagogical College (former Teachers\' College at 20 Internatsionalnaya St.), founded in the 1930s.'
+                },
+                image: 'images/uchilische.jpg',
+                icon: '📖',
+                mapTitle: { ru: 'Красноуфимский аграрный колледж (бывшее Реальное училище)', en: 'Krasnoufimsk Agrarian College (former Real School)' },
+                address: { ru: 'ул. Ленина, д. 79 (исторический памятник архитектуры 1875 г.)', en: '79 Lenina St. (historic 1875 architectural monument)' },
+                mapQuery: 'Красноуфимск+Ленина+79+аграрный+колледж'
+            },
+            {
+                year: '1886',
+                tag: { ru: '• Метеослужба', en: '• Weather Service' },
+                badge: { ru: '🌡️ Наука и метеорология • Наследие', en: '🌡️ Meteorology • Heritage' },
+                title: { ru: '1886 год — Старейшая метеорологическая служба Урала', en: '1886 — Oldest Ural Meteorological Service' },
+                desc: {
+                    ru: 'В Красноуфимске начались регулярные научные метеорологические наблюдения при поддержке Уральского общества любителей естествознания. Архив непрерывных наблюдений за погодой превышает 140 лет!',
+                    en: 'Systematic weather observations began with the support of the Ural Natural Science Society. The continuous climate record of Krasnoufimsk now spans over 140 years!'
+                },
+                fact: {
+                    ru: 'Данные метеорологов Красноуфимска помогали уральским хлеборобам вовремя защищать посевы от заморозков.',
+                    en: 'Local weather data helped regional farmers protect grain harvests against unpredictable frosts.'
+                },
+                image: null,
+                icon: '🌦️',
+                mapTitle: { ru: 'Историческая метеостанция Красноуфимска', en: 'Historic Krasnoufimsk Weather Station' },
+                address: { ru: 'ул. Манчажская (метеорологический комплекс)', en: 'Manchazhskaya St. (weather observation complex)' },
+                mapQuery: 'Красноуфимск+Манчажская+метеостанция'
+            },
+            {
+                year: '1890-е',
+                tag: { ru: '• Купечество', en: '• Merchants' },
+                badge: { ru: '🏛️ Купеческий век • Торговля', en: '🏛️ Merchant Era • Trade' },
+                title: { ru: '1890-е годы — Золотой век купечества и ярмарок', en: '1890s — Golden Age of Trade and Fairs' },
+                desc: {
+                    ru: 'Город пережил колоссальный экономический расцвет. Богородицкая ярмарка собирала торговцев со всей страны. Улицы украсились роскошными особняками купцов Луканиных и Шевелевых с фигурной кирпичной кладкой.',
+                    en: 'The town experienced economic prosperity. The annual Bogoroditskaya fair brought merchants from across Russia. Downtown streets were adorned with ornate brick mansions of merchant dynasties.'
+                },
+                fact: {
+                    ru: 'Стиль уральского купечества называли «кирпичным узорочьем»: мастера без штукатурки создавали затейливые рельефы.',
+                    en: 'Local masonry was famed for unplastered brick artistry, crafting elaborate cornices, arches, and pilasters.'
+                },
+                image: 'images/zemstvo.jpg',
+                icon: '🏛️',
+                mapTitle: { ru: 'Здание Красноуфимской земской управы', en: 'Krasnoufimsk District Zemstvo Board Building' },
+                address: { ru: 'ул. Советская, д. 5 (памятник архитектуры XIX века)', en: '5 Sovetskaya St. (19th-century district architecture)' },
+                mapQuery: 'Красноуфимск+Советская+5+земская+управа'
+            },
+            {
+                year: '1915',
+                tag: { ru: '• Виадуки', en: '• Viaducts' },
+                badge: { ru: '🚂 Инженерия • Шедевры мостостроения', en: '🚂 Engineering • Bridge Masterpieces' },
+                title: { ru: '1915 год — Эпоха великих железнодорожных виадуков', en: '1915 — Era of Grand Railway Viaducts' },
+                desc: {
+                    ru: 'При прокладке железной дороги Казань — Екатеринбург через холмистый рельеф инженеры возвели гигантские арочные железобетонные виадуки высотой с 9-этажный дом. Они стали триумфом инженерной мысли начала XX века.',
+                    en: 'When building the Kazan–Yekaterinburg railroad through steep ravines, engineers constructed colossal reinforced concrete arched viaducts up to nine stories tall — masterpieces of 20th-century engineering.'
+                },
+                fact: {
+                    ru: 'В Красноуфимском районе сохранилось сразу 5 грандиозных виадуков (Рябиновский, Саранинский и др.).',
+                    en: 'Five historic viaducts still stand in Krasnoufimsk district, attracting visitors and photographers nationwide.'
+                },
+                image: 'images/viaduct.jpg',
+                icon: '🚂',
+                mapTitle: { ru: 'Рябиновский железнодорожный виадук', en: 'Ryabinovsky Railway Viaduct' },
+                address: { ru: 'Красноуфимский район, посёлок Рябиновка', en: 'Krasnoufimsky District, Ryabinovka settlement' },
+                mapQuery: 'Рябиновский+виадук+Красноуфимск'
+            },
+            {
+                year: '1941–45',
+                tag: { ru: '• Всё для фронта', en: '• Wartime Homefront' },
+                badge: { ru: '🎖️ Великая Отечественная • Тыл', en: '🎖️ World War II • Homefront' },
+                title: { ru: '1941–1945 гг. — Всё для фронта, всё для победы!', en: '1941–1945 — Everything for the Front and Victory!' },
+                desc: {
+                    ru: 'Красноуфимск стал надёжным тылом. Сюда эвакуировали завод «Мосрентген», выпускавший детали для легендарных «Катюш». В городе развернули 5 крупных госпиталей, спасших жизни десяткам тысяч раненых солдат.',
+                    en: 'Krasnoufimsk served as an essential homefront fortress. The evacuated "Mosrentgen" factory produced parts for Katyusha rocket launchers. Five military hospitals treated tens of thousands of wounded soldiers.'
+                },
+                fact: {
+                    ru: 'Более 15 000 красноуфимцев ушли на фронт, пятеро уроженцев удостоены звания Героя Советского Союза.',
+                    en: 'Over 15,000 residents joined the frontlines; five natives were awarded Hero of the Soviet Union.'
+                },
+                image: null,
+                icon: '🎖️',
+                mapTitle: { ru: 'Мемориальный комплекс «Аллея Памяти»', en: 'Memorial Alley of Memory & Eternal Flame' },
+                address: { ru: 'ул. Советская, Городской парк им. Блюхера', en: 'Sovetskaya St., City Park' },
+                mapQuery: 'Красноуфимск+Аллея+Памяти'
+            },
+            {
+                year: '1960-е',
+                tag: { ru: '• Житница Урала', en: '• Breadbasket' },
+                badge: { ru: '🌾 Аграрная наука • Селекция', en: '🌾 Agricultural Science • Breeding' },
+                title: { ru: '1960-е годы — Красноуфимская селекционная станция', en: '1960s — Krasnoufimsk Breeding Station' },
+                desc: {
+                    ru: 'Город стал центром уральской аграрной науки. Красноуфимская селекционная станция вывела знаменитые морозостойкие сорта яровой пшеницы и ржи («Красноуфимская-100»), превратив край в житницу Урала.',
+                    en: 'Krasnoufimsk became a hub of agricultural science. The local research station developed famous frost-resilient wheat and rye varieties ("Krasnoufimskaya-100"), securing food supply across the Urals.'
+                },
+                fact: {
+                    ru: 'Сорта зерновых культур Красноуфимской селекции удостаивались золотых медалей ВДНХ СССР.',
+                    en: 'Krasnoufimsk grain crop varieties earned gold medals at the prestigious USSR VDNKh exhibition.'
+                },
+                image: null,
+                icon: '🌾',
+                mapTitle: { ru: 'Красноуфимская селекционная станция', en: 'Krasnoufimsk Breeding Research Station' },
+                address: { ru: 'ул. Селекционная, д. 16 (центр уральской аграрной селекции)', en: '16 Selektsionnaya St. (Ural grain breeding research center)' },
+                mapQuery: 'Красноуфимск+Селекционная+16'
+            },
+            {
+                year: '2026',
+                tag: { ru: '• Новая набережная', en: '• New Waterfront' },
+                badge: { ru: '🌊 Городская среда • Будущее', en: '🌊 Urban Renaissance • Future' },
+                title: { ru: '2026 год — Современный Красноуфимск: Набережная', en: '2026 — Modern Krasnoufimsk: Krasny Yar Embankment' },
+                desc: {
+                    ru: 'Город переживает новое рождение. Главным символом стала масштабная реконструкция набережной «Красный Яр» на реке Уфе с амфитеатром, прогулочными террасами и смотровыми площадками над рекой.',
+                    en: 'The city experiences modern revival. Its premier centerpiece is the revitalized "Krasny Yar" embankment along the Ufa River, featuring observation decks, amphitheater, and pedestrian trails.'
+                },
+                fact: {
+                    ru: 'Проект благоустройства набережной сохранил природные скальные обнажения реки Уфы.',
+                    en: 'The waterfront design harmoniously preserved natural river rock formations and scenic flora.'
+                },
+                image: null,
+                icon: '🌊',
+                mapTitle: { ru: 'Обновлённая набережная «Красный Яр»', en: 'Modernized "Krasny Yar" Embankment' },
+                address: { ru: 'ул. Набережная (прогулочная зона вдоль реки Уфы)', en: 'Naberezhnaya St. (promenade along the Ufa River)' },
+                mapQuery: 'Красноуфимск+набережная+Красный+Яр'
+            }
+        ];
+
+        // ДАННЫЕ ВИКТОРИНЫ (ДВУЯЗЫЧНЫЕ)
+        const quizData = [
+            {
+                q: {
+                    ru: 'В каком году воевода Пётр Бахметев заложил Красноуфимскую оборонительную крепость?',
+                    en: 'In what year was the Krasnoufimsk defensive fortress founded by Voivode Pyotr Bakhmetev?'
+                },
+                options: [
+                    { t: { ru: '1703 год', en: 'Year 1703' }, correct: false },
+                    { t: { ru: '1736 год', en: 'Year 1736' }, correct: true },
+                    { t: { ru: '1781 год', en: 'Year 1781' }, correct: false },
+                    { t: { ru: '1812 год', en: 'Year 1812' }, correct: false }
+                ]
+            },
+            {
+                q: {
+                    ru: 'Какая благородная птица украшает исторический герб Красноуфимска по указу Екатерины II?',
+                    en: 'Which noble bird adorns the historical emblem of Krasnoufimsk by Catherine II’s decree?'
+                },
+                options: [
+                    { t: { ru: 'Золотой орёл', en: 'Golden Eagle' }, correct: false },
+                    { t: { ru: 'Белый лебедь', en: 'White Swan' }, correct: false },
+                    { t: { ru: 'Серебряный сокол', en: 'Silver Falcon' }, correct: true },
+                    { t: { ru: 'Глухарь', en: 'Wood Grouse' }, correct: false }
+                ]
+            },
+            {
+                q: {
+                    ru: 'Какие грандиозные инженерные сооружения появились под Красноуфимском в 1915 году?',
+                    en: 'What magnificent engineering landmarks were erected near Krasnoufimsk in 1915?'
+                },
+                options: [
+                    { t: { ru: 'Железобетонные арочные виадуки', en: 'Reinforced concrete arched viaducts' }, correct: true },
+                    { t: { ru: 'Судоходный шлюзовой канал', en: 'Navigable canal locks' }, correct: false },
+                    { t: { ru: 'Канатная подвесная дорога', en: 'Rope cableway' }, correct: false },
+                    { t: { ru: 'Метрополитен', en: 'Subway metro' }, correct: false }
+                ]
+            },
+            {
+                q: {
+                    ru: 'Какой промышленный завод был эвакуирован в Красноуфимск в 1941 году из Москвы?',
+                    en: 'Which industrial factory was evacuated to Krasnoufimsk in 1941 from Moscow?'
+                },
+                options: [
+                    { t: { ru: 'Завод «ЗИЛ»', en: 'ZIL Automobile Plant' }, correct: false },
+                    { t: { ru: 'Завод «Мосрентген»', en: 'Mosrentgen Equipment Factory' }, correct: true },
+                    { t: { ru: 'Часовой завод «Полёт»', en: 'Poljot Watch Factory' }, correct: false },
+                    { t: { ru: 'Тракторный завод', en: 'Tractor Machinery Works' }, correct: false }
+                ]
+            }
+        ];
+
+        /* ==========================================================================
+           ФУНКЦИЯ [0]: ДИНАМИЧЕСКИЙ РАСЧЕТ ВОЗРАСТА КРАСНОУФИМСКА
+           Красноуфимск основан в 1736 году. Возраст автоматически высчитывается
+           из текущего года (в 2026 году = 290 лет, в 2027 = 291 год и т.д.).
+           Правила склонения (лет / год / года) полностью соблюдены для RU и EN.
+           ========================================================================== */
+        function updateCityAge() {
+            const currentYear = new Date().getFullYear();
+            const age = Math.max(0, currentYear - 1736);
+            const statEl = document.getElementById('city-age-stat');
+            if (!statEl) return;
+
+            if (currentLang === 'ru') {
+                const mod10 = age % 10;
+                const mod100 = age % 100;
+                let word = 'лет';
+                if (mod100 < 11 || mod100 > 14) {
+                    if (mod10 === 1) word = 'год';
+                    else if (mod10 >= 2 && mod10 <= 4) word = 'года';
+                }
+                statEl.textContent = `${age} ${word}`;
+            } else {
+                statEl.textContent = `${age} ${age === 1 ? 'year' : 'years'}`;
+            }
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
+        /* ==========================================================================
+           ФУНКЦИЯ [1]: ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (RU / EN)
+           Обновляет весь интерфейс, карточки и викторину.
+           ========================================================================== */
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('krasnoufimsk_lang', lang);
 
-            // 2. АВТОМАТИЧЕСКАЯ СМЕНА СЕЗОНОВ И ЦВЕТОВОЙ ТЕМЫ САЙТА
-            const currentMonth = new Date().getMonth();
-            const root = document.documentElement;
-            const heroTitle = document.getElementById('hero-title');
+            const dict = i18n[lang] || i18n.ru;
 
-            if (currentMonth === 11 || currentMonth === 0 || currentMonth === 1) {
-                root.style.setProperty('--main-color', '#0288d1'); 
-                root.style.setProperty('--bg-accent', '#e1f5fe');
-                heroTitle.innerText = "КРАСНОУФИМСК ЗИМНИЙ";
-            } 
-            else if (currentMonth >= 2 && currentMonth <= 4) {
-                root.style.setProperty('--main-color', '#388e3c'); 
-                root.style.setProperty('--bg-accent', '#e8f5e9');
-                heroTitle.innerText = "КРАСНОУФИМСК ВЕСЕННИЙ";
-            } 
-            else if (currentMonth >= 5 && currentMonth <= 7) {
-                root.style.setProperty('--main-color', '#2e7d32'); 
-                root.style.setProperty('--bg-accent', '#f4fbf4');
-                heroTitle.innerText = "КРАСНОУФИМСК ЛЕТНИЙ";
-            } 
-            else {
-                root.style.setProperty('--main-color', '#e65100'); 
-                root.style.setProperty('--bg-accent', '#fff3e0');
-                heroTitle.innerText = "КРАСНОУФИМСК ОСЕННИЙ";
+            // Обновляем все элементы с атрибутом data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.textContent = dict[key];
+                }
+            });
+
+            // Обновляем текст кнопки языка
+            const langLabel = document.getElementById('lang-label');
+            if (langLabel) langLabel.textContent = lang === 'ru' ? 'EN' : 'RU';
+
+            // Обновляем текст кнопки раскрытия викторины
+            const quizBody = document.getElementById('quiz-body');
+            const toggleText = document.getElementById('quiz-toggle-text');
+            if (toggleText && quizBody) {
+                const isExpanded = quizBody.style.display !== 'none' && getComputedStyle(quizBody).display !== 'none';
+                toggleText.textContent = isExpanded ? dict.btnCollapseQuiz : dict.btnStartQuiz;
             }
+
+            // Динамический пересчет возраста Красноуфимска
+            updateCityAge();
+
+            // Обновляем теги в кнопках ленты времени
+            document.querySelectorAll('.time-btn').forEach((btn, idx) => {
+                const tagSpan = btn.querySelector('.tag');
+                if (tagSpan && eventsData[idx]) {
+                    tagSpan.textContent = eventsData[idx].tag[lang];
+                }
+            });
+
+            // Перерисовываем карточки и викторину
+            renderCards();
+            renderQuiz();
+
+            // Обновляем заголовки сезонов
+            const currentSeason = document.body.className.replace('season-', '') || 'autumn';
+            updateSeasonText(currentSeason);
+        }
+
+        // Обработчик кнопки смены языка
+        document.getElementById('lang-switch-btn').addEventListener('click', function() {
+            setLanguage(currentLang === 'ru' ? 'en' : 'ru');
+        });
+
+        /* ==========================================================================
+           ФУНКЦИЯ [2]: ОТРИСОВКА КАРТОЧЕК ЭПОХ (RENDER CARDS)
+           Динамически строит 11 карточек с учетом выбранного языка.
+           ========================================================================== */
+        let currentEventIndex = 0;
+        const totalEvents = 11;
+
+        function renderCards() {
+            const container = document.getElementById('events-container');
+            if (!container) return;
+
+            const dict = i18n[currentLang];
+            let html = '';
+
+            eventsData.forEach((ev, idx) => {
+                const isFirst = idx === 0;
+                const isLast = idx === totalEvents - 1;
+                const activeClass = idx === currentEventIndex ? 'active' : '';
+
+                html += `
+                <article class="event-card ${activeClass}" id="event${idx + 1}" data-index="${idx}">
+                    <div class="card-header-bar">
+                        <span class="epoch-badge">${ev.badge[currentLang]}</span>
+                        <span class="event-card-index">${dict.epochWord} ${idx + 1} ${dict.fromWord}</span>
+                    </div>
+                    <h3>${ev.title[currentLang]}</h3>
+                    <p class="event-desc">${ev.desc[currentLang]}</p>
+                    
+                    <div class="historical-fact-box">
+                        <strong>${dict.factTitle}</strong>
+                        ${ev.fact[currentLang]}
+                    </div>
+                    
+                    <div class="map-container">
+                        ${ev.image ? `
+                        <div class="map-photo-preview">
+                            <img src="${ev.image}" alt="${ev.mapTitle[currentLang]}" class="map-photo-img" loading="lazy" />
+                        </div>
+                        ` : ''}
+                        <strong class="map-title">${ev.mapTitle[currentLang]}</strong>
+
+                        <div class="landmark-address-card">
+                            <div class="address-header">
+                                <span class="address-badge">📍 ${dict.addressLabel}</span>
+                            </div>
+                            <p class="address-details">${ev.address[currentLang]}</p>
+                            <div class="address-map-btn-wrap">
+                                <a href="https://yandex.ru/maps/?text=${ev.mapQuery}" target="_blank" rel="noopener noreferrer" class="btn-open-map">
+                                    🗺️ ${dict.btnMap}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-nav-footer">
+                        <button class="btn-step-nav" onclick="stepEvent(-1)" ${isFirst ? 'disabled' : ''}>${dict.btnPrev}</button>
+                        <button class="btn-step-nav" onclick="stepEvent(1)" ${isLast ? 'disabled' : ''}>${isLast ? dict.btnFinal : dict.btnNext}</button>
+                    </div>
+                </article>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Переключение карточки по индексу
+        function openEvent(index, eventId) {
+            currentEventIndex = index;
+
+            const timeBtns = document.querySelectorAll('.time-btn');
+            timeBtns.forEach((btn, i) => {
+                if (i === index) {
+                    btn.classList.add('active');
+                    const scrollContainer = document.querySelector('.timeline-scroll-container');
+                    if (scrollContainer) {
+                        const targetLeft = btn.offsetLeft - (scrollContainer.clientWidth / 2) + (btn.clientWidth / 2);
+                        scrollContainer.scrollTo({ left: targetLeft, behavior: 'smooth' });
+                    }
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            const cards = document.querySelectorAll('.event-card');
+            cards.forEach(card => card.classList.remove('active'));
+
+            const target = document.getElementById(eventId);
+            if (target) target.classList.add('active');
+        }
+
+        // Пошаговая навигация (+1 вперед / -1 назад)
+        function stepEvent(delta) {
+            const nextIndex = currentEventIndex + delta;
+            if (nextIndex >= 0 && nextIndex < totalEvents) {
+                openEvent(nextIndex, 'event' + (nextIndex + 1));
+            }
+        }
+
+        // Поддержка клавиш клавиатуры (Стрелки влево / вправо)
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.key === 'ArrowRight') stepEvent(1);
+            if (e.key === 'ArrowLeft') stepEvent(-1);
+        });
+
+        /* ==========================================================================
+           ФУНКЦИИ НАВИГАЦИИ И СКРОЛЛА ПО СЕКЦИЯМ
+           ========================================================================== */
+        function scrollToSection(sectionId, headerOffset = 85) {
+            let el = document.getElementById(sectionId);
+            if (sectionId === 'timeline') {
+                el = document.getElementById('timeline-top-marker') || el;
+            }
+            if (!el) return;
+            const rect = el.getBoundingClientRect();
+            const currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+            const targetY = Math.max(0, rect.top + currentScrollY - headerOffset);
+            window.scrollTo({
+                top: targetY,
+                behavior: 'smooth'
+            });
+        }
+
+        /* ==========================================================================
+           ФУНКЦИЯ [2.1]: ПЕРЕХОД К ОБЪЕКТАМ В ЛЕНТЕ ВРЕМЕНИ ИЗ МАРШРУТОВ И ПАМЯТКИ
+           Открывает нужную эпоху и гарантированно плавно поднимает страницу ровно к ленте времени.
+           ========================================================================== */
+        function jumpToTimelineEvent(index, eventId) {
+            openEvent(index, eventId);
+            setTimeout(() => {
+                const marker = document.getElementById('timeline-top-marker') || document.getElementById('intro');
+                if (marker) {
+                    const rect = marker.getBoundingClientRect();
+                    const currentScrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+                    const targetY = Math.max(0, rect.top + currentScrollY - 78);
+                    window.scrollTo({
+                        top: targetY,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 30);
+        }
+
+        /* ==========================================================================
+           ФУНКЦИЯ [3]: ЖИВАЯ ПОГОДА ЧЕРЕЗ OPEN-METEO API
+           Получает актуальные метеоданные Красноуфимска без ключей и оплат.
+           ========================================================================== */
+        const WMO_CODES = {
+            0: { ru: 'Ясно', en: 'Clear sky', icon: '☀️' },
+            1: { ru: 'Преимущественно ясно', en: 'Mainly clear', icon: '🌤️' },
+            2: { ru: 'Переменная облачность', en: 'Partly cloudy', icon: '⛅' },
+            3: { ru: 'Пасмурно', en: 'Overcast', icon: '☁️' },
+            45: { ru: 'Туман', en: 'Fog', icon: '🌫️' },
+            48: { ru: 'Иней', en: 'Rime fog', icon: '🌫️' },
+            51: { ru: 'Морось', en: 'Drizzle', icon: '🌦️' },
+            61: { ru: 'Небольшой дождь', en: 'Slight rain', icon: '🌧️' },
+            63: { ru: 'Умеренный дождь', en: 'Moderate rain', icon: '🌧️' },
+            65: { ru: 'Сильный дождь', en: 'Heavy rain', icon: '🌧️' },
+            71: { ru: 'Снегопад', en: 'Snowfall', icon: '🌨️' },
+            73: { ru: 'Умеренный снег', en: 'Moderate snow', icon: '❄️' },
+            75: { ru: 'Сильный снегопад', en: 'Heavy snow', icon: '❄️' },
+            95: { ru: 'Гроза', en: 'Thunderstorm', icon: '⛈️' }
+        };
+
+        async function fetchKrasnoufimskWeather() {
+            const iconEl = document.getElementById('weather-icon');
+            const tempEl = document.getElementById('weather-temp');
+            const feelsEl = document.getElementById('weather-feels');
+            const windEl = document.getElementById('weather-wind');
+            const humEl = document.getElementById('weather-humidity');
+            const precipEl = document.getElementById('weather-precip');
+            const descEl = document.getElementById('weather-card-desc');
+            const timeEl = document.getElementById('weather-time');
+
+            // Координаты Красноуфимска
+            const lat = 56.6167;
+            const lon = 57.7667;
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=auto`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Ошибка сети');
+                const data = await response.json();
+                const cur = data.current;
+
+                const temp = Math.round(cur.temperature_2m);
+                const feels = Math.round(cur.apparent_temperature);
+                const windMs = (cur.wind_speed_10m / 3.6).toFixed(1);
+                const hum = cur.relative_humidity_2m;
+                const precip = cur.precipitation || 0;
+                const code = cur.weather_code;
+                const wmo = WMO_CODES[code] || { ru: 'Облачно', en: 'Cloudy', icon: '⛅' };
+
+                if (iconEl) iconEl.textContent = wmo.icon;
+                if (tempEl) tempEl.textContent = (temp > 0 ? '+' : '') + temp + '°C';
+                if (descEl) descEl.textContent = `${wmo.icon} ${wmo[currentLang]}, ${temp > 0 ? '+' : ''}${temp}°C`;
+                if (feelsEl) feelsEl.textContent = (feels > 0 ? '+' : '') + feels + '°C';
+                if (windEl) windEl.textContent = windMs + ' м/с';
+                if (humEl) humEl.textContent = hum + '%';
+                if (precipEl) precipEl.textContent = precip + ' мм';
+
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+                if (timeEl) timeEl.textContent = `${i18n[currentLang].weatherUpdated} ${timeStr}`;
+
+                localStorage.setItem('kuf_weather_cache', JSON.stringify({ temp, feels, windMs, hum, precip, wmo, timeStr }));
+            } catch (e) {
+                console.warn('Используем кэшированную погоду:', e);
+                const cached = localStorage.getItem('kuf_weather_cache');
+                if (cached) {
+                    try {
+                        const c = JSON.parse(cached);
+                        if (iconEl) iconEl.textContent = c.wmo.icon;
+                        if (tempEl) tempEl.textContent = (c.temp > 0 ? '+' : '') + c.temp + '°C';
+                        if (descEl) descEl.textContent = `${c.wmo.icon} ${c.wmo[currentLang]}, ${c.temp}°C`;
+                        if (feelsEl) feelsEl.textContent = c.feels + '°C';
+                        if (windEl) windEl.textContent = c.windMs + ' м/с';
+                        if (humEl) humEl.textContent = c.hum + '%';
+                        if (precipEl) precipEl.textContent = c.precip + ' мм';
+                        return;
+                    } catch (err) {}
+                }
+                if (tempEl) tempEl.textContent = '+17°C';
+                if (iconEl) iconEl.textContent = '🌤️';
+            }
+        }
+
+        // Открытие/закрытие карточки погоды по клику
+        const weatherPill = document.getElementById('weather-pill');
+        const weatherCard = document.getElementById('weather-details-card');
+        const btnRefreshWeather = document.getElementById('btn-refresh-weather');
+
+        if (weatherPill && weatherCard) {
+            weatherPill.addEventListener('click', function(e) {
+                e.stopPropagation();
+                weatherCard.classList.toggle('show');
+            });
+            document.addEventListener('click', function(e) {
+                if (!weatherCard.contains(e.target) && !weatherPill.contains(e.target)) {
+                    weatherCard.classList.remove('show');
+                }
+            });
+        }
+
+        if (btnRefreshWeather) {
+            btnRefreshWeather.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.textContent = '⏳ ...';
+                fetchKrasnoufimskWeather().finally(() => {
+                    this.textContent = i18n[currentLang].weatherRefresh;
+                });
+            });
+        }
+
+        /* ==========================================================================
+           ФУНКЦИЯ [5]: УПРАВЛЕНИЕ СЕЗОНАМИ И ЦВЕТАМИ САЙТА
+           ========================================================================== */
+        const seasonInfo = {
+            winter: {
+                ru: { title: 'ЖИВАЯ ИСТОРИЯ ❄️', heading: 'Зимняя сказка на берегах реки Уфы' },
+                en: { title: 'LIVING HISTORY ❄️', heading: 'Winter Fairy Tale on the Banks of the Ufa' },
+                metaColor: '#0284c7'
+            },
+            spring: {
+                ru: { title: 'ЖИВАЯ ИСТОРИЯ 🌱', heading: 'Весеннее пробуждение города' },
+                en: { title: 'LIVING HISTORY 🌱', heading: 'Spring Awakening of the Historic Town' },
+                metaColor: '#16a34a'
+            },
+            summer: {
+                ru: { title: 'ЖИВАЯ ИСТОРИЯ ☀️', heading: 'Солнечное лето на берегах реки Уфы' },
+                en: { title: 'LIVING HISTORY ☀️', heading: 'Sunny Summer along the River Ufa' },
+                metaColor: '#0d9488'
+            },
+            autumn: {
+                ru: { title: 'ЖИВАЯ ИСТОРИЯ 🍂', heading: 'Золотая осень на берегах реки Уфы' },
+                en: { title: 'LIVING HISTORY 🍂', heading: 'Golden Autumn on the Banks of the River Ufa' },
+                metaColor: '#ea580c'
+            }
+        };
+
+        function getNaturalSeason() {
+            const m = new Date().getMonth();
+            if (m === 11 || m === 0 || m === 1) return 'winter';
+            if (m >= 2 && m <= 4) return 'spring';
+            if (m >= 5 && m <= 7) return 'summer';
+            return 'autumn';
+        }
+
+        function updateSeasonText(season) {
+            const info = seasonInfo[season] || seasonInfo.autumn;
+            const heroSeason = document.getElementById('hero-season-title');
+            const introHead = document.getElementById('intro-heading');
+            const metaTheme = document.getElementById('theme-color-meta');
+
+            if (heroSeason) heroSeason.textContent = info[currentLang].title;
+            if (introHead) introHead.textContent = info[currentLang].heading;
+            if (metaTheme) metaTheme.setAttribute('content', info.metaColor);
+        }
+
+        function setSeasonTheme(season, isAuto = false) {
+            document.body.classList.remove('season-winter', 'season-spring', 'season-summer', 'season-autumn');
+            document.body.classList.add('season-' + season);
+
+            updateSeasonText(season);
+
+            document.querySelectorAll('.season-btn').forEach(btn => {
+                if (isAuto && btn.dataset.season === 'auto') {
+                    btn.classList.add('active');
+                } else if (!isAuto && btn.dataset.season === season) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            initParticleCanvas(season);
+        }
+
+        document.querySelectorAll('.season-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const s = this.dataset.season;
+                if (s === 'auto') {
+                    setSeasonTheme(getNaturalSeason(), true);
+                } else {
+                    setSeasonTheme(s, false);
+                }
+            });
+        });
+
+        /* ==========================================================================
+           ФУНКЦИЯ [6]: ИНТЕРАКТИВНАЯ ВИКТОРИНА (QUIZ)
+           ========================================================================== */
+        let quizAnswers = {};
+
+        function renderQuiz() {
+            const quizContainer = document.getElementById('quiz-container');
+            if (!quizContainer) return;
+
+            quizAnswers = {};
+            let html = '';
+
+            quizData.forEach((qItem, idx) => {
+                const qNum = idx + 1;
+                html += `
+                <div class="question-box" data-q="${qNum}">
+                    <div class="question-title">
+                        <span class="question-num">${qNum}</span>
+                        <span>${qItem.q[currentLang]}</span>
+                    </div>
+                    <div class="options-list">
+                        ${qItem.options.map(opt => `
+                            <button class="option-btn" onclick="checkAnswer(this, ${opt.correct}, ${qNum})">${opt.t[currentLang]}</button>
+                        `).join('')}
+                    </div>
+                    <div class="question-feedback"></div>
+                </div>
+                `;
+            });
+
+            quizContainer.innerHTML = html;
+            const banner = document.getElementById('quiz-results');
+            if (banner) banner.style.display = 'none';
+        }
+
+        function checkAnswer(btn, isCorrect, qNum) {
+            const parent = btn.closest('.question-box');
+            if (!parent || parent.dataset.answered) return;
+
+            parent.dataset.answered = 'true';
+            quizAnswers[qNum] = isCorrect;
+
+            parent.querySelectorAll('.option-btn').forEach(b => b.classList.add('disabled'));
+            const feedback = parent.querySelector('.question-feedback');
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+                if (feedback) {
+                    feedback.style.display = 'block';
+                    feedback.style.color = '#15803d';
+                    feedback.style.background = '#dcfce7';
+                    feedback.innerHTML = currentLang === 'ru' ? '✓ Верно! Отличный ответ!' : '✓ Correct! Well done!';
+                }
+            } else {
+                btn.classList.add('wrong');
+                if (feedback) {
+                    feedback.style.display = 'block';
+                    feedback.style.color = '#b91c1c';
+                    feedback.style.background = '#fee2e2';
+                    feedback.innerHTML = currentLang === 'ru' 
+                        ? '✕ Не совсем так. Обратите внимание на ленту времени.' 
+                        : '✕ Not quite. Check the timeline cards above.';
+                }
+                // Подсветим правильный
+                parent.querySelectorAll('.option-btn').forEach(b => {
+                    if (b.getAttribute('onclick').includes('true')) b.classList.add('correct');
+                });
+            }
+
+            if (Object.keys(quizAnswers).length === 4) {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            const banner = document.getElementById('quiz-results');
+            const scoreText = document.getElementById('quiz-score-text');
+            const descText = document.getElementById('quiz-desc-text');
+            if (!banner) return;
+
+            let score = 0;
+            for (let k in quizAnswers) {
+                if (quizAnswers[k]) score++;
+            }
+
+            banner.style.display = 'block';
+            if (currentLang === 'ru') {
+                scoreText.textContent = `Ваш результат: ${score} из 4!`;
+                descText.textContent = score === 4 
+                    ? '🏆 Великолепно! Вы настоящий знаток истории Красноуфимска!' 
+                    : (score >= 2 ? '👍 Хороший результат! Вы отлично знаете историю края.' : '📖 Перечитайте карточки ленты времени и попробуйте ещё раз!');
+            } else {
+                scoreText.textContent = `Your score: ${score} of 4!`;
+                descText.textContent = score === 4 
+                    ? '🏆 Outstanding! You are a genuine Krasnoufimsk history expert!' 
+                    : (score >= 2 ? '👍 Good job! You know the city’s milestones well.' : '📖 Read through the timeline and try again!');
+            }
+
+            banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function restartQuiz() {
+            renderQuiz();
+        }
+
+        /* ==========================================================================
+           ФУНКЦИЯ [6.1]: РАСКРЫТИЕ / СВОРАЧИВАНИЕ ВИКТОРИНЫ ПО КНОПКЕ
+           Открывает викторину по клику пользователя, сохраняя страницу аккуратной.
+           ========================================================================== */
+        function toggleQuiz() {
+            const quizBody = document.getElementById('quiz-body');
+            const toggleBtn = document.getElementById('btn-toggle-quiz');
+            const toggleText = document.getElementById('quiz-toggle-text');
+            if (!quizBody || !toggleBtn) return;
+
+            const isHidden = quizBody.style.display === 'none' || getComputedStyle(quizBody).display === 'none';
+            const dict = i18n[currentLang] || i18n.ru;
+
+            if (isHidden) {
+                quizBody.style.display = 'block';
+                toggleBtn.classList.add('expanded');
+                if (toggleText) toggleText.textContent = dict.btnCollapseQuiz;
+                quizBody.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                quizBody.style.display = 'none';
+                toggleBtn.classList.remove('expanded');
+                if (toggleText) toggleText.textContent = dict.btnStartQuiz;
+            }
+        }
+
+        /* ==========================================================================
+           ФУНКЦИЯ [7]: АНИМИРОВАННЫЕ СЕЗОННЫЕ ЧАСТИЦЫ НА ХОЛСТЕ (CANVAS)
+           ========================================================================== */
+        let particleAnimId = null;
+
+        function initParticleCanvas(season) {
+            const canvas = document.getElementById('particle-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            if (particleAnimId) cancelAnimationFrame(particleAnimId);
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.removeEventListener('resize', resize);
+            window.addEventListener('resize', resize);
+
+            const count = window.innerWidth < 768 ? 20 : 50;
+            const particles = [];
+
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 3 + 1.5,
+                    speedY: Math.random() * 1.2 + 0.5,
+                    speedX: (Math.random() - 0.5) * 0.8,
+                    opacity: Math.random() * 0.6 + 0.2,
+                    rotation: Math.random() * Math.PI * 2,
+                    rotSpeed: (Math.random() - 0.5) * 0.03
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach(p => {
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rotation);
+
+                    if (season === 'winter') {
+                        ctx.fillStyle = `rgba(224, 242, 254, ${p.opacity})`;
+                        ctx.beginPath();
+                        ctx.arc(0, 0, p.radius, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else if (season === 'autumn') {
+                        ctx.fillStyle = `rgba(251, 146, 60, ${p.opacity})`;
+                        ctx.beginPath();
+                        ctx.ellipse(0, 0, p.radius * 2.5, p.radius * 1.2, 0, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else if (season === 'spring') {
+                        ctx.fillStyle = `rgba(187, 247, 208, ${p.opacity})`;
+                        ctx.beginPath();
+                        ctx.ellipse(0, 0, p.radius * 2, p.radius, Math.PI / 4, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        ctx.fillStyle = `rgba(153, 246, 228, ${p.opacity})`;
+                        ctx.beginPath();
+                        ctx.arc(0, 0, p.radius * 1.3, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+
+                    ctx.restore();
+
+                    p.y += p.speedY;
+                    p.x += p.speedX;
+                    p.rotation += p.rotSpeed;
+
+                    if (p.y > canvas.height) { p.y = -10; p.x = Math.random() * canvas.width; }
+                    if (p.x > canvas.width) p.x = 0;
+                    if (p.x < 0) p.x = canvas.width;
+                });
+
+                particleAnimId = requestAnimationFrame(draw);
+            }
+
+            draw();
+        }
+
+        /* ==========================================================================
+           ФУНКЦИЯ [8]: ИНДИКАТОР СКРОЛЛА И КНОПКА "НАВЕРХ"
+           ========================================================================== */
+        const progressBar = document.getElementById('reading-progress');
+        const backToTopBtn = document.getElementById('btn-back-to-top');
+
+        window.addEventListener('scroll', function() {
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            if (progressBar) progressBar.style.width = scrolled + '%';
+
+            if (winScroll > 400) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        /* ==========================================================================
+           ФУНКЦИЯ [9]: ПЛАВНОЕ ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ ПРИ ПРОКРУТКЕ (SCROLL REVEAL)
+           Использует современный IntersectionObserver API для плавного и
+           эффектного появления секций и карточек сайта по мере чтения страницы.
+           ========================================================================== */
+        function initScrollReveal() {
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            if (!('IntersectionObserver' in window)) {
+                revealElements.forEach(el => el.classList.add('is-visible'));
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            revealElements.forEach(el => observer.observe(el));
+        }
+
+        /* ==========================================================================
+           ТОЧКА ВХОДА ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+           ========================================================================== */
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация языка (автоматически рассчитывает возраст города)
+            setLanguage(currentLang);
+
+            // Инициализация динамического возраста города
+            updateCityAge();
+
+            // Инициализация плавного появления элементов при прокрутке
+            initScrollReveal();
+
+            // Инициализация сезона (по календарю)
+            const natSeason = getNaturalSeason();
+            setSeasonTheme(natSeason, true);
+
+            // Запрос погоды Красноуфимска
+            fetchKrasnoufimskWeather();
         });
     </script>
 </body>
