@@ -267,7 +267,7 @@
             width: 285px;
             color: white;
             z-index: 1100;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
             pointer-events: none;
         }
 
@@ -896,8 +896,7 @@
            [6. ЛЕНТА ВРЕМЕНИ (TIMELINE NAVIGATION)]
            ========================================================================== */
         .timeline-section {
-            position: sticky;
-            top: 74px;
+            position: relative;
             z-index: 900;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(14px);
@@ -2150,12 +2149,25 @@
             filter: brightness(1.05);
         }
 
+
+        .guide-download-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            grid-column: 1 / -1;
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-card);
+        }
+
 @media print {
+            .guide-download-wrap { display: none !important; }
             body > *:not(#guide) { display: none !important; }
             #guide { display: block !important; padding: 0 !important; margin: 0 !important; }
             .guide-download-wrap {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
             width: 100%;
             grid-column: 1 / -1; /* For grid layouts */
@@ -2205,7 +2217,7 @@
         }
         .guide-download-wrap {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
             width: 100%;
             grid-column: 1 / -1; /* For grid layouts */
@@ -2329,6 +2341,7 @@
             box-sizing: border-box;
         }
         @media (max-width: 768px) {
+            .hero { background-attachment: scroll !important; }
             .sights-menu-selector-bar {
                 flex-direction: column;
                 align-items: stretch;
@@ -2360,9 +2373,10 @@
             gap: 8px;
             flex: 1;
             max-width: 580px;
-            justify-content: flex-end;
+            justify-content: center;
         }
         @media (max-width: 768px) {
+            .hero { background-attachment: scroll !important; }
             .sights-menu-controls {
                 max-width: 100%;
                 justify-content: space-between;
@@ -2656,6 +2670,7 @@
 
     
         @media (max-width: 768px) {
+            .hero { background-attachment: scroll !important; }
             .sights-section {
                 padding: 0 12px;
                 margin-bottom: 40px;
@@ -2706,6 +2721,7 @@
 
     
         @media (max-width: 768px) {
+            .hero { background-attachment: scroll !important; }
             .sights-section {
                 padding: 0 12px;
                 margin-bottom: 40px;
@@ -2756,6 +2772,7 @@
 
     
         @media (max-width: 768px) {
+            .hero { background-attachment: scroll !important; }
             .sights-section {
                 padding: 0 12px;
                 margin-bottom: 40px;
@@ -4491,7 +4508,7 @@
            Динамически строит 11 карточек с учетом выбранного языка.
            ========================================================================== */
         let currentEventIndex = 0;
-        const totalEvents = 11;
+        const totalEvents = eventsData.length;
 
         function renderCards() {
             const container = document.getElementById('events-container');
@@ -4700,7 +4717,7 @@
             const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=auto`;
 
             try {
-                const response = await fetch(url);
+                const response = await fetch(url, { cache: 'no-store' });
                 if (!response.ok) throw new Error('Ошибка сети');
                 const data = await response.json();
                 const cur = data.current;
@@ -5090,6 +5107,7 @@
         let particleAnimId = null;
 
         function initParticleCanvas(season) {
+            if (window.innerWidth < 768) return;
             const canvas = document.getElementById('particle-canvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
