@@ -2010,13 +2010,10 @@
            [12. ПЛАВНОЕ ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ ПРИ СКРОЛЛЕ (REVEAL-ON-SCROLL)]
            ========================================================================== */
         .reveal-on-scroll {
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-
-        .reveal-on-scroll.js-hidden {
             opacity: 0;
             transform: translateY(28px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
         }
 
         .reveal-on-scroll.is-visible {
@@ -3945,7 +3942,7 @@
                 <span class="footer-chip">HTML5</span>
                 <span class="footer-chip">CSS3 (Glassmorphism)</span>
                 <span class="footer-chip">Vanilla JavaScript</span>
-                <span class="footer-chip">Open-Meteo API</span>
+                <span class="footer-chip">MET Norway API</span>
                 <span class="footer-chip">Bilingual (RU / EN)</span>
                 <span class="footer-chip">100% Native Code</span>
             </div>
@@ -5116,7 +5113,84 @@
             }
         }
 
-        /* ==========================================================================
+                /* ==========================================================================
+           [1]: СМЕНА ЯЗЫКА (RU / EN)
+           ========================================================================== */
+        function setLanguage(lang) {
+            const prevScrollY = window.scrollY;
+            currentLang = lang;
+            localStorage.setItem('krasnoufimsk_lang', lang);
+
+            const dict = i18n[lang] || i18n.ru;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.textContent = dict[key];
+                }
+            });
+
+            const langLabel = document.getElementById('lang-label');
+            if (langLabel) langLabel.textContent = lang === 'ru' ? 'EN' : 'RU';
+
+            const quizBody = document.getElementById('quiz-body');
+            const toggleText = document.getElementById('quiz-toggle-text');
+            if (toggleText && quizBody) {
+                const isExpanded = quizBody.style.display !== 'none' && getComputedStyle(quizBody).display !== 'none';
+                toggleText.textContent = isExpanded ? dict.btnCollapseQuiz : dict.btnStartQuiz;
+            }
+
+            updateCityAge();
+
+            document.querySelectorAll('.time-btn').forEach((btn, idx) => {
+                const tagSpan = btn.querySelector('.tag');
+                if (tagSpan && eventsData[idx]) {
+                    tagSpan.textContent = eventsData[idx].tag[lang];
+                }
+            });
+
+            renderCards();
+            renderQuiz();
+
+            let currentSeason = 'autumn';
+            if (document.body.classList.contains('season-winter')) currentSeason = 'winter';
+            if (document.body.classList.contains('season-spring')) currentSeason = 'spring';
+            if (document.body.classList.contains('season-summer')) currentSeason = 'summer';
+            updateSeasonText(currentSeason);
+            
+            if (typeof renderSightsSelector === 'function') renderSightsSelector(currentSightCategory);
+            if (typeof selectSight === 'function') selectSight(currentSightId);
+            if (typeof renderNavSightsDropdown === 'function') buildTimelineNav();
+            openEvent(typeof currentEventIndex !== 'undefined' ? currentEventIndex : 0, 'event' + ((typeof currentEventIndex !== 'undefined' ? currentEventIndex : 0) + 1));
+            renderNavSightsDropdown();
+            if (typeof updateSightsDropdownMenu === 'function') updateSightsDropdownMenu();
+            
+            // Safari bug fix
+            window.scrollBy(0, 1);
+            window.scrollBy(0, -1);
+        }
+
+        function updateCityAge() {
+            const currentYear = new Date().getFullYear();
+            const age = Math.max(0, currentYear - 1736);
+            const statEl = document.getElementById('city-age-stat');
+            if (!statEl) return;
+
+            if (currentLang === 'ru') {
+                const mod10 = age % 10;
+                const mod100 = age % 100;
+                let word = 'лет';
+                if (mod100 < 11 || mod100 > 14) {
+                    if (mod10 === 1) word = 'год';
+                    else if (mod10 >= 2 && mod10 <= 4) word = 'года';
+                }
+                statEl.textContent = `${age} ${word}`;
+            } else {
+                statEl.textContent = `${age} ${age === 1 ? 'year' : 'years'}`;
+            }
+        }
+        
+/* ==========================================================================
            ФУНКЦИЯ [1]: ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (RU / EN)
            Обновляет весь интерфейс, карточки и викторину.
            ========================================================================== */
@@ -5374,21 +5448,22 @@
            ФУНКЦИЯ [3]: ЖИВАЯ ПОГОДА ЧЕРЕЗ OPEN-METEO API
            Получает актуальные метеоданные Красноуфимска без ключей и оплат.
            ========================================================================== */
-        const WMO_CODES = {
-            0: { ru: 'Ясно', en: 'Clear sky', icon: '☀️' },
-            1: { ru: 'Преимущественно ясно', en: 'Mainly clear', icon: '🌤️' },
-            2: { ru: 'Переменная облачность', en: 'Partly cloudy', icon: '⛅' },
-            3: { ru: 'Пасмурно', en: 'Overcast', icon: '☁️' },
-            45: { ru: 'Туман', en: 'Fog', icon: '🌫️' },
-            48: { ru: 'Иней', en: 'Rime fog', icon: '🌫️' },
-            51: { ru: 'Морось', en: 'Drizzle', icon: '🌦️' },
-            61: { ru: 'Небольшой дождь', en: 'Slight rain', icon: '🌧️' },
-            63: { ru: 'Умеренный дождь', en: 'Moderate rain', icon: '🌧️' },
-            65: { ru: 'Сильный дождь', en: 'Heavy rain', icon: '🌧️' },
-            71: { ru: 'Снегопад', en: 'Snowfall', icon: '🌨️' },
-            73: { ru: 'Умеренный снег', en: 'Moderate snow', icon: '❄️' },
-            75: { ru: 'Сильный снегопад', en: 'Heavy snow', icon: '❄️' },
-            95: { ru: 'Гроза', en: 'Thunderstorm', icon: '⛈️' }
+        const MET_CODES = {
+            'clearsky_day': { ru: 'Ясно', en: 'Clear sky', icon: '☀️' },
+            'clearsky_night': { ru: 'Ясно', en: 'Clear sky', icon: '🌙' },
+            'fair_day': { ru: 'Преимущественно ясно', en: 'Mainly clear', icon: '🌤️' },
+            'fair_night': { ru: 'Преимущественно ясно', en: 'Mainly clear', icon: '🌤️' },
+            'partlycloudy_day': { ru: 'Переменная облачность', en: 'Partly cloudy', icon: '⛅' },
+            'partlycloudy_night': { ru: 'Переменная облачность', en: 'Partly cloudy', icon: '⛅' },
+            'cloudy': { ru: 'Пасмурно', en: 'Overcast', icon: '☁️' },
+            'rain': { ru: 'Дождь', en: 'Rain', icon: '🌧️' },
+            'lightrain': { ru: 'Небольшой дождь', en: 'Slight rain', icon: '🌦️' },
+            'heavyrain': { ru: 'Сильный дождь', en: 'Heavy rain', icon: '🌧️' },
+            'snow': { ru: 'Снег', en: 'Snow', icon: '🌨️' },
+            'lightsnow': { ru: 'Небольшой снег', en: 'Light snow', icon: '❄️' },
+            'heavysnow': { ru: 'Сильный снегопад', en: 'Heavy snow', icon: '❄️' },
+            'sleet': { ru: 'Мокрый снег', en: 'Sleet', icon: '🌨️' },
+            'fog': { ru: 'Туман', en: 'Fog', icon: '🌫️' }
         };
 
         async function fetchKrasnoufimskWeather() {
@@ -5409,7 +5484,7 @@
 
             const lat = 56.6167;
             const lon = 57.7667;
-            const baseUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=auto`;
+            const baseUrl = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${lat}&lon=${lon}`;
 
             try {
                 let response;
@@ -5417,26 +5492,32 @@
                     response = await fetch(baseUrl);
                     if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 } catch (e1) {
-                    console.warn('Direct fetch failed, trying proxy...', e1);
-                    try {
-                        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(baseUrl);
-                        response = await fetch(proxyUrl);
-                        if (!response.ok) throw new Error(`Proxy HTTP ${response.status}`);
-                    } catch (e2) {
-                        throw new Error(e1.message);
-                    }
+                    throw new Error(e1.message || 'Сбой сети');
                 }
 
                 const data = await response.json();
-                const cur = data.current;
+                const timeseries = data.properties.timeseries[0];
+                const details = timeseries.data.instant.details;
 
-                const temp = Math.round(cur.temperature_2m);
-                const feels = Math.round(cur.apparent_temperature);
-                const windMs = (cur.wind_speed_10m / 3.6).toFixed(1);
-                const hum = cur.relative_humidity_2m;
-                const precip = cur.precipitation || 0;
-                const code = cur.weather_code;
-                const wmo = WMO_CODES[code] || { ru: 'Облачно', en: 'Cloudy', icon: '☁️' };
+                const temp = Math.round(details.air_temperature);
+                // met.no doesn't provide apparent_temperature in compact, we'll estimate or just show temp
+                const feels = Math.round(details.air_temperature - (details.wind_speed > 3 ? details.wind_speed * 0.5 : 0));
+                const windMs = details.wind_speed.toFixed(1);
+                const hum = Math.round(details.relative_humidity);
+                
+                let precip = 0;
+                let code = 'partlycloudy_day';
+                if (timeseries.data.next_1_hours) {
+                    precip = timeseries.data.next_1_hours.details.precipitation_amount || 0;
+                    code = timeseries.data.next_1_hours.summary.symbol_code || 'partlycloudy_day';
+                }
+                
+                // Remove day/night suffix for mapping if exact match not found
+                let wmo = MET_CODES[code];
+                if (!wmo) {
+                    const baseCode = code.split('_')[0];
+                    wmo = MET_CODES[baseCode] || { ru: 'Облачно', en: 'Cloudy', icon: '☁️' };
+                }
 
                 if (iconEl) iconEl.textContent = wmo.icon;
                 if (tempEl) tempEl.textContent = (temp > 0 ? '+' : '') + temp + '°C';
@@ -6082,8 +6163,8 @@
                     }
                 });
             }, {
-                threshold: 0.05,
-                rootMargin: '0px 0px 50px 0px'
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
             });
 
             revealElements.forEach(el => observer.observe(el));
