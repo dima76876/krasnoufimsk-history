@@ -1694,6 +1694,35 @@
             transition: var(--transition);
         }
 
+        .btn-download-cert {
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            color: #1e293b;
+            background: linear-gradient(135deg, #d4af37, #facc15);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download-cert:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #facc15, #fef08a);
+            box-shadow: 0 4px 15px rgba(250, 204, 21, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .btn-download-cert {
+                margin-left: 0;
+                margin-top: 1rem;
+                width: 100%;
+            }
+        }
+
+
         /* === ЛИСТАНИЕ ВИКТОРИНЫ === */
         .quiz-progress-bar-wrap {
             background: var(--border-card);
@@ -2559,14 +2588,14 @@
 
             .hero {
                 min-height: auto !important;
-                background: none !important;
-                color: black !important;
+                
+                
                 padding: 15px 0 !important;
             }
 
             .hero h1 {
                 font-size: 22pt !important;
-                color: black !important;
+                
                 text-shadow: none !important;
             }
 
@@ -3856,8 +3885,8 @@
                 <div class="quiz-results-banner" id="quiz-results">
                     <h3 id="quiz-score-text">Поздравляем!</h3>
                     <p id="quiz-desc-text">Вы ответили на все вопросы викторины.</p>
-                    <button class="btn-restart-quiz" onclick="restartQuiz()" data-i18n="quizRestart">Пройти викторину
-                        заново</button>
+                    <button class="btn-restart-quiz" onclick="restartQuiz()" data-i18n="quizRestart">Повторить викторину</button>
+                    <button class="btn-download-cert" onclick="downloadCertificate()" data-i18n="quizDownloadCert">📥 Скачать сертификат</button>
                 </div>
             </div>
         </div>
@@ -4023,6 +4052,7 @@
                 btnStartQuiz: 'Начать викторину',
                 btnCollapseQuiz: 'Свернуть викторину',
                 quizRestart: 'Пройти викторину заново',
+                quizDownloadCert: '📥 Скачать сертификат',
                 footerLogo: 'Красноуфимск: Живая история',
                 footerProject: 'Практико-ориентированный индивидуальный проект по информационным технологиям и краеведению.',
                 footerAuthor: 'Автор:',
@@ -4148,6 +4178,8 @@
                 btnStartQuiz: 'Start Quiz',
                 btnCollapseQuiz: 'Collapse Quiz',
                 quizRestart: 'Restart Quiz',
+                quizDownloadCert: '📥 Download Certificate',
+                quizDownloadCert: '📥 Download Certificate',
                 footerLogo: 'Krasnoufimsk: Living History',
                 footerProject: 'Practical educational individual project in IT and regional local lore.',
                 footerAuthor: 'Author:',
@@ -5358,7 +5390,14 @@
                         const c = JSON.parse(cached);
                         if (iconEl) iconEl.textContent = c.wmo.icon;
                         if (tempEl) tempEl.textContent = (c.temp > 0 ? '+' : '') + c.temp + '°C';
-                        if (descEl) descEl.textContent = `${c.wmo.icon} ${c.wmo[currentLang]}, ${c.temp}°C`;
+                        if (descEl) descEl.textContent = `${c.wmo.icon} else { 
+
+                    const curLangDict = i18n[currentLang] || i18n.ru;
+                    if (iconEl) iconEl.textContent = '❌';
+                    if (tempEl) tempEl.textContent = '--°C';
+                    if (descEl) descEl.textContent = curLangDict.weatherError || 'Ошибка загрузки';
+
+} ${c.wmo[currentLang]}, ${c.temp}°C`;
                         if (feelsEl) feelsEl.textContent = c.feels + '°C';
                         if (windEl) windEl.textContent = c.windMs + ' м/с';
                         if (humEl) humEl.textContent = c.hum + '%';
@@ -5523,7 +5562,14 @@
 
         window.startQuizWithDifficulty = function(diff) {
             const pool = quizDataMaster.filter(q => q.difficulty === diff);
-            quizData = pool.sort(() => 0.5 - Math.random());
+            const limit = diff === 'easy' ? 10 : (diff === 'medium' ? 15 : 20);
+            quizData = pool.sort(() => 0.5 - Math.random()).slice(0, limit);
+            
+            // Перемешиваем варианты ответов внутри каждого вопроса
+            quizData.forEach(q => {
+                q.options.sort(() => 0.5 - Math.random());
+            });
+            
             renderQuiz();
         };
 
@@ -5666,12 +5712,15 @@
 
             let desc = '';
             const pct = correct / total;
+            window.lastQuizScore = correct;
+            window.lastQuizTotal = total;
             if (pct >= 0.9) desc = dict.quizResult5 || '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!';
             else if (pct >= 0.7) desc = dict.quizResult4 || '👍 Хорошо! Вы хорошо знаете историю города.';
             else if (pct >= 0.5) desc = dict.quizResult3 || '📖 Неплохо! Почитайте о достопримечательностях подробнее.';
             else desc = dict.quizResult2 || '🔍 Стоит изучить историю города! Пройдите ленту времени.';
 
             if (descText) descText.textContent = desc;
+            window.lastQuizDesc = desc;
 
             // show cert box if score >= 80%
             const certBox = document.getElementById('cert-box');
@@ -6544,7 +6593,136 @@
             fetchKrasnoufimskWeather();
         });
 
+
+        function downloadCertificate() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1000;
+            canvas.height = 700;
+            const ctx = canvas.getContext('2d');
+            
+            // Background (Dark theme gradient)
+            const bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            bgGradient.addColorStop(0, '#0f172a');
+            bgGradient.addColorStop(1, '#1e293b');
+            ctx.fillStyle = bgGradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Outer Gold Border
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = 15;
+            ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+            
+            // Inner Thin Border
+            ctx.strokeStyle = '#facc15';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(50, 50, canvas.width - 100, canvas.height - 100);
+
+            ctx.textAlign = 'center';
+            
+            // Title
+            ctx.font = 'bold 48px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#facc15';
+            ctx.fillText(currentLang === 'ru' ? 'СЕРТИФИКАТ ЗНАТОКА' : 'CERTIFICATE OF EXPERTISE', 500, 160);
+            
+            // Subtitle
+            ctx.font = '32px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText(currentLang === 'ru' ? 'Красноуфимск: Сквозь Эпохи' : 'Krasnoufimsk: Through Epochs', 500, 230);
+            
+            // Score header
+            ctx.font = '24px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#e2e8f0';
+            ctx.fillText(currentLang === 'ru' ? 'Набранный балл:' : 'Score Achieved:', 500, 320);
+
+            // Score
+            ctx.font = 'bold 80px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(`${window.lastQuizScore || 0} / ${window.lastQuizTotal || 0}`, 500, 420);
+            
+            // Description
+            ctx.font = 'italic 28px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#38bdf8';
+            ctx.fillText(window.lastQuizDesc || '', 500, 520);
+
+            // Date
+            ctx.font = '20px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#64748b';
+            const dateStr = new Date().toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US');
+            ctx.fillText(currentLang === 'ru' ? `Дата: ${dateStr}` : `Date: ${dateStr}`, 500, 620);
+            
+            // Trigger download
+            const link = document.createElement('a');
+            link.download = 'Krasnoufimsk_Certificate.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        
+        function downloadCertificate() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1000;
+            canvas.height = 700;
+            const ctx = canvas.getContext('2d');
+            
+            // Background (Dark theme gradient)
+            const bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            bgGradient.addColorStop(0, '#0f172a');
+            bgGradient.addColorStop(1, '#1e293b');
+            ctx.fillStyle = bgGradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Outer Gold Border
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = 15;
+            ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+            
+            // Inner Thin Border
+            ctx.strokeStyle = '#facc15';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(50, 50, canvas.width - 100, canvas.height - 100);
+
+            ctx.textAlign = 'center';
+            
+            // Title
+            ctx.font = 'bold 48px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#facc15';
+            ctx.fillText(currentLang === 'ru' ? 'СЕРТИФИКАТ ЗНАТОКА' : 'CERTIFICATE OF EXPERTISE', 500, 160);
+            
+            // Subtitle
+            ctx.font = '32px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText(currentLang === 'ru' ? 'Красноуфимск: Сквозь Эпохи' : 'Krasnoufimsk: Through Epochs', 500, 230);
+            
+            // Score header
+            ctx.font = '24px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#e2e8f0';
+            ctx.fillText(currentLang === 'ru' ? 'Набранный балл:' : 'Score Achieved:', 500, 320);
+
+            // Score
+            ctx.font = 'bold 80px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(`${window.lastQuizScore || 0} / ${window.lastQuizTotal || 0}`, 500, 420);
+            
+            // Description
+            ctx.font = 'italic 28px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#38bdf8';
+            ctx.fillText(window.lastQuizDesc || '', 500, 520);
+
+            // Date
+            ctx.font = '20px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#64748b';
+            const dateStr = new Date().toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US');
+            ctx.fillText(currentLang === 'ru' ? `Дата: ${dateStr}` : `Date: ${dateStr}`, 500, 620);
+            
+            // Trigger download
+            const link = document.createElement('a');
+            link.download = 'Krasnoufimsk_Certificate.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
         window.addEventListener('load', function () {
+
             window.scrollTo(0, 0);
         });
     </script>
