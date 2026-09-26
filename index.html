@@ -756,7 +756,7 @@
             color: #ffffff;
             background: linear-gradient(120deg, #ffffff 40%, var(--main-light) 100%);
             -webkit-background-clip: text;
-
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             display: block;
             margin-top: 6px;
@@ -5113,9 +5113,9 @@
             }
         }
 
-                /* ==========================================================================
-           [1]: СМЕНА ЯЗЫКА (RU / EN)
-           ========================================================================== */
+        /* ==========================================================================
+   [1]: СМЕНА ЯЗЫКА (RU / EN)
+   ========================================================================== */
         function setLanguage(lang) {
             const prevScrollY = window.scrollY;
             currentLang = lang;
@@ -5157,14 +5157,14 @@
             if (document.body.classList.contains('season-spring')) currentSeason = 'spring';
             if (document.body.classList.contains('season-summer')) currentSeason = 'summer';
             updateSeasonText(currentSeason);
-            
+
             if (typeof renderSightsSelector === 'function') renderSightsSelector(currentSightCategory);
             if (typeof selectSight === 'function') selectSight(currentSightId);
             if (typeof renderNavSightsDropdown === 'function') buildTimelineNav();
             openEvent(typeof currentEventIndex !== 'undefined' ? currentEventIndex : 0, 'event' + ((typeof currentEventIndex !== 'undefined' ? currentEventIndex : 0) + 1));
             renderNavSightsDropdown();
             if (typeof updateSightsDropdownMenu === 'function') updateSightsDropdownMenu();
-            
+
             // Safari bug fix
             window.scrollBy(0, 1);
             window.scrollBy(0, -1);
@@ -5189,11 +5189,11 @@
                 statEl.textContent = `${age} ${age === 1 ? 'year' : 'years'}`;
             }
         }
-        
-/* ==========================================================================
-           ФУНКЦИЯ [1]: ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (RU / EN)
-           Обновляет весь интерфейс, карточки и викторину.
-           ========================================================================== */
+
+        /* ==========================================================================
+                   ФУНКЦИЯ [1]: ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (RU / EN)
+                   Обновляет весь интерфейс, карточки и викторину.
+                   ========================================================================== */
         function setLanguage(lang) {
             const prevScrollY = window.scrollY;
             currentLang = lang;
@@ -5504,14 +5504,14 @@
                 const feels = Math.round(details.air_temperature - (details.wind_speed > 3 ? details.wind_speed * 0.5 : 0));
                 const windMs = details.wind_speed.toFixed(1);
                 const hum = Math.round(details.relative_humidity);
-                
+
                 let precip = 0;
                 let code = 'partlycloudy_day';
                 if (timeseries.data.next_1_hours) {
                     precip = timeseries.data.next_1_hours.details.precipitation_amount || 0;
                     code = timeseries.data.next_1_hours.summary.symbol_code || 'partlycloudy_day';
                 }
-                
+
                 // Remove day/night suffix for mapping if exact match not found
                 let wmo = MET_CODES[code];
                 if (!wmo) {
@@ -5547,9 +5547,9 @@
                         if (precipEl) precipEl.textContent = c.precip + ' мм';
                         if (timeEl) timeEl.textContent = `${i18n[currentLang].weatherUpdated} ${c.timeStr} (кэш)`;
                         return;
-                    } catch (err) {}
+                    } catch (err) { }
                 }
-                
+
                 const curLangDict = i18n[currentLang] || i18n.ru;
                 if (iconEl) iconEl.textContent = '❌';
                 if (tempEl) tempEl.textContent = 'Err';
@@ -5574,7 +5574,7 @@
             return 'autumn';
         }
 
-        
+
         const seasonInfo = {
             winter: {
                 ru: { title: 'ЗИМНЯЯ ИСТОРИЯ', heading: 'Заснеженный город на берегу реки Уфы' },
@@ -6110,10 +6110,10 @@
             sightsData.forEach((s, idx) => {
                 let lat = 56.611 + (Math.sin(idx * 1.5) * 0.015);
                 let lon = 57.771 + (Math.cos(idx * 1.5) * 0.02);
-                
+
                 let titleText = s.title ? (s.title[currentLang] || s.title.ru) : '';
                 let descText = s.desc ? (s.desc[currentLang] || s.desc.ru) : '';
-                
+
                 let placemark = new ymaps.Placemark([lat, lon], {
                     hintContent: titleText,
                     balloonContent: '<b>' + titleText + '</b><br>' + descText.substring(0, 60) + '...'
@@ -6163,21 +6163,14 @@
                     }
                 });
             }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -40px 0px'
+                threshold: 0.15,
+                rootMargin: '0px 0px -80px 0px'
             });
 
             revealElements.forEach(el => observer.observe(el));
 
             // Защитный таймаут: гарантирует видимость блоков
-            setTimeout(() => {
-                revealElements.forEach(el => {
-                    const rect = el.getBoundingClientRect();
-                    if (rect.top < window.innerHeight * 1.5) {
-                        el.classList.add('is-visible');
-                    }
-                });
-            }, 500);
+
         }
 
         /* ==========================================================================
@@ -6729,41 +6722,41 @@
             setSeasonTheme(natSeason, true);
 
             // Запрос погоды Красноуфимска
-            
-        const weatherPill = document.getElementById('weather-pill');
-        const weatherCard = document.getElementById('weather-details-card');
-        const btnCloseWeather = document.getElementById('btn-close-weather');
-        const btnRefreshWeather = document.getElementById('btn-refresh-weather');
 
-        if (weatherPill && weatherCard) {
-            weatherPill.addEventListener('click', function (e) {
-                e.stopPropagation();
-                weatherCard.classList.toggle('show');
-            });
-        }
-        if (btnCloseWeather && weatherCard) {
-            btnCloseWeather.addEventListener('click', function (e) {
-                e.stopPropagation();
-                weatherCard.classList.remove('show');
-            });
-        }
-        if (btnRefreshWeather) {
-            btnRefreshWeather.addEventListener('click', function (e) {
-                e.stopPropagation();
-                fetchKrasnoufimskWeather();
-            });
-        }
-        
-        // Закрытие карточки погоды при клике вне её
-        document.addEventListener('click', function (e) {
-            if (weatherCard && weatherCard.classList.contains('show')) {
-                if (!weatherCard.contains(e.target) && !weatherPill.contains(e.target)) {
-                    weatherCard.classList.remove('show');
-                }
+            const weatherPill = document.getElementById('weather-pill');
+            const weatherCard = document.getElementById('weather-details-card');
+            const btnCloseWeather = document.getElementById('btn-close-weather');
+            const btnRefreshWeather = document.getElementById('btn-refresh-weather');
+
+            if (weatherPill && weatherCard) {
+                weatherPill.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    weatherCard.classList.toggle('show');
+                });
             }
-        });
+            if (btnCloseWeather && weatherCard) {
+                btnCloseWeather.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    weatherCard.classList.remove('show');
+                });
+            }
+            if (btnRefreshWeather) {
+                btnRefreshWeather.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    fetchKrasnoufimskWeather();
+                });
+            }
 
-        fetchKrasnoufimskWeather();
+            // Закрытие карточки погоды при клике вне её
+            document.addEventListener('click', function (e) {
+                if (weatherCard && weatherCard.classList.contains('show')) {
+                    if (!weatherCard.contains(e.target) && !weatherPill.contains(e.target)) {
+                        weatherCard.classList.remove('show');
+                    }
+                }
+            });
+
+            fetchKrasnoufimskWeather();
         });
 
 
@@ -6901,47 +6894,53 @@
     </script>
 
     <style>
-    /* Mobile Polish - UX Improvements */
-    * {
-        -webkit-tap-highlight-color: transparent !important;
-    }
-    .filters-container, .attractions-grid, .quiz-options, .timeline, .gallery-grid {
-        -webkit-overflow-scrolling: touch !important;
-    }
-    body.modal-open {
-        overflow: hidden !important;
-        touch-action: none !important;
-    }
+        /* Mobile Polish - UX Improvements */
+        * {
+            -webkit-tap-highlight-color: transparent !important;
+        }
+
+        .filters-container,
+        .attractions-grid,
+        .quiz-options,
+        .timeline,
+        .gallery-grid {
+            -webkit-overflow-scrolling: touch !important;
+        }
+
+        body.modal-open {
+            overflow: hidden !important;
+            touch-action: none !important;
+        }
     </style>
     <script>
-    // Modal Scroll Bleed Protection
-    document.addEventListener('click', function(e) {
-        setTimeout(function() {
-            let isModalOpen = false;
-            
-            const weather = document.getElementById('weather-details-card');
-            if (weather && weather.classList.contains('show')) isModalOpen = true;
-            
-            const overlays = document.querySelectorAll('div');
-            for (let i = 0; i < overlays.length; i++) {
-                let m = overlays[i];
-                if (!m) continue;
-                const style = window.getComputedStyle(m);
-                if (style.position === 'fixed' && style.display !== 'none' && style.opacity !== '0' && style.zIndex > 100) {
-                    if (m.getBoundingClientRect().height >= window.innerHeight * 0.5) {
-                        isModalOpen = true;
-                        break;
+        // Modal Scroll Bleed Protection
+        document.addEventListener('click', function (e) {
+            setTimeout(function () {
+                let isModalOpen = false;
+
+                const weather = document.getElementById('weather-details-card');
+                if (weather && weather.classList.contains('show')) isModalOpen = true;
+
+                const overlays = document.querySelectorAll('div');
+                for (let i = 0; i < overlays.length; i++) {
+                    let m = overlays[i];
+                    if (!m) continue;
+                    const style = window.getComputedStyle(m);
+                    if (style.position === 'fixed' && style.display !== 'none' && style.opacity !== '0' && style.zIndex > 100) {
+                        if (m.getBoundingClientRect().height >= window.innerHeight * 0.5) {
+                            isModalOpen = true;
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (isModalOpen) {
-                document.body.classList.add('modal-open');
-            } else {
-                document.body.classList.remove('modal-open');
-            }
-        }, 50);
-    });
+                if (isModalOpen) {
+                    document.body.classList.add('modal-open');
+                } else {
+                    document.body.classList.remove('modal-open');
+                }
+            }, 50);
+        });
     </script>
 </body>
 
