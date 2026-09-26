@@ -25,8 +25,9 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Красноуфимск: Живая история — Интерактивный путеводитель">
     <meta property="og:description"
-        content="Интерактивное путешествие сквозь века: от пограничной казачьей крепости 1736 года до современности. 11 эпох, маршруты, виадуки и викторина.">
-    <meta property="og:image" content="images/ploschad.jpg">
+        content="Интерактивное путешествие сквозь века: от пограничной казачьей крепости 1736 года до современности. 21 эпоха, маршруты, виадуки и викторина.">
+    <meta property="og:url" content="https://dima76876.github.io/">
+    <meta property="og:image" content="https://dima76876.github.io/images/ploschad.jpg">
     <meta property="og:locale" content="ru_RU">
     <meta property="og:site_name" content="Красноуфимск: Живая история">
 
@@ -35,7 +36,7 @@
     <meta name="twitter:title" content="Красноуфимск: Живая история">
     <meta name="twitter:description"
         content="Интерактивный краеведческий путеводитель по старейшему историческому городу юга Свердловской области.">
-    <meta name="twitter:image" content="images/ploschad.jpg">
+    <meta name="twitter:image" content="https://dima76876.github.io/images/ploschad.jpg">
 
     <style>
         /* ==========================================================================
@@ -2008,10 +2009,13 @@
            [12. ПЛАВНОЕ ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ ПРИ СКРОЛЛЕ (REVEAL-ON-SCROLL)]
            ========================================================================== */
         .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(28px);
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
+        }
+        
+        .reveal-on-scroll.js-hidden {
+            opacity: 0;
+            transform: translateY(28px);
         }
 
         .reveal-on-scroll.is-visible {
@@ -3282,8 +3286,8 @@
             border: 2px solid rgba(255, 255, 255, 0.6); /* Обводка для заметности */
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            width: 44px;
-            height: 44px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -3536,7 +3540,7 @@
                     <span class="stat-label" data-i18n="statFounded">Год основания</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">11</span>
+                    <span class="stat-number">21</span>
                     <span class="stat-label" data-i18n="statEpochs">Ключевых эпох</span>
                 </div>
                 <div class="stat-item">
@@ -3921,10 +3925,8 @@
         <div class="footer-content">
             <div class="footer-logo" data-i18n="footerLogo">Красноуфимск: Живая история</div>
             <div class="footer-meta">
-                <span data-i18n="footerProject">Практико-ориентированный индивидуальный проект по информационным
-                    технологиям и краеведению.</span><br>
-                <strong data-i18n="footerAuthor">Автор:</strong> <span data-i18n="footerAuthorDesc">Ужегов Дмитрий,
-                    учащийся 10 класса (Технологический профиль).</span>
+                <span data-i18n="footerProject">Выполнен в ходе индивидуального проекта.</span><br>
+                <strong data-i18n="footerAuthor">Автор:</strong> <span data-i18n="footerAuthorDesc">Ужегов Дмитрий, учащийся 10А класса МАОУ СШ №3.</span>
             </div>
             <div class="footer-badges">
                 <span class="footer-chip">HTML5</span>
@@ -3964,7 +3966,7 @@
 
         const themeBtn = document.getElementById('theme-switch-btn');
         const themeIcon = document.getElementById('theme-icon');
-        const currentTheme = localStorage.getItem('kuf_theme') || 'light';
+        const currentTheme = localStorage.getItem('kuf_theme') || 'dark';
         if (currentTheme === 'dark') {
             document.body.classList.add('dark-theme');
             if (themeIcon) themeIcon.textContent = '☀️';
@@ -4076,9 +4078,9 @@
                 quizRestart: 'Пройти викторину заново',
                 quizDownloadCert: '📥 Скачать сертификат',
                 footerLogo: 'Красноуфимск: Живая история',
-                footerProject: 'Практико-ориентированный индивидуальный проект по информационным технологиям и краеведению.',
+                footerProject: 'Выполнен в ходе индивидуального проекта.',
                 footerAuthor: 'Автор:',
-                footerAuthorDesc: 'Ужегов Дмитрий, учащийся 10 класса (Технологический профиль).',
+                footerAuthorDesc: 'Ужегов Дмитрий, учащийся 10А класса МАОУ СШ №3.',
                 footerCopy: 'Красноуфимск • 2026 год. Разработано с гордостью за родной край.',
                 addressLabel: 'Адрес объекта',
                 btnMap: 'Показать на Яндекс.Картах',
@@ -4203,9 +4205,9 @@
                 quizDownloadCert: '📥 Download Certificate',
                 quizDownloadCert: '📥 Download Certificate',
                 footerLogo: 'Krasnoufimsk: Living History',
-                footerProject: 'Practical educational individual project in IT and regional local lore.',
+                footerProject: 'Completed as part of an individual school project.',
                 footerAuthor: 'Author:',
-                footerAuthorDesc: 'Dmitry Uzhegov, 10th grade student (Technology / IT profile).',
+                footerAuthorDesc: 'Dmitry Uzhegov, student of class 10A, MAOU Secondary School No. 3.',
                 footerCopy: 'Krasnoufimsk • 2026. Built with pride for our homeland.',
                 addressLabel: 'Location Address',
                 btnMap: 'Show on Yandex Maps',
@@ -5372,14 +5374,13 @@
             const descEl = document.getElementById('weather-card-desc');
             const timeEl = document.getElementById('weather-time');
 
-            // Координаты Красноуфимска
             const lat = 56.6167;
             const lon = 57.7667;
             const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=auto`;
 
             try {
                 const response = await fetch(url, { cache: 'no-store' });
-                if (!response.ok) throw new Error('Ошибка сети');
+                if (!response.ok) throw new Error('API Error');
                 const data = await response.json();
                 const cur = data.current;
 
@@ -5389,7 +5390,7 @@
                 const hum = cur.relative_humidity_2m;
                 const precip = cur.precipitation || 0;
                 const code = cur.weather_code;
-                const wmo = WMO_CODES[code] || { ru: 'Облачно', en: 'Cloudy', icon: '⛅' };
+                const wmo = WMO_CODES[code] || { ru: 'Облачно', en: 'Cloudy', icon: '☁️' };
 
                 if (iconEl) iconEl.textContent = wmo.icon;
                 if (tempEl) tempEl.textContent = (temp > 0 ? '+' : '') + temp + '°C';
@@ -5403,94 +5404,18 @@
                 const timeStr = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
                 if (timeEl) timeEl.textContent = `${i18n[currentLang].weatherUpdated} ${timeStr}`;
 
-                localStorage.setItem('kuf_weather_cache', JSON.stringify({ temp, feels, windMs, hum, precip, wmo, timeStr }));
             } catch (e) {
-                console.warn('Используем кэшированную погоду:', e);
-                const cached = localStorage.getItem('kuf_weather_cache');
-                if (cached) {
-                    try {
-                        const c = JSON.parse(cached);
-                        if (iconEl) iconEl.textContent = c.wmo.icon;
-                        if (tempEl) tempEl.textContent = (c.temp > 0 ? '+' : '') + c.temp + '°C';
-                        if (descEl) descEl.textContent = `${c.wmo.icon} else { 
-
-                    const curLangDict = i18n[currentLang] || i18n.ru;
-                    if (iconEl) iconEl.textContent = '❌';
-                    if (tempEl) tempEl.textContent = '--°C';
-                    if (descEl) descEl.textContent = curLangDict.weatherError || 'Ошибка загрузки';
-
-} ${c.wmo[currentLang]}, ${c.temp}°C`;
-                        if (feelsEl) feelsEl.textContent = c.feels + '°C';
-                        if (windEl) windEl.textContent = c.windMs + ' м/с';
-                        if (humEl) humEl.textContent = c.hum + '%';
-                        if (precipEl) precipEl.textContent = c.precip + ' мм';
-                        return;
-                    } catch (err) { }
-                }
-                if (tempEl) tempEl.textContent = '+17°C';
-                if (iconEl) iconEl.textContent = '🌤️';
+                console.warn('Weather fetch failed:', e);
+                const curLangDict = i18n[currentLang] || i18n.ru;
+                if (iconEl) iconEl.textContent = '❌';
+                if (tempEl) tempEl.textContent = '--°C';
+                if (descEl) descEl.textContent = curLangDict.weatherError || 'Ошибка загрузки';
+                if (feelsEl) feelsEl.textContent = '--°C';
+                if (windEl) windEl.textContent = '-- м/с';
+                if (humEl) humEl.textContent = '--%';
+                if (precipEl) precipEl.textContent = '-- мм';
             }
         }
-
-        // Открытие/закрытие карточки погоды по клику
-        const weatherPill = document.getElementById('weather-pill');
-        const weatherCard = document.getElementById('weather-details-card');
-        const btnRefreshWeather = document.getElementById('btn-refresh-weather');
-
-        if (weatherPill && weatherCard) {
-            weatherPill.addEventListener('click', function (e) {
-                e.stopPropagation();
-                weatherCard.classList.toggle('show');
-            });
-            const btnCloseWeather = document.getElementById('btn-close-weather');
-            if (btnCloseWeather) {
-                btnCloseWeather.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    weatherCard.classList.remove('show');
-                });
-            }
-            document.addEventListener('click', function (e) {
-                if (!weatherCard.contains(e.target) && !weatherPill.contains(e.target)) {
-                    weatherCard.classList.remove('show');
-                }
-            });
-        }
-
-        if (btnRefreshWeather) {
-            btnRefreshWeather.addEventListener('click', function (e) {
-                e.stopPropagation();
-                this.textContent = '⏳ ...';
-                fetchKrasnoufimskWeather().finally(() => {
-                    this.textContent = i18n[currentLang].weatherRefresh;
-                });
-            });
-        }
-
-        /* ==========================================================================
-           ФУНКЦИЯ [5]: УПРАВЛЕНИЕ СЕЗОНАМИ И ЦВЕТАМИ САЙТА
-           ========================================================================== */
-        const seasonInfo = {
-            winter: {
-                ru: { title: 'ЖИВАЯ ИСТОРИЯ ❄️', heading: 'Зимняя сказка на берегах реки Уфы' },
-                en: { title: 'LIVING HISTORY ❄️', heading: 'Winter Fairy Tale on the Banks of the Ufa' },
-                metaColor: '#0284c7'
-            },
-            spring: {
-                ru: { title: 'ЖИВАЯ ИСТОРИЯ 🌱', heading: 'Весеннее пробуждение города' },
-                en: { title: 'LIVING HISTORY 🌱', heading: 'Spring Awakening of the Historic Town' },
-                metaColor: '#16a34a'
-            },
-            summer: {
-                ru: { title: 'ЖИВАЯ ИСТОРИЯ ☀️', heading: 'Солнечное лето на берегах реки Уфы' },
-                en: { title: 'LIVING HISTORY ☀️', heading: 'Sunny Summer along the River Ufa' },
-                metaColor: '#0d9488'
-            },
-            autumn: {
-                ru: { title: 'ЖИВАЯ ИСТОРИЯ 🍂', heading: 'Золотая осень на берегах реки Уфы' },
-                en: { title: 'LIVING HISTORY 🍂', heading: 'Golden Autumn on the Banks of the River Ufa' },
-                metaColor: '#ea580c'
-            }
-        };
 
         function getNaturalSeason() {
             const m = new Date().getMonth();
@@ -5582,14 +5507,20 @@
             if (banner) banner.style.display = 'none';
         }
 
-        window.startQuizWithDifficulty = function(diff) {
+                window.startQuizWithDifficulty = function(diff) {
             const pool = quizDataMaster.filter(q => q.difficulty === diff);
-            const limit = diff === 'easy' ? 10 : (diff === 'medium' ? 15 : 20);
+            const limit = diff === 'easy' ? 10 : (diff === 'medium' ? 16 : 20); // set medium limit to 16 since there are 16 questions
             quizData = pool.sort(() => 0.5 - Math.random()).slice(0, limit);
             
-            // Перемешиваем варианты ответов внутри каждого вопроса
+            // Надежно перемешиваем варианты ответов (Fisher-Yates)
             quizData.forEach(q => {
-                q.options.sort(() => 0.5 - Math.random());
+                // Создаем глубокую копию опций, чтобы не портить оригинал при рестартах
+                const optionsCopy = JSON.parse(JSON.stringify(q.options));
+                for (let i = optionsCopy.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [optionsCopy[i], optionsCopy[j]] = [optionsCopy[j], optionsCopy[i]];
+                }
+                q.shuffledOptions = optionsCopy;
             });
             
             renderQuiz();
@@ -5626,7 +5557,7 @@
                         <span>${qItem.q[currentLang]}</span>
                     </div>
                     <div class="options-list">
-                        ${qItem.options.map(opt => `
+                        ${(qItem.shuffledOptions || qItem.options).map(opt => `
                             <button class="option-btn ${answered && opt.correct ? 'correct' : ''} ${answered && quizAnswers[qNum] === false && !opt.correct ? '' : ''}" 
                                     onclick="checkAnswer(this, ${opt.correct}, ${qNum})" 
                                     ${answered ? 'disabled' : ''}>
@@ -5760,8 +5691,7 @@
             }
 
             // Показываем все вопросы свёрнуто
-            const quizContainer = document.getElementById('quiz-container');
-            if (quizContainer) quizContainer.innerHTML = '';
+            // Removed innerHTML wipe to prevent mobile scroll jump
         }
         function showQuizResults() {
             const banner = document.getElementById('quiz-results');
