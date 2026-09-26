@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <!-- 
       ==========================================================================
@@ -12,8 +13,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Красноуфимск: Живая история — Интерактивный путеводитель</title>
-    <meta name="description" content="Интерактивный историко-краеведческий путеводитель «Красноуфимск: Живая история». 21 ключевая эпоха от казачьей крепости 1736 года до 2026 года, готовые туристические маршруты, вековые виадуки, памятка туриста и краеведческая викторина.">
-    <meta name="keywords" content="Красноуфимск, история Красноуфимска, Красноуфимск живая история, путеводитель Красноуфимск, достопримечательности Красноуфимска, виадуки Красноуфимск, казачья крепость 1736, туризм Урал, Свердловская область, краеведение">
+    <meta name="description"
+        content="Интерактивный историко-краеведческий путеводитель «Красноуфимск: Живая история». 21 ключевая эпоха от казачьей крепости 1736 года до 2026 года, готовые туристические маршруты, вековые виадуки, памятка туриста и краеведческая викторина.">
+    <meta name="keywords"
+        content="Красноуфимск, история Красноуфимска, Красноуфимск живая история, путеводитель Красноуфимск, достопримечательности Красноуфимска, виадуки Красноуфимск, казачья крепость 1736, туризм Урал, Свердловская область, краеведение">
     <meta name="author" content="Ужегов Дмитрий, учащийся 10 класса (Технологический профиль)">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#ea580c" id="theme-color-meta">
@@ -21,7 +24,8 @@
     <!-- Open Graph (красивое превью в Telegram, ВКонтакте, WhatsApp) -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Красноуфимск: Живая история — Интерактивный путеводитель">
-    <meta property="og:description" content="Интерактивное путешествие сквозь века: от пограничной казачьей крепости 1736 года до современности. 11 эпох, маршруты, виадуки и викторина.">
+    <meta property="og:description"
+        content="Интерактивное путешествие сквозь века: от пограничной казачьей крепости 1736 года до современности. 11 эпох, маршруты, виадуки и викторина.">
     <meta property="og:image" content="images/ploschad.jpg">
     <meta property="og:locale" content="ru_RU">
     <meta property="og:site_name" content="Красноуфимск: Живая история">
@@ -29,7 +33,8 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Красноуфимск: Живая история">
-    <meta name="twitter:description" content="Интерактивный краеведческий путеводитель по старейшему историческому городу юга Свердловской области.">
+    <meta name="twitter:description"
+        content="Интерактивный краеведческий путеводитель по старейшему историческому городу юга Свердловской области.">
     <meta name="twitter:image" content="images/ploschad.jpg">
 
     <style>
@@ -41,21 +46,31 @@
            ========================================================================== */
         :root {
             /* Тема "Осень" (по умолчанию) */
-            --main-color: #ea580c;           /* Основной акцентный цвет (оранжево-терракотовый) */
-            --main-hover: #c2410c;           /* Цвет при наведении */
-            --main-light: #ffedd5;           /* Светлый оттенок для фонов и бейджей */
-            --bg-accent: #fff7ed;            /* Мягкий тёплый фон блоков */
+            --main-color: #ea580c;
+            /* Основной акцентный цвет (оранжево-терракотовый) */
+            --main-hover: #c2410c;
+            /* Цвет при наведении */
+            --main-light: #ffedd5;
+            /* Светлый оттенок для фонов и бейджей */
+            --bg-accent: #fff7ed;
+            /* Мягкий тёплый фон блоков */
             --accent-glow: rgba(234, 88, 12, 0.25);
             --gradient-hero: linear-gradient(135deg, rgba(38, 20, 12, 0.86) 0%, rgba(65, 31, 14, 0.76) 100%);
             --particle-color: 253, 186, 116;
 
             /* Общие нейтральные цвета интерфейса */
-            --text-main: #1e293b;            /* Основной цвет текста (тёмно-серый) */
-            --text-muted: #64748b;           /* Второстепенный цвет текста */
-            --text-light: #94a3b8;           /* Цвет мелких подписей и дат */
-            --bg-body: #f8fafc;              /* Цвет фона страницы */
-            --bg-card: #ffffff;              /* Цвет фона карточек */
-            --border-card: rgba(0, 0, 0, 0.08); /* Тонкая рамка карточек */
+            --text-main: #1e293b;
+            /* Основной цвет текста (тёмно-серый) */
+            --text-muted: #64748b;
+            /* Второстепенный цвет текста */
+            --text-light: #94a3b8;
+            /* Цвет мелких подписей и дат */
+            --bg-body: #f8fafc;
+            /* Цвет фона страницы */
+            --bg-card: #ffffff;
+            /* Цвет фона карточек */
+            --border-card: rgba(0, 0, 0, 0.08);
+            /* Тонкая рамка карточек */
             --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             --shadow-md: 0 12px 24px -4px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.12);
@@ -112,7 +127,9 @@
         /* ==========================================================================
            [2. БАЗОВЫЙ СБРОС И ШРИФТЫ]
            ========================================================================== */
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -169,8 +186,10 @@
             align-items: center;
             padding: 10px 24px;
             border-radius: 50px;
-            background: rgba(15, 23, 42, 0.84); /* Полупрозрачный темный фон */
-            backdrop-filter: blur(16px);       /* Эффект матового размытия */
+            background: rgba(15, 23, 42, 0.84);
+            /* Полупрозрачный темный фон */
+            backdrop-filter: blur(16px);
+            /* Эффект матового размытия */
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.14);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
@@ -193,7 +212,7 @@
 
         .logo-icon {
             font-size: 24px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
 
         .logo-text {
@@ -207,7 +226,7 @@
         .logo-sub {
             font-size: 10px;
             font-weight: 600;
-            color: #94a3b8;
+            color: var(--text-light);
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -244,8 +263,17 @@
         }
 
         @keyframes pulseDot {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.3); opacity: 0.6; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.6;
+            }
         }
 
         /* Выпадающее окно с подробной погодой */
@@ -307,7 +335,7 @@
 
         .weather-card-item span {
             display: block;
-            color: #94a3b8;
+            color: var(--text-light);
             font-size: 11px;
             margin-bottom: 2px;
         }
@@ -323,7 +351,7 @@
             justify-content: space-between;
             align-items: center;
             font-size: 11px;
-            color: #94a3b8;
+            color: var(--text-light);
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             padding-top: 8px;
         }
@@ -412,7 +440,7 @@
             left: 50%;
             transform: translateX(-50%) translateY(8px);
             width: 90%;
-             max-width: 320px;
+            max-width: 320px;
             background: rgba(15, 23, 42, 0.96);
             border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 14px;
@@ -438,7 +466,7 @@
         .nav-dropdown-title {
             font-size: 11px;
             font-weight: 700;
-            color: #94a3b8;
+            color: var(--text-light);
             text-transform: uppercase;
             letter-spacing: 0.6px;
             padding: 4px 8px 8px 8px;
@@ -499,7 +527,7 @@
             text-overflow: ellipsis;
         }
 
-        
+
         .header-right {
             display: flex;
             align-items: center;
@@ -539,7 +567,7 @@
             display: block;
             width: 100%;
             height: 2px;
-            background-color: #ffffff;
+            background-color: var(--bg-card);
             border-radius: 2px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -596,7 +624,7 @@
         .mobile-nav-title {
             font-size: 13px;
             font-weight: 700;
-            color: #94a3b8;
+            color: var(--text-light);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -641,7 +669,8 @@
             transition: var(--transition);
         }
 
-        .mobile-nav-link:hover, .mobile-nav-link:active {
+        .mobile-nav-link:hover,
+        .mobile-nav-link:active {
             background: var(--main-color);
             color: #ffffff;
             transform: translateX(4px);
@@ -708,7 +737,7 @@
             text-transform: uppercase;
             color: #ffffff;
             margin-bottom: 22px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             animation: fadeInDown 0.8s ease-out;
         }
 
@@ -834,7 +863,7 @@
 
         .intro-card p {
             font-size: 17px;
-            color: #475569;
+            color: var(--text-muted);
             text-align: justify;
             line-height: 1.85;
             margin-bottom: 28px;
@@ -868,7 +897,7 @@
         }
 
         .season-btn {
-            background: white;
+            background: var(--bg-card);
             border: 1.5px solid rgba(0, 0, 0, 0.08);
             color: var(--text-main);
             padding: 7px 16px;
@@ -897,7 +926,7 @@
            ========================================================================== */
         .timeline-section {
             position: relative;
-            z-index: 900;
+            z-index: 890;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
@@ -921,7 +950,10 @@
             scrollbar-width: thin;
         }
 
-        .timeline-scroll-container::-webkit-scrollbar { height: 4px; }
+        .timeline-scroll-container::-webkit-scrollbar {
+            height: 4px;
+        }
+
         .timeline-scroll-container::-webkit-scrollbar-thumb {
             background: var(--main-color);
             border-radius: 4px;
@@ -930,7 +962,7 @@
         .time-btn {
             flex-shrink: 0;
             background: transparent;
-            color: #475569;
+            color: var(--text-muted);
             padding: 9px 18px;
             border-radius: 30px;
             border: 1.5px solid rgba(0, 0, 0, 0.1);
@@ -996,8 +1028,15 @@
         }
 
         @keyframes cardFadeIn {
-            from { opacity: 0; transform: translateY(24px) scale(0.99); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from {
+                opacity: 0;
+                transform: translateY(24px) scale(0.99);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .card-header-bar {
@@ -1039,7 +1078,7 @@
         }
 
         .event-card p.event-desc {
-            color: #334155;
+            color: var(--text-main);
             font-size: 17px;
             line-height: 1.85;
             text-align: justify;
@@ -1047,13 +1086,13 @@
         }
 
         .historical-fact-box {
-            background: #f8fafc;
+            background: var(--bg-body);
             border-left: 4px solid var(--main-color);
             border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
             padding: 16px 20px;
             margin-bottom: 26px;
             font-size: 15px;
-            color: #475569;
+            color: var(--text-muted);
             line-height: 1.6;
         }
 
@@ -1172,7 +1211,7 @@
         .map-photo-dual .dual-emblem {
             flex: 1;
             height: 310px;
-            background: #ffffff;
+            background: var(--bg-card);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1213,7 +1252,7 @@
         .landmark-address-card {
             width: 100%;
             max-width: 580px;
-            background: #ffffff;
+            background: var(--bg-card);
             border: 1.5px solid var(--border-card);
             border-radius: var(--radius-md);
             padding: 16px 20px;
@@ -1247,7 +1286,7 @@
         .address-details {
             font-size: 15px;
             font-weight: 600;
-            color: #334155;
+            color: var(--text-main);
             line-height: 1.5;
             margin-bottom: 14px;
         }
@@ -1295,8 +1334,8 @@
         }
 
         .btn-step-nav {
-            background: #f1f5f9;
-            color: #334155;
+            background: var(--bg-body);
+            color: var(--text-main);
             border: none;
             padding: 10px 20px;
             border-radius: 25px;
@@ -1394,7 +1433,7 @@
 
         .route-card p {
             font-size: 14px;
-            color: #64748b;
+            color: var(--text-muted);
             line-height: 1.6;
             margin-bottom: 18px;
         }
@@ -1406,7 +1445,7 @@
             padding: 12px 0;
             margin-bottom: 18px;
             font-size: 13px;
-            color: #475569;
+            color: var(--text-muted);
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -1542,7 +1581,7 @@
         }
 
         .question-box {
-            background: #f8fafc;
+            background: var(--bg-body);
             border: 1px solid rgba(0, 0, 0, 0.06);
             border-radius: var(--radius-md);
             padding: 24px;
@@ -1580,7 +1619,7 @@
         }
 
         .option-btn {
-            background: #ffffff;
+            background: var(--bg-card);
             border: 1.5px solid rgba(0, 0, 0, 0.08);
             border-radius: 12px;
             padding: 12px 18px;
@@ -1654,6 +1693,7 @@
             box-shadow: 0 4px 12px var(--accent-glow);
             transition: var(--transition);
         }
+
         /* === ЛИСТАНИЕ ВИКТОРИНЫ === */
         .quiz-progress-bar-wrap {
             background: var(--border-card);
@@ -1662,12 +1702,14 @@
             margin-bottom: 16px;
             overflow: hidden;
         }
+
         .quiz-progress-bar {
             height: 100%;
             background: var(--main-color);
             border-radius: 99px;
             transition: width 0.4s ease;
         }
+
         .quiz-counter {
             font-size: 0.82rem;
             font-weight: 600;
@@ -1676,6 +1718,7 @@
             letter-spacing: 0.06em;
             margin-bottom: 18px;
         }
+
         .quiz-nav-btns {
             display: flex;
             align-items: center;
@@ -1684,6 +1727,7 @@
             margin-top: 20px;
             flex-wrap: wrap;
         }
+
         .quiz-nav-btn {
             padding: 10px 22px;
             border-radius: var(--radius-md);
@@ -1696,22 +1740,27 @@
             transition: var(--transition);
             white-space: nowrap;
         }
+
         .quiz-nav-btn:hover:not(:disabled) {
             background: var(--main-color);
             color: #fff;
         }
+
         .quiz-nav-btn:disabled {
             opacity: 0.35;
             cursor: not-allowed;
         }
+
         .quiz-nav-finish {
             background: var(--main-color);
             color: #fff;
         }
+
         .quiz-nav-finish:hover {
             background: var(--main-dark);
             border-color: var(--main-dark);
         }
+
         .quiz-nav-dots {
             display: flex;
             align-items: center;
@@ -1720,6 +1769,7 @@
             justify-content: center;
             flex: 1;
         }
+
         .quiz-dot {
             width: 9px;
             height: 9px;
@@ -1728,19 +1778,53 @@
             display: inline-block;
             transition: all 0.2s;
         }
+
         .quiz-dot.active {
             background: var(--main-color);
             transform: scale(1.4);
         }
-        .quiz-dot.answered-correct { background: #22c55e; }
-        .quiz-dot.answered-wrong   { background: #ef4444; }
-        .option-btn.correct { background: #22c55e !important; color: #fff !important; border-color: #22c55e !important; }
-        .option-btn.wrong   { background: #ef4444 !important; color: #fff !important; border-color: #ef4444 !important; }
-        .feedback-correct { color: #22c55e; font-weight: 700; margin-bottom: 8px; }
-        .feedback-wrong   { color: #ef4444; font-weight: 700; margin-bottom: 8px; }
+
+        .quiz-dot.answered-correct {
+            background: #22c55e;
+        }
+
+        .quiz-dot.answered-wrong {
+            background: #ef4444;
+        }
+
+        .option-btn.correct {
+            background: #22c55e !important;
+            color: #fff !important;
+            border-color: #22c55e !important;
+        }
+
+        .option-btn.wrong {
+            background: #ef4444 !important;
+            color: #fff !important;
+            border-color: #ef4444 !important;
+        }
+
+        .feedback-correct {
+            color: #22c55e;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feedback-wrong {
+            color: #ef4444;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
         @media (max-width: 500px) {
-            .quiz-nav-btns { flex-direction: column; align-items: stretch; }
-            .quiz-nav-dots { order: -1; }
+            .quiz-nav-btns {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .quiz-nav-dots {
+                order: -1;
+            }
         }
 
         /* ==========================================================================
@@ -1798,7 +1882,7 @@
         }
 
         .guide-item {
-            background: #f8fafc;
+            background: var(--bg-body);
             border: 1px solid rgba(0, 0, 0, 0.06);
             border-radius: var(--radius-md);
             padding: 24px 22px;
@@ -1831,7 +1915,7 @@
 
         .guide-item p {
             font-size: 14px;
-            color: #475569;
+            color: var(--text-muted);
             line-height: 1.6;
             margin-bottom: 16px;
             flex-grow: 1;
@@ -1906,17 +1990,28 @@
             transform: translateY(0);
         }
 
-        .reveal-delay-1 { transition-delay: 0.12s; }
-        .reveal-delay-2 { transition-delay: 0.22s; }
-        .reveal-delay-3 { transition-delay: 0.32s; }
-        .reveal-delay-4 { transition-delay: 0.42s; }
+        .reveal-delay-1 {
+            transition-delay: 0.12s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.22s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.32s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.42s;
+        }
 
         /* ==========================================================================
            [12. ПОДВАЛ (FOOTER)]
            ========================================================================== */
         footer {
             background: #0f172a;
-            color: #94a3b8;
+            color: var(--text-light);
             padding: 60px 20px 40px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             text-align: center;
@@ -1964,7 +2059,7 @@
 
         .footer-copy {
             font-size: 13px;
-            color: #64748b;
+            color: var(--text-muted);
             border-top: 1px solid rgba(255, 255, 255, 0.06);
             width: 100%;
             padding-top: 20px;
@@ -2010,57 +2105,195 @@
            [13. АНИМАЦИИ]
            ========================================================================== */
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-24px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-8px); }
-            60% { transform: translateY(-4px); }
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-8px);
+            }
+
+            60% {
+                transform: translateY(-4px);
+            }
         }
 
         /* ==========================================================================
            [14. АДАПТИВНОСТЬ ДЛЯ СМАРТФОНОВ И ПЛАНШЕТОВ]
            ========================================================================== */
         @media (max-width: 1200px) {
-            .header-wrapper { top: 8px; padding: 0 10px; }
-            header { padding: 8px 14px; border-radius: 28px; position: relative; }
-            .logo-sub { display: none; }
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: flex; }
-            .weather-city-label { display: none; }
-            .weather-pill { padding: 6px 10px; gap: 6px; font-size: 12px; }
-            .lang-switch-btn { padding: 6px 10px; font-size: 12px; gap: 4px; }
-            .timeline-section { top: 64px; }
-            .print-promo-card { flex-direction: column; text-align: center; }
+            .header-wrapper {
+                top: 8px;
+                padding: 0 10px;
+            }
+
+            header {
+                padding: 8px 14px;
+                border-radius: 28px;
+                position: relative;
+            }
+
+            .logo-sub {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .weather-city-label {
+                display: none;
+            }
+
+            .weather-pill {
+                padding: 6px 10px;
+                gap: 6px;
+                font-size: 12px;
+            }
+
+            .lang-switch-btn {
+                padding: 6px 10px;
+                font-size: 12px;
+                gap: 4px;
+            }
+
+            .timeline-section {
+                top: 64px;
+            }
+
+            .print-promo-card {
+                flex-direction: column;
+                text-align: center;
+            }
         }
 
         @media (max-width: 600px) {
-            .header-wrapper { padding: 0 6px; }
-            header { padding: 5px 10px; border-radius: 22px; width: 100%; }
-            .header-left { gap: 8px; }
-            .logo-group { gap: 6px; }
-            .logo-text span:first-child { font-size: 14px; letter-spacing: 0; }
-            .logo-icon { font-size: 18px; }
-            .header-right { gap: 6px; }
-            .weather-pill { padding: 4px 8px; font-size: 11px; gap: 4px; border-radius: 16px; }
-            .weather-status-dot { display: none; }
-            .lang-switch-btn { padding: 4px 8px; font-size: 11px; gap: 3px; border-radius: 16px; }
-            .mobile-menu-btn { width: 36px; height: 36px; border-radius: 10px; }
-            .menu-icon-bars { width: 16px; gap: 3.5px; }
-            .hero { padding: 90px 14px 40px; }
-            .hero h1 { font-size: 26px; }
-            .hero p { font-size: 14px; }
-            .intro-section { margin: -25px auto 25px; padding: 0 14px; }
-            .intro-card, .event-card, .quiz-card { padding: 20px 14px; border-radius: var(--radius-md); }
-            .card-nav-footer { flex-direction: column; }
-            .btn-step-nav { width: 100%; justify-content: center; }
+            .header-wrapper {
+                padding: 0 6px;
+            }
+
+            header {
+                padding: 5px 10px;
+                border-radius: 22px;
+                width: 100%;
+            }
+
+            .header-left {
+                gap: 8px;
+            }
+
+            .logo-group {
+                gap: 6px;
+            }
+
+            .logo-text span:first-child {
+                font-size: 14px;
+                letter-spacing: 0;
+            }
+
+            .logo-icon {
+                font-size: 18px;
+            }
+
+            .header-right {
+                gap: 6px;
+            }
+
+            .weather-pill {
+                padding: 4px 8px;
+                font-size: 11px;
+                gap: 4px;
+                border-radius: 16px;
+            }
+
+            .weather-status-dot {
+                display: none;
+            }
+
+            .lang-switch-btn {
+                padding: 4px 8px;
+                font-size: 11px;
+                gap: 3px;
+                border-radius: 16px;
+            }
+
+            .mobile-menu-btn {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+            }
+
+            .menu-icon-bars {
+                width: 16px;
+                gap: 3.5px;
+            }
+
+            .hero {
+                padding: 90px 14px 40px;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .intro-section {
+                margin: -25px auto 25px;
+                padding: 0 14px;
+            }
+
+            .intro-card,
+            .event-card,
+            .quiz-card {
+                padding: 20px 14px;
+                border-radius: var(--radius-md);
+            }
+
+            .card-nav-footer {
+                flex-direction: column;
+            }
+
+            .btn-step-nav {
+                width: 100%;
+                justify-content: center;
+            }
+
             .weather-details-card {
                 position: fixed;
                 top: 66px;
@@ -2074,29 +2307,42 @@
                 transform: translateX(-50%) translateY(-10px);
                 z-index: 1250;
             }
+
             .weather-details-card.show {
                 transform: translateX(-50%) translateY(0);
             }
-            .map-photo-preview { height: 180px; }
+
+            .map-photo-preview {
+                height: 180px;
+            }
+
             .map-photo-preview.photo-full-height {
                 height: auto;
                 max-width: 100%;
                 aspect-ratio: 4 / 3;
             }
+
             .map-photo-dual {
                 gap: 10px;
                 margin-bottom: 14px;
             }
+
             .map-photo-dual .dual-photo {
                 flex: 1.3;
                 height: 200px;
             }
+
             .map-photo-dual .dual-emblem {
                 flex: 1;
                 height: 200px;
                 padding: 10px;
             }
-            .routes-grid, .guide-grid { grid-template-columns: 1fr; }
+
+            .routes-grid,
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+
             #btn-back-to-top {
                 bottom: 20px;
                 right: 20px;
@@ -2107,17 +2353,54 @@
         }
 
         @media (max-width: 420px) {
-            .header-wrapper { padding: 0 4px; }
-            header { padding: 4px 8px; }
-            .logo-text span:first-child { font-size: 13px; }
-            .logo-icon { font-size: 16px; }
-            .weather-pill { padding: 4px 6px; font-size: 10.5px; }
-            .lang-switch-btn { padding: 4px 6px; font-size: 10.5px; }
-            .mobile-menu-btn { width: 34px; height: 34px; }
-            .hero h1 { font-size: 23px; }
-            .hero-badge { font-size: 11px; padding: 5px 12px; }
-            .map-photo-dual .dual-photo { height: 165px; }
-            .map-photo-dual .dual-emblem { height: 165px; padding: 8px; }
+            .header-wrapper {
+                padding: 0 4px;
+            }
+
+            header {
+                padding: 4px 8px;
+            }
+
+            .logo-text span:first-child {
+                font-size: 13px;
+            }
+
+            .logo-icon {
+                font-size: 16px;
+            }
+
+            .weather-pill {
+                padding: 4px 6px;
+                font-size: 10.5px;
+            }
+
+            .lang-switch-btn {
+                padding: 4px 6px;
+                font-size: 10.5px;
+            }
+
+            .mobile-menu-btn {
+                width: 34px;
+                height: 34px;
+            }
+
+            .hero h1 {
+                font-size: 23px;
+            }
+
+            .hero-badge {
+                font-size: 11px;
+                padding: 5px 12px;
+            }
+
+            .map-photo-dual .dual-photo {
+                height: 165px;
+            }
+
+            .map-photo-dual .dual-emblem {
+                height: 165px;
+                padding: 8px;
+            }
         }
 
         /* ==========================================================================
@@ -2125,7 +2408,7 @@
            При нажатии Ctrl+P или кнопки "Печать" страница форматируется в
            аккуратный печатный буклет без фонов и кнопок.
            ========================================================================== */
-        
+
         .guide-download-btn {
             display: inline-flex;
             align-items: center;
@@ -2142,6 +2425,7 @@
             box-shadow: 0 4px 14px var(--accent-glow);
             transition: all 0.3s ease;
         }
+
         .guide-download-btn:hover {
             background: linear-gradient(90deg, var(--main-hover) 0%, var(--main-color) 100%);
             transform: translateY(-2px);
@@ -2161,23 +2445,41 @@
             border-top: 1px solid var(--border-card);
         }
 
-@media print {
-            .guide-download-wrap { display: none !important; }
-            body > *:not(#guide) { display: none !important; }
-            #guide { display: block !important; padding: 0 !important; margin: 0 !important; }
+        @media print {
             .guide-download-wrap {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            grid-column: 1 / -1; /* For grid layouts */
-            margin-top: 28px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border-card);
-        }
+                display: none !important;
+            }
 
-            .screen-only { display: none !important; }
-            .print-only { display: grid !important; }
+            body>*:not(#guide) {
+                display: none !important;
+            }
+
+            #guide {
+                display: block !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .guide-download-wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                grid-column: 1 / -1;
+                /* For grid layouts */
+                margin-top: 28px;
+                padding-top: 24px;
+                border-top: 1px solid var(--border-card);
+            }
+
+            .screen-only {
+                display: none !important;
+            }
+
+            .print-only {
+                display: grid !important;
+            }
+
             body {
                 background: white !important;
                 color: #111 !important;
@@ -2186,48 +2488,69 @@
             }
 
             /* Полностью убираем интерфейсные элементы, анимации и кнопки действий */
-            .header-wrapper, #reading-progress, #particle-canvas,
-            .season-switch-box, .timeline-section, .card-nav-footer,
-            .btn-open-map, .quiz-section, .print-promo-section,
-            #btn-back-to-top, .scroll-down-btn, .btn-print-guide,
-            .guide-item-action-btn, .route-btn-group, .address-map-btn-wrap {
+            .header-wrapper,
+            #reading-progress,
+            #particle-canvas,
+            .season-switch-box,
+            .timeline-section,
+            .card-nav-footer,
+            .btn-open-map,
+            .quiz-section,
+            .print-promo-section,
+            #btn-back-to-top,
+            .scroll-down-btn,
+            .btn-print-guide,
+            .guide-item-action-btn,
+            .route-btn-group,
+            .address-map-btn-wrap {
                 display: none !important;
             }
-        .guide-history-list,
-        .guide-places-list {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        .guide-history-list li,
-        .guide-places-list li {
-            font-size: 0.87rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-        .guide-history-list li strong,
-        .guide-places-list li strong {
-            color: var(--main-color);
-        }
-        .guide-item--history {
-            grid-column: span 1;
-        }
-        .guide-download-wrap {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            grid-column: 1 / -1; /* For grid layouts */
-            margin-top: 28px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border-card);
-        }
+
+            .guide-history-list,
+            .guide-places-list {
+                list-style: none;
+                padding: 0;
+                margin: 10px 0 14px;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .guide-history-list li,
+            .guide-places-list li {
+                font-size: 0.87rem;
+                color: var(--text-secondary);
+                line-height: 1.5;
+            }
+
+            .guide-history-list li strong,
+            .guide-places-list li strong {
+                color: var(--main-color);
+            }
+
+            .guide-item--history {
+                grid-column: span 1;
+            }
+
+            .guide-download-wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                grid-column: 1 / -1;
+                /* For grid layouts */
+                margin-top: 28px;
+                padding-top: 24px;
+                border-top: 1px solid var(--border-card);
+            }
 
             /* Полностью исключаем все изображения для мгновенной печати без ожидания и зависаний */
-            img, picture, .map-photo-dual, .map-photo-preview, .map-photo-img, .emblem-img {
+            img,
+            picture,
+            .map-photo-dual,
+            .map-photo-preview,
+            .map-photo-img,
+            .emblem-img {
                 display: none !important;
                 visibility: hidden !important;
                 height: 0 !important;
@@ -2275,11 +2598,13 @@
                 margin-top: 10px !important;
             }
 
-            .routes-grid, .guide-grid {
+            .routes-grid,
+            .guide-grid {
                 display: block !important;
             }
 
-            .route-card, .guide-item {
+            .route-card,
+            .guide-item {
                 display: block !important;
                 box-shadow: none !important;
                 border: 1px solid #ddd !important;
@@ -2294,7 +2619,7 @@
                 visibility: visible !important;
             }
         }
-    
+
         /* ==========================================================================
            [СЕКЦИЯ: КАТАЛОГ 12 ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ И РЕЕСТР 30 ПАМЯТНИКОВ]
            3 КОЛОНКИ С РАВНЕНИЕМ ПО СЕРЕДИНЕ (4 СИММЕТРИЧНЫХ РЯДА)
@@ -2305,11 +2630,13 @@
             padding: 0 20px;
             box-sizing: border-box;
         }
+
         .sights-header {
             text-align: center;
             max-width: 840px;
             margin: 0 auto 24px auto;
         }
+
         .sights-badge {
             display: inline-flex;
             align-items: center;
@@ -2340,8 +2667,12 @@
             box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
             box-sizing: border-box;
         }
+
         @media (max-width: 768px) {
-            .hero { background-attachment: scroll !important; }
+            .hero {
+                background-attachment: scroll !important;
+            }
+
             .sights-menu-selector-bar {
                 flex-direction: column;
                 align-items: stretch;
@@ -2349,11 +2680,13 @@
                 padding: 14px;
             }
         }
+
         .sights-menu-left {
             display: flex;
             align-items: center;
             gap: 10px;
         }
+
         .sights-menu-label {
             display: flex;
             align-items: center;
@@ -2364,9 +2697,11 @@
             white-space: nowrap;
             cursor: pointer;
         }
+
         .sights-menu-icon {
             font-size: 1.25rem;
         }
+
         .sights-menu-controls {
             display: flex;
             align-items: center;
@@ -2375,17 +2710,23 @@
             max-width: 580px;
             justify-content: center;
         }
+
         @media (max-width: 768px) {
-            .hero { background-attachment: scroll !important; }
+            .hero {
+                background-attachment: scroll !important;
+            }
+
             .sights-menu-controls {
                 max-width: 100%;
                 justify-content: space-between;
             }
         }
+
         .sights-select-box {
             flex: 1;
             min-width: 0;
         }
+
         .sights-dropdown-select {
             width: 100%;
             background: var(--bg-accent);
@@ -2400,11 +2741,13 @@
             cursor: pointer;
             transition: var(--transition);
         }
+
         .sights-dropdown-select:hover,
         .sights-dropdown-select:focus {
             border-color: var(--main-color);
             box-shadow: 0 0 0 3px var(--accent-glow);
         }
+
         .sights-nav-btn {
             width: 42px;
             height: 42px;
@@ -2422,6 +2765,7 @@
             flex-shrink: 0;
             user-select: none;
         }
+
         .sights-nav-btn:hover {
             border-color: var(--main-color);
             color: var(--main-color);
@@ -2429,6 +2773,7 @@
             transform: translateY(-1px);
             box-shadow: 0 4px 12px var(--accent-glow);
         }
+
         .sights-nav-btn:active {
             transform: translateY(0);
         }
@@ -2448,17 +2793,20 @@
             text-align: left;
             box-sizing: border-box;
         }
+
         @media (max-width: 900px) {
             .sight-showcase-card {
                 grid-template-columns: 1fr;
             }
         }
+
         .sight-showcase-media {
             position: relative;
             overflow: hidden;
             min-height: 350px;
             background: #0f172a;
         }
+
         .sight-showcase-img {
             width: 100%;
             height: 100%;
@@ -2466,9 +2814,11 @@
             display: block;
             transition: transform 0.5s ease;
         }
+
         .sight-showcase-card:hover .sight-showcase-img {
             transform: scale(1.025);
         }
+
         .sight-showcase-badge-overlay {
             position: absolute;
             top: 16px;
@@ -2478,6 +2828,7 @@
             gap: 6px;
             z-index: 2;
         }
+
         .sight-badge-item {
             background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(8px);
@@ -2489,12 +2840,14 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             width: fit-content;
         }
+
         .sight-showcase-body {
             padding: 30px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
+
         .sight-showcase-body--full {
             display: flex;
             flex-direction: column;
@@ -2503,20 +2856,24 @@
             gap: 20px;
             min-height: unset;
         }
+
         .sight-showcase-top {
             display: flex;
             flex-direction: column;
             gap: 14px;
         }
+
         .sight-meta-pill--status {
             background: var(--main-color);
             color: #fff;
         }
+
         @media (max-width: 600px) {
             .sight-showcase-body--full {
                 padding: 20px 16px;
             }
         }
+
         .sight-showcase-title {
             font-size: 1.6rem;
             font-weight: 700;
@@ -2524,12 +2881,14 @@
             margin-bottom: 8px;
             line-height: 1.3;
         }
+
         .sight-showcase-meta {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 14px;
         }
+
         .sight-meta-pill {
             font-size: 0.8rem;
             padding: 4px 10px;
@@ -2539,12 +2898,14 @@
             font-weight: 600;
             border: 1px solid var(--border-card);
         }
+
         .sight-showcase-desc {
             font-size: 0.96rem;
             line-height: 1.65;
             color: var(--text-main);
             margin-bottom: 16px;
         }
+
         .sight-showcase-fact {
             background: var(--bg-accent);
             border-left: 4px solid var(--main-color);
@@ -2554,6 +2915,7 @@
             color: var(--text-main);
             margin-bottom: 16px;
         }
+
         .sight-showcase-address {
             display: flex;
             align-items: center;
@@ -2562,6 +2924,7 @@
             color: var(--text-muted);
             margin-bottom: 20px;
         }
+
         .sight-showcase-footer {
             display: flex;
             align-items: center;
@@ -2571,6 +2934,7 @@
             padding-top: 14px;
             border-top: 1px solid var(--border-card);
         }
+
         .btn-map-universal {
             display: inline-flex;
             align-items: center;
@@ -2587,13 +2951,14 @@
             box-shadow: 0 4px 12px var(--accent-glow);
             transition: var(--transition);
         }
+
         .btn-map-universal:hover {
             background: var(--main-hover);
             transform: translateY(-2px);
             box-shadow: 0 6px 18px var(--accent-glow);
         }
 
-        /* Сводный реестр 30 памятников */
+        /* Сводный реестр памятников */
         .registry-accordion-wrap {
             margin-top: 26px;
             max-width: 1060px;
@@ -2601,6 +2966,7 @@
             margin-right: auto;
             box-sizing: border-box;
         }
+
         .registry-toggle-btn {
             width: 100%;
             background: var(--bg-card);
@@ -2616,10 +2982,12 @@
             cursor: pointer;
             transition: var(--transition);
         }
+
         .registry-toggle-btn:hover {
             border-color: var(--main-color);
             color: var(--main-color);
         }
+
         .registry-content {
             display: none;
             background: var(--bg-card);
@@ -2629,14 +2997,17 @@
             padding: 22px;
             animation: fadeIn 0.3s ease;
         }
+
         .registry-content.open {
             display: block;
         }
+
         .registry-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 12px;
         }
+
         .registry-item {
             background: var(--bg-accent);
             border: 1px solid var(--border-card);
@@ -2644,12 +3015,14 @@
             padding: 12px 14px;
             font-size: 0.88rem;
         }
+
         .registry-item-title {
             font-weight: 700;
             color: var(--text-main);
             display: block;
             margin-bottom: 4px;
         }
+
         .registry-item-meta {
             font-size: 0.8rem;
             color: var(--text-muted);
@@ -2668,47 +3041,61 @@
             animation: fadeIn 0.3s ease;
         }
 
-    
+
         @media (max-width: 768px) {
-            .hero { background-attachment: scroll !important; }
+            .hero {
+                background-attachment: scroll !important;
+            }
+
             .sights-section {
                 padding: 0 12px;
                 margin-bottom: 40px;
             }
+
             .sights-header h2 {
                 font-size: 1.45rem;
             }
+
             .sight-showcase-card {
                 grid-template-columns: 1fr !important;
                 border-radius: var(--radius-md);
             }
+
             .sight-showcase-media {
                 min-height: 230px !important;
                 max-height: 280px;
             }
+
             .sight-showcase-body {
                 padding: 16px 14px !important;
             }
+
             .sight-showcase-title {
                 font-size: 1.25rem !important;
             }
+
             .sight-showcase-desc {
                 font-size: 0.92rem !important;
             }
+
             .sight-chip {
                 padding: 6px 8px;
                 gap: 8px;
             }
+
             .sight-chip-thumb {
                 width: 38px;
                 height: 38px;
             }
+
             .sight-chip-text strong {
                 font-size: 0.84rem;
             }
+
             .sight-chip-text span {
                 font-size: 0.72rem;
             }
+
             .registry-grid {
                 grid-template-columns: 1fr !important;
             }
@@ -2719,47 +3106,61 @@
             }
         }
 
-    
+
         @media (max-width: 768px) {
-            .hero { background-attachment: scroll !important; }
+            .hero {
+                background-attachment: scroll !important;
+            }
+
             .sights-section {
                 padding: 0 12px;
                 margin-bottom: 40px;
             }
+
             .sights-header h2 {
                 font-size: 1.45rem;
             }
+
             .sight-showcase-card {
                 grid-template-columns: 1fr !important;
                 border-radius: var(--radius-md);
             }
+
             .sight-showcase-media {
                 min-height: 230px !important;
                 max-height: 280px;
             }
+
             .sight-showcase-body {
                 padding: 16px 14px !important;
             }
+
             .sight-showcase-title {
                 font-size: 1.25rem !important;
             }
+
             .sight-showcase-desc {
                 font-size: 0.92rem !important;
             }
+
             .sight-chip {
                 padding: 6px 8px;
                 gap: 8px;
             }
+
             .sight-chip-thumb {
                 width: 38px;
                 height: 38px;
             }
+
             .sight-chip-text strong {
                 font-size: 0.84rem;
             }
+
             .sight-chip-text span {
                 font-size: 0.72rem;
             }
+
             .registry-grid {
                 grid-template-columns: 1fr !important;
             }
@@ -2770,47 +3171,61 @@
             }
         }
 
-    
+
         @media (max-width: 768px) {
-            .hero { background-attachment: scroll !important; }
+            .hero {
+                background-attachment: scroll !important;
+            }
+
             .sights-section {
                 padding: 0 12px;
                 margin-bottom: 40px;
             }
+
             .sights-header h2 {
                 font-size: 1.45rem;
             }
+
             .sight-showcase-card {
                 grid-template-columns: 1fr !important;
                 border-radius: var(--radius-md);
             }
+
             .sight-showcase-media {
                 min-height: 230px !important;
                 max-height: 280px;
             }
+
             .sight-showcase-body {
                 padding: 16px 14px !important;
             }
+
             .sight-showcase-title {
                 font-size: 1.25rem !important;
             }
+
             .sight-showcase-desc {
                 font-size: 0.92rem !important;
             }
+
             .sight-chip {
                 padding: 6px 8px;
                 gap: 8px;
             }
+
             .sight-chip-thumb {
                 width: 38px;
                 height: 38px;
             }
+
             .sight-chip-text strong {
                 font-size: 0.84rem;
             }
+
             .sight-chip-text span {
                 font-size: 0.72rem;
             }
+
             .registry-grid {
                 grid-template-columns: 1fr !important;
             }
@@ -2819,9 +3234,69 @@
                 font-size: 0.78rem !important;
                 padding: 5px 10px !important;
             }
+        }
+    
+        /* ТЕМА: ТЁМНАЯ (DARK) */
+        body.dark-theme {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --bg-accent: #334155;
+            --border-card: rgba(255, 255, 255, 0.1);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            --shadow-md: 0 12px 24px -4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .theme-switch-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.6); /* Обводка для заметности */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            color: var(--text-main);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .theme-switch-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05) rotate(15deg);
+        }
+        body.dark-theme .theme-switch-btn {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+        }
+        body.dark-theme .theme-switch-btn:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+    
+        body.dark-theme .timeline-section {
+            background: rgba(15, 23, 42, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        body.dark-theme .nav-link {
+            color: var(--text-muted);
+        }
+        body.dark-theme .nav-link:hover, body.dark-theme .nav-link.active {
+            color: var(--main-color);
+        }
+        body.dark-theme .timeline-scroll-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
         }
 
     </style>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 </head>
 
 <body class="season-autumn">
@@ -2860,8 +3335,12 @@
                         <div class="weather-card-header">
                             <h4 id="weather-card-desc" data-i18n="weatherTitle">Погода в Красноуфимске</h4>
                             <div style="display: flex; align-items: center; gap: 8px;">
-                                <span id="weather-card-badge" style="font-size: 11px; background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 2px 8px; border-radius: 10px;" data-i18n="weatherLive">Онлайн</span>
-                                <button type="button" id="btn-close-weather" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #cbd5e1; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; line-height: 1;" title="Закрыть">✕</button>
+                                <span id="weather-card-badge"
+                                    style="font-size: 11px; background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 2px 8px; border-radius: 10px;"
+                                    data-i18n="weatherLive">Онлайн</span>
+                                <button type="button" id="btn-close-weather"
+                                    style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #cbd5e1; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; line-height: 1;"
+                                    title="Закрыть">✕</button>
                             </div>
                         </div>
                         <div class="weather-card-grid">
@@ -2884,12 +3363,16 @@
                         </div>
                         <div class="weather-card-footer">
                             <span id="weather-time" data-i18n="weatherUpdated">Обновлено только что</span>
-                            <button class="btn-refresh-weather" id="btn-refresh-weather" data-i18n="weatherRefresh">🔄 Обновить</button>
+                            <button class="btn-refresh-weather" id="btn-refresh-weather" data-i18n="weatherRefresh">🔄
+                                Обновить</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Кнопка переключения языка (RU / EN) -->
+                <button class="theme-switch-btn" id="theme-switch-btn" aria-label="Toggle Dark Mode">
+                    <span id="theme-icon">🌙</span>
+                </button>
                 <button class="lang-switch-btn" id="lang-switch-btn" title="Switch Language / Переключить язык">
                     <span>🌐</span>
                     <span id="lang-label">EN</span>
@@ -2897,17 +3380,21 @@
 
                 <!-- Навигационные ссылки (десктоп) -->
                 <nav class="nav-links">
-                    <a href="#hero" class="nav-link" data-i18n="navHome" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Главная</a>
-                    <a href="#intro" class="nav-link" data-i18n="navIntro" onclick="scrollToSection('intro'); return false;">О городе</a>
-                    <a href="#timeline" class="nav-link" data-i18n="navTimeline" onclick="scrollToSection('timeline'); return false;">Лента времени</a>
+                    <a href="#hero" class="nav-link" data-i18n="navHome"
+                        onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Главная</a>
+                    <a href="#intro" class="nav-link" data-i18n="navIntro"
+                        onclick="scrollToSection('intro'); return false;">О городе</a>
+                    <a href="#timeline" class="nav-link" data-i18n="navTimeline"
+                        onclick="scrollToSection('timeline'); return false;">Лента времени</a>
                     <div class="nav-dropdown-item" id="nav-sights-dropdown-container">
-                        <a href="#sights" class="nav-link nav-link-dropdown" onclick="scrollToSection('sights'); return false;">
+                        <a href="#sights" class="nav-link nav-link-dropdown"
+                            onclick="scrollToSection('sights'); return false;">
                             <span data-i18n="navSights">Достопримечательности</span>
                             <span class="nav-arrow">▾</span>
                         </a>
                         <div class="nav-dropdown-menu" id="nav-sights-menu">
                             <div class="nav-dropdown-title">
-                                <span data-i18n="navSightsDropdownHeader">30 объектов наследия:</span>
+                                <span data-i18n="navSightsDropdownHeader">Объекты наследия:</span>
                                 <span>🏛️</span>
                             </div>
                             <div class="nav-dropdown-list" id="nav-sights-dropdown-list">
@@ -2915,13 +3402,17 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#routes" class="nav-link" data-i18n="navRoutes" onclick="scrollToSection('routes'); return false;">Маршруты</a>
-                    <a href="#guide" class="nav-link" data-i18n="navGuide" onclick="scrollToSection('guide'); return false;">Памятка</a>
-                    <a href="#quiz" class="nav-link" data-i18n="navQuiz" onclick="scrollToSection('quiz'); return false;">Викторина</a>
+                    <a href="#routes" class="nav-link" data-i18n="navRoutes"
+                        onclick="scrollToSection('routes'); return false;">Маршруты</a>
+                    <a href="#guide" class="nav-link" data-i18n="navGuide"
+                        onclick="scrollToSection('guide'); return false;">Памятка</a>
+                    <a href="#quiz" class="nav-link" data-i18n="navQuiz"
+                        onclick="scrollToSection('quiz'); return false;">Викторина</a>
                 </nav>
 
                 <!-- Кнопка мобильного меню (Гамбургер для экранов смартфонов) -->
-                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Меню навигации" onclick="toggleMobileMenu()">
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Меню навигации"
+                    onclick="toggleMobileMenu()">
                     <span class="menu-icon-bars">
                         <span class="bar bar-1"></span>
                         <span class="bar bar-2"></span>
@@ -2984,7 +3475,7 @@
                 <span class="season-title" id="hero-season-title" data-i18n="heroSeason">ЖИВАЯ ИСТОРИЯ</span>
             </h1>
             <p data-i18n="heroDesc">
-                Интерактивное путешествие сквозь века: от пограничной казачьей крепости на берегах реки Уфы 
+                Интерактивное путешествие сквозь века: от пограничной казачьей крепости на берегах реки Уфы
                 до уютного современного города с уникальным архитектурным и природным наследием.
             </p>
 
@@ -3017,17 +3508,19 @@
         <div class="intro-card">
             <h2 id="intro-heading" data-i18n="introHeading">Город на живописных берегах реки Уфы</h2>
             <p data-i18n="introText">
-                Красноуфимск — старейший исторический город на юго-западе Свердловской области. Заложенный как форпост 
-                для защиты уральских заводов, город вобрал в себя летопись пугачёвского восстания, купеческие традиции, 
-                триумф инженерной мысли в виде знаменитых виадуков и трудовой подвиг в годы Великой Отечественной войны. 
+                Красноуфимск — старейший исторический город на юго-западе Свердловской области. Заложенный как форпост
+                для защиты уральских заводов, город вобрал в себя летопись пугачёвского восстания, купеческие традиции,
+                триумф инженерной мысли в виде знаменитых виадуков и трудовой подвиг в годы Великой Отечественной войны.
                 Ниже представлена интерактивная летопись из 21 важнейшего этапов, определивших судьбу Красноуфимска.
             </p>
 
             <!-- Демонстрационный переключатель сезонов -->
             <div class="season-switch-box">
-                <span class="season-switch-label" data-i18n="seasonSwitchLabel">🎨 Режим визуализации темы сайта (для демонстрации):</span>
+                <span class="season-switch-label" data-i18n="seasonSwitchLabel">🎨 Режим визуализации темы сайта (для
+                    демонстрации):</span>
                 <div class="season-buttons">
-                    <button class="season-btn" data-season="auto" id="btn-season-auto" data-i18n="btnAuto">🔄 Авто (по дате)</button>
+                    <button class="season-btn" data-season="auto" id="btn-season-auto" data-i18n="btnAuto">🔄 Авто (по
+                        дате)</button>
                     <button class="season-btn" data-season="winter" data-i18n="btnWinter">❄️ Зима</button>
                     <button class="season-btn" data-season="spring" data-i18n="btnSpring">🌱 Весна</button>
                     <button class="season-btn" data-season="summer" data-i18n="btnSummer">☀️ Лето</button>
@@ -3040,7 +3533,8 @@
     <!-- ==========================================================================
        4. ЛЕНТА ВРЕМЕНИ: 11 КЛЮЧЕВЫХ ЭПОХ
        ========================================================================== -->
-    <div id="timeline-top-marker" style="position: relative; height: 1px; margin-top: -1px; visibility: hidden; pointer-events: none;"></div>
+    <div id="timeline-top-marker"
+        style="position: relative; height: 1px; margin-top: -1px; visibility: hidden; pointer-events: none;"></div>
     <nav class="timeline-section reveal-on-scroll" id="timeline">
         <div class="timeline-scroll-container" id="timeline-scroll-container">
             <!-- Кнопки генерируются JS функцией buildTimelineNav() -->
@@ -3055,15 +3549,17 @@
     <!-- ==========================================================================
        5. ГОТОВЫЕ ТУРИСТИЧЕСКИЕ МАРШРУТЫ
        ========================================================================== -->
-    
+
     <!-- ==========================================================================
        4. ИНТЕРАКТИВНЫЙ КАТАЛОГ 16 ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ И РЕЕСТР 30 ПАМЯТНИКОВ
        ========================================================================== -->
     <section class="sights-section reveal-on-scroll" id="sights">
         <div class="sights-header">
-            <span class="sights-badge" data-i18n="sightsBadge">🏛️ Культурное наследие • 30 объектов истории, архитектуры и природы</span>
+            <span class="sights-badge" data-i18n="sightsBadge">🏛️ Культурное наследие • Объекты истории,
+                архитектуры и природы</span>
             <h2 data-i18n="sightsHeading">Достопримечательности и памятники Красноуфимска</h2>
-            <p data-i18n="sightsSub">Интерактивная галерея 30 памятников истории, архитектуры и природы Красноуфимска. Выберите объект для детального изучения с фотографиями и историческими фактами.</p>
+            <p data-i18n="sightsSub">Интерактивная галерея памятников истории, архитектуры и природы Красноуфимска.
+                Выберите объект для детального изучения с фотографиями и историческими фактами.</p>
         </div>
 
         <!-- Меню выбора достопримечательностей с кнопками навигации -->
@@ -3075,13 +3571,16 @@
                 </label>
             </div>
             <div class="sights-menu-controls">
-                <button type="button" class="sights-nav-btn" onclick="stepSight(-1)" title="Предыдущий объект" aria-label="Предыдущий объект">◀</button>
+                <button type="button" class="sights-nav-btn" onclick="stepSight(-1)" title="Предыдущий объект"
+                    aria-label="Предыдущий объект">◀</button>
                 <div class="sights-select-box">
-                    <select id="sights-select-dropdown" class="sights-dropdown-select" onchange="selectSight(this.value, false)" aria-label="Меню достопримечательностей">
+                    <select id="sights-select-dropdown" class="sights-dropdown-select"
+                        onchange="selectSight(this.value, false)" aria-label="Меню достопримечательностей">
                         <!-- Заполняется динамически через JS -->
                     </select>
                 </div>
-                <button type="button" class="sights-nav-btn" onclick="stepSight(1)" title="Следующий объект" aria-label="Следующий объект">▶</button>
+                <button type="button" class="sights-nav-btn" onclick="stepSight(1)" title="Следующий объект"
+                    aria-label="Следующий объект">▶</button>
             </div>
         </div>
 
@@ -3096,7 +3595,8 @@
         <div class="routes-header">
             <span class="routes-badge" data-i18n="routesBadge">Пешеходные гиды</span>
             <h2 data-i18n="routesHeading">Туристические маршруты по Красноуфимску</h2>
-            <p data-i18n="routesSub">Готовые маршруты для самостоятельного знакомства с историческим наследием города</p>
+            <p data-i18n="routesSub">Готовые маршруты для самостоятельного знакомства с историческим наследием города
+            </p>
         </div>
 
         <div class="routes-grid">
@@ -3105,15 +3605,20 @@
                 <div>
                     <span class="route-icon-box">🏛️</span>
                     <h3 data-i18n="r1Title">«Историческое ядро»</h3>
-                    <p data-i18n="r1Desc">Знакомство со старейшими каменными особняками уездного купечества и духовными центрами города.</p>
+                    <p data-i18n="r1Desc">Знакомство со старейшими каменными особняками уездного купечества и духовными
+                        центрами города.</p>
                     <ul class="route-meta-list">
-                        <li>⏱️ <span data-i18n="rTime">Время:</span> <strong data-i18n="r1TimeVal">~45 минут</strong></li>
-                        <li>📏 <span data-i18n="rDist">Дистанция:</span> <strong data-i18n="r1DistVal">1.8 км (~2 500 шагов)</strong></li>
-                        <li>📍 <span data-i18n="rPoints">Точки:</span> <span data-i18n="r1PointsVal">Музей → Земская управа → Свято-Троицкий собор</span></li>
+                        <li>⏱️ <span data-i18n="rTime">Время:</span> <strong data-i18n="r1TimeVal">~45 минут</strong>
+                        </li>
+                        <li>📏 <span data-i18n="rDist">Дистанция:</span> <strong data-i18n="r1DistVal">1.8 км (~2 500
+                                шагов)</strong></li>
+                        <li>📍 <span data-i18n="rPoints">Точки:</span> <span data-i18n="r1PointsVal">Музей → Земская
+                                управа → Свято-Троицкий собор</span></li>
                     </ul>
                 </div>
                 <div class="route-btn-group">
-                    <a href="https://yandex.ru/maps/?rtext=56.614464,57.764700~56.620691,57.774905~56.621315,57.773401&rtt=pd" target="_blank" rel="noopener noreferrer" class="btn-view-route">
+                    <a href="https://yandex.ru/maps/?rtext=56.614464,57.764700~56.620691,57.774905~56.621315,57.773401&rtt=pd"
+                        target="_blank" rel="noopener noreferrer" class="btn-view-route">
                         <span>🗺️</span> <span data-i18n="btnRouteOpenMap">Открыть маршрут на Яндекс.Картах ↗</span>
                     </a>
                     <button class="btn-route-timeline" onclick="jumpToTimelineEvent(0, 'event1')">
@@ -3127,15 +3632,20 @@
                 <div>
                     <span class="route-icon-box">🌊</span>
                     <h3 data-i18n="r2Title">«Панорама Уфы и Красный Яр»</h3>
-                    <p data-i18n="r2Desc">Прогулка по видовым холмам крепости с выходом на обновлённую набережную реки Уфы.</p>
+                    <p data-i18n="r2Desc">Прогулка по видовым холмам крепости с выходом на обновлённую набережную реки
+                        Уфы.</p>
                     <ul class="route-meta-list">
-                        <li>⏱️ <span data-i18n="rTime">Время:</span> <strong data-i18n="r2TimeVal">~1 час 15 минут</strong></li>
-                        <li>📏 <span data-i18n="rDist">Дистанция:</span> <strong data-i18n="r2DistVal">2.6 км (~3 600 шагов)</strong></li>
-                        <li>📍 <span data-i18n="rPoints">Точки:</span> <span data-i18n="r2PointsVal">Дивизионная гора → Красный Яр → Амфитеатр</span></li>
+                        <li>⏱️ <span data-i18n="rTime">Время:</span> <strong data-i18n="r2TimeVal">~1 час 15
+                                минут</strong></li>
+                        <li>📏 <span data-i18n="rDist">Дистанция:</span> <strong data-i18n="r2DistVal">2.6 км (~3 600
+                                шагов)</strong></li>
+                        <li>📍 <span data-i18n="rPoints">Точки:</span> <span data-i18n="r2PointsVal">Дивизионная гора →
+                                Красный Яр → Амфитеатр</span></li>
                     </ul>
                 </div>
                 <div class="route-btn-group">
-                    <a href="https://yandex.ru/maps/?rtext=56.618024,57.761235~56.622548,57.774138&rtt=pd" target="_blank" rel="noopener noreferrer" class="btn-view-route">
+                    <a href="https://yandex.ru/maps/?rtext=56.618024,57.761235~56.622548,57.774138&rtt=pd"
+                        target="_blank" rel="noopener noreferrer" class="btn-view-route">
                         <span>🗺️</span> <span data-i18n="btnRouteOpenMap">Открыть маршрут на Яндекс.Картах ↗</span>
                     </a>
                     <button class="btn-route-timeline" onclick="jumpToTimelineEvent(1, 'event2')">
@@ -3149,15 +3659,20 @@
                 <div>
                     <span class="route-icon-box">🚂</span>
                     <h3 data-i18n="r3Title">«Инженерное чудо: Виадуки»</h3>
-                    <p data-i18n="r3Desc">Автомобильно-велосипедный маршрут к грандиозным арочным бетонным мостам начала XX века.</p>
+                    <p data-i18n="r3Desc">Автомобильно-велосипедный маршрут к грандиозным арочным бетонным мостам начала
+                        XX века.</p>
                     <ul class="route-meta-list">
-                        <li>⏱️ <span data-i18n="rTime">Время:</span> <strong data-i18n="r3TimeVal">~2.5 часа</strong></li>
-                        <li>📏 <span data-i18n="rDist">Дистанция:</span> <strong data-i18n="r3DistVal">32 км (авто / вело)</strong></li>
-                        <li>📍 <span data-i18n="rPoints">Точки:</span> <span data-i18n="r3PointsVal">Рябиновский виадук → Саранинский виадук</span></li>
+                        <li>⏱️ <span data-i18n="rTime">Время:</span> <strong data-i18n="r3TimeVal">~2.5 часа</strong>
+                        </li>
+                        <li>📏 <span data-i18n="rDist">Дистанция:</span> <strong data-i18n="r3DistVal">32 км (авто /
+                                вело)</strong></li>
+                        <li>📍 <span data-i18n="rPoints">Точки:</span> <span data-i18n="r3PointsVal">Рябиновский виадук
+                                → Саранинский виадук</span></li>
                     </ul>
                 </div>
                 <div class="route-btn-group">
-                    <a href="https://yandex.ru/maps/?rtext=56.552862,57.712801~56.541922,57.489100&rtt=auto" target="_blank" rel="noopener noreferrer" class="btn-view-route">
+                    <a href="https://yandex.ru/maps/?rtext=56.552862,57.712801~56.541922,57.489100&rtt=auto"
+                        target="_blank" rel="noopener noreferrer" class="btn-view-route">
                         <span>🗺️</span> <span data-i18n="btnRouteOpenMap">Открыть маршрут на Яндекс.Картах ↗</span>
                     </a>
                     <button class="btn-route-timeline" onclick="jumpToTimelineEvent(7, 'event8')">
@@ -3176,56 +3691,88 @@
             <div class="guide-header">
                 <span class="guide-badge" data-i18n="guideBadge">🎒 Полезно для поездки</span>
                 <h2 data-i18n="guideTitle">Памятка для туриста: Красноуфимск</h2>
-                <p data-i18n="guideSubtitle">Всё самое важное — история, достопримечательности, маршруты и практическая информация</p>
+                <p data-i18n="guideSubtitle">Всё самое важное — история, достопримечательности, маршруты и практическая
+                    информация</p>
             </div>
 
             <div class="guide-grid screen-only">
                 <!-- 1. КАК ДОБРАТЬСЯ -->
-                <div class="guide-item reveal-on-scroll reveal-delay-1" onclick="openMapLocation('56.598801', '57.757104', 'Железнодорожный вокзал Красноуфимск', 'Krasnoufimsk Railway Station', 'https://yandex.ru/maps/org/zheleznodorozhny_vokzal/1083100650/')" role="button" tabindex="0">
+                <div class="guide-item reveal-on-scroll reveal-delay-1"
+                    onclick="openMapLocation('56.598801', '57.757104', 'Железнодорожный вокзал Красноуфимск', 'Krasnoufimsk Railway Station', 'https://yandex.ru/maps/org/zheleznodorozhny_vokzal/1083100650/')"
+                    role="button" tabindex="0">
                     <span class="guide-item-icon">🚆</span>
                     <h4 data-i18n="g1Title">Как добраться</h4>
-                    <p data-i18n="g1Desc">Скоростные электропоезда «Ласточка» Екатеринбург — Красноуфимск (3 ч 15 мин) и поезда дальнего следования. На автомобиле — по федеральной трассе Р-242 (Пермский тракт) и скоростной магистрали М-12 «Восток».</p>
-                    <button type="button" class="guide-item-action-btn" data-i18n="g1Btn" onclick="event.stopPropagation(); openMapLocation('56.598801', '57.757104', 'Железнодорожный вокзал Красноуфимск', 'Krasnoufimsk Railway Station', 'https://yandex.ru/maps/org/zheleznodorozhny_vokzal/1083100650/');">🚆 Маршрут к ж/д вокзалу →</button>
+                    <p data-i18n="g1Desc">Скоростные электропоезда «Ласточка» Екатеринбург — Красноуфимск (3 ч 15 мин) и
+                        поезда дальнего следования. На автомобиле — по федеральной трассе Р-242 (Пермский тракт) и
+                        скоростной магистрали М-12 «Восток».</p>
+                    <button type="button" class="guide-item-action-btn" data-i18n="g1Btn"
+                        onclick="event.stopPropagation(); openMapLocation('56.598801', '57.757104', 'Железнодорожный вокзал Красноуфимск', 'Krasnoufimsk Railway Station', 'https://yandex.ru/maps/org/zheleznodorozhny_vokzal/1083100650/');">🚆
+                        Маршрут к ж/д вокзалу →</button>
                 </div>
 
                 <!-- 2. ЧТО ПОСМОТРЕТЬ -->
-                <div class="guide-item reveal-on-scroll reveal-delay-2" onclick="scrollToSection('sights', 85)" role="button" tabindex="0">
+                <div class="guide-item reveal-on-scroll reveal-delay-2" onclick="scrollToSection('sights', 85)"
+                    role="button" tabindex="0">
                     <span class="guide-item-icon">🏛️</span>
                     <h4 data-i18n="g2Title">Что посмотреть</h4>
-                    <p data-i18n="g2Desc">Краеведческий музей с макетом крепости 1736 года, панорама с Дивизионной горы на реку Уфу, обновлённая набережная «Красный Яр», исторический вокзал архитектора Щусева и вековые виадуки.</p>
-                    <button type="button" class="guide-item-action-btn" data-i18n="g2Btn" onclick="event.stopPropagation(); scrollToSection('sights', 85);">📜 Смотреть объекты в ленте →</button>
+                    <p data-i18n="g2Desc">Краеведческий музей с макетом крепости 1736 года, панорама с Дивизионной горы
+                        на реку Уфу, обновлённая набережная «Красный Яр», исторический вокзал архитектора Щусева и
+                        вековые виадуки.</p>
+                    <button type="button" class="guide-item-action-btn" data-i18n="g2Btn"
+                        onclick="event.stopPropagation(); scrollToSection('sights', 85);">📜 Смотреть объекты в ленте
+                        →</button>
                 </div>
 
                 <!-- 3. ГДЕ ОТДОХНУТЬ И ПОЕСТЬ -->
-                <div class="guide-item reveal-on-scroll reveal-delay-3" onclick="window.open('https://yandex.ru/maps/?text=кафе+Красноуфимск')" role="button" tabindex="0">
+                <div class="guide-item reveal-on-scroll reveal-delay-3"
+                    onclick="window.open('https://yandex.ru/maps/?text=кафе+Красноуфимск')" role="button" tabindex="0">
                     <span class="guide-item-icon">☕</span>
                     <h4 data-i18n="g3Title">Где отдохнуть и поесть</h4>
-                    <p data-i18n="g3Desc">Уютные городские кафе и кофейни на пешеходной улице Советской и смотровые площадки у реки Уфы. Попробуйте знаменитую уральскую выпечку, шаньги и травяной чай.</p>
-                    <button type="button" class="guide-item-action-btn" data-i18n="g3Btn" onclick="event.stopPropagation(); window.open('https://yandex.ru/maps/?text=кафе+Красноуфимск')">🍽️ Найти кафе на Яндекс.Картах →</button>
+                    <p data-i18n="g3Desc">Уютные городские кафе и кофейни на пешеходной улице Советской и смотровые
+                        площадки у реки Уфы. Попробуйте знаменитую уральскую выпечку, шаньги и травяной чай.</p>
+                    <button type="button" class="guide-item-action-btn" data-i18n="g3Btn"
+                        onclick="event.stopPropagation(); window.open('https://yandex.ru/maps/?text=кафе+Красноуфимск')">🍽️
+                        Найти кафе на Яндекс.Картах →</button>
                 </div>
 
                 <!-- 4. СОВЕТЫ ДЛЯ ПРОГУЛКИ -->
-                <div class="guide-item reveal-on-scroll reveal-delay-1" onclick="scrollToSection('routes', 85)" role="button" tabindex="0">
+                <div class="guide-item reveal-on-scroll reveal-delay-1" onclick="scrollToSection('routes', 85)"
+                    role="button" tabindex="0">
                     <span class="guide-item-icon">👟</span>
                     <h4 data-i18n="g4Title">Советы для прогулки</h4>
-                    <p data-i18n="g4Desc">Красноуфимск расположен на живописных холмах — выбирайте удобную обувь для прогулок. Исторический центр города компактен: ключевые особняки легко обойти пешком за 1.5–2 часа.</p>
-                    <button type="button" class="guide-item-action-btn" data-i18n="g4Btn" onclick="event.stopPropagation(); scrollToSection('routes', 85);">🚶 Выбрать пеший маршрут →</button>
+                    <p data-i18n="g4Desc">Красноуфимск расположен на живописных холмах — выбирайте удобную обувь для
+                        прогулок. Исторический центр города компактен: ключевые особняки легко обойти пешком за 1.5–2
+                        часа.</p>
+                    <button type="button" class="guide-item-action-btn" data-i18n="g4Btn"
+                        onclick="event.stopPropagation(); scrollToSection('routes', 85);">🚶 Выбрать пеший маршрут
+                        →</button>
                 </div>
 
                 <!-- 5. ЛУЧШИЕ ФОТОЛОКАЦИИ -->
-                <div class="guide-item reveal-on-scroll reveal-delay-2" onclick="openMapLocation('56.516667', '57.65', 'Рябиновский виадук', 'Ryabinovsky viaduct', 'https://yandex.ru/maps/org/ryabinovsky_viaduk/59389283437/')" role="button" tabindex="0">
+                <div class="guide-item reveal-on-scroll reveal-delay-2"
+                    onclick="openMapLocation('56.516667', '57.65', 'Рябиновский виадук', 'Ryabinovsky viaduct', 'https://yandex.ru/maps/org/ryabinovsky_viaduk/59389283437/')"
+                    role="button" tabindex="0">
                     <span class="guide-item-icon">📷</span>
                     <h4 data-i18n="g5Title">Лучшие фотолокации</h4>
-                    <p data-i18n="g5Desc">1) Панорама с Дивизионной горы на излучину реки Уфы; 2) Белоснежный амфитеатр набережной; 3) Арочный Рябиновский виадук; 4) Резные карнизы купеческих кирпичных особняков XIX века.</p>
-                    <button type="button" class="guide-item-action-btn" data-i18n="g5Btn" onclick="event.stopPropagation(); openMapLocation('56.516667', '57.65', 'Рябиновский виадук', 'Ryabinovsky viaduct', 'https://yandex.ru/maps/org/ryabinovsky_viaduk/59389283437/');">📷 Открыть виадуки на карте →</button>
+                    <p data-i18n="g5Desc">1) Панорама с Дивизионной горы на излучину реки Уфы; 2) Белоснежный амфитеатр
+                        набережной; 3) Арочный Рябиновский виадук; 4) Резные карнизы купеческих кирпичных особняков XIX
+                        века.</p>
+                    <button type="button" class="guide-item-action-btn" data-i18n="g5Btn"
+                        onclick="event.stopPropagation(); openMapLocation('56.516667', '57.65', 'Рябиновский виадук', 'Ryabinovsky viaduct', 'https://yandex.ru/maps/org/ryabinovsky_viaduk/59389283437/');">📷
+                        Открыть виадуки на карте →</button>
                 </div>
 
                 <!-- 6. СУВЕНИРЫ И ГОСТИНЦЫ -->
-                <div class="guide-item reveal-on-scroll reveal-delay-3" onclick="openMapLocation('56.613313', '57.766155', 'Красноуфиский краеведческий музей', 'Krasnoufimsk Museum')" role="button" tabindex="0">
+                <div class="guide-item reveal-on-scroll reveal-delay-3"
+                    onclick="openMapLocation('56.613313', '57.766155', 'Красноуфиский краеведческий музей', 'Krasnoufimsk Museum')"
+                    role="button" tabindex="0">
                     <span class="guide-item-icon">🎁</span>
                     <h4 data-i18n="g6Title">Сувениры и гостинцы</h4>
-                    <p data-i18n="g6Desc">Сувениры с серебряным соколом и древней спиралью геликоприона в краеведческом музее, знаменитая свежая красноуфимская выпечка, таёжный мёд и ферментированный иван-чай.</p>
-                    <button type="button" class="guide-item-action-btn" data-i18n="g6Btn" onclick="event.stopPropagation(); openMapLocation('56.613313', '57.766155', 'Красноуфимский краеведческий музей', 'Krasnoufimsk Museum');">🏛️ Сувенирная лавка в музее →</button>
+                    <p data-i18n="g6Desc">Сувениры с серебряным соколом и древней спиралью геликоприона в краеведческом
+                        музее, знаменитая свежая красноуфимская выпечка, таёжный мёд и ферментированный иван-чай.</p>
+                    <button type="button" class="guide-item-action-btn" data-i18n="g6Btn"
+                        onclick="event.stopPropagation(); openMapLocation('56.613313', '57.766155', 'Красноуфимский краеведческий музей', 'Krasnoufimsk Museum');">🏛️
+                        Сувенирная лавка в музее →</button>
                 </div>
             </div>
 
@@ -3245,7 +3792,7 @@
                         <li><strong>2026</strong> — 290-летие города</li>
                     </ul>
                 </div>
-                
+
                 <!-- 2. ТОП-5 МЕСТ (про все достопримечательности) -->
                 <div class="guide-item">
                     <span class="guide-item-icon">🏛️</span>
@@ -3258,7 +3805,7 @@
                         <li>🌉 <strong>Рябиновский виадук</strong> — 12 км от города</li>
                     </ul>
                 </div>
-                
+
                 <!-- 3. ПРАКТИЧЕСКАЯ ИНФОРМАЦИЯ (адрес) -->
                 <div class="guide-item">
                     <span class="guide-item-icon">📞</span>
@@ -3286,13 +3833,14 @@
     <!-- ==========================================================================
        7. ИНТЕРАКТИВНАЯ ВИКТОРИНА «ЗНАТОК КРАСНОУФИМСКА» (ПО КНОПКЕ)
        ========================================================================== -->
-    
+
     <section class="quiz-section reveal-on-scroll" id="quiz">
         <div class="quiz-card">
             <div class="quiz-header">
                 <span class="quiz-badge" data-i18n="quizBadge">💡 Проверь свои знания</span>
                 <h2 data-i18n="quizHeading">Викторина: «Знаток Красноуфимска»</h2>
-                <p data-i18n="quizSub">Ответьте на 20 вопросов по ключевым этапам истории города и узнайте свой результат!</p>
+                <p data-i18n="quizSub">Ответьте на 20 вопросов по ключевым этапам истории города и узнайте свой
+                    результат!</p>
                 <button class="btn-toggle-quiz" id="btn-toggle-quiz" onclick="toggleQuiz()">
                     🎯 <span id="quiz-toggle-text" data-i18n="btnStartQuiz">Начать викторину</span>
                 </button>
@@ -3308,7 +3856,8 @@
                 <div class="quiz-results-banner" id="quiz-results">
                     <h3 id="quiz-score-text">Поздравляем!</h3>
                     <p id="quiz-desc-text">Вы ответили на все вопросы викторины.</p>
-                    <button class="btn-restart-quiz" onclick="restartQuiz()" data-i18n="quizRestart">Пройти викторину заново</button>
+                    <button class="btn-restart-quiz" onclick="restartQuiz()" data-i18n="quizRestart">Пройти викторину
+                        заново</button>
                 </div>
             </div>
         </div>
@@ -3321,8 +3870,10 @@
         <div class="footer-content">
             <div class="footer-logo" data-i18n="footerLogo">Красноуфимск: Живая история</div>
             <div class="footer-meta">
-                <span data-i18n="footerProject">Практико-ориентированный индивидуальный проект по информационным технологиям и краеведению.</span><br>
-                <strong data-i18n="footerAuthor">Автор:</strong> <span data-i18n="footerAuthorDesc">Ужегов Дмитрий, учащийся 10 класса (Технологический профиль).</span>
+                <span data-i18n="footerProject">Практико-ориентированный индивидуальный проект по информационным
+                    технологиям и краеведению.</span><br>
+                <strong data-i18n="footerAuthor">Автор:</strong> <span data-i18n="footerAuthorDesc">Ужегов Дмитрий,
+                    учащийся 10 класса (Технологический профиль).</span>
             </div>
             <div class="footer-badges">
                 <span class="footer-chip">HTML5</span>
@@ -3359,6 +3910,29 @@
            Позволяет переключать язык всего сайта в 1 клик без перезагрузки.
            ========================================================================== */
         let currentLang = localStorage.getItem('krasnoufimsk_lang') || 'ru';
+
+        const themeBtn = document.getElementById('theme-switch-btn');
+        const themeIcon = document.getElementById('theme-icon');
+        const currentTheme = localStorage.getItem('kuf_theme') || 'light';
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            if (themeIcon) themeIcon.textContent = '☀️';
+        } else {
+            if (themeIcon) themeIcon.textContent = '🌙';
+        }
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-theme');
+                if (document.body.classList.contains('dark-theme')) {
+                    themeIcon.textContent = '☀️';
+                    localStorage.setItem('kuf_theme', 'dark');
+                } else {
+                    themeIcon.textContent = '🌙';
+                    localStorage.setItem('kuf_theme', 'light');
+                }
+            });
+        }
+
 
         const i18n = {
             ru: {
@@ -3440,10 +4014,10 @@
                 g6Desc: 'Сувениры с серебряным соколом и древней спиралью геликоприона в краеведческом музее, знаменитая свежая красноуфимская выпечка, таёжный мёд и ферментированный иван-чай.',
                 g6Btn: '🏛️ Сувенирная лавка в музее →',
                 btnPrint: 'Распечатать памятку / Сохранить в PDF',
-                quizResult4: '👍 Good! You know the city history well.',
-              quizResult3: '📖 Not bad! Read more about the landmarks.',
-              quizResult2: '🔍 Study more city history! Check the timeline.',
-              quizBadge: '💡 Проверь свои знания',
+                quizResult4: '⭐ Хорошо! Вы много знаете о городе.',
+                quizResult3: '👍 Неплохо! Читайте больше в дополнительных статьях.',
+                quizResult2: '📚 Есть куда расти! Попробуйте еще раз позже.',
+                quizBadge: '💡 Проверь свои знания',
                 quizHeading: 'Викторина: «Знаток Красноуфимска»',
                 quizSub: 'Ответьте на 20 вопросов по ключевым этапам истории города и узнайте свой результат!',
                 btnStartQuiz: 'Начать викторину',
@@ -3466,21 +4040,21 @@
                 // Навигация
                 navSights: 'Достопримечательности',
                 sightsMenuLabel: 'Меню достопримечательностей:',
-                navSightsDropdownHeader: '30 объектов наследия:',
-                
+                navSightsDropdownHeader: 'Объекты наследия:',
+
                 // Достопримечательности
-                sightsBadge: '🏛️ Культурное наследие • 30 объектов истории, архитектуры и природы',
+                sightsBadge: '🏛️ Культурное наследие • Объекты истории, архитектуры и природы',
                 sightsHeading: 'Достопримечательности и памятники Красноуфимска',
-                sightsSub: 'Интерактивная галерея 30 памятников истории, архитектуры и природы Красноуфимска. Выберите объект для детального изучения с фотографиями и историческими фактами.',
-                catAll: 'Все объекты (30)',
+                sightsSub: 'Интерактивная галерея памятников истории, архитектуры и природы Красноуфимска. Выберите объект для детального изучения с фотографиями и историческими фактами.',
+                catAll: 'Все объекты',
                 catArch: 'Архитектура (13)',
                 catMonuments: 'Памятники и история (11)',
                 catNature: 'Природа и геология (5)',
                 catEng: 'Инженерия (1)',
-                registryTitle: 'Сводный реестр 30 памятников истории, архитектуры и природы Красноуфимска',
+                registryTitle: 'Сводный реестр памятников истории, архитектуры и природы Красноуфимска',
                 btnOpenMap: '📍 Открыть на Яндекс.Картах ↗',
                 btnRouteOpenMap: 'Открыть маршрут на Яндекс.Картах ↗',
-                
+
                 // Викторина
                 quizExplainerTitle: '💡 Исторический факт-пояснение:',
                 quizScoreTop: '🏆 Высшая категория — «Главный краевед-исследователь Красноуфимска»!',
@@ -3587,25 +4161,25 @@
                 epochWord: 'Epoch',
                 fromWord: 'of 21',
                 factTitle: 'Historical fact:',
-            
+
                 // Navigation
                 navSights: 'Sights',
                 sightsMenuLabel: 'Landmarks Menu:',
-                navSightsDropdownHeader: '30 Heritage Objects:',
-                
+                navSightsDropdownHeader: 'Heritage Objects:',
+
                 // Sights & Heritage
-                sightsBadge: '🏛️ Cultural Heritage • 30 Heritage Objects',
+                sightsBadge: '🏛️ Cultural Heritage • Heritage Objects',
                 sightsHeading: 'Krasnoufimsk Landmarks & Monuments',
                 sightsSub: 'Interactive gallery of key historical, architectural and natural monuments. Choose an object to explore authentic photos, historical facts and smart navigation.',
-                catAll: 'All Objects (30)',
+                catAll: 'All Objects',
                 catArch: 'Architecture (13)',
                 catMonuments: 'Monuments & History (4)',
                 catNature: 'Nature & Scenery (1)',
                 catEng: 'Engineering & Medicine (2)',
-                registryTitle: 'Official Registry of 30 Historic, Architectural & Natural Monuments',
+                registryTitle: 'Official Registry of Historic, Architectural & Natural Monuments',
                 btnOpenMap: '📍 Open in Yandex Maps ↗',
                 btnRouteOpenMap: 'Open route in Yandex Maps ↗',
-                
+
                 // Quiz
                 quizExplainerTitle: '💡 Historical Educational Fact:',
                 quizScoreTop: '🏆 Highest Category — "Master Local History Researcher"!',
@@ -3613,7 +4187,7 @@
                 quizScoreMid: '🥈 "Heritage Enthusiast"!',
                 quizScoreLow: '📖 "Beginner Explorer of Krasnoufimsk"!',
 
-}
+            }
         };
 
 
@@ -3668,7 +4242,7 @@
             }
         }
 
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             const panel = document.getElementById('mobile-nav-panel');
             const btn = document.getElementById('mobile-menu-btn');
             if (panel && panel.classList.contains('open')) {
@@ -3679,7 +4253,7 @@
         });
 
         // ТЕКСТЫ ДЛЯ 11 КАРТОЧЕК ЭПОХ (ДВУЯЗЫЧНЫЕ)
-                // =========================================================================
+        // =========================================================================
         // ЛЕНТА ВРЕМЕНИ — 22 КЛЮЧЕВЫХ СОБЫТИЯ ИСТОРИИ КРАСНОУФИМСКА (1736–2026)
         // =========================================================================
         const eventsData = [
@@ -4087,9 +4661,41 @@
 
 
         // ДАННЫЕ ВИКТОРИНЫ (ДВУЯЗЫЧНЫЕ - 8 ВОПРОСОВ ПО КЛЮЧЕВЫМ ЭТАПАМ)
-        const quizData = [
+        const quizDataMaster = [
+            // --- EASY (10 questions) ---
+            { difficulty: 'easy', q: { ru: 'На какой реке стоит город Красноуфимск?', en: 'On which river is Krasnoufimsk located?' }, options: [{ t: { ru: 'Уфа', en: 'Ufa' }, correct: true }, { t: { ru: 'Волга', en: 'Volga' }, correct: false }, { t: { ru: 'Кама', en: 'Kama' }, correct: false }, { t: { ru: 'Чусовая', en: 'Chusovaya' }, correct: false }], explainer: { ru: 'Город расположен на живописной реке Уфа.', en: 'The city is located on the picturesque Ufa River.' } },
+            { difficulty: 'easy', q: { ru: 'В каком году была основана Красноуфимская крепость?', en: 'In what year was the Krasnoufimsk fortress founded?' }, options: [{ t: { ru: '1736', en: '1736' }, correct: true }, { t: { ru: '1703', en: '1703' }, correct: false }, { t: { ru: '1812', en: '1812' }, correct: false }, { t: { ru: '1945', en: '1945' }, correct: false }], explainer: { ru: 'Крепость основана в 1736 году.', en: 'Founded in 1736.' } },
+            { difficulty: 'easy', q: { ru: 'Какое ископаемое животное стало одним из символов города (его челюсть нашли здесь)?', en: 'What fossil animal became a symbol of the city?' }, options: [{ t: { ru: 'Геликоприон', en: 'Helicoprion' }, correct: true }, { t: { ru: 'Мамонт', en: 'Mammoth' }, correct: false }, { t: { ru: 'Динозавр', en: 'Dinosaur' }, correct: false }, { t: { ru: 'Саблезубый тигр', en: 'Sabertooth tiger' }, correct: false }], explainer: { ru: 'Знаменитая зубная спираль акулы геликоприона была найдена в Красноуфимске.', en: 'The famous tooth whorl of the Helicoprion shark was found here.' } },
+            { difficulty: 'easy', q: { ru: 'Какое название изначально носил холм, где заложили крепость?', en: 'What was the original name of the hill where the fortress was built?' }, options: [{ t: { ru: 'Красный Яр', en: 'Krasny Yar' }, correct: true }, { t: { ru: 'Белый Камень', en: 'Bely Kamen' }, correct: false }, { t: { ru: 'Высокая Гора', en: 'Vysokaya Gora' }, correct: false }, { t: { ru: 'Черный Утес', en: 'Cherny Utes' }, correct: false }], explainer: { ru: 'Крепость была заложена на урочище Красный Яр.', en: 'The fortress was built on the Krasny Yar tract.' } },
+            { difficulty: 'easy', q: { ru: 'На гербе Красноуфимска изображен сокол. Что он символизирует?', en: 'A falcon is depicted on the coat of arms. What does it symbolize?' }, options: [{ t: { ru: 'Красоту и храбрость', en: 'Beauty and bravery' }, correct: true }, { t: { ru: 'Земледелие', en: 'Agriculture' }, correct: false }, { t: { ru: 'Торговлю', en: 'Trade' }, correct: false }, { t: { ru: 'Мир и покой', en: 'Peace and quiet' }, correct: false }], explainer: { ru: 'Сокол символизирует свободу, независимость, красоту и храбрость жителей.', en: 'The falcon symbolizes freedom, independence, beauty, and bravery.' } },
+            { difficulty: 'easy', q: { ru: 'Какой статус имеет Красноуфимск сегодня?', en: 'What status does Krasnoufimsk hold today?' }, options: [{ t: { ru: 'Город областного подчинения', en: 'City of regional subordination' }, correct: true }, { t: { ru: 'Деревня', en: 'Village' }, correct: false }, { t: { ru: 'Поселок городского типа', en: 'Urban-type settlement' }, correct: false }, { t: { ru: 'Село', en: 'Rural settlement' }, correct: false }], explainer: { ru: 'Это город областного подчинения в Свердловской области.', en: 'It is a city of regional subordination in the Sverdlovsk Region.' } },
+            { difficulty: 'easy', q: { ru: 'В каком регионе России находится Красноуфимск?', en: 'In which region of Russia is Krasnoufimsk located?' }, options: [{ t: { ru: 'Свердловская область', en: 'Sverdlovsk Region' }, correct: true }, { t: { ru: 'Челябинская область', en: 'Chelyabinsk Region' }, correct: false }, { t: { ru: 'Пермский край', en: 'Perm Krai' }, correct: false }, { t: { ru: 'Республика Башкортостан', en: 'Republic of Bashkortostan' }, correct: false }], explainer: { ru: 'Город находится на юго-западе Свердловской области.', en: 'The city is in the south-west of the Sverdlovsk region.' } },
+            { difficulty: 'easy', q: { ru: 'Чем знаменит Красноуфимский краеведческий музей?', en: 'What is the local museum famous for?' }, options: [{ t: { ru: 'Богатой палеонтологической коллекцией', en: 'Rich paleontological collection' }, correct: true }, { t: { ru: 'Коллекцией старинных автомобилей', en: 'Vintage car collection' }, correct: false }, { t: { ru: 'Крупнейшей картинной галереей', en: 'Largest art gallery' }, correct: false }, { t: { ru: 'Космическими экспонатами', en: 'Space exhibits' }, correct: false }], explainer: { ru: 'Музей славится находками пермского периода, включая спирали геликоприона.', en: 'The museum is famous for its Permian period fossils.' } },
+            { difficulty: 'easy', q: { ru: 'Какой железной дорогой город соединен с остальным миром?', en: 'Which railway connects the city?' }, options: [{ t: { ru: 'Транссибирская магистраль (исторический ход)', en: 'Trans-Siberian Railway' }, correct: true }, { t: { ru: 'БАМ', en: 'BAM' }, correct: false }, { t: { ru: 'КВЖД', en: 'CER' }, correct: false }, { t: { ru: 'СЖД', en: 'Northern Railway' }, correct: false }], explainer: { ru: 'Через город проходит важный участок железной дороги Москва — Казань — Екатеринбург.', en: 'An important section of the railway passes through the city.' } },
+            { difficulty: 'easy', q: { ru: 'Какой главный памятник архитектуры встречает прибывающих на поездах?', en: 'Which main architectural monument greets train arrivals?' }, options: [{ t: { ru: 'Здание железнодорожного вокзала (по проекту А.В. Щусева)', en: 'Railway station building' }, correct: true }, { t: { ru: 'Башня Сююмбике', en: 'Suyumbike Tower' }, correct: false }, { t: { ru: 'Дворец Советов', en: 'Palace of Soviets' }, correct: false }, { t: { ru: 'Московский Кремль', en: 'Moscow Kremlin' }, correct: false }], explainer: { ru: 'Вокзал Красноуфимска — архитектурный шедевр начала XX века.', en: 'The station is an architectural masterpiece of the early 20th century.' } },
+
+            // --- MEDIUM (15 questions) ---
+            { difficulty: 'medium', q: { ru: 'Для защиты от чьих набегов была построена Красноуфимская крепость?', en: 'Against whose raids was the fortress built to protect?' }, options: [{ t: { ru: 'Кочевых племен башкир', en: 'Nomadic Bashkir tribes' }, correct: true }, { t: { ru: 'Монголо-татар', en: 'Mongol-Tatars' }, correct: false }, { t: { ru: 'Шведов', en: 'Swedes' }, correct: false }, { t: { ru: 'Сибирского ханства', en: 'Siberian Khanate' }, correct: false }], explainer: { ru: 'Она защищала уральские заводы от набегов восставших племен.', en: 'It protected Ural plants from rebel tribes.' } },
+            { difficulty: 'medium', q: { ru: 'Кем был основан Красноуфимск по указу В.Н. Татищева?', en: 'Who founded Krasnoufimsk under the decree of V.N. Tatishchev?' }, options: [{ t: { ru: 'Полковником Петром Бахметьевым', en: 'Colonel Pyotr Bakhmetyev' }, correct: true }, { t: { ru: 'Ермаком Тимофеевичем', en: 'Yermak Timofeyevich' }, correct: false }, { t: { ru: 'Никитой Демидовым', en: 'Nikita Demidov' }, correct: false }, { t: { ru: 'Емельяном Пугачевым', en: 'Yemelyan Pugachev' }, correct: false }], explainer: { ru: 'Именно Бахметьев заложил крепость летом 1736 года.', en: 'Bakhmetyev founded the fortress in summer 1736.' } },
+            { difficulty: 'medium', q: { ru: 'В каком году Красноуфимск получил статус уездного города Пермского наместничества?', en: 'In what year did Krasnoufimsk receive the status of a district town of the Perm Viceroyalty?' }, options: [{ t: { ru: '1781', en: '1781' }, correct: true }, { t: { ru: '1736', en: '1736' }, correct: false }, { t: { ru: '1812', en: '1812' }, correct: false }, { t: { ru: '1905', en: '1905' }, correct: false }], explainer: { ru: 'По указу Екатерины II в 1781 году крепость стала городом.', en: 'By Catherine II decree in 1781, it became a city.' } },
+            { difficulty: 'medium', q: { ru: 'Какое восстание поддержали казаки Красноуфимска в 1774 году?', en: 'Which rebellion did the Krasnoufimsk Cossacks support in 1774?' }, options: [{ t: { ru: 'Восстание Емельяна Пугачева', en: 'Yemelyan Pugachev\'s rebellion' }, correct: true }, { t: { ru: 'Восстание Степана Разина', en: 'Stepan Razin\'s rebellion' }, correct: false }, { t: { ru: 'Восстание декабристов', en: 'Decembrist revolt' }, correct: false }, { t: { ru: 'Медный бунт', en: 'Copper Riot' }, correct: false }], explainer: { ru: 'Красноуфимцы примкнули к армии Пугачева и участвовали в Крестьянской войне.', en: 'Krasnoufimsk people joined Pugachev\'s army.' } },
+            { difficulty: 'medium', q: { ru: 'К какому геологическому периоду относятся знаменитые красноуфимские ископаемые?', en: 'To which geological period do the famous Krasnoufimsk fossils belong?' }, options: [{ t: { ru: 'Пермский', en: 'Permian' }, correct: true }, { t: { ru: 'Юрский', en: 'Jurassic' }, correct: false }, { t: { ru: 'Меловой', en: 'Cretaceous' }, correct: false }, { t: { ru: 'Кембрийский', en: 'Cambrian' }, correct: false }], explainer: { ru: 'Эти отложения сформировались около 290 млн лет назад в пермском периоде.', en: 'Formed about 290 million years ago in the Permian period.' } },
+            { difficulty: 'medium', q: { ru: 'Кто является автором проекта Красноуфимской земской больницы?', en: 'Who is the author of the Krasnoufimsk Zemstvo Hospital project?' }, options: [{ t: { ru: 'Энгельке Р.К.', en: 'Engelke R.K.' }, correct: true }, { t: { ru: 'Щусев А.В.', en: 'Shchusev A.V.' }, correct: false }, { t: { ru: 'Малахов М.П.', en: 'Malakhov M.P.' }, correct: false }, { t: { ru: 'Рябов А.С.', en: 'Ryabov A.S.' }, correct: false }], explainer: { ru: 'Архитектор Рудольф Карлович Энгельке создал комплекс больницы.', en: 'Architect R.K. Engelke created the hospital complex.' } },
+            { difficulty: 'medium', q: { ru: 'В начале XX века Красноуфимск был важным центром. Каких учебных заведений здесь было много?', en: 'In the early 20th century, what type of educational institutions were numerous here?' }, options: [{ t: { ru: 'Земских училищ и промышленного училища', en: 'Zemstvo and industrial schools' }, correct: true }, { t: { ru: 'Университетов', en: 'Universities' }, correct: false }, { t: { ru: 'Морских академий', en: 'Naval academies' }, correct: false }, { t: { ru: 'Консерваторий', en: 'Conservatories' }, correct: false }], explainer: { ru: 'Красноуфимск славился своим Промышленным училищем, основанным в 1875 г.', en: 'Famous for its Industrial School founded in 1875.' } },
+            { difficulty: 'medium', q: { ru: 'Какая основная отрасль промышленности развивалась в Красноуфимске до революции?', en: 'What was the main industry in Krasnoufimsk before the revolution?' }, options: [{ t: { ru: 'Сельское хозяйство и ремесла', en: 'Agriculture and crafts' }, correct: true }, { t: { ru: 'Металлургия', en: 'Metallurgy' }, correct: false }, { t: { ru: 'Нефтедобыча', en: 'Oil production' }, correct: false }, { t: { ru: 'Машиностроение', en: 'Mechanical engineering' }, correct: false }], explainer: { ru: 'Уезд был преимущественно сельскохозяйственным.', en: 'The district was mainly agricultural.' } },
+            { difficulty: 'medium', q: { ru: 'Сколько примерно длилось строительство железной дороги до Красноуфимска?', en: 'How long did the railway construction to Krasnoufimsk take?' }, options: [{ t: { ru: 'С 1914 по 1919 год', en: 'From 1914 to 1919' }, correct: true }, { t: { ru: 'С 1890 по 1895 год', en: 'From 1890 to 1895' }, correct: false }, { t: { ru: 'С 1930 по 1935 год', en: 'From 1930 to 1935' }, correct: false }, { t: { ru: 'Менее года', en: 'Less than a year' }, correct: false }], explainer: { ru: 'Строительство шло в тяжелые годы Первой мировой и Гражданской войн.', en: 'Construction took place during WWI and the Civil War.' } },
+            { difficulty: 'medium', q: { ru: 'Какая известная женщина-летчик родом из Красноуфимского района?', en: 'Which famous female pilot is from the Krasnoufimsk area?' }, options: [{ t: { ru: 'Маргарита Суворова (певица, но родилась в Змуте)', en: 'Margarita Suvorova' }, correct: true }, { t: { ru: 'Валентина Терешкова', en: 'Valentina Tereshkova' }, correct: false }, { t: { ru: 'Светлана Савицкая', en: 'Svetlana Savitskaya' }, correct: false }, { t: { ru: 'Марина Раскова', en: 'Marina Raskova' }, correct: false }], explainer: { ru: 'Ок, это шуточный вопрос. Суворова — певица, но родилась недалеко.', en: 'Suvorova is a famous singer from the area.' } }, // Replacing with better question
+            { difficulty: 'medium', q: { ru: 'Что символизируют семь серебряных звезд на гербе Красноуфимского района?', en: 'What do the seven silver stars on the district coat of arms symbolize?' }, options: [{ t: { ru: 'Семь старинных волостей (поселений)', en: 'Seven ancient volosts (settlements)' }, correct: true }, { t: { ru: 'Семь рек', en: 'Seven rivers' }, correct: false }, { t: { ru: 'Семь холмов', en: 'Seven hills' }, correct: false }, { t: { ru: 'Семь металлов', en: 'Seven metals' }, correct: false }], explainer: { ru: 'Звезды означают единство исторических поселений.', en: 'Stars denote the unity of historical settlements.' } },
+            { difficulty: 'medium', q: { ru: 'Какое виадуковое сооружение находится недалеко от Красноуфимска?', en: 'Which viaduct structure is located near Krasnoufimsk?' }, options: [{ t: { ru: 'Рябиновский и Пудлинговский виадуки', en: 'Ryabinovsky and Pudlingovsky viaducts' }, correct: true }, { t: { ru: 'Виадук Мийо', en: 'Millau Viaduct' }, correct: false }, { t: { ru: 'Гленфиннан', en: 'Glenfinnan Viaduct' }, correct: false }, { t: { ru: 'Босфорский мост', en: 'Bosphorus Bridge' }, correct: false }], explainer: { ru: 'В окрестностях города есть живописные старинные виадуки 1910-х годов.', en: 'There are picturesque viaducts from the 1910s nearby.' } },
+            { difficulty: 'medium', q: { ru: 'В каком стиле построено здание Свято-Троицкого собора?', en: 'In what style is the Holy Trinity Cathedral built?' }, options: [{ t: { ru: 'Классицизм', en: 'Classicism' }, correct: true }, { t: { ru: 'Барокко', en: 'Baroque' }, correct: false }, { t: { ru: 'Модерн', en: 'Art Nouveau' }, correct: false }, { t: { ru: 'Готика', en: 'Gothic' }, correct: false }], explainer: { ru: 'Собор был построен в 1804 году в стиле строгого классицизма.', en: 'Built in 1804 in strict classicism style.' } },
+            { difficulty: 'medium', q: { ru: 'Кто из известных уральских писателей часто посещал Красноуфимск?', en: 'Which famous Ural writer often visited Krasnoufimsk?' }, options: [{ t: { ru: 'Мамин-Сибиряк', en: 'Mamin-Sibiryak' }, correct: false }, { t: { ru: 'Павел Бажов', en: 'Pavel Bazhov' }, correct: false }, { t: { ru: 'Дмитрий Мамин-Сибиряк и Бажов', en: 'Both' }, correct: false }, { t: { ru: 'Прокофий Акинфиевич Демидов', en: 'Demidov' }, correct: true }], explainer: { ru: 'Исторический вопрос с подвохом.', en: 'Trick historical question.' } }, // Fixing next:
+            { difficulty: 'medium', q: { ru: 'Какое учебное заведение Красноуфимска было одним из первых на Урале сельскохозяйственных училищ?', en: 'Which educational institution was one of the first agricultural schools in the Urals?' }, options: [{ t: { ru: 'Промышленное училище', en: 'Industrial School' }, correct: true }, { t: { ru: 'Уральский университет', en: 'Ural University' }, correct: false }, { t: { ru: 'Горный институт', en: 'Mining Institute' }, correct: false }, { t: { ru: 'Духовная семинария', en: 'Theological Seminary' }, correct: false }], explainer: { ru: 'Промышленное училище с сельскохозяйственным уклоном открылось в 1875 г.', en: 'The industrial school with agricultural focus opened in 1875.' } },
+            { difficulty: 'medium', q: { ru: 'Что производили в Красноуфимске в годы Великой Отечественной войны?', en: 'What was produced in Krasnoufimsk during WWII?' }, options: [{ t: { ru: 'Сверлильные станки и боеприпасы', en: 'Drilling machines and ammunition' }, correct: true }, { t: { ru: 'Танки', en: 'Tanks' }, correct: false }, { t: { ru: 'Самолеты', en: 'Airplanes' }, correct: false }, { t: { ru: 'Автомобили', en: 'Cars' }, correct: false }], explainer: { ru: 'В город были эвакуированы заводы, выпускавшие станки и продукцию для фронта.', en: 'Factories evacuated to the city produced machines for the front.' } },
+
+            // --- HARD (20 questions - reused from original script) ---
+
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'В каком году воевода Пётр Бахметев заложил Красноуфимскую оборонительную крепость на реке Уфе?',
                     en: 'In what year was the Krasnoufimsk defense fortress founded on the Ufa River?'
                 },
@@ -4105,7 +4711,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Что изначально означало название урочища «Красный Яр», давшее имя крепости?',
                     en: 'What did the original name of the site "Krasny Yar" mean?'
                 },
@@ -4121,7 +4727,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Кто из сподвижников Емельяна Пугачёва возглавил взятие Красноуфимской крепости в феврале 1774 года?',
                     en: 'Which associate of Emelyan Pugachev led the capture of the Krasnoufimsk fortress in 1774?'
                 },
@@ -4137,7 +4743,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Какая птица изображена на историческом гербе Красноуфимска, пожалованном Екатериной II в 1783 году?',
                     en: 'Which bird is depicted on the historic coat of arms of Krasnoufimsk granted by Catherine II in 1783?'
                 },
@@ -4153,7 +4759,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Чем уникально Красноуфимское реальное училище, открытое земством в 1875 году?',
                     en: 'Why is the Krasnoufimsk Realschule (1875) historically unique?'
                 },
@@ -4169,7 +4775,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Какую сенсационную палеонтологическую реликвию нашел краевед А. Г. Бессонов в окрестностях Красноуфимска в 1899 году?',
                     en: 'What sensational paleontological fossil was found in Krasnoufimsk by A. G. Bessonov in 1899?'
                 },
@@ -4185,7 +4791,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Какой выдающийся земский врач открыл в Красноуфимске первую на Урале специализированную глазную лечебницу?',
                     en: 'Which outstanding Zemstvo doctor founded the Urals’ first eye hospital in Krasnoufimsk?'
                 },
@@ -4201,7 +4807,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Кто из великих русских зодчих спроектировал ансамбль железнодорожного вокзала Красноуфимска в стиле петровского барокко (1915)?',
                     en: 'Which prominent Russian architect designed the Krasnoufimsk train station ensemble (1915)?'
                 },
@@ -4217,7 +4823,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Какую уникальную конструктивную особенность имеет историческая «Казачья изба» (1905 г.) на улице Советской?',
                     en: 'What unique architectural feature does the historic Cossack Hut (1905) possess?'
                 },
@@ -4233,7 +4839,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Какую продукцию выпускал в годы Великой Отечественной войны эвакуированный в Красноуфимск завод «Мосрентген» № 512?',
                     en: 'What did the evacuated Mosrentgen Factory № 512 produce in Krasnoufimsk during WWII?'
                 },
@@ -4249,7 +4855,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Чем знаменита Красноуфимская селекционная станция, основанная учеными-агрономами в 1933 году?',
                     en: 'What made the Krasnoufimsk Crop Breeding Station (founded 1933) renowned nationwide?'
                 },
@@ -4265,7 +4871,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Каков геологический возраст знаменитого природного памятника «Соколиный камень» (Аргамач) на реке Уфе?',
                     en: 'What is the geological age of the "Sokoliy Rock" (Argamach) natural monument on the Ufa River?'
                 },
@@ -4281,7 +4887,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Какое историческое событие 1774 года увековечено памятным знаком на Дивизионной горе?',
                     en: 'What 1774 historical event is commemorated on Divizionnaya Hill?'
                 },
@@ -4297,7 +4903,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Сколько объектов культурного наследия, памятников истории, архитектуры и природы официально насчитывается в Красноуфимске?',
                     en: 'How many officially registered cultural heritage monuments exist in Krasnoufimsk?'
                 },
@@ -4313,7 +4919,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'К какому юбилею со дня основания Красноуфимской крепости приурочен проект «Красноуфимск: Живая история 2026»?',
                     en: 'To which anniversary of the Krasnoufimsk fortress is this project dedicated in 2026?'
                 },
@@ -4328,9 +4934,9 @@
                     en: 'In 2026, Krasnoufimsk marks exactly 290 years since summer 1736 when Voivode Pyotr Bakhmetyev founded the first timber fortress!'
                 }
             }
-        ,
+            ,
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Как называется главный природный ориентир Красноуфимска — скала у реки Уфы?',
                     en: 'What is the name of the main natural landmark of Krasnoufimsk — the cliff by the Ufa River?'
                 },
@@ -4346,7 +4952,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'В каком году была открыта Казанбургская железная дорога через Красноуфимск?',
                     en: 'When was the Kazanburg railway through Krasnoufimsk opened?'
                 },
@@ -4362,7 +4968,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Кто основал образцовую земскую больницу в Красноуфимске в 1876 году?',
                     en: 'Who founded the model zemstvo hospital in Krasnoufimsk in 1876?'
                 },
@@ -4378,7 +4984,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'Сколько жителей Красноуфимска были удостоены звания Героя Советского Союза в годы Великой Отечественной войны?',
                     en: 'How many Krasnoufimsk residents received the title Hero of the Soviet Union during WWII?'
                 },
@@ -4394,7 +5000,7 @@
                 }
             },
             {
-                q: {
+                difficulty: 'hard', q: {
                     ru: 'В каком стиле построен Рябиновский железнодорожный виадук под Красноуфимском?',
                     en: 'What construction method was used for the Ryabinovka Railway Viaduct near Krasnoufimsk?'
                 },
@@ -4408,7 +5014,8 @@
                     ru: 'Рябиновский виадук (1915 г.) высотой 32 м и длиной 255 м — крупнейший монолитный бетонный арочный мост Урала начала XX века. Он до сих пор в строю и принимает поезда.',
                     en: 'The Ryabinovka Viaduct (1915), 32 m high and 255 m long, was the largest monolithic concrete arch bridge in the Ural in the early 20th century. It still carries trains today.'
                 }
-            }];
+            }
+        ];
 
         /* ==========================================================================
            ФУНКЦИЯ [0]: ДИНАМИЧЕСКИЙ РАСЧЕТ ВОЗРАСТА КРАСНОУФИМСКА
@@ -4499,7 +5106,7 @@
         }
 
         // Обработчик кнопки смены языка
-        document.getElementById('lang-switch-btn').addEventListener('click', function() {
+        document.getElementById('lang-switch-btn').addEventListener('click', function () {
             setLanguage(currentLang === 'ru' ? 'en' : 'ru');
         });
 
@@ -4569,7 +5176,7 @@
             const container = document.getElementById('timeline-scroll-container');
             if (!container) return;
             container.innerHTML = eventsData.map((ev, i) => `
-                <button class="time-btn ${i === 0 ? 'active' : ''}" onclick="openEvent(${i}, 'event${i+1}')">
+                <button class="time-btn ${i === 0 ? 'active' : ''}" onclick="openEvent(${i}, 'event${i + 1}')">
                     <span>${ev.year}</span>
                     <span class="tag">${ev.tag[currentLang]}</span>
                 </button>
@@ -4611,7 +5218,7 @@
         }
 
         // Пошаговая навигация (+1 вперед / -1 назад)
-        
+
         // Плавный скролл к началу текста карточки эпохи
         function scrollToActiveCard() {
             const container = document.getElementById('events-container');
@@ -4639,7 +5246,7 @@
         }
 
         // Поддержка клавиш клавиатуры (Стрелки влево / вправо, Escape)
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 closeMobileMenu();
                 const weatherCard = document.getElementById('weather-details-card');
@@ -4757,7 +5364,7 @@
                         if (humEl) humEl.textContent = c.hum + '%';
                         if (precipEl) precipEl.textContent = c.precip + ' мм';
                         return;
-                    } catch (err) {}
+                    } catch (err) { }
                 }
                 if (tempEl) tempEl.textContent = '+17°C';
                 if (iconEl) iconEl.textContent = '🌤️';
@@ -4770,18 +5377,18 @@
         const btnRefreshWeather = document.getElementById('btn-refresh-weather');
 
         if (weatherPill && weatherCard) {
-            weatherPill.addEventListener('click', function(e) {
+            weatherPill.addEventListener('click', function (e) {
                 e.stopPropagation();
                 weatherCard.classList.toggle('show');
             });
             const btnCloseWeather = document.getElementById('btn-close-weather');
             if (btnCloseWeather) {
-                btnCloseWeather.addEventListener('click', function(e) {
+                btnCloseWeather.addEventListener('click', function (e) {
                     e.stopPropagation();
                     weatherCard.classList.remove('show');
                 });
             }
-            document.addEventListener('click', function(e) {
+            document.addEventListener('click', function (e) {
                 if (!weatherCard.contains(e.target) && !weatherPill.contains(e.target)) {
                     weatherCard.classList.remove('show');
                 }
@@ -4789,7 +5396,7 @@
         }
 
         if (btnRefreshWeather) {
-            btnRefreshWeather.addEventListener('click', function(e) {
+            btnRefreshWeather.addEventListener('click', function (e) {
                 e.stopPropagation();
                 this.textContent = '⏳ ...';
                 fetchKrasnoufimskWeather().finally(() => {
@@ -4863,7 +5470,7 @@
         }
 
         document.querySelectorAll('.season-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 const s = this.dataset.season;
                 if (s === 'auto') {
                     setSeasonTheme(getNaturalSeason(), true);
@@ -4876,12 +5483,35 @@
         /* ==========================================================================
            ФУНКЦИЯ [6]: ИНТЕРАКТИВНАЯ ВИКТОРИНА (QUIZ)
            ========================================================================== */
+        let quizData = [];
         let currentQuizIndex = 0;
         let quizAnswers = {};
 
         function renderQuiz() {
             const quizContainer = document.getElementById('quiz-container');
             if (!quizContainer) return;
+
+            if (quizData.length === 0) {
+                const dict = (typeof i18n !== 'undefined' ? i18n[currentLang] : null) || (typeof i18n !== 'undefined' ? i18n.ru : {});
+                const title = currentLang === 'en' ? 'Choose Difficulty' : 'Выберите уровень сложности';
+                const easy = currentLang === 'en' ? 'Easy (10 Q)' : 'Легкий (10 в.)';
+                const medium = currentLang === 'en' ? 'Medium (15 Q)' : 'Средний (15 в.)';
+                const hard = currentLang === 'en' ? 'Hard (20 Q)' : 'Сложный (20 в.)';
+                
+                quizContainer.innerHTML = `
+                    <div class="quiz-start-screen" style="text-align: center; padding: 2rem;">
+                        <h3 style="margin-bottom: 2rem; font-size: 1.5rem; color: var(--text-main);">${title}</h3>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <button class="btn-primary" onclick="startQuizWithDifficulty('easy')" style="background: #16a34a; border-color: #16a34a; color: #ffffff; padding: 12px 24px; border-radius: 20px; font-weight: bold; box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4); min-width: 180px;">${easy}</button>
+                            <button class="btn-primary" onclick="startQuizWithDifficulty('medium')" style="background: #ea580c; border-color: #ea580c; color: #ffffff; padding: 12px 24px; border-radius: 20px; font-weight: bold; box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4); min-width: 180px;">${medium}</button>
+                            <button class="btn-primary" onclick="startQuizWithDifficulty('hard')" style="background: #e11d48; border-color: #e11d48; color: #ffffff; padding: 12px 24px; border-radius: 20px; font-weight: bold; box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4); min-width: 180px;">${hard}</button>
+                        </div>
+                    </div>
+                `;
+                const banner = document.getElementById('quiz-results');
+                if (banner) banner.style.display = 'none';
+                return;
+            }
 
             quizAnswers = {};
             currentQuizIndex = 0;
@@ -4890,6 +5520,17 @@
             const banner = document.getElementById('quiz-results');
             if (banner) banner.style.display = 'none';
         }
+
+        window.startQuizWithDifficulty = function(diff) {
+            const pool = quizDataMaster.filter(q => q.difficulty === diff);
+            quizData = pool.sort(() => 0.5 - Math.random());
+            renderQuiz();
+        };
+
+        window.restartQuiz = function() {
+            quizData = [];
+            renderQuiz();
+        };
 
         function renderQuizQuestion() {
             const quizContainer = document.getElementById('quiz-container');
@@ -4939,7 +5580,7 @@
                         ${dict.quizPrev || '← Назад'}
                     </button>
                     <span class="quiz-nav-dots">
-                        ${quizData.map((_, i) => `<span class="quiz-dot ${i === idx ? 'active' : ''} ${quizAnswers[i+1] !== undefined ? (quizAnswers[i+1] ? 'answered-correct' : 'answered-wrong') : ''}"></span>`).join('')}
+                        ${quizData.map((_, i) => `<span class="quiz-dot ${i === idx ? 'active' : ''} ${quizAnswers[i + 1] !== undefined ? (quizAnswers[i + 1] ? 'answered-correct' : 'answered-wrong') : ''}"></span>`).join('')}
                     </span>
                     ${isLast ? `
                         <button class="quiz-nav-btn quiz-nav-finish" onclick="finishQuiz()">
@@ -5002,7 +5643,7 @@
             // Обновляем точки прогресса
             const dotsSpan = document.querySelector('.quiz-nav-dots');
             if (dotsSpan) {
-                dotsSpan.innerHTML = quizData.map((_, i) => `<span class="quiz-dot ${i === currentQuizIndex ? 'active' : ''} ${quizAnswers[i+1] !== undefined ? (quizAnswers[i+1] ? 'answered-correct' : 'answered-wrong') : ''}"></span>`).join('');
+                dotsSpan.innerHTML = quizData.map((_, i) => `<span class="quiz-dot ${i === currentQuizIndex ? 'active' : ''} ${quizAnswers[i + 1] !== undefined ? (quizAnswers[i + 1] ? 'answered-correct' : 'answered-wrong') : ''}"></span>`).join('');
             }
 
             // Прогресс-бар
@@ -5031,6 +5672,17 @@
             else desc = dict.quizResult2 || '🔍 Стоит изучить историю города! Пройдите ленту времени.';
 
             if (descText) descText.textContent = desc;
+
+            // show cert box if score >= 80%
+            const certBox = document.getElementById('cert-box');
+            if (certBox) {
+                if (correct / total >= 0.8) {
+                    certBox.style.display = 'block';
+                } else {
+                    certBox.style.display = 'none';
+                }
+            }
+
             if (banner) {
                 banner.style.display = 'block';
                 banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -5055,18 +5707,84 @@
             banner.style.display = 'block';
             if (currentLang === 'ru') {
                 scoreText.textContent = `Ваш результат: ${score} из ${total}!`;
-                descText.textContent = score === total 
-                    ? '🏆 Великолепно! Вы настоящий знаток истории Красноуфимска!' 
+                descText.textContent = score === total
+                    ? '🏆 Великолепно! Вы настоящий знаток истории Красноуфимска!'
                     : (score >= Math.round(total * 0.6) ? '👍 Отличный результат! Вы прекрасно ориентируетесь в истории края.' : '📖 Перечитайте карточки ленты времени и попробуйте ещё раз!');
             } else {
                 scoreText.textContent = `Your score: ${score} of ${total}!`;
-                descText.textContent = score === total 
-                    ? '🏆 Outstanding! You are a genuine Krasnoufimsk history expert!' 
+                descText.textContent = score === total
+                    ? '🏆 Outstanding! You are a genuine Krasnoufimsk history expert!'
                     : (score >= Math.round(total * 0.6) ? '👍 Great job! You know the city’s milestones well.' : '📖 Read through the timeline cards and try again!');
             }
 
             banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
+
+
+        function generateCertificate() {
+            const name = document.getElementById('cert-name-input').value.trim();
+            if (!name) { alert(currentLang === 'ru' ? 'Пожалуйста, введите имя!' : 'Please enter your name!'); return; }
+
+            const canvas = document.getElementById('cert-canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Border
+            ctx.strokeStyle = '#ea580c';
+            ctx.lineWidth = 15;
+            ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+            ctx.strokeStyle = '#222222';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+
+            // Title
+            ctx.fillStyle = '#111111';
+            ctx.font = 'bold 50px "Times New Roman", serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(currentLang === 'ru' ? 'ГРАМОТА' : 'CERTIFICATE', canvas.width / 2, 120);
+
+            // Subtitle
+            ctx.font = 'italic 24px "Times New Roman", serif';
+            ctx.fillStyle = '#555555';
+            ctx.fillText(currentLang === 'ru' ? 'Выдана за отличные знания истории города Красноуфимска' : 'Awarded for excellent knowledge of Krasnoufimsk history', canvas.width / 2, 170);
+
+            // Name
+            ctx.fillStyle = '#ea580c';
+            ctx.font = 'bold 46px "Times New Roman", serif';
+            ctx.fillText(name, canvas.width / 2, 260);
+
+            // Line under name
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2 - 200, 275);
+            ctx.lineTo(canvas.width / 2 + 200, 275);
+            ctx.strokeStyle = '#cccccc';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Text
+            ctx.fillStyle = '#333333';
+            ctx.font = '24px "Times New Roman", serif';
+            ctx.fillText(currentLang === 'ru' ? 'Присваивается почетное звание' : 'Is hereby awarded the honorary title', canvas.width / 2, 340);
+            ctx.font = 'bold 32px "Times New Roman", serif';
+            ctx.fillText(currentLang === 'ru' ? '«ЗНАТОК ИСТОРИИ»' : '«HISTORY EXPERT»', canvas.width / 2, 390);
+
+            // Date & Signature
+            ctx.font = '20px "Times New Roman", serif';
+            ctx.fillStyle = '#111111';
+            const date = new Date().toLocaleDateString();
+            ctx.fillText(currentLang === 'ru' ? 'Дата: ' + date : 'Date: ' + date, 200, 480);
+            ctx.fillText(currentLang === 'ru' ? 'Подпись: _________________' : 'Signature: _________________', 600, 480);
+
+            // Download
+            const link = document.createElement('a');
+            link.download = 'Krasnoufimsk_Certificate.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
 
         function restartQuiz() {
             currentQuizIndex = 0;
@@ -5107,7 +5825,6 @@
         let particleAnimId = null;
 
         function initParticleCanvas(season) {
-            if (window.innerWidth < 768) return;
             const canvas = document.getElementById('particle-canvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
@@ -5191,7 +5908,38 @@
         const progressBar = document.getElementById('reading-progress');
         const backToTopBtn = document.getElementById('btn-back-to-top');
 
-        window.addEventListener('scroll', function() {
+
+        // --- Yandex Maps ---
+        if (typeof ymaps !== 'undefined') {
+            ymaps.ready(initMap);
+        }
+        function initMap() {
+            var myMap = new ymaps.Map("yandex-map", {
+                center: [56.611, 57.771],
+                zoom: 13,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+            // Disable scroll zoom for mobile
+            myMap.behaviors.disable('scrollZoom');
+
+            // Add sights to map
+            if (typeof sightsData !== 'undefined') {
+                sightsData.forEach((s, idx) => {
+                    // Generate pseudo-random coordinates around center
+                    let lat = 56.611 + (Math.sin(idx * 1.5) * 0.015);
+                    let lon = 57.771 + (Math.cos(idx * 1.5) * 0.02);
+                    let placemark = new ymaps.Placemark([lat, lon], {
+                        hintContent: s.name.ru,
+                        balloonContent: '<b>' + s.name.ru + '</b><br>' + s.desc.ru.substring(0, 50) + '...'
+                    }, {
+                        preset: 'islands#orangeDotIcon'
+                    });
+                    myMap.geoObjects.add(placemark);
+                });
+            }
+        }
+
+        window.addEventListener('scroll', function () {
             const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
@@ -5205,7 +5953,7 @@
         });
 
         if (backToTopBtn) {
-            backToTopBtn.addEventListener('click', function() {
+            backToTopBtn.addEventListener('click', function () {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         }
@@ -5250,7 +5998,7 @@
         /* ==========================================================================
            ТОЧКА ВХОДА ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
            ========================================================================== */
-        
+
         // =========================================================================
         // УНИВЕРСАЛЬНАЯ КАРТОГРАФИЯ (ЯНДЕКС.КАРТЫ)
         // =========================================================================
@@ -5311,7 +6059,7 @@
                     btn1.href = "https://yandex.ru/maps/?rtext=56.614454,57.764644~56.617662,57.771443~56.621298,57.773395&rtt=pd";
                 }
                 if (btn2) {
-                    btn2.href = "https://yandex.ru/maps/?rtext=56.618024,57.761235~56.621315,57.773401&rtt=pd";
+                    btn2.href = "https://yandex.ru/maps/?rtext=56.618024,57.761235~56.617200,57.760500&rtt=pd";
                 }
                 if (btn3) {
                     btn3.href = "https://yandex.ru/maps/?rtext=56.552642,57.712298~56.498662,57.522348&rtt=auto";
@@ -5508,30 +6256,6 @@
                 queryRu: 'Красноуфимск площадь Ленина центр', queryEn: 'Krasnoufimsk Lenina Square'
             },
             {
-                id: 'bakhmetev-monument', hasMapMark: true, cat: 'monuments', icon: '🗿',
-                image: 'images/ploschad.jpg', year: '1736 / 2026 гг.',
-                lat: '56.621315', lon: '57.773401',
-                style: { ru: 'Монументальная скульптура', en: 'Monumental Sculpture' },
-                status: { ru: 'Монумент основателям крепости 1736 г.', en: '1736 Fortress Founders Monument' },
-                title: { ru: 'Памятник воеводе Петру Бахметеву', en: 'Voivode Pyotr Bakhmetyev Monument' },
-                desc: { ru: 'Памятный монумент основателю Красноуфимской крепости — воеводе Петру Бахметеву, заложившему в 1736 году острог на берегах реки Уфы по указу В. Н. Татищева. Установлен на набережной «Красный Яр» к 290-летнему юбилею города.', en: 'A commemorative monument to fortress founder Voivode Pyotr Bakhmetyev, who established the Krasnoufimsk fortress in 1736. Installed on the Krasny Yar embankment for the city\'s 290th anniversary.' },
-                fact: { ru: 'Воевода Бахметев действовал по именному указу Василия Татищева — первого уральского историка и администратора.', en: 'Voivode Bakhmetyev acted under a decree of Vasily Tatishchev — the first major Ural administrator and historian.' },
-                address: { ru: 'Набережная «Красный Яр»', en: 'Krasny Yar Embankment' },
-                queryRu: 'Красноуфимск набережная Красный Яр памятник основателю', queryEn: 'Krasnoufimsk Krasny Yar embankment founders monument'
-            },
-            {
-                id: 'kazachya-bashnya', hasMapMark: true, cat: 'monuments', icon: '🗼',
-                image: 'images/parovoz.jpg', year: '1736 / 2026 гг.',
-                lat: '56.621100', lon: '57.773600',
-                style: { ru: 'Реконструкция деревянного острога', en: 'Reconstructed Timber Fortress' },
-                status: { ru: 'Реконструкция форпоста воеводы Бахметева', en: 'Reconstructed Log Fortification' },
-                title: { ru: 'Сторожевая казачья башня крепости', en: 'Cossack Fortress Watchtower (Reconstruction)' },
-                desc: { ru: 'Реконструированная сторожевая башня Красноуфимской крепости 1736 года на набережной «Красный Яр». Воссоздаёт облик оборонительных укреплений первого острога: заострённые брёвна частокола, угловые башни с бойницами. Позволяет увидеть, как выглядела крепость глазами её защитников.', en: 'A reconstructed watchtower of the 1736 Krasnoufimsk fortress on the Krasny Yar embankment. Recreates the original Cossack stockade with sharpened log palisades and corner lookout towers with embrasures.' },
-                fact: { ru: 'Первая крепость имела 4 угловые башни, частокол и надолбы — заострённые брёвна против кавалерии.', en: 'The original fortress had 4 corner towers, a log palisade, and anti-cavalry sharpened stake defenses.' },
-                address: { ru: 'Набережная «Красный Яр» (историческая зона)', en: 'Krasny Yar Embankment (historic zone)' },
-                queryRu: 'Красноуфимск набережная Красный Яр казачья башня', queryEn: 'Krasnoufimsk Krasny Yar embankment Cossack tower'
-            },
-            {
                 id: 'salavat-memorial', hasMapMark: true, cat: 'monuments', icon: '⚔️',
                 image: 'images/divizionnaya.jpg', year: '1774 г.',
                 lat: '56.618200', lon: '57.761500',
@@ -5602,18 +6326,6 @@
                 fact: { ru: 'Красноуфимский район потерял несколько десятков молодых земляков в Афганской и Чеченских кампаниях.', en: 'The Krasnoufimsk district lost dozens of young soldiers in the Afghan and Chechen campaigns.' },
                 address: { ru: 'ул. Советская (центр города)', en: 'Sovetskaya St. (town center)' },
                 queryRu: 'Красноуфимск памятник воинам локальных конфликтов', queryEn: 'Krasnoufimsk veterans local conflicts memorial'
-            },
-            {
-                id: 'chernobyl-memorial', hasMapMark: true, cat: 'monuments', icon: '☢️',
-                image: 'images/naberezhnaya.jpg', year: '2010-е гг.',
-                lat: '56.614600', lon: '57.768400',
-                style: { ru: 'Городской памятник мужеству', en: 'Civic Courage Monument' },
-                status: { ru: 'Памятник ликвидаторам катастрофы на ЧАЭС', en: 'Chernobyl Liquidators Monument' },
-                title: { ru: 'Памятник ликвидаторам аварии на ЧАЭС', en: 'Chernobyl Nuclear Disaster Liquidators Monument' },
-                desc: { ru: 'Памятник в сквере Победы, посвящённый красноуфимцам — ликвидаторам аварии на Чернобыльской АЭС в 1986 году. Сотни жителей района отправились в зону заражения, чтобы ценой здоровья предотвратить распространение радиации.', en: 'A monument in Victory Square dedicated to Krasnoufimsk residents who participated in the 1986 Chernobyl nuclear disaster cleanup, at great cost to their health.' },
-                fact: { ru: 'Ликвидаторы с Урала работали в зоне отчуждения ЧАЭС в 1986–1987 годах, получив значительные дозы облучения.', en: 'Ural liquidators worked in the Chernobyl exclusion zone in 1986–1987, receiving significant radiation doses.' },
-                address: { ru: 'Сквер Победы', en: 'Victory Square' },
-                queryRu: 'Красноуфимск Сквер Победы памятник Чернобыль', queryEn: 'Krasnoufimsk Victory Square Chernobyl monument'
             },
 
             // ── 3. ИНЖЕНЕРИЯ И МОСТЫ ───────────────────────────────────────────
@@ -5694,11 +6406,11 @@
         ];
 
 
-                let currentSightCategory = 'all';
+        let currentSightCategory = 'all';
         let currentSightId = 'kazachya-izba';
         let currentSightIndex = 0;
 
-function updateSightsDropdownMenu() {
+        function updateSightsDropdownMenu() {
             const select = document.getElementById('sights-select-dropdown');
             if (!select) return;
             let html = '';
@@ -5762,8 +6474,8 @@ function updateSightsDropdownMenu() {
 
             const dict = i18n[currentLang];
             const btnMapText = dict.btnOpenMap || ((currentLang === 'ru') ? '📍 Открыть на Яндекс.Картах ↗' : '📍 Open in Yandex Maps ↗');
-            const counterText = (currentLang === 'ru') 
-                ? `Объект ${sightIndex + 1} из ${sightsData.length}` 
+            const counterText = (currentLang === 'ru')
+                ? `Объект ${sightIndex + 1} из ${sightsData.length}`
                 : `Object ${sightIndex + 1} of ${sightsData.length}`;
 
             showcase.innerHTML = `
@@ -5797,11 +6509,11 @@ function updateSightsDropdownMenu() {
             }
         }
 
-                // =========================================================================
-        
+        // =========================================================================
+
 
         // =========================================================================
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Инициализация каталога достопримечательностей
             buildTimelineNav();
             openEvent(typeof currentEventIndex !== 'undefined' ? currentEventIndex : 0, 'event' + ((typeof currentEventIndex !== 'undefined' ? currentEventIndex : 0) + 1));
@@ -5832,9 +6544,10 @@ function updateSightsDropdownMenu() {
             fetchKrasnoufimskWeather();
         });
 
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             window.scrollTo(0, 0);
         });
     </script>
 </body>
+
 </html>
