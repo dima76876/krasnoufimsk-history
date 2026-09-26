@@ -756,6 +756,7 @@
             color: #ffffff;
             background: linear-gradient(120deg, #ffffff 40%, var(--main-light) 100%);
             -webkit-background-clip: text;
+
             -webkit-text-fill-color: transparent;
             display: block;
             margin-top: 6px;
@@ -2012,7 +2013,7 @@
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
-        
+
         .reveal-on-scroll.js-hidden {
             opacity: 0;
             transform: translateY(28px);
@@ -2592,14 +2593,14 @@
 
             .hero {
                 min-height: auto !important;
-                
-                
+
+
                 padding: 15px 0 !important;
             }
 
             .hero h1 {
                 font-size: 22pt !important;
-                
+
                 text-shadow: none !important;
             }
 
@@ -3268,7 +3269,7 @@
                 padding: 5px 10px !important;
             }
         }
-    
+
         /* ТЕМА: ТЁМНАЯ (DARK) */
         body.dark-theme {
             --bg-body: #0f172a;
@@ -3280,10 +3281,11 @@
             --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
             --shadow-md: 0 12px 24px -4px rgba(0, 0, 0, 0.5);
         }
-        
+
         .theme-switch-btn {
             background: rgba(255, 255, 255, 0.15);
-            border: 2px solid rgba(255, 255, 255, 0.6); /* Обводка для заметности */
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            /* Обводка для заметности */
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             width: 38px;
@@ -3298,12 +3300,14 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
+
         @media (max-width: 768px) {
             .theme-switch-btn {
                 width: 32px !important;
                 height: 32px !important;
                 font-size: 0.9rem;
             }
+
             #theme-icon {
                 font-size: 0.9rem;
             }
@@ -3313,17 +3317,20 @@
             background: rgba(255, 255, 255, 0.4);
             transform: scale(1.05) rotate(15deg);
         }
+
         body.dark-theme .theme-switch-btn {
             background: rgba(0, 0, 0, 0.4);
             border: 2px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
         }
+
         @media (max-width: 768px) {
             .theme-switch-btn {
                 width: 32px !important;
                 height: 32px !important;
                 font-size: 0.9rem;
             }
+
             #theme-icon {
                 font-size: 0.9rem;
             }
@@ -3333,23 +3340,26 @@
             background: rgba(0, 0, 0, 0.5);
         }
 
-    
+
         body.dark-theme .timeline-section {
             background: rgba(15, 23, 42, 0.95);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
         }
+
         body.dark-theme .nav-link {
             color: var(--text-muted);
         }
-        body.dark-theme .nav-link:hover, body.dark-theme .nav-link.active {
+
+        body.dark-theme .nav-link:hover,
+        body.dark-theme .nav-link.active {
             color: var(--main-color);
         }
+
         body.dark-theme .timeline-scroll-container::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.05);
         }
-
     </style>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 </head>
@@ -3911,8 +3921,10 @@
                 <div class="quiz-results-banner" id="quiz-results">
                     <h3 id="quiz-score-text">Поздравляем!</h3>
                     <p id="quiz-desc-text">Вы ответили на все вопросы викторины.</p>
-                    <button class="btn-restart-quiz" onclick="restartQuiz()" data-i18n="quizRestart">Повторить викторину</button>
-                    <button class="btn-download-cert" onclick="downloadCertificate()" data-i18n="quizDownloadCert">📥 Скачать сертификат</button>
+                    <button class="btn-restart-quiz" onclick="restartQuiz()" data-i18n="quizRestart">Повторить
+                        викторину</button>
+                    <button class="btn-download-cert" onclick="downloadCertificate()" data-i18n="quizDownloadCert">📥
+                        Скачать сертификат</button>
                 </div>
             </div>
         </div>
@@ -3926,7 +3938,8 @@
             <div class="footer-logo" data-i18n="footerLogo">Красноуфимск: Живая история</div>
             <div class="footer-meta">
                 <span data-i18n="footerProject">Выполнен в ходе индивидуального проекта.</span><br>
-                <strong data-i18n="footerAuthor">Автор:</strong> <span data-i18n="footerAuthorDesc">Ужегов Дмитрий, учащийся 10А класса МАОУ СШ №3.</span>
+                <strong data-i18n="footerAuthor">Автор:</strong> <span data-i18n="footerAuthorDesc">Ужегов Дмитрий,
+                    учащийся 10А класса МАОУ СШ №3.</span>
             </div>
             <div class="footer-badges">
                 <span class="footer-chip">HTML5</span>
@@ -3966,7 +3979,11 @@
 
         const themeBtn = document.getElementById('theme-switch-btn');
         const themeIcon = document.getElementById('theme-icon');
-        const currentTheme = localStorage.getItem('kuf_theme') || 'dark';
+        let defaultTheme = 'dark';
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            defaultTheme = 'light';
+        }
+        const currentTheme = localStorage.getItem('kuf_theme') || defaultTheme;
         if (currentTheme === 'dark') {
             document.body.classList.add('dark-theme');
             if (themeIcon) themeIcon.textContent = '☀️';
@@ -5146,7 +5163,10 @@
             renderQuiz();
 
             // Обновляем заголовки сезонов
-            const currentSeason = document.body.className.replace('season-', '') || 'autumn';
+            let currentSeason = 'autumn';
+            if (document.body.classList.contains('season-winter')) currentSeason = 'winter';
+            if (document.body.classList.contains('season-spring')) currentSeason = 'spring';
+            if (document.body.classList.contains('season-summer')) currentSeason = 'summer';
             updateSeasonText(currentSeason);
             // Обновление интерактивного каталога достопримечательностей
             if (typeof renderSightsSelector === 'function') renderSightsSelector(currentSightCategory);
@@ -5159,6 +5179,13 @@
                 if (typeof renderRegistryTable === 'function') renderRegistryTable();
             }
             if (typeof updateRouteMapLinks === 'function') updateRouteMapLinks();
+            if (typeof renderMapMarkers === 'function') renderMapMarkers();
+
+            // Фикс для мобильного Safari: принудительная перерисовка при смене языка
+            setTimeout(() => {
+                window.scrollBy(0, 1);
+                window.scrollBy(0, -1);
+            }, 50);
         }
 
         // Обработчик кнопки смены языка
@@ -5373,14 +5400,33 @@
             const precipEl = document.getElementById('weather-precip');
             const descEl = document.getElementById('weather-card-desc');
             const timeEl = document.getElementById('weather-time');
+            const refreshBtn = document.getElementById('btn-refresh-weather');
+
+            if (refreshBtn) {
+                refreshBtn.style.opacity = '0.4';
+                refreshBtn.style.pointerEvents = 'none';
+            }
 
             const lat = 56.6167;
             const lon = 57.7667;
-            const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=auto`;
+            const baseUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&timezone=auto`;
 
             try {
-                const response = await fetch(url, { cache: 'no-store' });
-                if (!response.ok) throw new Error('API Error');
+                let response;
+                try {
+                    response = await fetch(baseUrl);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                } catch (e1) {
+                    console.warn('Direct fetch failed, trying proxy...', e1);
+                    try {
+                        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(baseUrl);
+                        response = await fetch(proxyUrl);
+                        if (!response.ok) throw new Error(`Proxy HTTP ${response.status}`);
+                    } catch (e2) {
+                        throw new Error(e1.message);
+                    }
+                }
+
                 const data = await response.json();
                 const cur = data.current;
 
@@ -5404,16 +5450,38 @@
                 const timeStr = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
                 if (timeEl) timeEl.textContent = `${i18n[currentLang].weatherUpdated} ${timeStr}`;
 
+                localStorage.setItem('kuf_weather_cache', JSON.stringify({ temp, feels, windMs, hum, precip, wmo, timeStr }));
             } catch (e) {
-                console.warn('Weather fetch failed:', e);
+                console.warn('Используем кэшированную погоду:', e);
+                const cached = localStorage.getItem('kuf_weather_cache');
+                if (cached) {
+                    try {
+                        const c = JSON.parse(cached);
+                        if (iconEl) iconEl.textContent = c.wmo.icon;
+                        if (tempEl) tempEl.textContent = (c.temp > 0 ? '+' : '') + c.temp + '°C';
+                        if (descEl) descEl.textContent = `${c.wmo.icon} ${c.wmo[currentLang]}, ${c.temp > 0 ? '+' : ''}${c.temp}°C`;
+                        if (feelsEl) feelsEl.textContent = (c.feels > 0 ? '+' : '') + c.feels + '°C';
+                        if (windEl) windEl.textContent = c.windMs + ' м/с';
+                        if (humEl) humEl.textContent = c.hum + '%';
+                        if (precipEl) precipEl.textContent = c.precip + ' мм';
+                        if (timeEl) timeEl.textContent = `${i18n[currentLang].weatherUpdated} ${c.timeStr} (кэш)`;
+                        return;
+                    } catch (err) {}
+                }
+                
                 const curLangDict = i18n[currentLang] || i18n.ru;
                 if (iconEl) iconEl.textContent = '❌';
-                if (tempEl) tempEl.textContent = '--°C';
-                if (descEl) descEl.textContent = curLangDict.weatherError || 'Ошибка загрузки';
+                if (tempEl) tempEl.textContent = 'Err';
+                if (descEl) descEl.textContent = (curLangDict.weatherError || 'Ошибка:') + ' ' + (e.message || 'Сбой');
                 if (feelsEl) feelsEl.textContent = '--°C';
                 if (windEl) windEl.textContent = '-- м/с';
                 if (humEl) humEl.textContent = '--%';
                 if (precipEl) precipEl.textContent = '-- мм';
+            } finally {
+                if (refreshBtn) {
+                    refreshBtn.style.opacity = '1';
+                    refreshBtn.style.pointerEvents = 'auto';
+                }
             }
         }
 
@@ -5424,6 +5492,30 @@
             if (m >= 5 && m <= 7) return 'summer';
             return 'autumn';
         }
+
+        
+        const seasonInfo = {
+            winter: {
+                ru: { title: 'ЗИМНЯЯ ИСТОРИЯ', heading: 'Заснеженный город на берегу реки Уфы' },
+                en: { title: 'WINTER HISTORY', heading: 'Snowy city on the banks of the Ufa River' },
+                metaColor: '#0ea5e9'
+            },
+            spring: {
+                ru: { title: 'ВЕСЕННЯЯ ИСТОРИЯ', heading: 'Цветущий город на живописном берегу реки Уфы' },
+                en: { title: 'SPRING HISTORY', heading: 'Blooming city on the scenic banks of the Ufa River' },
+                metaColor: '#10b981'
+            },
+            summer: {
+                ru: { title: 'ЛЕТНЯЯ ИСТОРИЯ', heading: 'Солнечный город на берегу реки Уфы' },
+                en: { title: 'SUMMER HISTORY', heading: 'Sunny city on the banks of the Ufa River' },
+                metaColor: '#eab308'
+            },
+            autumn: {
+                ru: { title: 'ЖИВАЯ ИСТОРИЯ', heading: 'Город на живописном берегу реки Уфы' },
+                en: { title: 'LIVING HISTORY', heading: 'City on the scenic banks of the Ufa River' },
+                metaColor: '#ea580c'
+            }
+        };
 
         function updateSeasonText(season) {
             const info = seasonInfo[season] || seasonInfo.autumn;
@@ -5483,7 +5575,7 @@
                 const easy = currentLang === 'en' ? 'Easy (10 Q)' : 'Легкий (10 в.)';
                 const medium = currentLang === 'en' ? 'Medium (15 Q)' : 'Средний (15 в.)';
                 const hard = currentLang === 'en' ? 'Hard (20 Q)' : 'Сложный (20 в.)';
-                
+
                 quizContainer.innerHTML = `
                     <div class="quiz-start-screen" style="text-align: center; padding: 2rem;">
                         <h3 style="margin-bottom: 2rem; font-size: 1.5rem; color: var(--text-main);">${title}</h3>
@@ -5507,11 +5599,11 @@
             if (banner) banner.style.display = 'none';
         }
 
-                window.startQuizWithDifficulty = function(diff) {
+        window.startQuizWithDifficulty = function (diff) {
             const pool = quizDataMaster.filter(q => q.difficulty === diff);
             const limit = diff === 'easy' ? 10 : (diff === 'medium' ? 16 : 20); // set medium limit to 16 since there are 16 questions
             quizData = pool.sort(() => 0.5 - Math.random()).slice(0, limit);
-            
+
             // Надежно перемешиваем варианты ответов (Fisher-Yates)
             quizData.forEach(q => {
                 // Создаем глубокую копию опций, чтобы не портить оригинал при рестартах
@@ -5522,11 +5614,11 @@
                 }
                 q.shuffledOptions = optionsCopy;
             });
-            
+
             renderQuiz();
         };
 
-        window.restartQuiz = function() {
+        window.restartQuiz = function () {
             quizData = [];
             renderQuiz();
         };
@@ -5914,30 +6006,41 @@
         if (typeof ymaps !== 'undefined') {
             ymaps.ready(initMap);
         }
+        var myYandexMap;
         function initMap() {
-            var myMap = new ymaps.Map("yandex-map", {
-                center: [56.611, 57.771],
-                zoom: 13,
-                controls: ['zoomControl', 'fullscreenControl']
-            });
-            // Disable scroll zoom for mobile
-            myMap.behaviors.disable('scrollZoom');
-
-            // Add sights to map
-            if (typeof sightsData !== 'undefined') {
-                sightsData.forEach((s, idx) => {
-                    // Generate pseudo-random coordinates around center
-                    let lat = 56.611 + (Math.sin(idx * 1.5) * 0.015);
-                    let lon = 57.771 + (Math.cos(idx * 1.5) * 0.02);
-                    let placemark = new ymaps.Placemark([lat, lon], {
-                        hintContent: s.name.ru,
-                        balloonContent: '<b>' + s.name.ru + '</b><br>' + s.desc.ru.substring(0, 50) + '...'
-                    }, {
-                        preset: 'islands#orangeDotIcon'
-                    });
-                    myMap.geoObjects.add(placemark);
+            try {
+                myYandexMap = new ymaps.Map("yandex-map", {
+                    center: [56.611, 57.771],
+                    zoom: 13,
+                    controls: ['zoomControl', 'fullscreenControl']
                 });
+                // Disable scroll zoom for mobile
+                myYandexMap.behaviors.disable('scrollZoom');
+
+                renderMapMarkers();
+            } catch (e) {
+                console.warn('Yandex Map failed to load:', e);
             }
+        }
+
+        function renderMapMarkers() {
+            if (!myYandexMap || typeof sightsData === 'undefined') return;
+            myYandexMap.geoObjects.removeAll();
+            sightsData.forEach((s, idx) => {
+                let lat = 56.611 + (Math.sin(idx * 1.5) * 0.015);
+                let lon = 57.771 + (Math.cos(idx * 1.5) * 0.02);
+                
+                let titleText = s.title ? (s.title[currentLang] || s.title.ru) : '';
+                let descText = s.desc ? (s.desc[currentLang] || s.desc.ru) : '';
+                
+                let placemark = new ymaps.Placemark([lat, lon], {
+                    hintContent: titleText,
+                    balloonContent: '<b>' + titleText + '</b><br>' + descText.substring(0, 60) + '...'
+                }, {
+                    preset: 'islands#orangeDotIcon'
+                });
+                myYandexMap.geoObjects.add(placemark);
+            });
         }
 
         window.addEventListener('scroll', function () {
@@ -6420,6 +6523,9 @@
                 html += `<option value="${s.id}" ${isSelected}>${idx + 1}. ${s.icon} ${s.title[currentLang]} (${s.year})</option>`;
             });
             select.innerHTML = html;
+            // Форсируем обновление отображения для мобильного Safari
+            select.value = '';
+            select.value = currentSightId;
         }
 
         function renderNavSightsDropdown() {
@@ -6542,7 +6648,41 @@
             setSeasonTheme(natSeason, true);
 
             // Запрос погоды Красноуфимска
-            fetchKrasnoufimskWeather();
+            
+        const weatherPill = document.getElementById('weather-pill');
+        const weatherCard = document.getElementById('weather-details-card');
+        const btnCloseWeather = document.getElementById('btn-close-weather');
+        const btnRefreshWeather = document.getElementById('btn-refresh-weather');
+
+        if (weatherPill && weatherCard) {
+            weatherPill.addEventListener('click', function (e) {
+                e.stopPropagation();
+                weatherCard.classList.toggle('show');
+            });
+        }
+        if (btnCloseWeather && weatherCard) {
+            btnCloseWeather.addEventListener('click', function (e) {
+                e.stopPropagation();
+                weatherCard.classList.remove('show');
+            });
+        }
+        if (btnRefreshWeather) {
+            btnRefreshWeather.addEventListener('click', function (e) {
+                e.stopPropagation();
+                fetchKrasnoufimskWeather();
+            });
+        }
+        
+        // Закрытие карточки погоды при клике вне её
+        document.addEventListener('click', function (e) {
+            if (weatherCard && weatherCard.classList.contains('show')) {
+                if (!weatherCard.contains(e.target) && !weatherPill.contains(e.target)) {
+                    weatherCard.classList.remove('show');
+                }
+            }
+        });
+
+        fetchKrasnoufimskWeather();
         });
 
 
@@ -6551,36 +6691,36 @@
             canvas.width = 1000;
             canvas.height = 700;
             const ctx = canvas.getContext('2d');
-            
+
             // Background (Dark theme gradient)
             const bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
             bgGradient.addColorStop(0, '#0f172a');
             bgGradient.addColorStop(1, '#1e293b');
             ctx.fillStyle = bgGradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
+
             // Outer Gold Border
             ctx.strokeStyle = '#d4af37';
             ctx.lineWidth = 15;
             ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
-            
+
             // Inner Thin Border
             ctx.strokeStyle = '#facc15';
             ctx.lineWidth = 3;
             ctx.strokeRect(50, 50, canvas.width - 100, canvas.height - 100);
 
             ctx.textAlign = 'center';
-            
+
             // Title
             ctx.font = 'bold 48px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#facc15';
             ctx.fillText(currentLang === 'ru' ? 'СЕРТИФИКАТ ЗНАТОКА' : 'CERTIFICATE OF EXPERTISE', 500, 160);
-            
+
             // Subtitle
             ctx.font = '32px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#94a3b8';
             ctx.fillText(currentLang === 'ru' ? 'Красноуфимск: Сквозь Эпохи' : 'Krasnoufimsk: Through Epochs', 500, 230);
-            
+
             // Score header
             ctx.font = '24px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#e2e8f0';
@@ -6590,7 +6730,7 @@
             ctx.font = 'bold 80px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#ffffff';
             ctx.fillText(`${window.lastQuizScore || 0} / ${window.lastQuizTotal || 0}`, 500, 420);
-            
+
             // Description
             ctx.font = 'italic 28px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#38bdf8';
@@ -6601,7 +6741,7 @@
             ctx.fillStyle = '#64748b';
             const dateStr = new Date().toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US');
             ctx.fillText(currentLang === 'ru' ? `Дата: ${dateStr}` : `Date: ${dateStr}`, 500, 620);
-            
+
             // Trigger download
             const link = document.createElement('a');
             link.download = 'Krasnoufimsk_Certificate.png';
@@ -6609,42 +6749,42 @@
             link.click();
         }
 
-        
+
         function downloadCertificate() {
             const canvas = document.createElement('canvas');
             canvas.width = 1000;
             canvas.height = 700;
             const ctx = canvas.getContext('2d');
-            
+
             // Background (Dark theme gradient)
             const bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
             bgGradient.addColorStop(0, '#0f172a');
             bgGradient.addColorStop(1, '#1e293b');
             ctx.fillStyle = bgGradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
+
             // Outer Gold Border
             ctx.strokeStyle = '#d4af37';
             ctx.lineWidth = 15;
             ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
-            
+
             // Inner Thin Border
             ctx.strokeStyle = '#facc15';
             ctx.lineWidth = 3;
             ctx.strokeRect(50, 50, canvas.width - 100, canvas.height - 100);
 
             ctx.textAlign = 'center';
-            
+
             // Title
             ctx.font = 'bold 48px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#facc15';
             ctx.fillText(currentLang === 'ru' ? 'СЕРТИФИКАТ ЗНАТОКА' : 'CERTIFICATE OF EXPERTISE', 500, 160);
-            
+
             // Subtitle
             ctx.font = '32px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#94a3b8';
             ctx.fillText(currentLang === 'ru' ? 'Красноуфимск: Сквозь Эпохи' : 'Krasnoufimsk: Through Epochs', 500, 230);
-            
+
             // Score header
             ctx.font = '24px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#e2e8f0';
@@ -6654,7 +6794,7 @@
             ctx.font = 'bold 80px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#ffffff';
             ctx.fillText(`${window.lastQuizScore || 0} / ${window.lastQuizTotal || 0}`, 500, 420);
-            
+
             // Description
             ctx.font = 'italic 28px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#38bdf8';
@@ -6665,7 +6805,7 @@
             ctx.fillStyle = '#64748b';
             const dateStr = new Date().toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US');
             ctx.fillText(currentLang === 'ru' ? `Дата: ${dateStr}` : `Date: ${dateStr}`, 500, 620);
-            
+
             // Trigger download
             const link = document.createElement('a');
             link.download = 'Krasnoufimsk_Certificate.png';
@@ -6678,6 +6818,51 @@
             window.scrollTo(0, 0);
         });
     </script>
+
+    <style>
+    /* Mobile Polish - UX Improvements */
+    * {
+        -webkit-tap-highlight-color: transparent !important;
+    }
+    .filters-container, .attractions-grid, .quiz-options, .timeline, .gallery-grid {
+        -webkit-overflow-scrolling: touch !important;
+    }
+    body.modal-open {
+        overflow: hidden !important;
+        touch-action: none !important;
+    }
+    </style>
+    <script>
+    // Modal Scroll Bleed Protection
+    document.addEventListener('click', function(e) {
+        setTimeout(function() {
+            let isModalOpen = false;
+            
+            const weather = document.getElementById('weather-details-card');
+            if (weather && weather.classList.contains('show')) isModalOpen = true;
+            
+            const overlays = document.querySelectorAll('div');
+            for (let i = 0; i < overlays.length; i++) {
+                let m = overlays[i];
+                if (!m) continue;
+                const style = window.getComputedStyle(m);
+                if (style.position === 'fixed' && style.display !== 'none' && style.opacity !== '0' && style.zIndex > 100) {
+                    if (m.getBoundingClientRect().height >= window.innerHeight * 0.5) {
+                        isModalOpen = true;
+                        break;
+                    }
+                }
+            }
+
+            if (isModalOpen) {
+                document.body.classList.add('modal-open');
+            } else {
+                document.body.classList.remove('modal-open');
+            }
+        }, 50);
+    });
+    </script>
 </body>
+
 
 </html>
