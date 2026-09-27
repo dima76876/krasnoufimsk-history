@@ -3918,7 +3918,10 @@
                 <div class="quiz-results-banner" id="quiz-results">
                     <h3 id="quiz-score-text">Поздравляем!</h3>
                     <p id="quiz-desc-text">Вы ответили на все вопросы викторины.</p>
-                    <button class="btn-restart-quiz" onclick="restartQuiz()" data-i18n="quizRestart">Повторить
+                    <div style="margin-bottom: 20px;">
+<input type="text" id="cert-name-input" placeholder="Введите ваше имя" style="padding: 10px; width: 80%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: #ffffff; color: #000000; font-weight: bold; font-size: 16px; text-align: center;" data-i18n-placeholder="Enter your name">
+</div>
+<button class="btn-restart-quiz" onclick="restartQuiz()" data-i18n="quizRestart">Повторить
                         викторину</button>
                     <button class="btn-download-cert" onclick="downloadCertificate()" data-i18n="quizDownloadCert">📥
                         Скачать сертификат</button>
@@ -4132,7 +4135,19 @@
                 quizScoreLow: '📖 «Начинающий исследователь Красноуфимска»!',
 
             },
-            en: {
+            
+quizCounterLabel: 'Вопрос',
+quizCounterOf: 'из',
+quizPrev: '← Назад',
+quizNext: 'Далее →',
+quizFinish: '🏆 Показать результат',
+quizScore: 'Правильных ответов:',
+quizOutOf: 'из',
+quizResult5: '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!',
+quizResult4: '👍 Хорошо! Вы хорошо знаете историю города.',
+quizResult3: '📖 Неплохо! Почитайте о достопримечательностях подробнее.',
+quizResult2: '🔍 Стоит изучить историю города! Пройдите ленту времени.',
+en: {
                 logoTitle: 'Krasnoufimsk',
                 logoSub: 'Living History 2026',
                 cityName: 'Krasnoufimsk',
@@ -4150,6 +4165,19 @@
                 navRoutes: 'Routes',
                 navGuide: 'Tourist Guide',
                 navQuiz: 'Quiz',
+
+quizCounterLabel: 'QUESTION',
+quizCounterOf: 'OF',
+quizPrev: '← Back',
+quizNext: 'Next →',
+quizFinish: '🏆 Show Result',
+quizScore: 'Correct answers:',
+quizOutOf: 'out of',
+quizResult5: '🏆 Excellent! You are a true expert!',
+quizResult4: '👍 Good! You know the city well.',
+quizResult3: '📖 Not bad! Read more about the sights.',
+quizResult2: '🔍 Worth studying! Check out the timeline.',
+
                 navMenuTitle: 'Navigation Menu',
                 heroBadge: '🏛️ Educational Web Project • 2026',
                 heroMain: 'KRASNOUFIMSK',
@@ -5579,22 +5607,70 @@
         const seasonInfo = {
             winter: {
                 ru: { title: 'ЗИМНЯЯ ИСТОРИЯ', heading: 'Заснеженный город на берегу реки Уфы' },
-                en: { title: 'WINTER HISTORY', heading: 'Snowy city on the banks of the Ufa River' },
+                
+quizCounterLabel: 'Вопрос',
+quizCounterOf: 'из',
+quizPrev: '← Назад',
+quizNext: 'Далее →',
+quizFinish: '🏆 Показать результат',
+quizScore: 'Правильных ответов:',
+quizOutOf: 'из',
+quizResult5: '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!',
+quizResult4: '👍 Хорошо! Вы хорошо знаете историю города.',
+quizResult3: '📖 Неплохо! Почитайте о достопримечательностях подробнее.',
+quizResult2: '🔍 Стоит изучить историю города! Пройдите ленту времени.',
+en: { title: 'WINTER HISTORY', heading: 'Snowy city on the banks of the Ufa River' },
                 metaColor: '#0ea5e9'
             },
             spring: {
                 ru: { title: 'ВЕСЕННЯЯ ИСТОРИЯ', heading: 'Цветущий город на живописном берегу реки Уфы' },
-                en: { title: 'SPRING HISTORY', heading: 'Blooming city on the scenic banks of the Ufa River' },
+                
+quizCounterLabel: 'Вопрос',
+quizCounterOf: 'из',
+quizPrev: '← Назад',
+quizNext: 'Далее →',
+quizFinish: '🏆 Показать результат',
+quizScore: 'Правильных ответов:',
+quizOutOf: 'из',
+quizResult5: '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!',
+quizResult4: '👍 Хорошо! Вы хорошо знаете историю города.',
+quizResult3: '📖 Неплохо! Почитайте о достопримечательностях подробнее.',
+quizResult2: '🔍 Стоит изучить историю города! Пройдите ленту времени.',
+en: { title: 'SPRING HISTORY', heading: 'Blooming city on the scenic banks of the Ufa River' },
                 metaColor: '#10b981'
             },
             summer: {
                 ru: { title: 'ЛЕТНЯЯ ИСТОРИЯ', heading: 'Солнечный город на берегу реки Уфы' },
-                en: { title: 'SUMMER HISTORY', heading: 'Sunny city on the banks of the Ufa River' },
+                
+quizCounterLabel: 'Вопрос',
+quizCounterOf: 'из',
+quizPrev: '← Назад',
+quizNext: 'Далее →',
+quizFinish: '🏆 Показать результат',
+quizScore: 'Правильных ответов:',
+quizOutOf: 'из',
+quizResult5: '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!',
+quizResult4: '👍 Хорошо! Вы хорошо знаете историю города.',
+quizResult3: '📖 Неплохо! Почитайте о достопримечательностях подробнее.',
+quizResult2: '🔍 Стоит изучить историю города! Пройдите ленту времени.',
+en: { title: 'SUMMER HISTORY', heading: 'Sunny city on the banks of the Ufa River' },
                 metaColor: '#eab308'
             },
             autumn: {
                 ru: { title: 'ЖИВАЯ ИСТОРИЯ', heading: 'Город на живописном берегу реки Уфы' },
-                en: { title: 'LIVING HISTORY', heading: 'City on the scenic banks of the Ufa River' },
+                
+quizCounterLabel: 'Вопрос',
+quizCounterOf: 'из',
+quizPrev: '← Назад',
+quizNext: 'Далее →',
+quizFinish: '🏆 Показать результат',
+quizScore: 'Правильных ответов:',
+quizOutOf: 'из',
+quizResult5: '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!',
+quizResult4: '👍 Хорошо! Вы хорошо знаете историю города.',
+quizResult3: '📖 Неплохо! Почитайте о достопримечательностях подробнее.',
+quizResult2: '🔍 Стоит изучить историю города! Пройдите ленту времени.',
+en: { title: 'LIVING HISTORY', heading: 'City on the scenic banks of the Ufa River' },
                 metaColor: '#ea580c'
             }
         };
@@ -5655,7 +5731,7 @@
                 const dict = (typeof i18n !== 'undefined' ? i18n[currentLang] : null) || (typeof i18n !== 'undefined' ? i18n.ru : {});
                 const title = currentLang === 'en' ? 'Choose Difficulty' : 'Выберите уровень сложности';
                 const easy = currentLang === 'en' ? 'Easy (10 Q)' : 'Легкий (10 в.)';
-                const medium = currentLang === 'en' ? 'Medium (15 Q)' : 'Средний (15 в.)';
+                const medium = currentLang === 'en' ? 'Medium (16 Q)' : 'Средний (16 в.)';
                 const hard = currentLang === 'en' ? 'Hard (20 Q)' : 'Сложный (20 в.)';
 
                 quizContainer.innerHTML = `
@@ -5788,13 +5864,15 @@
             });
 
             // Выделяем правильный ответ
+            const qItem = quizData[qNum - 1];
+            const currentOpts = qItem.shuffledOptions || qItem.options;
             parent.querySelectorAll('.option-btn').forEach((b, i) => {
-                if (quizData[qNum - 1].options[i].correct) b.classList.add('correct');
+                if (currentOpts[i].correct) b.classList.add('correct');
             });
             if (!isCorrect) btn.classList.add('wrong');
 
             const feedback = parent.querySelector('.question-feedback');
-            const qItem = quizData[qNum - 1];
+            // qItem already defined above
             const dict = i18n[currentLang] || i18n.ru;
 
             const explainerHtml = (qItem && qItem.explainer) ? `
@@ -5847,6 +5925,9 @@
             else desc = dict.quizResult2 || '🔍 Стоит изучить историю города! Пройдите ленту времени.';
 
             if (descText) descText.textContent = desc;
+    const nameInp = document.getElementById('cert-name-input');
+    if (nameInp) nameInp.placeholder = (currentLang === 'en') ? 'Enter your name' : 'Введите ваше имя';
+
             window.lastQuizDesc = desc;
 
             // show cert box if score >= 80%
@@ -5904,7 +5985,7 @@
             const ctx = canvas.getContext('2d');
 
             // Background
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = '#0f172a';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // Border
@@ -6762,6 +6843,10 @@
 
 
         function downloadCertificate() {
+    var rawName = document.getElementById('cert-name-input') ? document.getElementById('cert-name-input').value : '';
+    var safeName = rawName.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    var finalName = safeName.trim() !== '' ? safeName : (currentLang === 'ru' ? 'Анонимный Исследователь' : 'Anonymous Explorer');
+
             const canvas = document.createElement('canvas');
             canvas.width = 1000;
             canvas.height = 700;
@@ -6769,8 +6854,8 @@
 
             // Background (Dark theme gradient)
             const bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            bgGradient.addColorStop(0, '#0f172a');
-            bgGradient.addColorStop(1, '#1e293b');
+            bgGradient.addColorStop(0, '#ffffff');
+            bgGradient.addColorStop(1, '#f1f5f9');
             ctx.fillStyle = bgGradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -6788,27 +6873,36 @@
 
             // Title
             ctx.font = 'bold 48px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#facc15';
+            ctx.fillStyle = '#b48608';
             ctx.fillText(currentLang === 'ru' ? 'СЕРТИФИКАТ ЗНАТОКА' : 'CERTIFICATE OF EXPERTISE', 500, 160);
 
             // Subtitle
             ctx.font = '32px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#94a3b8';
+            ctx.fillStyle = '#475569';
             ctx.fillText(currentLang === 'ru' ? 'Красноуфимск: Сквозь Эпохи' : 'Krasnoufimsk: Through Epochs', 500, 230);
+    var rawNameInput = document.getElementById('cert-name-input');
+    var rawName = rawNameInput ? rawNameInput.value : '';
+    var safeName = rawName.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    var finalName = safeName.trim() !== '' ? safeName : (currentLang === 'ru' ? 'Анонимный Исследователь' : 'Anonymous Explorer');
+    ctx.font = 'italic 36px "Segoe UI", Arial, sans-serif'; 
+    ctx.fillStyle = '#0f172a'; 
+    ctx.fillText(finalName, 500, 285);
+
+
 
             // Score header
             ctx.font = '24px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#e2e8f0';
+            ctx.fillStyle = '#334155';
             ctx.fillText(currentLang === 'ru' ? 'Набранный балл:' : 'Score Achieved:', 500, 320);
 
             // Score
             ctx.font = 'bold 80px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = '#0f172a';
             ctx.fillText(`${window.lastQuizScore || 0} / ${window.lastQuizTotal || 0}`, 500, 420);
 
             // Description
             ctx.font = 'italic 28px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#38bdf8';
+            ctx.fillStyle = '#0284c7';
             ctx.fillText(window.lastQuizDesc || '', 500, 520);
 
             // Date
@@ -6826,6 +6920,10 @@
 
 
         function downloadCertificate() {
+    var rawName = document.getElementById('cert-name-input') ? document.getElementById('cert-name-input').value : '';
+    var safeName = rawName.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    var finalName = safeName.trim() !== '' ? safeName : (currentLang === 'ru' ? 'Анонимный Исследователь' : 'Anonymous Explorer');
+
             const canvas = document.createElement('canvas');
             canvas.width = 1000;
             canvas.height = 700;
@@ -6833,8 +6931,8 @@
 
             // Background (Dark theme gradient)
             const bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            bgGradient.addColorStop(0, '#0f172a');
-            bgGradient.addColorStop(1, '#1e293b');
+            bgGradient.addColorStop(0, '#ffffff');
+            bgGradient.addColorStop(1, '#f1f5f9');
             ctx.fillStyle = bgGradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -6852,27 +6950,35 @@
 
             // Title
             ctx.font = 'bold 48px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#facc15';
+            ctx.fillStyle = '#b48608';
             ctx.fillText(currentLang === 'ru' ? 'СЕРТИФИКАТ ЗНАТОКА' : 'CERTIFICATE OF EXPERTISE', 500, 160);
 
             // Subtitle
             ctx.font = '32px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#94a3b8';
+            ctx.fillStyle = '#475569';
             ctx.fillText(currentLang === 'ru' ? 'Красноуфимск: Сквозь Эпохи' : 'Krasnoufimsk: Through Epochs', 500, 230);
+    var rawNameInput = document.getElementById('cert-name-input');
+    var rawName = rawNameInput ? rawNameInput.value : '';
+    var safeName = rawName.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    var finalName = safeName.trim() !== '' ? safeName : (currentLang === 'ru' ? 'Анонимный Исследователь' : 'Anonymous Explorer');
+    ctx.font = 'italic 36px "Segoe UI", Arial, sans-serif'; 
+    ctx.fillStyle = '#0f172a'; 
+    ctx.fillText(finalName, 500, 285);
+
 
             // Score header
             ctx.font = '24px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#e2e8f0';
+            ctx.fillStyle = '#334155';
             ctx.fillText(currentLang === 'ru' ? 'Набранный балл:' : 'Score Achieved:', 500, 320);
 
             // Score
             ctx.font = 'bold 80px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = '#0f172a';
             ctx.fillText(`${window.lastQuizScore || 0} / ${window.lastQuizTotal || 0}`, 500, 420);
 
             // Description
             ctx.font = 'italic 28px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#38bdf8';
+            ctx.fillStyle = '#0284c7';
             ctx.fillText(window.lastQuizDesc || '', 500, 520);
 
             // Date
