@@ -698,9 +698,15 @@
             color: #ffffff;
             overflow: hidden;
             background: var(--gradient-hero), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            background-attachment: fixed;
+            
             transition: background 0.6s ease;
         }
+        @media (min-width: 992px) {
+            .hero {
+                background-attachment: fixed;
+            }
+        }
+
 
         /* Холст сезонных частиц (падающие листья/снежинки) */
         #particle-canvas {
@@ -3358,15 +3364,7 @@
             background: rgba(255, 255, 255, 0.05);
         }
     
-        /* ФИКС ДЛЯ МОБИЛЬНЫХ (ОТОБРАЖЕНИЕ ФОНА) */
-        @media (max-width: 960px) {
-            .hero {
-                background-attachment: scroll !important;
-                background-size: cover !important;
-                background-position: center center !important;
-                -webkit-transform: translate3d(0,0,0);
-            }
-        }
+        
 </style>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 </head>
@@ -7028,15 +7026,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
             touch-action: none !important;
         }
     
-        /* ФИКС ДЛЯ МОБИЛЬНЫХ (ОТОБРАЖЕНИЕ ФОНА) */
-        @media (max-width: 960px) {
-            .hero {
-                background-attachment: scroll !important;
-                background-size: cover !important;
-                background-position: center center !important;
-                -webkit-transform: translate3d(0,0,0);
-            }
-        }
+        
 </style>
     <script>
         // Modal Scroll Bleed Protection
