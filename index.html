@@ -3357,7 +3357,17 @@
         body.dark-theme .timeline-scroll-container::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.05);
         }
-    </style>
+    
+        /* ФИКС ДЛЯ МОБИЛЬНЫХ (ОТОБРАЖЕНИЕ ФОНА) */
+        @media (max-width: 960px) {
+            .hero {
+                background-attachment: scroll !important;
+                background-size: cover !important;
+                background-position: center center !important;
+                -webkit-transform: translate3d(0,0,0);
+            }
+        }
+</style>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 </head>
 
@@ -7017,7 +7027,17 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
             overflow: hidden !important;
             touch-action: none !important;
         }
-    </style>
+    
+        /* ФИКС ДЛЯ МОБИЛЬНЫХ (ОТОБРАЖЕНИЕ ФОНА) */
+        @media (max-width: 960px) {
+            .hero {
+                background-attachment: scroll !important;
+                background-size: cover !important;
+                background-position: center center !important;
+                -webkit-transform: translate3d(0,0,0);
+            }
+        }
+</style>
     <script>
         // Modal Scroll Bleed Protection
         document.addEventListener('click', function (e) {
