@@ -686,7 +686,7 @@
         /* ==========================================================================
            [4. ПЕРВЫЙ ЭКРАН (HERO) И ХОЛСТ ЧАСТИЦ]
            ========================================================================== */
-        .hero {
+                .hero {
             position: relative;
             min-height: 100vh;
             display: flex;
@@ -697,19 +697,11 @@
             padding: 120px 20px 80px;
             color: #ffffff;
             overflow: hidden;
-            background-color: #0f172a;
-            background-image: var(--gradient-hero), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            
+            background: var(--gradient-hero), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            background-attachment: fixed;
             transition: background 0.6s ease;
         }
-        @media (min-width: 992px) {
-            .hero {
-                background-attachment: fixed;
-            }
-        }
+        
 
 
         /* Холст сезонных частиц (падающие листья/снежинки) */
@@ -2710,9 +2702,7 @@
         }
 
         @media (max-width: 768px) {
-            .hero {
-                background-attachment: scroll !important;
-            }
+            
 
             .sights-menu-selector-bar {
                 flex-direction: column;
@@ -2753,9 +2743,7 @@
         }
 
         @media (max-width: 768px) {
-            .hero {
-                background-attachment: scroll !important;
-            }
+            
 
             .sights-menu-controls {
                 max-width: 100%;
@@ -3084,9 +3072,7 @@
 
 
         @media (max-width: 768px) {
-            .hero {
-                background-attachment: scroll !important;
-            }
+            
 
             .sights-section {
                 padding: 0 12px;
@@ -3149,9 +3135,7 @@
 
 
         @media (max-width: 768px) {
-            .hero {
-                background-attachment: scroll !important;
-            }
+            
 
             .sights-section {
                 padding: 0 12px;
@@ -3214,9 +3198,7 @@
 
 
         @media (max-width: 768px) {
-            .hero {
-                background-attachment: scroll !important;
-            }
+            
 
             .sights-section {
                 padding: 0 12px;
