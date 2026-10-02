@@ -27,17 +27,14 @@
     <meta property="og:description"
         content="Интерактивное путешествие сквозь века: от пограничной казачьей крепости 1736 года до современности. 21 эпоха, маршруты, виадуки и викторина.">
     <meta property="og:url" content="https://dima76876.github.io/">
-    <meta property="og:image" content="https://dima76876.github.io/images/naberezhnaya.jpg">
-    <meta property="og:locale" content="ru_RU">
+        <meta property="og:locale" content="ru_RU">
     <meta property="og:site_name" content="Красноуфимск: Сквозь эпохи">
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Красноуфимск: Сквозь эпохи">
+        <meta name="twitter:title" content="Красноуфимск: Сквозь эпохи">
     <meta name="twitter:description"
         content="Интерактивный краеведческий путеводитель по старейшему историческому городу юга Свердловской области.">
-    <meta name="twitter:image" content="https://dima76876.github.io/images/naberezhnaya.jpg">
-
+    
     <style>
         /* ==========================================================================
            [1. CSS-ПЕРЕМЕННЫЕ И СЕЗОННЫЕ ПАЛИТРЫ]
@@ -4242,7 +4239,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 exploreHistory: 'Explore history',
                 introHeading: 'City on the scenic banks of the Ufa River',
                 introText: 'Krasnoufimsk is one of the oldest historical cities in southwestern Sverdlovsk Oblast. Founded as an outpost to protect Ural factories, it witnessed Pugachev’s rebellion, merchant prosperity, landmark viaduct engineering, and wartime labor heroics. Below is an interactive chronicle of 21 defining milestones.',
-                seasonSwitchLabel: '🎨 Site theme visualization mode (for defense presentation):',
+                seasonSwitchLabel: '🎨 Site theme visualization mode:',
                 btnAuto: '🔄 Auto (by date)',
                 btnWinter: '❄️ Winter',
                 btnSpring: '🌱 Spring',
@@ -6304,7 +6301,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
         function getMapLocationUrl(lat, lon, queryRu, queryEn, directUrl) {
             if (directUrl) return directUrl;
             
-            const query = (currentLang === 'ru' || !queryEn) ? (queryRu || '') : (queryEn || '');
+            const query = queryRu || queryEn || '';
             const trimmed = query.trim();
             const hasCoords = lat && lon && !isNaN(parseFloat(lat)) && !isNaN(parseFloat(lon));
 
@@ -6362,8 +6359,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
             // ── 1. АРХИТЕКТУРА ─────────────────────────────────────────────────
             {
                 id: 'kazachya-izba', hasMapMark: true, cat: 'architecture', icon: '🛖',
-                directUrl: 'https://yandex.ru/maps/org/pervaya_kazachya_izba/238640534796/',
-                image: 'images/kazachya_izba.jpg', year: 'XVIII в.',
+                directUrl: 'https://yandex.ru/maps/org/pervaya_kazachya_izba/238640534796/', year: 'XVIII в.',
                 lat: '56.630944', lon: '57.771604',
                 style: { ru: 'Русское бревенчатое зодчество XVIII в.', en: '18th-century Russian timber log architecture' },
                 status: { ru: 'Официальный памятник • Мемориальная доска', en: 'Official Cultural Heritage Site' },
@@ -6374,8 +6370,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Красноуфимск ул Риммы Горбуновой 35 казачья изба', queryEn: 'Krasnoufimsk 35 Rimy Gorbunovoy St Cossack hut'
             },
             {
-                id: 'vokzal', hasMapMark: true, cat: 'architecture', icon: '🚂',
-                image: 'images/vokzal.jpg', year: '1915 г.',
+                id: 'vokzal', hasMapMark: true, cat: 'architecture', icon: '🚂', year: '1915 г.',
                 style: { ru: 'Петровское барокко', en: 'Petrine Baroque' },
                 status: { ru: 'ОКН регионального значения', en: 'Regional Cultural Heritage Site' },
                 title: { ru: 'Вокзал Красноуфимска (арх. А. В. Щусев)', en: 'Krasnoufimsk Station (Arch. A. Shchusev)' },
@@ -6385,8 +6380,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Здание железнодорожного вокзала, по плану архитектора Щусева А. В, Красноуфимск', queryEn: 'Krasnoufimsk railway station Stantsionnaya 11'
             },
             {
-                id: 'museum', hasMapMark: true, cat: 'architecture', icon: '🏛️',
-                image: 'images/museum.jpg', year: '1912 г.',
+                id: 'museum', hasMapMark: true, cat: 'architecture', icon: '🏛️', year: '1912 г.',
                 lat: '56.614454', lon: '57.764644',
                 style: { ru: 'Деревянный модерн', en: 'Wooden Art Nouveau' },
                 status: { ru: 'ОКН регионального значения', en: 'Regional Architectural Monument' },
@@ -6397,8 +6391,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Красноуфимский краеведческий музей Советская 42', queryEn: 'Krasnoufimsk Museum Sovetskaya 42'
             },
             {
-                id: 'uchilische', hasMapMark: true, cat: 'architecture', icon: '🎓',
-                image: 'images/uchilische.jpg', year: '1875 г.',
+                id: 'uchilische', hasMapMark: true, cat: 'architecture', icon: '🎓', year: '1875 г.',
                 style: { ru: 'Кирпичная неоготика и эклектика', en: 'Brick Neo-Gothic & Eclectic style' },
                 status: { ru: 'ОКН регионального значения № 235', en: 'Regional Cultural Heritage Site #235' },
                 title: { ru: 'Реальное училище (Аграрный колледж)', en: 'Real School (Agrarian College)' },
@@ -6408,8 +6401,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Здание бывшего красноуфимского промышленного училища, где работали агрономы Н.А. Соковнин, Н.Л. Скалозубов, В.Н. Варгин, Красноуфимск', queryEn: 'Krasnoufimsk Agrarian College historical building'
             },
             {
-                id: 'museum-old', hasMapMark: true, cat: 'architecture', icon: '🏠',
-                image: 'images/museum_old.jpg', year: 'XIX в.',
+                id: 'museum-old', hasMapMark: true, cat: 'architecture', icon: '🏠', year: 'XIX в.',
                 lat: '56.614710', lon: '57.766040',
                 style: { ru: 'Купеческая кирпичная эклектика', en: 'Merchant Brick Eclectic style' },
                 status: { ru: 'Памятник купеческого зодчества', en: 'Merchant Architectural Monument' },
@@ -6421,8 +6413,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Красноуфимск Рогозинниковых 35', queryEn: 'Krasnoufimsk Rogozinnikovykh 35'
             },
             {
-                id: 'sobor', hasMapMark: true, cat: 'architecture', icon: '⛪',
-                image: 'images/sobor_new.jpg', year: '1804–1828 гг.',
+                id: 'sobor', hasMapMark: true, cat: 'architecture', icon: '⛪', year: '1804–1828 гг.',
                 lat: '56.621298', lon: '57.773395',
                 style: { ru: 'Русский классицизм', en: 'Russian Classicism' },
                 status: { ru: 'Действующий собор • ОКН', en: 'Cathedral • Cultural Heritage Site' },
@@ -6433,8 +6424,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Свято-Троицкий собор Красноуфимск Куйбышева 5', queryEn: 'Krasnoufimsk Holy Trinity Cathedral Kuybysheva 5'
             },
             {
-                id: 'alexnevsky', hasMapMark: true, cat: 'architecture', icon: '🕍',
-                image: 'images/sobor.jpg', year: '1914 г.',
+                id: 'alexnevsky', hasMapMark: true, cat: 'architecture', icon: '🕍', year: '1914 г.',
                 lat: '56.617200', lon: '57.760500',
                 style: { ru: 'Русско-византийский стиль', en: 'Russo-Byzantine style' },
                 status: { ru: 'Памятник архитектуры', en: 'Architectural Monument' },
@@ -6445,8 +6435,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Красноуфимск церковь Александра Невского Мизерова 78', queryEn: 'Krasnoufimsk St Alexander Nevsky Church Mizerova 78'
             },
             {
-                id: 'zemstvo', hasMapMark: true, cat: 'architecture', icon: '⚖️',
-                image: 'images/zemstvo.jpg', year: '1888 г.',
+                id: 'zemstvo', hasMapMark: true, cat: 'architecture', icon: '⚖️', year: '1888 г.',
                 style: { ru: 'Русский кирпичный стиль', en: 'Russian Brick style' },
                 status: { ru: 'ОКН регионального значения', en: 'Regional Cultural Heritage Site' },
                 title: { ru: 'Здание Земской управы (Администрация)', en: 'Zemstvo Board (Town Hall)' },
@@ -6457,8 +6446,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Советская улица, 25, Красноуфимск, Свердловская область', queryEn: '25 Sovetskaya St., Krasnoufimsk'
             },
             {
-                id: 'gorupra', hasMapMark: true, cat: 'architecture', icon: '🏛️',
-                image: 'images/gorupra.jpg', year: 'XIX в.',
+                id: 'gorupra', hasMapMark: true, cat: 'architecture', icon: '🏛️', year: 'XIX в.',
                 style: { ru: 'Позднеклассицистическая эклектика', en: 'Late Classicist Eclectic style' },
                 status: { ru: 'Историческое административное здание', en: 'Historical Civic Building' },
                 title: { ru: 'Корпус бывшего винокуренного завода', en: 'Former Distillery Building' },
@@ -6469,8 +6457,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Советская улица, 20, Красноуфимск, Свердловская область', queryEn: '20 Sovetskaya St., Krasnoufimsk'
             },
             {
-                id: 'mizerov', hasMapMark: true, cat: 'architecture', icon: '🏥',
-                image: 'images/mizerov.jpg', year: '1886 г.',
+                id: 'mizerov', hasMapMark: true, cat: 'architecture', icon: '🏥', year: '1886 г.',
                 lat: '56.616900', lon: '57.761950',
                 style: { ru: 'Деревянный больничный городок в сосновом бору', en: 'Wooden Hospital Estate in Pine Grove' },
                 status: { ru: 'ОКН регионального значения', en: 'Regional Cultural Heritage Site' },
@@ -6481,8 +6468,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Музей земская больница Мизерова Красноуфимск Свободы 16', queryEn: 'Krasnoufimsk Zemstvo Hospital Museum Svobody 16'
             },
             {
-                id: 'ambulatoria', hasMapMark: true, cat: 'architecture', icon: '🏥',
-                image: 'images/mizerov.jpg', year: '1890-е гг.',
+                id: 'ambulatoria', hasMapMark: true, cat: 'architecture', icon: '🏥', year: '1890-е гг.',
                 style: { ru: 'Деревянный земский ампир', en: 'Wooden Zemstvo Empire style' },
                 status: { ru: 'Комплекс деревянной земской медицины', en: 'Wooden Zemstvo Medical Pavilion Ensemble' },
                 title: { ru: 'Земская больница: амбулатория и роддом', en: 'Zemstvo Hospital Outpatient & Maternity Pavilions' },
@@ -6492,8 +6478,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Павильон земской медицины Красноуфимск', queryEn: 'Krasnoufimsk zemstvo medicine pavilion'
             },
             {
-                id: 'perekrestok-vremen', hasMapMark: true, cat: 'monuments', icon: '⏳',
-                image: 'images/gorupra.jpg', year: '2020-е гг.',
+                id: 'perekrestok-vremen', hasMapMark: true, cat: 'monuments', icon: '⏳', year: '2020-е гг.',
                 style: { ru: 'Городская скульптура', en: 'City Sculpture' },
                 status: { ru: 'Арт-объект', en: 'Art Object' },
                 title: { ru: 'Арт-объект «Перекрёсток времен»', en: 'Crossroads of Times Art Object' },
@@ -6504,8 +6489,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 directUrl: 'https://yandex.ru/maps/org/perekryostok_vremen/126384792809/'
             },
             {
-                id: 'pozharnoye', hasMapMark: true, cat: 'architecture', icon: '🚒',
-                image: 'images/zemstvo.jpg', year: '1900-е гг.',
+                id: 'pozharnoye', hasMapMark: true, cat: 'architecture', icon: '🚒', year: '1900-е гг.',
                 style: { ru: 'Провинциальная краснокирпичная эклектика', en: 'Provincial Red-Brick Eclectic' },
                 status: { ru: 'Памятник пожарно-технической службы', en: 'Firefighting Heritage Monument' },
                 title: { ru: 'Историческое пожарное депо с каланчой', en: 'Historic Fire Station with Watchtower' },
@@ -6517,8 +6501,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
 
             // ── 2. ПАМЯТНИКИ И ИСТОРИЯ ─────────────────────────────────────────
             {
-                id: 'divizionnaya', cat: 'monuments', icon: '⛰️',
-                image: 'images/divizionnaya.jpg', year: '1774 г. / памятный знак',
+                id: 'divizionnaya', cat: 'monuments', icon: '⛰️', year: '1774 г. / памятный знак',
                 hasMapMark: true,
                 style: { ru: 'Природно-исторический мемориал', en: 'Natural & Historical Memorial' },
                 status: { ru: 'Официальный памятник природы и истории', en: 'Official Natural & Historic Heritage' },
@@ -6529,8 +6512,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Гора Дивья, Красноуфимск', queryEn: 'Krasnoufimsk Divya Mountain'
             },
             {
-                id: 'ploschad', hasMapMark: true, cat: 'monuments', icon: '🚩',
-                image: 'images/ploschad.jpg', year: 'XVIII–XX вв.',
+                id: 'ploschad', hasMapMark: true, cat: 'monuments', icon: '🚩', year: 'XVIII–XX вв.',
                 style: { ru: 'Городской ансамбль и советский монументализм', en: 'Town Ensemble & Monumental Classicism' },
                 status: { ru: 'Главная городская площадь', en: 'Central Municipal Square' },
                 title: { ru: 'Центральная площадь города', en: 'Central Town Square' },
@@ -6540,8 +6522,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'В.И. Ленин Красноуфимск', queryEn: 'Krasnoufimsk Lenin monument'
             },
             {
-                id: 'salavat-memorial', hasMapMark: true, cat: 'monuments', icon: '⚔️',
-                image: 'images/divizionnaya.jpg', year: '1774 г.',
+                id: 'salavat-memorial', hasMapMark: true, cat: 'monuments', icon: '⚔️', year: '1774 г.',
                 style: { ru: 'Мемориальный знак', en: 'Memorial Marker' },
                 status: { ru: 'Рубеж Крестьянской войны Пугачёва', en: 'Pugachev Peasant War Site' },
                 title: { ru: 'Памятный знак Салавату Юлаеву и повстанцам', en: 'Salavat Yulaev & Rebels Memorial Marker' },
@@ -6551,8 +6532,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Гора Дивья, Красноуфимск', queryEn: 'Krasnoufimsk Divya Mountain'
             },
             {
-                id: 'alleya-pamyati', hasMapMark: true, cat: 'monuments', icon: '🕯️',
-                image: 'images/alleya_pamyati.jpg', year: '1941–1945 гг.',
+                id: 'alleya-pamyati', hasMapMark: true, cat: 'monuments', icon: '🕯️', year: '1941–1945 гг.',
                 lat: '56.614800', lon: '57.769500',
                 style: { ru: 'Мемориальный комплекс', en: 'Memorial Complex' },
                 status: { ru: 'Главный воинский мемориал города', en: 'Central City War Memorial' },
@@ -6563,8 +6543,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Красноуфимск Аллея Памяти Вечный огонь городской парк', queryEn: 'Krasnoufimsk Alley of Memory Eternal Flame city park'
             },
             {
-                id: 'alleya-geroev', hasMapMark: true, cat: 'monuments', icon: '🥇',
-                image: 'images/gorupra.jpg', year: '1945–1975 гг.',
+                id: 'alleya-geroev', hasMapMark: true, cat: 'monuments', icon: '🥇', year: '1945–1975 гг.',
                 style: { ru: 'Скульптурный мемориальный ансамбль', en: 'Sculptural Memorial Ensemble' },
                 status: { ru: 'Скульптурный мемориальный комплекс', en: 'Heroes\' Sculptural Memorial' },
                 title: { ru: 'Аллея Героев Советского Союза', en: 'Alley of Heroes of the Soviet Union' },
@@ -6574,8 +6553,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Аллея памяти, Красноуфимск', queryEn: 'Krasnoufimsk Alley of Heroes'
             },
             {
-                id: 'parovoz', hasMapMark: true, cat: 'monuments', icon: '🚂',
-                image: 'images/parovoz.jpg', year: '1940-е гг.',
+                id: 'parovoz', hasMapMark: true, cat: 'monuments', icon: '🚂', year: '1940-е гг.',
                 style: { ru: 'Памятник железнодорожной техники', en: 'Railway Engineering Monument' },
                 status: { ru: 'Памятник на привокзальной площади', en: 'Station Square Monument' },
                 title: { ru: 'Паровоз-памятник серии «Л» («Лебедянка»)', en: 'L-Series Steam Locomotive "Lebedyanka" Monument' },
@@ -6585,8 +6563,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Паровоз-памятник Л-1699, Красноуфимск', queryEn: 'Krasnoufimsk locomotive monument L-1699'
             },
             {
-                id: 'memorial-boards', hasMapMark: true, cat: 'monuments', icon: '📜',
-                image: 'images/naberezhnaya.jpg', year: '1880-е гг.',
+                id: 'memorial-boards', hasMapMark: true, cat: 'monuments', icon: '📜', year: '1880-е гг.',
                 lat: '56.622900', lon: '57.768700',
                 style: { ru: 'Мемориальные доски на фасаде', en: 'Memorial Plaques on Facade' },
                 status: { ru: 'Памятник основателям уральской агрономии', en: 'Founders of Ural Agronomy Memorial' },
@@ -6597,8 +6574,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Красноуфимск Пролетарская 62 аграрный колледж', queryEn: 'Krasnoufimsk Proletarskaya 62 Agrarian College'
             },
             {
-                id: 'dom-stasovoy', hasMapMark: true, cat: 'architecture', icon: '🏠',
-                image: 'images/uchilische.jpg', year: '1941–1945 гг.',
+                id: 'dom-stasovoy', hasMapMark: true, cat: 'architecture', icon: '🏠', year: '1941–1945 гг.',
                 style: { ru: 'Исторический жилой дом', en: 'Historical Residential House' },
                 status: { ru: 'Памятник истории', en: 'Historical Monument' },
                 title: { ru: 'Дом, где жила Е.Д. Стасова', en: 'House of E.D. Stasova' },
@@ -6610,8 +6586,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
 
             // ── 3. ИНЖЕНЕРИЯ И МОСТЫ ───────────────────────────────────────────
             {
-                id: 'viaduct', hasMapMark: true, cat: 'engineering', icon: '🌉',
-                image: 'images/viaduct.jpg', year: '1915–1918 гг.',
+                id: 'viaduct', hasMapMark: true, cat: 'engineering', icon: '🌉', year: '1915–1918 гг.',
                 lat: '56.552642', lon: '57.712298',
                 style: { ru: 'Инженерный неоклассицизм', en: 'Engineering Neoclassicism' },
                 status: { ru: 'Шедевр мостостроения • Памятник техники', en: 'Monument of Engineering & Architecture' },
@@ -6624,8 +6599,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
 
             // ── 4. ПРИРОДА И ГЕОЛОГИЯ ──────────────────────────────────────────
             {
-                id: 'naberezhnaya', hasMapMark: true, cat: 'nature', icon: '🌊',
-                image: 'images/naberezhnaya.jpg', year: '2020–2026 гг.',
+                id: 'naberezhnaya', hasMapMark: true, cat: 'nature', icon: '🌊', year: '2020–2026 гг.',
                 style: { ru: 'Современная эко-урбанистика', en: 'Contemporary Eco-Urbanism' },
                 status: { ru: 'Общественное пространство • Наследие 290-летия', en: 'Public Space • 290th Anniversary Project' },
                 title: { ru: 'Набережная реки Уфы и Красный Яр', en: 'Ufa River Embankment & Krasny Yar' },
@@ -6635,8 +6609,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Красноуфимск улица Советская 1', queryEn: 'Krasnoufimsk Sovetskaya 1'
             },
             {
-                id: 'sokoliy-kamen', hasMapMark: true, cat: 'nature', icon: '🪨',
-                image: 'images/naberezhnaya.jpg', year: '~290 млн лет',
+                id: 'sokoliy-kamen', hasMapMark: true, cat: 'nature', icon: '🪨', year: '~290 млн лет',
                 lat: '56.620500', lon: '57.775500',
                 style: { ru: 'Геологический памятник природы', en: 'Geological Natural Monument' },
                 status: { ru: 'Рифовые известняки пермского периода', en: 'Permian Reef Limestone Monument' },
@@ -6647,8 +6620,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Соколий камень Аргамач Красноуфимск скала', queryEn: 'Sokoliy Rock Argamach Krasnoufimsk cliff'
             },
             {
-                id: 'braviy-kazak', hasMapMark: true, cat: 'monuments', icon: '⚔️',
-                image: 'images/divizionnaya.jpg', year: '2020-е гг.',
+                id: 'braviy-kazak', hasMapMark: true, cat: 'monuments', icon: '⚔️', year: '2020-е гг.',
                 style: { ru: 'Городская скульптура', en: 'City Sculpture' },
                 status: { ru: 'Памятник основателям', en: 'Founders Monument' },
                 title: { ru: 'Скульптура «Бравый казак»', en: 'Brave Cossack Sculpture' },
@@ -6658,8 +6630,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Бравый казак Красноуфимск', queryEn: 'Krasnoufimsk Brave Cossack'
             },
             {
-                id: 'sosnovye-bory', hasMapMark: true, cat: 'nature', icon: '🌲',
-                image: 'images/alleya_pamyati.jpg', year: 'Природа',
+                id: 'sosnovye-bory', hasMapMark: true, cat: 'nature', icon: '🌲', year: 'Природа',
                 style: { ru: 'Лесопарковый памятник природы', en: 'Protected Forest Park' },
                 status: { ru: 'Реликтовый лесопарковый памятник природы', en: 'Relic Protected Forest Landscape' },
                 title: { ru: 'Реликтовые Красноуфимские сосновые боры', en: 'Relic Krasnoufimsk Pine Forests' },
@@ -6669,8 +6640,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'парк Целитель Красноуфимск', queryEn: 'Krasnoufimsk Tselitel park'
             },
             {
-                id: 'gelikoprion', hasMapMark: true, cat: 'monuments', icon: '🦈',
-                image: 'images/naberezhnaya.jpg', year: '2020-е гг.',
+                id: 'gelikoprion', hasMapMark: true, cat: 'monuments', icon: '🦈', year: '2020-е гг.',
                 style: { ru: 'Арт-объект', en: 'Art Object' },
                 status: { ru: 'Палеонтологический памятник', en: 'Paleontological Monument' },
                 title: { ru: 'Арт-объект «Акула Геликоприон»', en: 'Helicoprion Shark Art Object' },
@@ -6680,8 +6650,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                 queryRu: 'Акула Геликоприон Красноуфимск', queryEn: 'Krasnoufimsk Helicoprion Shark'
             },
             {
-                id: 'shtab-azina', hasMapMark: true, cat: 'architecture', icon: '⭐',
-                image: 'images/zemstvo.jpg', year: '1919 г.',
+                id: 'shtab-azina', hasMapMark: true, cat: 'architecture', icon: '⭐', year: '1919 г.',
                 style: { ru: 'Историческое здание', en: 'Historical Building' },
                 status: { ru: 'Памятник истории Гражданской войны', en: 'Civil War Historical Monument' },
                 title: { ru: 'Штаб 28-й дивизии В.М. Азина', en: 'Headquarters of Azin\'s 28th Division' },
@@ -6692,8 +6661,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
             }
         ,
             {
-                id: 'girl_airplane', hasMapMark: true, cat: 'monument', icon: '✈️',
-                image: 'images/default_monument.jpg', year: '2020-е гг.',
+                id: 'girl_airplane', hasMapMark: true, cat: 'monument', icon: '✈️', year: '2020-е гг.',
                 style: { ru: 'Современная городская скульптура', en: 'Modern Urban Sculpture' },
                 status: { ru: 'Арт-объект', en: 'Art Object' },
                 title: { ru: 'Скульптура «Девочка с самолётиком»', en: 'Sculpture "Girl with an Airplane"' },
@@ -6705,8 +6673,7 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
             }
         ,
             {
-                id: 'watchtower', hasMapMark: true, cat: 'history', icon: '🗼',
-                image: 'images/default_history.jpg', year: 'XVIII в.',
+                id: 'watchtower', hasMapMark: true, cat: 'history', icon: '🗼', year: 'XVIII в.',
                 style: { ru: 'Деревянное крепостное зодчество (утрачено)', en: 'Wooden Fortress Architecture (lost)' },
                 status: { ru: 'Историческое место', en: 'Historical Site' },
                 title: { ru: 'Место, где стояла сторожевая башня на реке Уфе', en: 'Site of the Watchtower on the Ufa River' },
@@ -7203,17 +7170,18 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
 
         function executePdfMake(btnText, originalText) {
             try {
-                // Определение структуры PDF документа
+                const isRu = typeof currentLang !== 'undefined' ? currentLang === 'ru' : true;
+
                 const docDefinition = {
                     pageSize: 'A4',
                     pageMargins: [ 40, 60, 40, 60 ],
                     content: [
-                        { text: 'КРАСНОУФИМСК', style: 'mainHeader' },
-                        { text: 'Памятка туристу', style: 'subHeader' },
+                        { text: isRu ? 'КРАСНОУФИМСК' : 'KRASNOUFIMSK', style: 'mainHeader' },
+                        { text: isRu ? 'Памятка туристу' : 'Tourist Guide', style: 'subHeader' },
                         
-                        { text: '\n📜 ИСТОРИЯ В ДАТАХ', style: 'sectionHeader' },
+                        { text: isRu ? '\n📜 ИСТОРИЯ В ДАТАХ' : '\n📜 HISTORY IN DATES', style: 'sectionHeader' },
                         {
-                            ul: [
+                            ul: isRu ? [
                                 '1736 — Основание крепости Красный Яр воеводой Бахметевым',
                                 '1781 — Статус уездного города, герб с серебряным соколом',
                                 '1875 — Открытие Реального училища (лучшее на Урале)',
@@ -7221,83 +7189,74 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
                                 '1915 — Строительство железной дороги и знаменитых виадуков',
                                 '1941-1945 — 30 Героев Советского Союза из Красноуфимска',
                                 '2026 — 290-летие города'
+                            ] : [
+                                '1736 — Foundation of the Krasny Yar fortress by voivode Bakhmetev',
+                                '1781 — Status of a county town, coat of arms with a silver falcon',
+                                '1875 — Opening of the Real School (the best in the Urals)',
+                                '1876 — Foundation of the Zemstvo Hospital by Dr. Mizerov',
+                                '1915 — Construction of the railway and famous viaducts',
+                                '1941-1945 — 30 Heroes of the Soviet Union from Krasnoufimsk',
+                                '2026 — 290th anniversary of the city'
                             ],
                             style: 'listStyle'
                         },
 
-                        { text: '\n\n🏛️ ТОП-5 ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ', style: 'sectionHeader' },
+                        { text: isRu ? '\n\n🏛️ ТОП-5 ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ' : '\n\n🏛️ TOP-5 SIGHTS', style: 'sectionHeader' },
                         {
-                            ul: [
+                            ul: isRu ? [
                                 'Краеведческий музей (ул. Советская, 42)',
                                 'Свято-Троицкий собор (ул. Куйбышева, 5)',
                                 'Ж/Д Вокзал архитектора Щусева (ул. Станционная, 20)',
                                 'Набережная на реке Уфа',
                                 'Рябиновский виадук'
+                            ] : [
+                                'Local History Museum (42 Sovetskaya St.)',
+                                'Holy Trinity Cathedral (5 Kuybysheva St.)',
+                                'Railway Station by architect Shchusev (20 Stantsionnaya St.)',
+                                'Embankment on the Ufa River',
+                                'Ryabinovsky Viaduct'
                             ],
                             style: 'listStyle'
                         },
 
-                        { text: '\n\n📞 ПРАКТИЧЕСКАЯ ИНФОРМАЦИЯ', style: 'sectionHeader' },
+                        { text: isRu ? '\n\n📞 ПРАКТИЧЕСКАЯ ИНФОРМАЦИЯ' : '\n\n📞 PRACTICAL INFORMATION', style: 'sectionHeader' },
                         {
-                            ul: [
+                            ul: isRu ? [
                                 'Центр города: пл. Ленина / ул. Советская',
                                 'Больница: ул. Транспортная, 12',
                                 'Сувениры: Краеведческий музей (ул. Советская, 42)',
                                 'Транспорт: Местные службы такси и автобусы'
+                            ] : [
+                                'City Center: Lenin Sq. / Sovetskaya St.',
+                                'Hospital: 12 Transportnaya St.',
+                                'Souvenirs: Local History Museum (42 Sovetskaya St.)',
+                                'Transport: Local taxi services and buses'
                             ],
                             style: 'listStyle'
                         },
                         
-                        { text: '\n\n\nЖелаем приятного путешествия!', style: 'footer' }
+                        { text: isRu ? '\n\n\nЖелаем приятного путешествия!' : '\n\n\nHave a great trip!', style: 'footer' }
                     ],
                     styles: {
-                        mainHeader: {
-                            fontSize: 26,
-                            bold: true,
-                            alignment: 'center',
-                            color: '#d97706'
-                        },
-                        subHeader: {
-                            fontSize: 16,
-                            alignment: 'center',
-                            color: '#475569',
-                            margin: [0, 5, 0, 20]
-                        },
-                        sectionHeader: {
-                            fontSize: 14,
-                            bold: true,
-                            color: '#1e293b',
-                            margin: [0, 15, 0, 10]
-                        },
-                        listStyle: {
-                            fontSize: 12,
-                            color: '#334155',
-                            lineHeight: 1.5,
-                            margin: [10, 0, 0, 0]
-                        },
-                        footer: {
-                            fontSize: 14,
-                            bold: true,
-                            alignment: 'center',
-                            color: '#d97706'
-                        }
+                        mainHeader: { fontSize: 26, bold: true, alignment: 'center', color: '#d97706' },
+                        subHeader: { fontSize: 16, alignment: 'center', color: '#475569', margin: [0, 5, 0, 20] },
+                        sectionHeader: { fontSize: 14, bold: true, color: '#1e293b', margin: [0, 15, 0, 10] },
+                        listStyle: { fontSize: 12, color: '#334155', lineHeight: 1.5, margin: [10, 0, 0, 0] },
+                        footer: { fontSize: 14, bold: true, alignment: 'center', color: '#d97706' }
                     },
-                    defaultStyle: {
-                        font: 'Roboto'
-                    }
+                    defaultStyle: { font: 'Roboto' }
                 };
 
-                // Генерация и скачивание
-                pdfMake.createPdf(docDefinition).download('Krasnoufimsk_Tourist_Guide.pdf');
+                const fileName = isRu ? 'Krasnoufimsk_Tourist_Guide.pdf' : 'Krasnoufimsk_Tourist_Guide_EN.pdf';
+                pdfMake.createPdf(docDefinition).download(fileName);
                 
-                // Возврат текста кнопки
                 setTimeout(() => {
                     if (btnText) btnText.innerText = originalText;
                 }, 1000);
 
             } catch (error) {
                 console.error(error);
-                alert('Произошла ошибка при создании PDF');
+                alert(typeof currentLang !== 'undefined' && currentLang === 'en' ? 'Error generating PDF' : 'Произошла ошибка при создании PDF');
                 if (btnText) btnText.innerText = originalText;
             }
         }
