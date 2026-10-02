@@ -530,7 +530,6 @@
             text-overflow: ellipsis;
         }
 
-
         .header-right {
             display: flex;
             align-items: center;
@@ -703,8 +702,6 @@
             background-attachment: fixed;
             transition: background 0.6s ease;
         }
-        
-
 
         /* Холст сезонных частиц (падающие листья/снежинки) */
         #particle-canvas {
@@ -1111,7 +1108,17 @@
             letter-spacing: 0.5px;
         }
 
-        /* Инфографический блок достопримечательности с переходом на карту */
+        .map-title {
+            color: var(--main-color);
+            font-size: 19px;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        /* Отдельный блок адреса с кнопкой Яндекс.Карт */
+
         .map-container {
             width: 100%;
             padding: 0;
@@ -1127,134 +1134,6 @@
             justify-content: center;
         }
 
-        .map-photo-preview {
-            width: 100%;
-            max-width: 580px;
-            height: 260px;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 18px;
-            /* Музейная выразительная двойная обводка вокруг фото */
-            border: 3.5px solid var(--main-color);
-            box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.95), 0 10px 28px rgba(0, 0, 0, 0.16);
-            background: #e2e8f0;
-            position: relative;
-            transition: var(--transition);
-        }
-
-        .map-container:hover .map-photo-preview {
-            border-color: var(--main-hover);
-            box-shadow: 0 0 0 5px #ffffff, 0 16px 36px var(--accent-glow);
-            transform: translateY(-3px);
-        }
-
-        .map-photo-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .map-container:hover .map-photo-img {
-            transform: scale(1.05);
-        }
-
-        .map-photo-preview.photo-full-height {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-            aspect-ratio: 4 / 3;
-            background: #1e293b;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .map-photo-preview.photo-full-height .map-photo-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-        }
-
-        .map-container:hover .map-photo-preview.photo-full-height .map-photo-img {
-            transform: scale(1.02);
-        }
-
-        .map-photo-dual {
-            display: flex;
-            align-items: stretch;
-            justify-content: center;
-            gap: 16px;
-            width: 100%;
-            max-width: 620px;
-            margin-bottom: 18px;
-        }
-
-        .map-photo-dual .dual-item {
-            border-radius: 20px;
-            overflow: hidden;
-            border: 3.5px solid var(--main-color);
-            box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.95), 0 10px 28px rgba(0, 0, 0, 0.16);
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .map-photo-dual .dual-photo {
-            flex: 1.35;
-            height: 310px;
-            background: #1e293b;
-        }
-
-        .map-photo-dual .dual-photo .map-photo-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-
-        .map-photo-dual .dual-emblem {
-            flex: 1;
-            height: 310px;
-            background: var(--bg-card);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-
-        .map-photo-dual .dual-emblem .emblem-img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            display: block;
-            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
-            transition: transform 0.4s ease;
-        }
-
-        .map-container:hover .map-photo-dual .dual-photo:hover,
-        .map-container:hover .map-photo-dual .dual-emblem:hover {
-            border-color: var(--main-hover);
-            box-shadow: 0 0 0 5px #ffffff, 0 16px 36px var(--accent-glow);
-            transform: translateY(-3px);
-        }
-
-        .map-photo-dual .dual-photo:hover .map-photo-img,
-        .map-photo-dual .dual-emblem:hover .emblem-img {
-            transform: scale(1.04);
-        }
-
-        .map-title {
-            color: var(--main-color);
-            font-size: 19px;
-            font-weight: 800;
-            display: block;
-            margin-bottom: 8px;
-            text-align: center;
-        }
-
-        /* Отдельный блок адреса с кнопкой Яндекс.Карт */
         .landmark-address-card {
             width: 100%;
             max-width: 580px;
@@ -1728,7 +1607,6 @@
             }
         }
 
-
         /* === ЛИСТАНИЕ ВИКТОРИНЫ === */
         .quiz-progress-bar-wrap {
             background: var(--border-card);
@@ -1809,7 +1687,8 @@
             width: 9px;
             height: 9px;
             border-radius: 50%;
-            background: var(--border-card);
+            background: var(--text-light);
+            opacity: 0.5;
             display: inline-block;
             transition: all 0.2s;
         }
@@ -1817,6 +1696,7 @@
         .quiz-dot.active {
             background: var(--main-color);
             transform: scale(1.4);
+            opacity: 1;
         }
 
         .quiz-dot.answered-correct {
@@ -1981,35 +1861,6 @@
             transform: translateX(4px);
         }
 
-        .guide-footer-action {
-            display: flex;
-            justify-content: center;
-            padding-top: 10px;
-            border-top: 1px dashed rgba(0, 0, 0, 0.08);
-        }
-
-        .btn-print-guide {
-            background: linear-gradient(135deg, var(--main-color), #f59e0b);
-            color: white;
-            border: none;
-            padding: 13px 28px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-            transition: var(--transition);
-            box-shadow: 0 6px 18px var(--accent-glow);
-        }
-
-        .btn-print-guide:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 22px var(--accent-glow);
-        }
-
         /* ==========================================================================
            [12. ПЛАВНОЕ ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ ПРИ СКРОЛЛЕ (REVEAL-ON-SCROLL)]
            ========================================================================== */
@@ -2035,10 +1886,6 @@
 
         .reveal-delay-3 {
             transition-delay: 0.32s;
-        }
-
-        .reveal-delay-4 {
-            transition-delay: 0.42s;
         }
 
         /* ==========================================================================
@@ -2224,13 +2071,6 @@
                 font-size: 12px;
                 gap: 4px;
             }
-
-            /* Removed relative top offset that caused overlap */
-
-            .print-promo-card {
-                flex-direction: column;
-                text-align: center;
-            }
         }
 
         @media (max-width: 600px) {
@@ -2345,32 +2185,6 @@
                 transform: translateX(-50%) translateY(0);
             }
 
-            .map-photo-preview {
-                height: 180px;
-            }
-
-            .map-photo-preview.photo-full-height {
-                height: auto;
-                max-width: 100%;
-                aspect-ratio: 4 / 3;
-            }
-
-            .map-photo-dual {
-                gap: 10px;
-                margin-bottom: 14px;
-            }
-
-            .map-photo-dual .dual-photo {
-                flex: 1.3;
-                height: 200px;
-            }
-
-            .map-photo-dual .dual-emblem {
-                flex: 1;
-                height: 200px;
-                padding: 10px;
-            }
-
             .routes-grid,
             .guide-grid {
                 grid-template-columns: 1fr;
@@ -2425,15 +2239,6 @@
                 font-size: 11px;
                 padding: 5px 12px;
             }
-
-            .map-photo-dual .dual-photo {
-                height: 165px;
-            }
-
-            .map-photo-dual .dual-emblem {
-                height: 165px;
-                padding: 8px;
-            }
         }
 
         /* ==========================================================================
@@ -2465,7 +2270,6 @@
             box-shadow: 0 6px 20px var(--accent-glow);
             filter: brightness(1.05);
         }
-
 
         .guide-download-wrap {
             display: flex;
@@ -2520,25 +2324,6 @@
                 line-height: 1.4;
             }
 
-            /* Полностью убираем интерфейсные элементы, анимации и кнопки действий */
-            .header-wrapper,
-            #reading-progress,
-            #particle-canvas,
-            .season-switch-box,
-            .timeline-section,
-            .card-nav-footer,
-            .btn-open-map,
-            .quiz-section,
-            .print-promo-section,
-            #btn-back-to-top,
-            .scroll-down-btn,
-            .btn-print-guide,
-            .guide-item-action-btn,
-            .route-btn-group,
-            .address-map-btn-wrap {
-                display: none !important;
-            }
-
             .guide-history-list,
             .guide-places-list {
                 list-style: none;
@@ -2577,22 +2362,8 @@
                 border-top: 1px solid var(--border-card);
             }
 
-            /* Полностью исключаем все изображения для мгновенной печати без ожидания и зависаний */
-            img,
-            picture,
-            .map-photo-dual,
-            .map-photo-preview,
-            .map-photo-img,
-            .emblem-img {
-                display: none !important;
-                visibility: hidden !important;
-                height: 0 !important;
-                width: 0 !important;
-            }
-
             .hero {
                 min-height: auto !important;
-
 
                 padding: 15px 0 !important;
             }
@@ -2618,13 +2389,23 @@
                 page-break-inside: avoid;
             }
 
-            .map-container {
-                border: none !important;
-                background: transparent !important;
-                padding: 0 !important;
-            }
+    
+        .map-container {
+            width: 100%;
+            padding: 0;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-            .landmark-address-card {
+        .landmark-address-card {
                 border: 1px dashed #bbb !important;
                 background: #fdfdfd !important;
                 padding: 8px 12px !important;
@@ -2702,7 +2483,6 @@
         }
 
         @media (max-width: 768px) {
-            
 
             .sights-menu-selector-bar {
                 flex-direction: column;
@@ -2743,7 +2523,6 @@
         }
 
         @media (max-width: 768px) {
-            
 
             .sights-menu-controls {
                 max-width: 100%;
@@ -2780,6 +2559,7 @@
         .sights-nav-btn {
             width: 42px;
             height: 42px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border-radius: 12px;
             background: var(--bg-card);
             border: 1.5px solid var(--border-card);
@@ -2827,47 +2607,6 @@
             .sight-showcase-card {
                 grid-template-columns: 1fr;
             }
-        }
-
-        .sight-showcase-media {
-            position: relative;
-            overflow: hidden;
-            min-height: 350px;
-            background: #0f172a;
-        }
-
-        .sight-showcase-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .sight-showcase-card:hover .sight-showcase-img {
-            transform: scale(1.025);
-        }
-
-        .sight-showcase-badge-overlay {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            z-index: 2;
-        }
-
-        .sight-badge-item {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(8px);
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            width: fit-content;
         }
 
         .sight-showcase-body {
@@ -2987,36 +2726,6 @@
             box-shadow: 0 6px 18px var(--accent-glow);
         }
 
-        /* Сводный реестр памятников */
-        .registry-accordion-wrap {
-            margin-top: 26px;
-            max-width: 1060px;
-            margin-left: auto;
-            margin-right: auto;
-            box-sizing: border-box;
-        }
-
-        .registry-toggle-btn {
-            width: 100%;
-            background: var(--bg-card);
-            border: 1px solid var(--border-card);
-            border-radius: var(--radius-md);
-            padding: 16px 22px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .registry-toggle-btn:hover {
-            border-color: var(--main-color);
-            color: var(--main-color);
-        }
-
         .registry-content {
             display: none;
             background: var(--bg-card);
@@ -3029,32 +2738,6 @@
 
         .registry-content.open {
             display: block;
-        }
-
-        .registry-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 12px;
-        }
-
-        .registry-item {
-            background: var(--bg-accent);
-            border: 1px solid var(--border-card);
-            border-radius: 10px;
-            padding: 12px 14px;
-            font-size: 0.88rem;
-        }
-
-        .registry-item-title {
-            font-weight: 700;
-            color: var(--text-main);
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .registry-item-meta {
-            font-size: 0.8rem;
-            color: var(--text-muted);
         }
 
         /* Стили эксплейнера в викторине */
@@ -3070,9 +2753,7 @@
             animation: fadeIn 0.3s ease;
         }
 
-
         @media (max-width: 768px) {
-            
 
             .sights-section {
                 padding: 0 12px;
@@ -3088,11 +2769,6 @@
                 border-radius: var(--radius-md);
             }
 
-            .sight-showcase-media {
-                min-height: 230px !important;
-                max-height: 280px;
-            }
-
             .sight-showcase-body {
                 padding: 16px 14px !important;
             }
@@ -3103,39 +2779,10 @@
 
             .sight-showcase-desc {
                 font-size: 0.92rem !important;
-            }
-
-            .sight-chip {
-                padding: 6px 8px;
-                gap: 8px;
-            }
-
-            .sight-chip-thumb {
-                width: 38px;
-                height: 38px;
-            }
-
-            .sight-chip-text strong {
-                font-size: 0.84rem;
-            }
-
-            .sight-chip-text span {
-                font-size: 0.72rem;
-            }
-
-            .registry-grid {
-                grid-template-columns: 1fr !important;
-            }
-
-            .ai-chip-btn {
-                font-size: 0.78rem !important;
-                padding: 5px 10px !important;
             }
         }
 
-
         @media (max-width: 768px) {
-            
 
             .sights-section {
                 padding: 0 12px;
@@ -3151,11 +2798,6 @@
                 border-radius: var(--radius-md);
             }
 
-            .sight-showcase-media {
-                min-height: 230px !important;
-                max-height: 280px;
-            }
-
             .sight-showcase-body {
                 padding: 16px 14px !important;
             }
@@ -3166,39 +2808,10 @@
 
             .sight-showcase-desc {
                 font-size: 0.92rem !important;
-            }
-
-            .sight-chip {
-                padding: 6px 8px;
-                gap: 8px;
-            }
-
-            .sight-chip-thumb {
-                width: 38px;
-                height: 38px;
-            }
-
-            .sight-chip-text strong {
-                font-size: 0.84rem;
-            }
-
-            .sight-chip-text span {
-                font-size: 0.72rem;
-            }
-
-            .registry-grid {
-                grid-template-columns: 1fr !important;
-            }
-
-            .ai-chip-btn {
-                font-size: 0.78rem !important;
-                padding: 5px 10px !important;
             }
         }
 
-
         @media (max-width: 768px) {
-            
 
             .sights-section {
                 padding: 0 12px;
@@ -3214,11 +2827,6 @@
                 border-radius: var(--radius-md);
             }
 
-            .sight-showcase-media {
-                min-height: 230px !important;
-                max-height: 280px;
-            }
-
             .sight-showcase-body {
                 padding: 16px 14px !important;
             }
@@ -3229,33 +2837,6 @@
 
             .sight-showcase-desc {
                 font-size: 0.92rem !important;
-            }
-
-            .sight-chip {
-                padding: 6px 8px;
-                gap: 8px;
-            }
-
-            .sight-chip-thumb {
-                width: 38px;
-                height: 38px;
-            }
-
-            .sight-chip-text strong {
-                font-size: 0.84rem;
-            }
-
-            .sight-chip-text span {
-                font-size: 0.72rem;
-            }
-
-            .registry-grid {
-                grid-template-columns: 1fr !important;
-            }
-
-            .ai-chip-btn {
-                font-size: 0.78rem !important;
-                padding: 5px 10px !important;
             }
         }
 
@@ -3329,7 +2910,6 @@
             background: rgba(0, 0, 0, 0.5);
         }
 
-
         body.dark-theme .timeline-section {
             background: rgba(15, 23, 42, 0.95);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -3349,8 +2929,6 @@
         body.dark-theme .timeline-scroll-container::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.05);
         }
-    
-        
 
         /* WOW EFFECT: Full Glassmorphism */
         :root {
@@ -3372,30 +2950,23 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
         }
 
-    
         .dark-theme .sights-badge {
             background: color-mix(in srgb, var(--main-color) 20%, transparent) !important;
             color: var(--main-color) !important;
         }
 
-    
-
-
-    
         .dark-theme .time-btn:not(.active) {
             border-color: rgba(255, 255, 255, 0.35);
             background: rgba(255, 255, 255, 0.05);
             color: #e2e8f0;
         }
 
-    
         .dark-theme .btn-route-timeline {
             border-color: rgba(255, 255, 255, 0.35) !important;
             background: rgba(255, 255, 255, 0.05) !important;
             color: #e2e8f0 !important;
         }
 
-    
         /* Fix for route buttons visibility in light theme */
         .btn-route-timeline:not(:hover), .btn-view-route:not(:hover) {
             border: 1.5px solid rgba(0, 0, 0, 0.15) !important;
@@ -3409,8 +2980,7 @@
         }
 
     </style>
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-</head>
+    </head>
 
 <body class="season-autumn">
 
@@ -4347,17 +3917,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
            ========================================================================== */
         window.fallbackImages = {};
 
-        function handleImageFallback(img, path) {
-            if (window.fallbackImages && window.fallbackImages[path]) {
-                if (img.src !== window.fallbackImages[path]) {
-                    img.src = window.fallbackImages[path];
-                    return;
-                }
-            }
-            if (img.parentElement) {
-                img.parentElement.style.display = 'none';
-            }
-        }
+        
 
         /* ==========================================================================
            МОБИЛЬНОЕ МЕНЮ (АДАПТИВНАЯ НАВИГАЦИЯ ДЛЯ СМАРТФОНОВ)
@@ -5642,71 +5202,23 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
 
         const seasonInfo = {
             winter: {
-                ru: { title: 'ЗИМНЯЯ ИСТОРИЯ', heading: 'Заснеженный город на берегу реки Уфы' },
-                
-quizCounterLabel: 'Вопрос',
-quizCounterOf: 'из',
-quizPrev: '← Назад',
-quizNext: 'Далее →',
-quizFinish: '🏆 Показать результат',
-quizScore: 'Правильных ответов:',
-quizOutOf: 'из',
-quizResult5: '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!',
-quizResult4: '👍 Хорошо! Вы хорошо знаете историю города.',
-quizResult3: '📖 Неплохо! Почитайте о достопримечательностях подробнее.',
-quizResult2: '🔍 Стоит изучить историю города! Пройдите ленту времени.',
-en: { title: 'WINTER HISTORY', heading: 'Snowy city on the banks of the Ufa River' },
+                ru: { title: 'СКВОЗЬ ЭПОХИ', heading: 'Заснеженный город на берегу реки Уфы' },
+                en: { title: 'THROUGH EPOCHS', heading: 'Snowy city on the banks of the Ufa River' },
                 metaColor: '#0ea5e9'
             },
             spring: {
-                ru: { title: 'ВЕСЕННЯЯ ИСТОРИЯ', heading: 'Цветущий город на живописном берегу реки Уфы' },
-                
-quizCounterLabel: 'Вопрос',
-quizCounterOf: 'из',
-quizPrev: '← Назад',
-quizNext: 'Далее →',
-quizFinish: '🏆 Показать результат',
-quizScore: 'Правильных ответов:',
-quizOutOf: 'из',
-quizResult5: '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!',
-quizResult4: '👍 Хорошо! Вы хорошо знаете историю города.',
-quizResult3: '📖 Неплохо! Почитайте о достопримечательностях подробнее.',
-quizResult2: '🔍 Стоит изучить историю города! Пройдите ленту времени.',
-en: { title: 'SPRING HISTORY', heading: 'Blooming city on the scenic banks of the Ufa River' },
+                ru: { title: 'СКВОЗЬ ЭПОХИ', heading: 'Цветущий город на живописном берегу реки Уфы' },
+                en: { title: 'THROUGH EPOCHS', heading: 'Blooming city on the scenic banks of the Ufa River' },
                 metaColor: '#10b981'
             },
             summer: {
-                ru: { title: 'ЛЕТНЯЯ ИСТОРИЯ', heading: 'Солнечный город на берегу реки Уфы' },
-                
-quizCounterLabel: 'Вопрос',
-quizCounterOf: 'из',
-quizPrev: '← Назад',
-quizNext: 'Далее →',
-quizFinish: '🏆 Показать результат',
-quizScore: 'Правильных ответов:',
-quizOutOf: 'из',
-quizResult5: '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!',
-quizResult4: '👍 Хорошо! Вы хорошо знаете историю города.',
-quizResult3: '📖 Неплохо! Почитайте о достопримечательностях подробнее.',
-quizResult2: '🔍 Стоит изучить историю города! Пройдите ленту времени.',
-en: { title: 'SUMMER HISTORY', heading: 'Sunny city on the banks of the Ufa River' },
+                ru: { title: 'СКВОЗЬ ЭПОХИ', heading: 'Солнечный город на берегу реки Уфы' },
+                en: { title: 'THROUGH EPOCHS', heading: 'Sunny city on the banks of the Ufa River' },
                 metaColor: '#eab308'
             },
             autumn: {
                 ru: { title: 'СКВОЗЬ ЭПОХИ', heading: 'Город на живописном берегу реки Уфы' },
-                
-quizCounterLabel: 'Вопрос',
-quizCounterOf: 'из',
-quizPrev: '← Назад',
-quizNext: 'Далее →',
-quizFinish: '🏆 Показать результат',
-quizScore: 'Правильных ответов:',
-quizOutOf: 'из',
-quizResult5: '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!',
-quizResult4: '👍 Хорошо! Вы хорошо знаете историю города.',
-quizResult3: '📖 Неплохо! Почитайте о достопримечательностях подробнее.',
-quizResult2: '🔍 Стоит изучить историю города! Пройдите ленту времени.',
-en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa River' },
+                en: { title: 'THROUGH EPOCHS', heading: 'City on the scenic banks of the Ufa River' },
                 metaColor: '#ea580c'
             }
         };
@@ -5984,98 +5496,10 @@ en: { title: 'THROUGH THE EPOCHS', heading: 'City on the scenic banks of the Ufa
             // Показываем все вопросы свёрнуто
             // Removed innerHTML wipe to prevent mobile scroll jump
         }
-        function showQuizResults() {
-            const banner = document.getElementById('quiz-results');
-            const scoreText = document.getElementById('quiz-score-text');
-            const descText = document.getElementById('quiz-desc-text');
-            if (!banner) return;
-
-            const total = quizData.length;
-            let score = 0;
-            for (let k in quizAnswers) {
-                if (quizAnswers[k]) score++;
-            }
-
-            banner.style.display = 'block';
-            if (currentLang === 'ru') {
-                scoreText.textContent = `Ваш результат: ${score} из ${total}!`;
-                descText.textContent = score === total
-                    ? '🏆 Великолепно! Вы настоящий знаток истории Красноуфимска!'
-                    : (score >= Math.round(total * 0.6) ? '👍 Отличный результат! Вы прекрасно ориентируетесь в истории края.' : '📖 Перечитайте карточки ленты времени и попробуйте ещё раз!');
-            } else {
-                scoreText.textContent = `Your score: ${score} of ${total}!`;
-                descText.textContent = score === total
-                    ? '🏆 Outstanding! You are a genuine Krasnoufimsk history expert!'
-                    : (score >= Math.round(total * 0.6) ? '👍 Great job! You know the city’s milestones well.' : '📖 Read through the timeline cards and try again!');
-            }
-
-            banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
+        
 
 
-        function generateCertificate() {
-            const name = document.getElementById('cert-name-input').value.trim();
-            if (!name) { alert(currentLang === 'ru' ? 'Пожалуйста, введите имя!' : 'Please enter your name!'); return; }
-
-            const canvas = document.getElementById('cert-canvas');
-            const ctx = canvas.getContext('2d');
-
-            // Background
-            ctx.fillStyle = '#0f172a';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Border
-            ctx.strokeStyle = '#ea580c';
-            ctx.lineWidth = 15;
-            ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
-            ctx.strokeStyle = '#222222';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
-
-            // Title
-            ctx.fillStyle = '#111111';
-            ctx.font = 'bold 50px "Times New Roman", serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(currentLang === 'ru' ? 'ГРАМОТА' : 'CERTIFICATE', canvas.width / 2, 120);
-
-            // Subtitle
-            ctx.font = 'italic 24px "Times New Roman", serif';
-            ctx.fillStyle = '#555555';
-            ctx.fillText(currentLang === 'ru' ? 'Выдана за отличные знания истории города Красноуфимска' : 'Awarded for excellent knowledge of Krasnoufimsk history', canvas.width / 2, 170);
-
-            // Name
-            ctx.fillStyle = '#ea580c';
-            ctx.font = 'bold 46px "Times New Roman", serif';
-            ctx.fillText(name, canvas.width / 2, 260);
-
-            // Line under name
-            ctx.beginPath();
-            ctx.moveTo(canvas.width / 2 - 200, 275);
-            ctx.lineTo(canvas.width / 2 + 200, 275);
-            ctx.strokeStyle = '#cccccc';
-            ctx.lineWidth = 2;
-            ctx.stroke();
-
-            // Text
-            ctx.fillStyle = '#333333';
-            ctx.font = '24px "Times New Roman", serif';
-            ctx.fillText(currentLang === 'ru' ? 'Присваивается почетное звание' : 'Is hereby awarded the honorary title', canvas.width / 2, 340);
-            ctx.font = 'bold 32px "Times New Roman", serif';
-            ctx.fillText(currentLang === 'ru' ? '«ЗНАТОК ИСТОРИИ»' : '«HISTORY EXPERT»', canvas.width / 2, 390);
-
-            // Date & Signature
-            ctx.font = '20px "Times New Roman", serif';
-            ctx.fillStyle = '#111111';
-            const date = new Date().toLocaleDateString();
-            ctx.fillText(currentLang === 'ru' ? 'Дата: ' + date : 'Date: ' + date, 200, 480);
-            ctx.fillText(currentLang === 'ru' ? 'Подпись: _________________' : 'Signature: _________________', 600, 480);
-
-            // Download
-            const link = document.createElement('a');
-            link.download = 'Krasnoufimsk_Certificate.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        }
+        
 
 
         function restartQuiz() {
