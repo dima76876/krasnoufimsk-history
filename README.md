@@ -4,19 +4,19 @@
 > **Год реализации:** 2026  
 > **Приурочено:** к 290-летию основания города Красноуфимска (1736–2026 гг.)
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Online%20Live-brightgreen?style=flat-square&logo=github)](https://dima76876.github.io/krasnoufimsk-history/)
-[![Code](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20JS%20ES6+-blue?style=flat-square&logo=javascript)](https://dima76876.github.io/krasnoufimsk-history/)
-[![License](https://img.shields.io/badge/Лицензия-MIT%20%2F%20Открытый%20доступ-orange?style=flat-square)](https://dima76876.github.io/krasnoufimsk-history/)
-[![Lighthouse](https://img.shields.io/badge/Lighthouse-100%2F100-success?style=flat-square&logo=lighthouse)](https://dima76876.github.io/krasnoufimsk-history/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Online%20Live-brightgreen?style=flat-square&logo=github)](https://krasnoufimsk-history.site/)
+[![Code](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20JS%20ES6+-blue?style=flat-square&logo=javascript)](https://krasnoufimsk-history.site/)
+[![License](https://img.shields.io/badge/Лицензия-MIT%20%2F%20Открытый%20доступ-orange?style=flat-square)](https://krasnoufimsk-history.site/)
+[![Lighthouse](https://img.shields.io/badge/Lighthouse-100%2F100-success?style=flat-square&logo=lighthouse)](https://krasnoufimsk-history.site/)
 
 ---
 
 ## 🌐 Действующий веб-ресурс
-* **Прямая ссылка на сайт:** 👉 https://krasnoufimsk-history.site
+* **Прямая ссылка на сайт:** 👉 [krasnoufimsk-history.site](https://krasnoufimsk-history.site/)
 
 <p align="center">
-  <a href="https://dima76876.github.io/krasnoufimsk-history/">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://dima76876.github.io/krasnoufimsk-history/" alt="QR-код проекта Красноуфимск: Сквозь эпохи" width="160">
+  <a href="https://krasnoufimsk-history.site/">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://krasnoufimsk-history.site/" alt="QR-код проекта Красноуфимск: Сквозь эпохи" width="160">
   </a>
   <br>
   <em>Наведите камеру смартфона для быстрого перехода на сайт</em>
