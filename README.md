@@ -12,7 +12,7 @@
 ---
 
 ## 🌐 Действующий веб-ресурс
-* **Прямая ссылка на сайт:** 👉 [dima76876.github.io/krasnoufimsk-history](https://dima76876.github.io/krasnoufimsk-history/)
+* **Прямая ссылка на сайт:** 👉 https://krasnoufimsk-history.site
 
 <p align="center">
   <a href="https://dima76876.github.io/krasnoufimsk-history/">
