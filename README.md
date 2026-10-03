@@ -69,6 +69,5 @@
 ## 👤 Автор проекта
 * **Ужегов Дмитрий** — учащийся 10А класса МАОУ СШ №3
 * **GitHub:** [@dima76876](https://github.com/dima76876)
-* **Проект:** [krasnoufimsk-history](https://github.com/dima76876/krasnoufimsk-history)
-
+* **Проект:** [krasnoufimsk-history](https://krasnoufimsk-history.site).
 *Красноуфимск, 2026 г.*
