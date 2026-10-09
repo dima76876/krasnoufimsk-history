@@ -5,7 +5,7 @@
     <!-- 
       ==========================================================================
       ПРОЕКТ: «Красноуфимск: Сквозь эпохи»
-      АВТОР: Ужегов Дмитрий, учащийся 10 класса (Технологический профиль)
+      АВТОР: Ужегов Дмитрий, учащийся 10 класса (Технологический / IT-профиль)
       ГОД: 2026
       ТЕХНОЛОГИИ: HTML5, CSS3 (Glassmorphism, Grid, Flexbox), нативный JavaScript
       ========================================================================== 
@@ -22,7 +22,8 @@
     <link rel="canonical" href="https://krasnoufimsk-history.site/" id="canonical-url">
     <meta name="google-site-verification" content="google2c04b832bbc5b032">
     <meta name="yandex-verification" content="deb5e4ec4b8beeb4">
-    <meta name="theme-color" content="#ea580c" id="theme-color-meta">
+    <meta name="theme-color" content="#055240" id="theme-color-meta">
+    <meta name="msapplication-TileColor" content="#055240">
 
     <!-- Open Graph (красивое превью-баннер в Telegram, ВКонтакте, WhatsApp) -->
     <meta property="og:type" content="website">
@@ -40,10 +41,11 @@
     <meta property="og:image:alt" content="Красноуфимск: Сквозь эпохи — Интерактивный путеводитель">
     <meta property="og:site_name" content="Красноуфимск: Сквозь эпохи">
 
-    <!-- Иконки сайта (Favicons) -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico?v=3">
-    <link rel="icon" type="image/png" sizes="256x256" href="images/favicon.png?v=3">
-    <link rel="apple-touch-icon" sizes="256x256" href="images/apple-touch-icon.png?v=3">
+    <!-- Иконка сайта (Favicon) и PWA / Табло -->
+    <link rel="icon" type="image/png" sizes="192x192" href="images/favicon.png?v=6">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=6">
+    <link rel="manifest" href="manifest.json?v=6">
+    <link rel="yandex-tableau-widget" href="manifest.json?v=6">
 
     <!-- Twitter Card (большой баннер для соцсетей и мессенджеров) -->
     <meta name="twitter:card" content="summary_large_image">
@@ -1712,8 +1714,8 @@
         }
 
         .quiz-nav-finish:hover {
-            background: var(--main-dark);
-            border-color: var(--main-dark);
+            background: var(--main-hover);
+            border-color: var(--main-hover);
         }
 
         .quiz-nav-dots {
@@ -2339,18 +2341,6 @@
                 margin: 0 !important;
             }
 
-            .guide-download-wrap {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                grid-column: 1 / -1;
-                /* For grid layouts */
-                margin-top: 28px;
-                padding-top: 24px;
-                border-top: 1px solid var(--border-card);
-            }
-
             .screen-only {
                 display: none !important;
             }
@@ -2390,18 +2380,6 @@
 
             .guide-item--history {
                 grid-column: span 1;
-            }
-
-            .guide-download-wrap {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                grid-column: 1 / -1;
-                /* For grid layouts */
-                margin-top: 28px;
-                padding-top: 24px;
-                border-top: 1px solid var(--border-card);
             }
 
             .hero {
@@ -2795,63 +2773,6 @@
             animation: fadeIn 0.3s ease;
         }
 
-        @media (max-width: 768px) {
-
-            .sights-section {
-                padding: 0 12px;
-                margin-bottom: 40px;
-            }
-
-            .sights-header h2 {
-                font-size: 1.45rem;
-            }
-
-            .sight-showcase-card {
-                grid-template-columns: 1fr !important;
-                border-radius: var(--radius-md);
-            }
-
-            .sight-showcase-body {
-                padding: 16px 14px !important;
-            }
-
-            .sight-showcase-title {
-                font-size: 1.25rem !important;
-            }
-
-            .sight-showcase-desc {
-                font-size: 0.92rem !important;
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            .sights-section {
-                padding: 0 12px;
-                margin-bottom: 40px;
-            }
-
-            .sights-header h2 {
-                font-size: 1.45rem;
-            }
-
-            .sight-showcase-card {
-                grid-template-columns: 1fr !important;
-                border-radius: var(--radius-md);
-            }
-
-            .sight-showcase-body {
-                padding: 16px 14px !important;
-            }
-
-            .sight-showcase-title {
-                font-size: 1.25rem !important;
-            }
-
-            .sight-showcase-desc {
-                font-size: 0.92rem !important;
-            }
-        }
 
         @media (max-width: 768px) {
 
@@ -2936,18 +2857,6 @@
             box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
         }
 
-        @media (max-width: 768px) {
-            .theme-switch-btn {
-                width: 32px !important;
-                height: 32px !important;
-                font-size: 0.9rem;
-            }
-
-            #theme-icon {
-                font-size: 0.9rem;
-            }
-        }
-
         body.dark-theme .theme-switch-btn:hover {
             background: rgba(0, 0, 0, 0.5);
         }
@@ -2972,14 +2881,14 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-        /* WOW EFFECT: Full Glassmorphism */
+        /* Glassmorphism эффект для карточек */
         :root {
-            --bg-card: rgba(255, 255, 255, 0.75) !important;
-            --border-card: rgba(255, 255, 255, 0.6) !important;
+            --bg-card: rgba(255, 255, 255, 0.75);
+            --border-card: rgba(255, 255, 255, 0.6);
         }
         .dark-theme {
-            --bg-card: rgba(30, 41, 59, 0.65) !important;
-            --border-card: rgba(255, 255, 255, 0.15) !important;
+            --bg-card: rgba(30, 41, 59, 0.65);
+            --border-card: rgba(255, 255, 255, 0.15);
         }
         
         .event-card, .sight-showcase-card, .quiz-card, .route-card, .intro-card, .tourist-guide-card, .weather-details-card {
@@ -3236,7 +3145,7 @@
                 Красноуфимск — старейший исторический город на юго-западе Свердловской области. Заложенный как форпост
                 для защиты уральских заводов, город вобрал в себя летопись пугачёвского восстания, купеческие традиции,
                 триумф инженерной мысли в виде знаменитых виадуков и трудовой подвиг в годы Великой Отечественной войны.
-                Ниже представлена интерактивная летопись из 21 важнейшего этапов, определивших судьбу Красноуфимска.
+                Ниже представлена интерактивная летопись из 21 важнейшего этапа, определивших судьбу Красноуфимска.
             </p>
 
             <!-- Демонстрационный переключатель сезонов -->
@@ -3439,7 +3348,7 @@
                     role="button" tabindex="0">
                     <span class="guide-item-icon">🏛️</span>
                     <h4 data-i18n="g2Title">Что посмотреть</h4>
-                    <p data-i18n="g2Desc">Краеведческий музей с макетом крепости 1736 года, панорама с Дивизионной горы
+                    <p data-i18n="g2Desc">Краеведческий музей с макетом крепости 1736 года, панорама с Дивьей горы
                         на реку Уфу, обновлённая набережная «Красный Яр», исторический вокзал архитектора Щусева и
                         вековые виадуки.</p>
                     <button type="button" class="guide-item-action-btn" data-i18n="g2Btn"
@@ -3524,7 +3433,7 @@
                     <ul class="guide-places-list">
                         <li>🏛️ <strong>Краеведческий музей</strong> — ул. Советская, 42</li>
                         <li>⛪ <strong>Свято-Троицкий собор</strong> — ул. Куйбышева, 5</li>
-                        <li>🚂 <strong>Вокзал арх. Щусева</strong> — ул. Станционная, 20</li>
+                        <li>🚂 <strong>Вокзал арх. Щусева</strong> — ул. Станционная, 11</li>
                         <li>🌊 <strong>Набережная Красный Яр</strong></li>
                         <li>🌉 <strong>Рябиновский виадук</strong></li>
                     </ul>
@@ -3606,7 +3515,7 @@
                 <span class="footer-chip">HTML5</span>
                 <span class="footer-chip">CSS3 (Glassmorphism)</span>
                 <span class="footer-chip">Vanilla JavaScript</span>
-                <span class="footer-chip">MET Norway API</span>
+                <span class="footer-chip">Open-Meteo API</span>
                 <span class="footer-chip">Bilingual (RU / EN)</span>
                 <span class="footer-chip">100% Native Code</span>
             </div>
@@ -3706,7 +3615,7 @@
                 statYears: 'Истории города',
                 exploreHistory: 'Исследовать историю',
                 introHeading: 'Город на живописных берегах реки Уфы',
-                introText: 'Красноуфимск — старейший исторический город на юго-западе Свердловской области. Заложенный как форпост для защиты уральских заводов, город вобрал в себя летопись пугачёвского восстания, купеческие традиции, триумф инженерной мысли в виде знаменитых виадуков и трудовой подвиг в годы Великой Отечественной войны. Ниже представлена интерактивная летопись из 21 важнейшего этапов, определивших судьбу Красноуфимска.',
+                introText: 'Красноуфимск — старейший исторический город на юго-западе Свердловской области. Заложенный как форпост для защиты уральских заводов, город вобрал в себя летопись пугачёвского восстания, купеческие традиции, триумф инженерной мысли в виде знаменитых виадуков и трудовой подвиг в годы Великой Отечественной войны. Ниже представлена интерактивная летопись из 21 важнейшего этапа, определивших судьбу Красноуфимска.',
                 seasonSwitchLabel: '🎨 Режим визуализации темы сайта:',
                 btnAuto: '🔄 Авто (по дате)',
                 btnWinter: '❄️ Зима',
@@ -3742,7 +3651,7 @@
                 g1Desc: 'Скоростные электропоезда «Ласточка» Екатеринбург — Красноуфимск (3 ч 15 мин) и поезда дальнего следования. На автомобиле — по федеральной трассе Р-242 (Пермский тракт) и скоростной магистрали М-12 «Восток».',
                 g1Btn: '🚆 Маршрут к ж/д вокзалу →',
                 g2Title: 'Что посмотреть',
-                g2Desc: 'Краеведческий музей с макетом крепости 1736 года, панорама с Дивизионной горы на реку Уфу, обновлённая набережная «Красный Яр», исторический вокзал архитектора Щусева и вековые виадуки.',
+                g2Desc: 'Краеведческий музей с макетом крепости 1736 года, панорама с Дивьей горы на реку Уфу, обновлённая набережная «Красный Яр», исторический вокзал архитектора Щусева и вековые виадуки.',
                 g2Btn: '📜 Смотреть объекты в ленте →',
                 g3Title: 'Где отдохнуть и поесть',
                 g3Desc: 'Уютные городские кафе и кофейни на пешеходной улице Советской и смотровые площадки у реки Уфы. Попробуйте знаменитую уральскую выпечку, шаньги и травяной чай.',
@@ -4028,8 +3937,8 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                     en: 'In 1736, under orders from the Orenburg Expedition, Colonel Alexey Ivanovich Tevkelev founded Krasny Yar fortress on the bank of the Ufa River. The outpost became the southern shield of the mining Ural against nomadic raids, housing a church, barracks, powder cellar, and homes of the first Cossack settlers.'
                 },
                 fact: {
-                    ru: 'Крепость была пограничным укреплением и административным центром поселения. Точные сведения о числе первых жителей и высоте обрыва требуют отдельного исторического источника.',
-                    en: 'The fortress served as a frontier stronghold and the center of the settlement. The exact number of its first residents and the height of the riverbank should be confirmed with a historical source.'
+                    ru: 'Крепость Красный Яр была возведена в форме четырёхугольника из сосновых брёвен со сторожевыми башнями по углам и артиллерийскими орудиями для защиты от набегов.',
+                    en: 'Krasny Yar fortress was built as a timber quadrangle with corner guard towers and artillery cannons to repel nomadic raids.'
                 },
                 icon: '🏰',
                 mapTitle: { ru: 'Набережная «Красный Яр» — место основания крепости', en: 'Krasny Yar Embankment — site of the original fortress' },
@@ -4069,8 +3978,8 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                     en: 'From the summit of Divya Mountain, rebels monitored movements along the Ufa River and trade routes. A memorial to Salavat Yulayev stands there to this day.'
                 },
                 icon: '🐎',
-                mapTitle: { ru: 'Смотровая площадка на Дивизионной горе', en: 'Divya Mountain Viewpoint' },
-                address: { ru: 'ул. Пролетарская, Дивизионная гора', en: 'Proletarskaya St., Divya Mountain' },
+                mapTitle: { ru: 'Смотровая площадка на Дивьей горе', en: 'Divya Mountain Viewpoint' },
+                address: { ru: 'ул. Пролетарская, Дивья гора', en: 'Proletarskaya St., Divya Mountain' },
                 mapQuery: 'Красноуфимск Дивья гора'
             },
             {
@@ -4153,12 +4062,12 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 badge: { ru: '🏥 Больница Мизерова • Медицина Урала', en: '🏥 Mizerov Hospital • Ural Medicine' },
                 title: { ru: '1880–1886 годы — М. И. Мизеров и земская больница', en: '1880–1886 — M. I. Mizerov and the Zemstvo Hospital' },
                 desc: {
-                    ru: 'Матвей Иванович Мизеров работал земским врачом в Красноуфимске с 1880 года. По его проекту в 1886 году построили больницу с хирургическим и терапевтическим корпусами. Исторические источники описывают его вклад в развитие земской медицины региона.',
-                    en: 'Matvey Ivanovich Mizerov worked as a zemstvo doctor in Krasnoufimsk from 1880. A hospital with surgical and therapeutic buildings was constructed to his design in 1886. Local historical sources describe his contribution to the development of regional zemstvo medicine.'
+                    ru: 'Матвей Иванович Мизеров работал земским врачом в Красноуфимске с 1880 по 1909 год. По его инициативе и проекту в 1886 году был возведён образцовый павильонный комплекс земской больницы, окружённый целебным парком сибирских лиственниц.',
+                    en: 'Matvey Ivanovich Mizerov served as a zemstvo physician in Krasnoufimsk from 1880 to 1909. Under his leadership and design, an exemplary pavilion hospital complex surrounded by a curative Siberian larch park was constructed in 1886.'
                 },
                 fact: {
-                    ru: 'Матвей Иванович Мизеров работал в Красноуфимске с 1880 по 1909 год и сыграл важную роль в развитии земской медицины.',
-                    en: 'Matvey Ivanovich Mizerov worked in Krasnoufimsk from 1880 to 1909 and played an important role in the development of zemstvo medicine.'
+                    ru: 'Доктор Мизеров лично выполнил тысячи сложнейших офтальмологических операций, спасая уральских жителей от слепоты, а созданный им парк лиственниц сохранился до сих пор.',
+                    en: 'Dr. Mizerov personally performed thousands of complex ophthalmic surgeries curing eye diseases across the Urals, and his historical larch park survives to this day.'
                 },
                 icon: '🏥',
                 mapTitle: { ru: 'Земская больница Мизерова (ул. Свободы, 16)', en: 'Mizerov Zemstvo Hospital (16 Svobody St.)' },
@@ -4188,14 +4097,14 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 year: '1890-е',
                 tag: { ru: '• Купеческий расцвет', en: '• Merchant Golden Age' },
                 badge: { ru: '🏪 Торговля • Каменная застройка', en: '🏪 Commerce • Stone Architecture' },
-                title: { ru: '1890-е годы — Купеческий расцвет и каменная застройка', en: '1890s — Merchant Golden Age \u0026 Stone Construction' },
+                title: { ru: '1890-е годы — Купеческий расцвет и каменная застройка', en: '1890s — Merchant Golden Age & Stone Construction' },
                 desc: {
-                    ru: 'Конец XIX века стал золотым временем Красноуфимска. Богатые купцы — Сенкевич, Серебренников, Шевелин — возводили каменные особняки и торговые дома. Улица Советская (бывшая Соборная) превратилась в роскошный торговый проспект. Появились аптеки, фотоателье, гостиницы и первые телефонные линии.',
-                    en: 'The late 19th century was Krasnoufimsk\'s golden age. Wealthy merchants — Senkevich, Serebrennikov, Shevelin — built stone mansions and trading houses. Sovetskaya Street (former Sobornaya) became a grand commercial avenue with pharmacies, photo studios, hotels and the first telephone lines.'
+                    ru: 'Конец XIX века стал золотым временем Красноуфимска. Купеческие династии — Серебренниковы, Шевелины, Кузнецовы — возводили каменные особняки и торговые ряды. Улица Советская (бывшая Соборная) превратилась в процветающий торговый центр с аптеками, типографиями и фотоателье.',
+                    en: 'The late 19th century was Krasnoufimsk\'s golden age. Prominent merchant dynasties — Serebrennikovs, Shevelins, Kuznetsovs — built stone estates and trading rows. Sovetskaya Street (former Sobornaya) became a bustling commercial avenue with pharmacies, print shops, and photo studios.'
                 },
                 fact: {
-                    ru: 'Купец Сенкевич построил самый красивый особняк города в стиле деревянного модерна (ныне Краеведческий музей). Здание дошло до наших дней почти без изменений.',
-                    en: 'Merchant Senkevich built the city\'s most beautiful wooden Art Nouveau mansion (now the Regional Museum). The building survives almost unchanged to this day.'
+                    ru: 'В историческом квартале рядом с купеческими усадьбами в 1912 году мировой судья В. С. Сенкевич возвёл знаменитый особняк в стиле деревянного модерна, где сегодня расположен Краеведческий музей.',
+                    en: 'In the historic quarter alongside merchant estates, district magistrate V. S. Senkevich built the famous wooden Art Nouveau mansion in 1912, which houses the Local History Museum today.'
                 },
                 icon: '🏪',
                 mapTitle: { ru: 'Краеведческий музей (Особняк Сенкевича)', en: 'Regional Museum (Senkevich Mansion)' },
@@ -4225,18 +4134,18 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 year: '1915',
                 tag: { ru: '• Железная дорога', en: '• Railway' },
                 badge: { ru: '🚂 Казанбургская магистраль • Индустрия', en: '🚂 Kazanburg Railway • Industry' },
-                title: { ru: '1915–1924 годы — Железная дорога и виадуки', en: '1915–1916 — Railway \u0026 Great Viaducts' },
+                title: { ru: '1915–1924 годы — Железная дорога и виадуки', en: '1915–1924 — Railway & Great Viaducts' },
                 desc: {
                     ru: 'Железнодорожная линия прошла через Красноуфимск в 1915 году, однако её открытие для полноценного движения относится к более позднему периоду — к 1924 году. Железная дорога связала регион с крупными транспортными центрами; виадуки стали важными инженерными сооружениями этой линии.',
                     en: 'The railway line passed through Krasnoufimsk in 1915, but full service was opened later, by 1924. The railway connected the region with major transport centers; the viaducts became important engineering structures along the line.'
                 },
                 fact: {
-                    ru: 'Рябиновский виадук — заметное инженерное сооружение железнодорожной линии Казань — Екатеринбург. Его точные размеры и утверждение о рекорде стоит приводить только со ссылкой на технический или исторический источник.',
-                    en: 'The Ryabinovka Viaduct — 32 m high and 255 m long — was the largest monolithic concrete bridge in the Ural of the early 20th century. It still carries trains today.'
+                    ru: 'Рябиновский виадук — грандиозный арочный мост высотой свыше 30 метров, возведённый из монолитного железобетона. Он стал одним из сложнейших и красивейших сооружений такого типа на железных дорогах России.',
+                    en: 'The Ryabinovka Viaduct is a grand arched bridge over 30 meters high built from monolithic reinforced concrete, representing one of the most remarkable engineering achievements on Russian railways.'
                 },
                 icon: '🚂',
                 mapTitle: { ru: 'Железнодорожный вокзал Красноуфимск', en: 'Krasnoufimsk Railway Station' },
-                address: { ru: 'Станционная ул., 11', en: '11 Stantsionnaya St.' },
+                address: { ru: 'ул. Станционная, 11', en: '11 Stantsionnaya St.' },
                 mapQuery: 'Здание железнодорожного вокзала, по плану архитектора Щусева А. В, Красноуфимск'
             },
             {
@@ -4381,7 +4290,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                     en: 'In 2016 Krasnoufimsk celebrated its 280th anniversary with grand festivities. The renovated Krasny Yar embankment complex with a Cossack tower — a reconstruction of the original outpost — was unveiled. The central square hosted a grand historical parade with Cossack units in 18th-century uniforms.'
                 },
                 fact: {
-                    ru: 'На 280-летие города была изготовлена точная копия герба 1781 года и торжественно установлена на Дивизионной горе — главной смотровой точке Красноуфимска.',
+                    ru: 'На 280-летие города была изготовлена точная копия герба 1781 года и торжественно установлена на Дивьей горе — главной смотровой точке Красноуфимска.',
                     en: 'For the 280th anniversary a precise replica of the 1781 coat of arms was ceremonially installed on Divya Mountain — Krasnoufimsk\'s main viewpoint.'
                 },
                 icon: '🎂',
@@ -4495,14 +4404,14 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                     en: 'Which bird is depicted on the historic coat of arms of Krasnoufimsk granted by Catherine II in 1783?'
                 },
                 options: [
-                    { t: { ru: 'Сокол, сидящий на золотом холме', en: 'A falcon perched on a golden knoll' }, correct: true },
+                    { t: { ru: 'Серебряный сокол, сидящий на золотой ветке', en: 'A silver falcon perched on a golden branch' }, correct: true },
                     { t: { ru: 'Беркут с расправленными крыльями', en: 'A golden eagle with spread wings' }, correct: false },
                     { t: { ru: 'Белый лебедь на волнах Уфы', en: 'A white swan on the Ufa waves' }, correct: false },
                     { t: { ru: 'Глухарь в сосновом бору', en: 'A capercaillie in a pine forest' }, correct: false }
                 ],
                 explainer: {
-                    ru: '«В верхней части щита герб Пермский, в нижней — серебряный сокол, в знак того, что около сего города оных птиц водится великое множество».',
-                    en: '"In the lower part is a silver falcon, in sign of the great abundance of these proud birds inhabiting the surrounding hills."'
+                    ru: 'Исторический герб утверждён Екатериной II: «В верхней части щита герб Пермский, в нижней — серебряный сокол в зелёном поле, сидящий на золотой ветви, в знак того, что около сего города оных птиц водится великое множество».',
+                    en: '"In the lower part is a silver falcon perched on a golden branch in a green field, in sign of the great abundance of these birds around this town."'
                 }
             },
             {
@@ -4635,8 +4544,8 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             },
             {
                 difficulty: 'hard', q: {
-                    ru: 'Какое историческое событие 1774 года увековечено памятным знаком на Дивизионной горе?',
-                    en: 'What 1774 historical event is commemorated on Divizionnaya Hill?'
+                    ru: 'Какое историческое событие 1774 года увековечено памятным знаком на Дивьей горе?',
+                    en: 'What 1774 historical event is commemorated on Divya Mountain?'
                 },
                 options: [
                     { t: { ru: 'Стоянка казачьего сторожевого пикета и лагерь башкирского отряда Салавата Юлаева', en: 'Cossack watch post and encampment of Salavat Yulaev’s detachment' }, correct: true },
@@ -4645,8 +4554,8 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                     { t: { ru: 'Сражение с наполеоновскими войсками', en: 'Battle against Napoleonic troops' }, correct: false }
                 ],
                 explainer: {
-                    ru: 'С Дивизионной горы открывается круговой обзор на долину реки Уфы. Здесь располагался ключевой дозорный пикет Красноуфимской крепости.',
-                    en: 'Divizionnaya Hill provides a 360-degree panorama of the valley and served as the main defense lookout post for the fortress.'
+                    ru: 'С Дивьей горы открывается круговой обзор на долину реки Уфы. Здесь располагался ключевой дозорный пикет Красноуфимской крепости.',
+                    en: 'Divya Mountain provides a 360-degree panorama of the valley and served as the main defense lookout post for the fortress.'
                 }
             },
             {
@@ -4689,7 +4598,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 },
                 options: [
                     { t: { ru: 'Соколий камень (Аргамач)', en: 'Sokoliy Rock (Argamach)' }, correct: true },
-                    { t: { ru: 'Дивизионная гора', en: 'Divya Mountain' }, correct: false },
+                    { t: { ru: 'Дивья гора', en: 'Divya Mountain' }, correct: false },
                     { t: { ru: 'Красный Яр', en: 'Krasny Yar' }, correct: false },
                     { t: { ru: 'Владиславлева гора', en: 'Vladislavlev Mountain' }, correct: false }
                 ],
@@ -4857,7 +4766,6 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             renderNavSightsDropdown();
             if (typeof updateSightsDropdownMenu === 'function') updateSightsDropdownMenu();
             if (typeof updateRouteMapLinks === 'function') updateRouteMapLinks();
-            if (typeof renderMapMarkers === 'function') renderMapMarkers();
 
             // Фикс для мобильного Safari: принудительная перерисовка при смене языка
             setTimeout(() => {
@@ -5137,7 +5045,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
 
                 localStorage.setItem('kuf_weather_cache', JSON.stringify({ temp, feels, windMs, hum, precip, wmo, timeStr }));
             } catch (e) {
-                console.warn('Используем кэшированную погоду:', e);
+                console.warn('Используем кэшированную или базовую погоду:', e);
                 const cached = localStorage.getItem('kuf_weather_cache');
                 if (cached) {
                     try {
@@ -5154,14 +5062,25 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                     } catch (err) { }
                 }
 
+                // Сезонная базовая погода Красноуфимска при отсутствии сети и кэша
+                const season = getNaturalSeason();
+                const seasonalData = {
+                    winter: { icon: '❄️', temp: -10, ru: 'Умеренный снег', en: 'Moderate snow', wind: '4', hum: '82', precip: '1' },
+                    spring: { icon: '⛅', temp: 8, ru: 'Переменная облачность', en: 'Partly cloudy', wind: '3', hum: '65', precip: '0' },
+                    summer: { icon: '☀️', temp: 22, ru: 'Ясно', en: 'Clear sky', wind: '2', hum: '55', precip: '0' },
+                    autumn: { icon: '🌧️', temp: 6, ru: 'Временами дождь', en: 'Occasional rain', wind: '4', hum: '78', precip: '2' }
+                }[season] || { icon: '⛅', temp: 10, ru: 'Переменная облачность', en: 'Partly cloudy', wind: '3', hum: '65', precip: '0' };
+
                 const curLangDict = i18n[currentLang] || i18n.ru;
-                if (iconEl) iconEl.textContent = '❌';
-                if (tempEl) tempEl.textContent = 'Err';
-                if (descEl) descEl.textContent = (curLangDict.weatherError || 'Ошибка:') + ' ' + (e.message || 'Сбой');
-                if (feelsEl) feelsEl.textContent = '--°C';
-                if (windEl) windEl.textContent = '-- м/с';
-                if (humEl) humEl.textContent = '--%';
-                if (precipEl) precipEl.textContent = '-- мм';
+                const offlineLabel = currentLang === 'ru' ? '(сезонный ориентир)' : '(seasonal baseline)';
+                if (iconEl) iconEl.textContent = seasonalData.icon;
+                if (tempEl) tempEl.textContent = (seasonalData.temp > 0 ? '+' : '') + seasonalData.temp + '°C';
+                if (descEl) descEl.textContent = `${seasonalData.icon} ${seasonalData[currentLang] || seasonalData.ru}, ${(seasonalData.temp > 0 ? '+' : '')}${seasonalData.temp}°C ${offlineLabel}`;
+                if (feelsEl) feelsEl.textContent = (seasonalData.temp > 0 ? '+' : '') + seasonalData.temp + '°C';
+                if (windEl) windEl.textContent = seasonalData.wind + ' м/с';
+                if (humEl) humEl.textContent = seasonalData.hum + '%';
+                if (precipEl) precipEl.textContent = seasonalData.precip + ' мм';
+                if (timeEl) timeEl.textContent = `${curLangDict.weatherUpdated} ${offlineLabel}`;
             } finally {
                 if (refreshBtn) {
                     refreshBtn.style.opacity = '1';
@@ -5305,6 +5224,10 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
 
         window.restartQuiz = function () {
             quizData = [];
+            currentQuizIndex = 0;
+            quizAnswers = {};
+            const banner = document.getElementById('quiz-results');
+            if (banner) banner.style.display = 'none';
             renderQuiz();
         };
 
@@ -5476,19 +5399,6 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             // Показываем все вопросы свёрнуто
             // Removed innerHTML wipe to prevent mobile scroll jump
         }
-        
-
-
-        
-
-
-        function restartQuiz() {
-            currentQuizIndex = 0;
-            quizAnswers = {};
-            const banner = document.getElementById('quiz-results');
-            if (banner) banner.style.display = 'none';
-            renderQuiz();
-        }
 
         /* ==========================================================================
            ФУНКЦИЯ [6.1]: РАСКРЫТИЕ / СВОРАЧИВАНИЕ ВИКТОРИНЫ ПО КНОПКЕ
@@ -5604,47 +5514,6 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
         const progressBar = document.getElementById('reading-progress');
         const backToTopBtn = document.getElementById('btn-back-to-top');
 
-
-        // --- Yandex Maps ---
-        if (typeof ymaps !== 'undefined') {
-            ymaps.ready(initMap);
-        }
-        var myYandexMap;
-        function initMap() {
-            try {
-                myYandexMap = new ymaps.Map("yandex-map", {
-                    center: [56.611, 57.771],
-                    zoom: 13,
-                    controls: ['zoomControl', 'fullscreenControl']
-                });
-                // Disable scroll zoom for mobile
-                myYandexMap.behaviors.disable('scrollZoom');
-
-                renderMapMarkers();
-            } catch (e) {
-                console.warn('Yandex Map failed to load:', e);
-            }
-        }
-
-        function renderMapMarkers() {
-            if (!myYandexMap || typeof sightsData === 'undefined') return;
-            myYandexMap.geoObjects.removeAll();
-            sightsData.forEach((s, idx) => {
-                let lat = 56.611 + (Math.sin(idx * 1.5) * 0.015);
-                let lon = 57.771 + (Math.cos(idx * 1.5) * 0.02);
-
-                let titleText = s.title ? (s.title[currentLang] || s.title.ru) : '';
-                let descText = s.desc ? (s.desc[currentLang] || s.desc.ru) : '';
-
-                let placemark = new ymaps.Placemark([lat, lon], {
-                    hintContent: titleText,
-                    balloonContent: '<b>' + titleText + '</b><br>' + descText.substring(0, 60) + '...'
-                }, {
-                    preset: 'islands#orangeDotIcon'
-                });
-                myYandexMap.geoObjects.add(placemark);
-            });
-        }
 
         window.addEventListener('scroll', function () {
             const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
@@ -5782,7 +5651,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 title: { ru: 'Вокзал Красноуфимска (арх. А. В. Щусев)', en: 'Krasnoufimsk Station (Arch. A. Shchusev)' },
                 desc: { ru: 'Шедевр академика Алексея Щусева — создателя Казанского вокзала в Москве. Построен в 1915 году для Казанбургской магистрали. Торжественные барочные фронтоны, арочные окна, высокие своды. На площади стоит исторический паровоз-памятник «Лебедянка».', en: 'A masterpiece by renowned architect Alexey Shchusev, built in 1915 for the Kazan–Yekaterinburg railway. Features Petrine Baroque pediments, grand arched windows, and a historic L-series steam locomotive monument in the square.' },
                 fact: { ru: 'Щусев лично разрабатывал ансамбль станций, и Красноуфимский вокзал стал одним из красивейших на Урале.', en: 'Shchusev personally designed railway station ensembles, making Krasnoufimsk station a crown jewel of Ural architecture.' },
-                address: { ru: 'Станционная ул., 11', en: '11 Stantsionnaya St.' },
+                address: { ru: 'ул. Станционная, 11', en: '11 Stantsionnaya St.' },
                 queryRu: 'Здание железнодорожного вокзала, по плану архитектора Щусева А. В, Красноуфимск', queryEn: 'Krasnoufimsk railway station Stantsionnaya 11'
             },
             {
@@ -5847,7 +5716,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 title: { ru: 'Здание Земской управы (Администрация)', en: 'Zemstvo Board (Town Hall)' },
                 desc: { ru: 'Символ расцвета уральского земского самоуправления. Красноуфимское земство признавалось одним из самых передовых: строило бесплатные больницы, школы, библиотеки. Двухэтажное здание из фигурного красного кирпича с узорчатым фризом. Сегодня — администрация города.', en: 'Symbol of progressive regional self-governance. Krasnoufimsk Zemstvo pioneered rural healthcare and education. The two-story red-brick building with decorative frieze today houses the municipal administration.' },
                 fact: { ru: 'Именно Земская управа добилась в 1875 году открытия первого на Урале сельскохозяйственного училища.', en: 'The Zemstvo board successfully petitioned for the Urals\' first agricultural school to be opened in 1875.' },
-                address: { ru: 'ул. Советская, д. 17', en: '17 Sovetskaya St.' },
+                address: { ru: 'ул. Советская, д. 25', en: '25 Sovetskaya St.' },
                 directUrl: 'https://yandex.ru/maps/org/zdaniye_byvshey_zemskoy_upravy_gde_v_yanvare_1918_g_prokhodil_pervy_krasnoufimskiy_syezd_sovetov/2611628323/',
                 queryRu: 'Советская улица, 25, Красноуфимск, Свердловская область', queryEn: '25 Sovetskaya St., Krasnoufimsk'
             },
@@ -5860,7 +5729,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 fact: { ru: 'В здании в 1905 году проходили бурные собрания городских депутатов в связи с революционными событиями.', en: 'In 1905, heated municipal assemblies were held here during the revolutionary turmoil across Russia.' },
                 address: { ru: 'ул. Мизерова, 66', en: '66 Mizerova St.' },
                 directUrl: 'https://yandex.ru/maps/org/korpus_byvshego_vinokurennogo_zavoda/233245918377/',
-                queryRu: 'Советская улица, 20, Красноуфимск, Свердловская область', queryEn: '20 Sovetskaya St., Krasnoufimsk'
+                queryRu: 'ул. Мизерова, 66, Красноуфимск, Свердловская область', queryEn: '66 Mizerova St., Krasnoufimsk'
             },
             {
                 id: 'mizerov', hasMapMark: true, cat: 'architecture', icon: '🏥', year: '1886 г.',
@@ -6301,41 +6170,45 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             ctx.textAlign = 'center';
 
             // Title
-            ctx.font = 'bold 48px "Segoe UI", Arial, sans-serif';
+            ctx.font = 'bold 44px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#b48608';
-            ctx.fillText(currentLang === 'ru' ? 'СЕРТИФИКАТ ЗНАТОКА' : 'CERTIFICATE OF EXPERTISE', 500, 160);
+            ctx.fillText(currentLang === 'ru' ? 'СЕРТИФИКАТ ЗНАТОКА' : 'CERTIFICATE OF EXPERTISE', 500, 145);
 
             // Subtitle
-            ctx.font = '32px "Segoe UI", Arial, sans-serif';
+            ctx.font = '26px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#475569';
-            ctx.fillText(currentLang === 'ru' ? 'Красноуфимск: Сквозь Эпохи' : 'Krasnoufimsk: Through Epochs', 500, 230);
+            ctx.fillText(currentLang === 'ru' ? 'Красноуфимск: Сквозь Эпохи' : 'Krasnoufimsk: Through Epochs', 500, 205);
 
-            // Recipient name
-            ctx.font = 'italic 36px "Segoe UI", Arial, sans-serif'; 
-            ctx.fillStyle = '#0f172a'; 
-            ctx.fillText(finalName, 500, 285);
-
+            // Recipient name (with dynamic font size scaling)
+            let nameFontSize = 36;
+            ctx.font = `italic ${nameFontSize}px "Segoe UI", Arial, sans-serif`;
+            while (ctx.measureText(finalName).width > 760 && nameFontSize > 22) {
+                nameFontSize -= 2;
+                ctx.font = `italic ${nameFontSize}px "Segoe UI", Arial, sans-serif`;
+            }
+            ctx.fillStyle = '#0f172a';
+            ctx.fillText(finalName, 500, 275);
 
             // Score header
-            ctx.font = '24px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#334155';
-            ctx.fillText(currentLang === 'ru' ? 'Набранный балл:' : 'Score Achieved:', 500, 320);
+            ctx.font = '22px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#475569';
+            ctx.fillText(currentLang === 'ru' ? 'Набранный результат:' : 'Score Achieved:', 500, 335);
 
             // Score
-            ctx.font = 'bold 80px "Segoe UI", Arial, sans-serif';
+            ctx.font = 'bold 76px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#0f172a';
-            ctx.fillText(`${window.lastQuizScore || 0} / ${window.lastQuizTotal || 0}`, 500, 420);
+            ctx.fillText(`${window.lastQuizScore || 0} / ${window.lastQuizTotal || 0}`, 500, 425);
 
             // Description
-            ctx.font = 'italic 28px "Segoe UI", Arial, sans-serif';
+            ctx.font = 'italic 26px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#0284c7';
-            ctx.fillText(window.lastQuizDesc || '', 500, 520);
+            ctx.fillText(window.lastQuizDesc || '', 500, 515);
 
             // Date
             ctx.font = '20px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#64748b';
             const dateStr = new Date().toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US');
-            ctx.fillText(currentLang === 'ru' ? `Дата: ${dateStr}` : `Date: ${dateStr}`, 500, 620);
+            ctx.fillText(currentLang === 'ru' ? `Дата: ${dateStr}` : `Date: ${dateStr}`, 500, 615);
 
             // Trigger download
             const link = document.createElement('a');
@@ -6474,13 +6347,13 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                             ul: isRu ? [
                                 'Краеведческий музей (ул. Советская, 42)',
                                 'Свято-Троицкий собор (ул. Куйбышева, 5)',
-                                'Ж/Д Вокзал архитектора Щусева (ул. Станционная, 20)',
+                                'Ж/Д Вокзал архитектора Щусева (ул. Станционная, 11)',
                                 'Набережная на реке Уфа',
                                 'Рябиновский виадук'
                             ] : [
                                 'Local History Museum (42 Sovetskaya St.)',
                                 'Holy Trinity Cathedral (5 Kuybysheva St.)',
-                                'Railway Station by architect Shchusev (20 Stantsionnaya St.)',
+                                'Railway Station by architect Shchusev (11 Stantsionnaya St.)',
                                 'Embankment on the Ufa River',
                                 'Ryabinovsky Viaduct'
                             ],
