@@ -12,15 +12,14 @@
 ---
 
 ## 🌐 Действующий веб-ресурс
-* **Прямая ссылка на сайт:** 👉 [krasnoufimsk-history.site](https://krasnoufimsk-history.site/)
 
-<p align="center">
-  <a href="https://krasnoufimsk-history.site/">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://krasnoufimsk-history.site/" alt="QR-код проекта Красноуфимск: Сквозь эпохи" width="160">
-  </a>
-  <br>
-  <em>Наведите камеру смартфона для быстрого перехода на сайт</em>
-</p>
+Проект доступен сразу по двум действующим адресам — по основному домену и по постоянному бесплатному адресу GitHub Pages:
+
+| 🌟 Основной домен | ♾️ Постоянный адрес (GitHub Pages) |
+| :---: | :---: |
+| [**krasnoufimsk-history.site**](https://krasnoufimsk-history.site/) | [**dima76876.github.io/krasnoufimsk-history/**](https://dima76876.github.io/krasnoufimsk-history/) |
+| [![QR-код основного домена](./images/qr_code_site.png)](https://krasnoufimsk-history.site/) | [![QR-код постоянного адреса](./images/qr_code_github.png)](https://dima76876.github.io/krasnoufimsk-history/) |
+| *Быстрый переход по домену* | *Вечная бесплатная ссылка* |
 
 ---
 
@@ -33,7 +32,7 @@
 
 ## ✨ Ключевые возможности веб-путеводителя
 
-* 📜 **Интерактивная летопись:** 21 ключевой этап (1736–2026), от закладки деревянной крепости воеводой Петром Бахметевым до современной набережной 2026 года.
+* 📜 **Интерактивная летопись:** 21 ключевой этап (1736–2026), от закладки деревянной крепости полковником А. И. Тевкелевым до современной набережной 2026 года.
 * 🎓 **Продвинутая краеведческая викторина с сертификатами:**
   - База из более чем 45 вопросов.
   - 3 уровня сложности (Лёгкий, Средний, Сложный).
@@ -69,5 +68,6 @@
 ## 👤 Автор проекта
 * **Ужегов Дмитрий** — учащийся 10А класса МАОУ СШ №3
 * **GitHub:** [@dima76876](https://github.com/dima76876)
-* **Проект:** [krasnoufimsk-history](https://krasnoufimsk-history.site).
+* **Проект:** [krasnoufimsk-history](https://github.com/dima76876/krasnoufimsk-history)
+
 *Красноуфимск, 2026 г.*

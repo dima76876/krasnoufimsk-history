@@ -1,0 +1,13 @@
+# Временные файлы Microsoft Office
+~$*.docx
+~$*.pptx
+~$*.xlsx
+
+# Архивы и резервные копии
+*.zip
+*_back.html
+
+# Системные файлы Windows и macOS
+Thumbs.db
+Desktop.ini
+.DS_Store
