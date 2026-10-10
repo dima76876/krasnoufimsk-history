@@ -54,6 +54,11 @@
         content="Интерактивное краеведческое путешествие: 21 эпоха от казачьей крепости 1736 года до наших дней, маршруты, виадуки и викторина.">
     <meta name="twitter:image" content="https://krasnoufimsk-history.site/images/og_banner.jpg?v=2">
 
+    <!-- Leaflet Interactive Map -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+
+
     <script>
         // Динамическая адаптация canonical под текущий рабочий домен (платный или бесплатный)
         (function() {
@@ -2930,6 +2935,308 @@
             color: #e2e8f0 !important;
         }
 
+
+        /* ==========================================================================
+           ИНТЕРАКТИВНАЯ КАРТА ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ КРАСНОУФИМСКА
+           ========================================================================== */
+        .sights-map-card {
+            width: 100%;
+            margin-top: 40px;
+            background: var(--bg-card);
+            border: 2px solid var(--border-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            padding: 28px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .sights-map-card:hover {
+            border-color: var(--main-color);
+            box-shadow: 0 16px 36px var(--accent-glow);
+        }
+
+        .sights-map-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .sights-map-title-wrap {
+            max-width: 720px;
+        }
+
+        .sights-map-badge {
+            display: inline-block;
+            background: var(--main-light);
+            color: var(--main-color);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .sights-map-title {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 6px 0;
+            line-height: 1.3;
+        }
+
+        .sights-map-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .sights-map-btn-reset {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-accent);
+            color: var(--text-main);
+            border: 1.5px solid var(--border-card);
+            padding: 9px 18px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sights-map-btn-reset:hover {
+            background: var(--main-color);
+            color: #ffffff;
+            border-color: var(--main-color);
+            transform: translateY(-2px);
+        }
+
+        .sights-map-filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .map-filter-btn {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-card);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .map-filter-btn:hover {
+            border-color: var(--main-color);
+            color: var(--main-color);
+            transform: translateY(-1px);
+        }
+
+        .map-filter-btn.active {
+            background: var(--main-color);
+            color: #ffffff !important;
+            border-color: var(--main-color);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .sights-leaflet-frame {
+            width: 100%;
+            height: 480px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1.5px solid var(--border-card);
+            position: relative;
+            z-index: 1;
+        }
+
+        #sights-leaflet-map {
+            width: 100%;
+            height: 100%;
+            background: #e2e8f0;
+            z-index: 1;
+        }
+
+        .sights-map-footer {
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        .sights-map-hint {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Кастомный пин на карте */
+        .custom-map-pin {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #ffffff;
+            border: 2.5px solid var(--main-color);
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            font-size: 18px;
+            line-height: 1;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .custom-map-pin:hover,
+        .custom-map-pin.active-pin {
+            transform: scale(1.22);
+            border-color: #d97706;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+            z-index: 9999 !important;
+        }
+
+        /* Попап Leaflet */
+        .leaflet-container .leaflet-popup-content-wrapper {
+            background: #ffffff;
+            color: #1e293b;
+            border: 1.5px solid var(--border-card);
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+            overflow: hidden;
+        }
+
+        .dark-theme .leaflet-container .leaflet-popup-content-wrapper {
+            background: #1e293b;
+            color: #f8fafc;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .leaflet-container .leaflet-popup-content {
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .leaflet-container .leaflet-popup-tip {
+            background: #ffffff;
+            border: 1px solid var(--border-card);
+        }
+
+        .dark-theme .leaflet-container .leaflet-popup-tip {
+            background: #1e293b;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .map-popup-card {
+            padding: 16px;
+            max-width: 280px;
+            box-sizing: border-box;
+            font-family: inherit;
+            background: #ffffff;
+        }
+
+        .dark-theme .map-popup-card {
+            background: #1e293b;
+        }
+
+        .dark-theme .map-popup-title {
+            color: #f8fafc;
+        }
+
+        .dark-theme .map-popup-desc {
+            color: #94a3b8;
+        }
+
+        .map-popup-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .map-popup-icon {
+            font-size: 26px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .map-popup-badge {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--main-color);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 2px;
+        }
+
+        .map-popup-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+
+        .map-popup-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 6px 0 12px 0;
+            line-height: 1.45;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .map-popup-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: var(--main-color);
+            color: #ffffff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .map-popup-btn:hover {
+            background: var(--main-hover);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .sights-map-card {
+                padding: 18px;
+            }
+            .sights-leaflet-frame {
+                height: 380px;
+            }
+            .sights-map-title {
+                font-size: 1.25rem;
+            }
+            .sights-map-filter-bar {
+                gap: 6px;
+            }
+            .map-filter-btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+
     </style>
     </head>
 
@@ -3220,6 +3527,52 @@
         <!-- Главная витрина выбранного объекта -->
         <div class="sight-showcase-card" id="sight-showcase">
             <!-- Заполняется динамически через JS selectSight(id) -->
+        </div>
+
+        <!-- ==========================================================================
+           ИНТЕРАКТИВНАЯ КАРТА ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ КРАСНОУФИМСКА
+           ========================================================================== -->
+        <div class="sights-map-card" id="sights-map-card">
+            <div class="sights-map-header">
+                <div class="sights-map-title-wrap">
+                    <span class="sights-map-badge" data-i18n="sightsMapBadge">📍 Интерактивная карта</span>
+                    <h3 class="sights-map-title" data-i18n="sightsMapTitle">30 памятников и исторических мест на карте Красноуфимска</h3>
+                    <p class="sights-map-desc" data-i18n="sightsMapDesc">Нажмите на любую метку, чтобы открыть краткую справку и перейти к подробному изучению объекта в каталоге.</p>
+                </div>
+                <div class="sights-map-controls">
+                    <button type="button" class="sights-map-btn-reset" onclick="resetSightsMapView()" title="Сбросить масштаб и показать весь город" data-i18n="sightsMapReset">
+                        🎯 Показать все объекты
+                    </button>
+                </div>
+            </div>
+
+            <!-- Фильтры категорий на карте -->
+            <div class="sights-map-filter-bar" id="sights-map-filter-bar">
+                <button type="button" class="map-filter-btn active" data-cat="all" onclick="filterSightsMap('all')" data-i18n="mapFilterAll">
+                    🌟 Все (30)
+                </button>
+                <button type="button" class="map-filter-btn" data-cat="architecture" onclick="filterSightsMap('architecture')" data-i18n="mapFilterArch">
+                    🏛️ Архитектура (14)
+                </button>
+                <button type="button" class="map-filter-btn" data-cat="monuments" onclick="filterSightsMap('monuments')" data-i18n="mapFilterMonuments">
+                    🚩 Памятники (12)
+                </button>
+                <button type="button" class="map-filter-btn" data-cat="nature" onclick="filterSightsMap('nature')" data-i18n="mapFilterNature">
+                    🌿 Природа (3)
+                </button>
+                <button type="button" class="map-filter-btn" data-cat="engineering" onclick="filterSightsMap('engineering')" data-i18n="mapFilterEng">
+                    🌉 Виадуки и Ж/Д (1)
+                </button>
+            </div>
+
+            <!-- Контейнер карты Leaflet -->
+            <div class="sights-leaflet-frame">
+                <div id="sights-leaflet-map"></div>
+            </div>
+            
+            <div class="sights-map-footer">
+                <span class="sights-map-hint" data-i18n="sightsMapHint">💡 Нажатие на карточку в каталоге выше автоматически центрирует карту на выбранном памятнике</span>
+            </div>
         </div>
 
     </section>
@@ -3704,6 +4057,17 @@
                 catMonuments: 'Памятники и история (12)',
                 catNature: 'Природа и геология (3)',
                 catEng: 'Инженерия (1)',
+                sightsMapBadge: '📍 Интерактивная карта',
+                sightsMapTitle: '30 памятников и исторических мест на карте Красноуфимска',
+                sightsMapDesc: 'Нажмите на любую метку, чтобы открыть краткую справку и перейти к подробному изучению объекта в каталоге.',
+                sightsMapReset: '🎯 Показать все объекты',
+                mapFilterAll: '🌟 Все (30)',
+                mapFilterArch: '🏛️ Архитектура (14)',
+                mapFilterMonuments: '🚩 Памятники (12)',
+                mapFilterNature: '🌿 Природа (3)',
+                mapFilterEng: '🌉 Виадуки и Ж/Д (1)',
+                sightsMapHint: '💡 Нажатие на карточку в каталоге выше автоматически центрирует карту на выбранном памятнике',
+                mapPopupMore: '🔍 Подробнее в каталоге',
                 registryTitle: 'Сводный реестр памятников истории, архитектуры и природы Красноуфимска',
                 btnOpenMap: '📍 Открыть на Яндекс.Картах ↗',
                 btnRouteOpenMap: 'Открыть маршрут на Яндекс.Картах ↗',
@@ -3856,6 +4220,17 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 catMonuments: 'Monuments & History (12)',
                 catNature: 'Nature & Scenery (3)',
                 catEng: 'Engineering (1)',
+                sightsMapBadge: '📍 Interactive Map',
+                sightsMapTitle: '30 Monuments and Historic Sites on the Map of Krasnoufimsk',
+                sightsMapDesc: 'Click any marker to view a brief summary and explore the landmark in detail.',
+                sightsMapReset: '🎯 Show All Sites',
+                mapFilterAll: '🌟 All (30)',
+                mapFilterArch: '🏛️ Architecture (14)',
+                mapFilterMonuments: '🚩 Monuments (12)',
+                mapFilterNature: '🌿 Nature (3)',
+                mapFilterEng: '🌉 Viaducts & Rail (1)',
+                sightsMapHint: '💡 Selecting an item in the catalog above automatically centers the map on the chosen landmark',
+                mapPopupMore: '🔍 View in Catalog',
                 registryTitle: 'Official Registry of Historic, Architectural & Natural Monuments',
                 btnOpenMap: '📍 Open in Yandex Maps ↗',
                 btnRouteOpenMap: 'Open route in Yandex Maps ↗',
@@ -3964,7 +4339,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 mapQuery: 'Красноуфимский краеведческий музей'
             },
             {
-                lat: '56.631000', lon: '57.772000',
+                lat: '56.618024', lon: '57.761235',
                 year: '1774',
                 tag: { ru: '• Пугачёв', en: '• Pugachev' },
                 badge: { ru: '🐎 Крестьянская война • Восстание', en: '🐎 Peasant War • Uprising' },
@@ -4766,6 +5141,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             renderNavSightsDropdown();
             if (typeof updateSightsDropdownMenu === 'function') updateSightsDropdownMenu();
             if (typeof updateRouteMapLinks === 'function') updateRouteMapLinks();
+            if (typeof renderSightsMapMarkers === 'function') renderSightsMapMarkers(currentMapFilter);
 
             // Фикс для мобильного Safari: принудительная перерисовка при смене языка
             setTimeout(() => {
@@ -5635,7 +6011,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             {
                 id: 'kazachya-izba', hasMapMark: true, cat: 'architecture', icon: '🛖',
                 directUrl: 'https://yandex.ru/maps/org/pervaya_kazachya_izba/238640534796/', year: 'XVIII в.',
-                lat: '56.630944', lon: '57.771604',
+                lat: '56.630942', lon: '57.771587',
                 style: { ru: 'Русское бревенчатое зодчество XVIII в.', en: '18th-century Russian timber log architecture' },
                 status: { ru: 'Официальный памятник • Мемориальная доска', en: 'Official Cultural Heritage Site' },
                 title: { ru: 'Казачья изба: колыбель крепости', en: 'Cossack Log Hut: Cradle of the Fortress' },
@@ -5645,7 +6021,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'Красноуфимск ул Риммы Горбуновой 35 казачья изба', queryEn: 'Krasnoufimsk 35 Rimy Gorbunovoy St Cossack hut'
             },
             {
-                id: 'vokzal', hasMapMark: true, cat: 'architecture', icon: '🚂', year: '1915 г.',
+                id: 'vokzal', lat: '56.598250', lon: '57.757864', hasMapMark: true, cat: 'architecture', icon: '🚂', year: '1915 г.',
                 style: { ru: 'Петровское барокко', en: 'Petrine Baroque' },
                 status: { ru: 'ОКН регионального значения', en: 'Regional Cultural Heritage Site' },
                 title: { ru: 'Вокзал Красноуфимска (арх. А. В. Щусев)', en: 'Krasnoufimsk Station (Arch. A. Shchusev)' },
@@ -5656,7 +6032,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             },
             {
                 id: 'museum', hasMapMark: true, cat: 'architecture', icon: '🏛️', year: '1912 г.',
-                lat: '56.614454', lon: '57.764644',
+                lat: '56.614429', lon: '57.764571',
                 style: { ru: 'Деревянный модерн', en: 'Wooden Art Nouveau' },
                 status: { ru: 'ОКН регионального значения', en: 'Regional Architectural Monument' },
                 title: { ru: 'Краеведческий музей', en: 'Museum of Local Lore' },
@@ -5666,7 +6042,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'Красноуфимский краеведческий музей Советская 42', queryEn: 'Krasnoufimsk Museum Sovetskaya 42'
             },
             {
-                id: 'uchilische', hasMapMark: true, cat: 'architecture', icon: '🎓', year: '1875 г.',
+                id: 'uchilische', lat: '56.622660', lon: '57.768620', hasMapMark: true, cat: 'architecture', icon: '🎓', year: '1875 г.',
                 style: { ru: 'Кирпичная неоготика и эклектика', en: 'Brick Neo-Gothic & Eclectic style' },
                 status: { ru: 'ОКН регионального значения № 235', en: 'Regional Cultural Heritage Site #235' },
                 title: { ru: 'Реальное училище (Аграрный колледж)', en: 'Real School (Agrarian College)' },
@@ -5677,7 +6053,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             },
             {
                 id: 'museum-old', hasMapMark: true, cat: 'architecture', icon: '🏠', year: 'XIX в.',
-                lat: '56.614710', lon: '57.766040',
+                lat: '56.615340', lon: '57.772400',
                 style: { ru: 'Купеческая кирпичная эклектика', en: 'Merchant Brick Eclectic style' },
                 status: { ru: 'Памятник купеческого зодчества', en: 'Merchant Architectural Monument' },
                 title: { ru: 'Доходный дом К.А. Шевелина', en: 'K.A. Shevelin Revenue House' },
@@ -5689,7 +6065,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             },
             {
                 id: 'sobor', hasMapMark: true, cat: 'architecture', icon: '⛪', year: '1804–1828 гг.',
-                lat: '56.621298', lon: '57.773395',
+                lat: '56.621265', lon: '57.773419',
                 style: { ru: 'Русский классицизм', en: 'Russian Classicism' },
                 status: { ru: 'Действующий собор • ОКН', en: 'Cathedral • Cultural Heritage Site' },
                 title: { ru: 'Свято-Троицкий собор', en: 'Holy Trinity Cathedral' },
@@ -5700,7 +6076,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             },
             {
                 id: 'alexnevsky', hasMapMark: true, cat: 'architecture', icon: '🕍', year: '1914 г.',
-                lat: '56.617200', lon: '57.760500',
+                lat: '56.616234', lon: '57.772940',
                 style: { ru: 'Русско-византийский стиль', en: 'Russo-Byzantine style' },
                 status: { ru: 'Памятник архитектуры', en: 'Architectural Monument' },
                 title: { ru: 'Церковь святого Александра Невского', en: 'St. Alexander Nevsky Church' },
@@ -5710,7 +6086,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'Красноуфимск церковь Александра Невского Мизерова 78', queryEn: 'Krasnoufimsk St Alexander Nevsky Church Mizerova 78'
             },
             {
-                id: 'zemstvo', hasMapMark: true, cat: 'architecture', icon: '⚖️', year: '1888 г.',
+                id: 'zemstvo', lat: '56.617680', lon: '57.771680', hasMapMark: true, cat: 'architecture', icon: '⚖️', year: '1888 г.',
                 style: { ru: 'Русский кирпичный стиль', en: 'Russian Brick style' },
                 status: { ru: 'ОКН регионального значения', en: 'Regional Cultural Heritage Site' },
                 title: { ru: 'Здание Земской управы (Администрация)', en: 'Zemstvo Board (Town Hall)' },
@@ -5721,7 +6097,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'Советская улица, 25, Красноуфимск, Свердловская область', queryEn: '25 Sovetskaya St., Krasnoufimsk'
             },
             {
-                id: 'gorupra', hasMapMark: true, cat: 'architecture', icon: '🏛️', year: 'XIX в.',
+                id: 'gorupra', lat: '56.617803', lon: '57.767793', hasMapMark: true, cat: 'architecture', icon: '🏛️', year: 'XIX в.',
                 style: { ru: 'Позднеклассицистическая эклектика', en: 'Late Classicist Eclectic style' },
                 status: { ru: 'Историческое административное здание', en: 'Historical Civic Building' },
                 title: { ru: 'Корпус бывшего винокуренного завода', en: 'Former Distillery Building' },
@@ -5733,7 +6109,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             },
             {
                 id: 'mizerov', hasMapMark: true, cat: 'architecture', icon: '🏥', year: '1886 г.',
-                lat: '56.616900', lon: '57.761950',
+                lat: '56.616214', lon: '57.762950',
                 style: { ru: 'Деревянный больничный городок в сосновом бору', en: 'Wooden Hospital Estate in Pine Grove' },
                 status: { ru: 'ОКН регионального значения', en: 'Regional Cultural Heritage Site' },
                 title: { ru: 'Усадьба доктора М. И. Мизерова', en: 'Dr. Matvey Mizerov Hospital Estate' },
@@ -5743,7 +6119,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'Музей земская больница Мизерова Красноуфимск Свободы 16', queryEn: 'Krasnoufimsk Zemstvo Hospital Museum Svobody 16'
             },
             {
-                id: 'ambulatoria', hasMapMark: true, cat: 'architecture', icon: '🏥', year: '1890-е гг.',
+                id: 'ambulatoria', lat: '56.616450', lon: '57.763450', hasMapMark: true, cat: 'architecture', icon: '🏥', year: '1890-е гг.',
                 style: { ru: 'Деревянный земский ампир', en: 'Wooden Zemstvo Empire style' },
                 status: { ru: 'Комплекс деревянной земской медицины', en: 'Wooden Zemstvo Medical Pavilion Ensemble' },
                 title: { ru: 'Земская больница: амбулатория и роддом', en: 'Zemstvo Hospital Outpatient & Maternity Pavilions' },
@@ -5753,30 +6129,30 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'Павильон земской медицины Красноуфимск', queryEn: 'Krasnoufimsk zemstvo medicine pavilion'
             },
             {
-                id: 'perekrestok-vremen', hasMapMark: true, cat: 'monuments', icon: '⏳', year: '2020-е гг.',
+                id: 'perekrestok-vremen', lat: '56.617580', lon: '57.770255', hasMapMark: true, cat: 'monuments', icon: '⏳', year: '2020-е гг.',
                 style: { ru: 'Городская скульптура', en: 'City Sculpture' },
                 status: { ru: 'Арт-объект', en: 'Art Object' },
                 title: { ru: 'Арт-объект «Перекрёсток времен»', en: 'Crossroads of Times Art Object' },
                 desc: { ru: 'Оригинальная скульптурная композиция, символизирующая неразрывную связь богатого исторического прошлого и современного развития Красноуфимска. Арт-объект появился в рамках масштабного благоустройства города и быстро стал любимым местом для прогулок.', en: 'An original sculptural composition symbolizing the unbroken connection between the rich historical past and the modern development of Krasnoufimsk. The art object appeared as part of a large-scale urban improvement project.' },
                 fact: { ru: '«Перекрёсток времен» отражает историю города от казачьей крепости 1736 года до наших дней.', en: '"Crossroads of Times" reflects the city\'s history from a 1736 Cossack fortress to the present day.' },
-                address: { ru: 'Исторический центр', en: 'Historic Center' },
+                address: { ru: 'ул. Советская, д. 22 (сквер с городскими часами)', en: '22 Sovetskaya St. (City Clock Square)' },
                 queryRu: 'Перекрёсток времен', queryEn: 'Crossroads of Times',
                 directUrl: 'https://yandex.ru/maps/org/perekryostok_vremen/126384792809/'
             },
             {
-                id: 'pozharnoye', hasMapMark: true, cat: 'architecture', icon: '🚒', year: '1900-е гг.',
+                id: 'pozharnoye', lat: '56.619073', lon: '57.774545', hasMapMark: true, cat: 'architecture', icon: '🚒', year: '1900-е гг.',
                 style: { ru: 'Провинциальная краснокирпичная эклектика', en: 'Provincial Red-Brick Eclectic' },
                 status: { ru: 'Памятник пожарно-технической службы', en: 'Firefighting Heritage Monument' },
                 title: { ru: 'Историческое пожарное депо с каланчой', en: 'Historic Fire Station with Watchtower' },
                 desc: { ru: 'Здание пожарной части с высокой деревянной каланчой, с которой дежурный обозревал весь город. Краснокирпичная постройка начала XX века. Каланча была вторым по высоте сооружением города после колокольни Свято-Троицкого собора.', en: 'An early 20th-century fire station with a tall wooden watchtower. The red-brick building combined practicality with Ural architectural tradition. The watchtower was the second-tallest structure in town after the cathedral belfry.' },
                 fact: { ru: 'Пожарная команда Красноуфимска насчитывала в начале XX века около 20 человек с тремя пожарными обозами.', en: 'In the early 20th century, the Krasnoufimsk fire brigade consisted of about 20 men with three fire wagons.' },
-                address: { ru: 'ул. Пролетарская (исторический центр)', en: 'Proletarskaya St. (historic center)' },
+                address: { ru: 'ул. Ленина, д. 100 (историческое пожарное депо)', en: '100 Lenina St. (Historic Fire Station)' },
                 queryRu: 'Красноуфимский краеведческий музей', queryEn: 'Krasnoufimsk local lore museum'
             },
 
             // ── 2. ПАМЯТНИКИ И ИСТОРИЯ ─────────────────────────────────────────
             {
-                id: 'divizionnaya', cat: 'monuments', icon: '⛰️', year: '1774 г. / памятный знак',
+                id: 'divizionnaya', lat: '56.618024', lon: '57.761235', cat: 'monuments', icon: '⛰️', year: '1774 г. / памятный знак',
                 hasMapMark: true,
                 style: { ru: 'Природно-исторический мемориал', en: 'Natural & Historical Memorial' },
                 status: { ru: 'Официальный памятник природы и истории', en: 'Official Natural & Historic Heritage' },
@@ -5787,7 +6163,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'Гора Дивья, Красноуфимск', queryEn: 'Krasnoufimsk Divya Mountain'
             },
             {
-                id: 'ploschad', hasMapMark: true, cat: 'monuments', icon: '🚩', year: 'XVIII–XX вв.',
+                id: 'ploschad', lat: '56.617826', lon: '57.771051', hasMapMark: true, cat: 'monuments', icon: '🚩', year: 'XVIII–XX вв.',
                 style: { ru: 'Городской ансамбль и советский монументализм', en: 'Town Ensemble & Monumental Classicism' },
                 status: { ru: 'Главная городская площадь', en: 'Central Municipal Square' },
                 title: { ru: 'Центральная площадь города', en: 'Central Town Square' },
@@ -5797,7 +6173,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'В.И. Ленин Красноуфимск', queryEn: 'Krasnoufimsk Lenin monument'
             },
             {
-                id: 'salavat-memorial', hasMapMark: true, cat: 'monuments', icon: '⚔️', year: '1774 г.',
+                id: 'salavat-memorial', lat: '56.618450', lon: '57.761750', hasMapMark: true, cat: 'monuments', icon: '⚔️', year: '1774 г.',
                 style: { ru: 'Мемориальный знак', en: 'Memorial Marker' },
                 status: { ru: 'Рубеж Крестьянской войны Пугачёва', en: 'Pugachev Peasant War Site' },
                 title: { ru: 'Памятный знак Салавату Юлаеву и повстанцам', en: 'Salavat Yulaev & Rebels Memorial Marker' },
@@ -5808,27 +6184,27 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             },
             {
                 id: 'alleya-pamyati', hasMapMark: true, cat: 'monuments', icon: '🕯️', year: '1941–1945 гг.',
-                lat: '56.614800', lon: '57.769500',
+                lat: '56.621350', lon: '57.773858',
                 style: { ru: 'Мемориальный комплекс', en: 'Memorial Complex' },
                 status: { ru: 'Главный воинский мемориал города', en: 'Central City War Memorial' },
                 title: { ru: 'Аллея Памяти и Вечный огонь', en: 'Alley of Memory & Eternal Flame' },
                 desc: { ru: 'Главный мемориальный комплекс Красноуфимска, посвящённый жителям, павшим в Великой Отечественной войне. Именные плиты, гранитные стелы и Вечный огонь в городском парке. Более 15 000 красноуфимцев ушли на фронт, пятеро удостоены звания Героя Советского Союза.', en: 'The main memorial complex honoring residents who fell in World War II. Named commemorative slabs, granite steles, and the Eternal Flame in the city park. Over 15,000 residents joined the frontlines.' },
                 fact: { ru: 'Вечный огонь зажжён в честь пяти Героев Советского Союза — уроженцев Красноуфимского района.', en: 'The Eternal Flame honors five Heroes of the Soviet Union who were natives of the Krasnoufimsk district.' },
-                address: { ru: 'Городской парк им. Блюхера, ул. Советская', en: 'Blyukher City Park, Sovetskaya St.' },
+                address: { ru: 'Мемориальный комплекс у реки Уфы', en: 'War Memorial Complex on Ufa River bluff' },
                 queryRu: 'Красноуфимск Аллея Памяти Вечный огонь городской парк', queryEn: 'Krasnoufimsk Alley of Memory Eternal Flame city park'
             },
             {
-                id: 'alleya-geroev', hasMapMark: true, cat: 'monuments', icon: '🥇', year: '1945–1975 гг.',
+                id: 'alleya-geroev', lat: '56.621237', lon: '57.774338', hasMapMark: true, cat: 'monuments', icon: '🥇', year: '1945–1975 гг.',
                 style: { ru: 'Скульптурный мемориальный ансамбль', en: 'Sculptural Memorial Ensemble' },
                 status: { ru: 'Скульптурный мемориальный комплекс', en: 'Heroes\' Sculptural Memorial' },
                 title: { ru: 'Аллея Героев Советского Союза', en: 'Alley of Heroes of the Soviet Union' },
                 desc: { ru: 'Аллея со скульптурными бюстами земляков — Героев Советского Союза. Создана в 1945–1975 годах по инициативе городских ветеранских организаций. Каждый бюст сопровождается мемориальной доской с описанием боевого подвига.', en: 'An alley with sculptural busts of local Heroes of the Soviet Union, created between 1945 and 1975. Each bust has a memorial plaque describing the hero\'s wartime deeds.' },
                 fact: { ru: 'Уроженцы Красноуфимского района совершали подвиги на всех фронтах — от Сталинграда до Берлина.', en: 'Natives of the Krasnoufimsk district performed heroic acts on all fronts — from Stalingrad to Berlin.' },
-                address: { ru: 'Городской парк, Аллея Героев', en: 'City Park, Heroes\' Alley' },
+                address: { ru: 'Мемориальный комплекс, Аллея Героев', en: 'War Memorial Complex, Alley of Heroes' },
                 queryRu: 'Аллея памяти, Красноуфимск', queryEn: 'Krasnoufimsk Alley of Heroes'
             },
             {
-                id: 'parovoz', hasMapMark: true, cat: 'monuments', icon: '🚂', year: '1940-е гг.',
+                id: 'parovoz', lat: '56.601290', lon: '57.767358', hasMapMark: true, cat: 'monuments', icon: '🚂', year: '1940-е гг.',
                 style: { ru: 'Памятник железнодорожной техники', en: 'Railway Engineering Monument' },
                 status: { ru: 'Памятник на привокзальной площади', en: 'Station Square Monument' },
                 title: { ru: 'Паровоз-памятник серии «Л» («Лебедянка»)', en: 'L-Series Steam Locomotive "Lebedyanka" Monument' },
@@ -5839,7 +6215,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             },
             {
                 id: 'memorial-boards', hasMapMark: true, cat: 'monuments', icon: '📜', year: '1880-е гг.',
-                lat: '56.622900', lon: '57.768700',
+                lat: '56.622920', lon: '57.769400',
                 style: { ru: 'Мемориальные доски на фасаде', en: 'Memorial Plaques on Facade' },
                 status: { ru: 'Памятник основателям уральской агрономии', en: 'Founders of Ural Agronomy Memorial' },
                 title: { ru: 'Мемориальные доски учёным Варгину и Соковнину', en: 'Memorial Plaques to Agronomists Vargin & Sokovnin' },
@@ -5849,7 +6225,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'Красноуфимск Пролетарская 62 аграрный колледж', queryEn: 'Krasnoufimsk Proletarskaya 62 Agrarian College'
             },
             {
-                id: 'dom-stasovoy', hasMapMark: true, cat: 'architecture', icon: '🏠', year: '1941–1945 гг.',
+                id: 'dom-stasovoy', lat: '56.620202', lon: '57.777303', hasMapMark: true, cat: 'architecture', icon: '🏠', year: '1941–1945 гг.',
                 style: { ru: 'Исторический жилой дом', en: 'Historical Residential House' },
                 status: { ru: 'Памятник истории', en: 'Historical Monument' },
                 title: { ru: 'Дом, где жила Е.Д. Стасова', en: 'House of E.D. Stasova' },
@@ -5874,7 +6250,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
 
             // ── 4. ПРИРОДА И ГЕОЛОГИЯ ──────────────────────────────────────────
             {
-                id: 'naberezhnaya', hasMapMark: true, cat: 'nature', icon: '🌊', year: '2020–2026 гг.',
+                id: 'naberezhnaya', lat: '56.621706', lon: '57.775023', hasMapMark: true, cat: 'nature', icon: '🌊', year: '2020–2026 гг.',
                 style: { ru: 'Современная эко-урбанистика', en: 'Contemporary Eco-Urbanism' },
                 status: { ru: 'Общественное пространство • Наследие 290-летия', en: 'Public Space • 290th Anniversary Project' },
                 title: { ru: 'Набережная реки Уфы и Красный Яр', en: 'Ufa River Embankment & Krasny Yar' },
@@ -5885,7 +6261,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             },
             {
                 id: 'sokoliy-kamen', hasMapMark: true, cat: 'nature', icon: '🪨', year: '~290 млн лет',
-                lat: '56.620500', lon: '57.775500',
+                lat: '56.529396', lon: '57.714349',
                 style: { ru: 'Геологический памятник природы', en: 'Geological Natural Monument' },
                 status: { ru: 'Рифовые известняки пермского периода', en: 'Permian Reef Limestone Monument' },
                 title: { ru: 'Скала «Соколий камень» (Аргамач)', en: '"Sokoliy Rock" (Argamach) Permian Cliff' },
@@ -5895,7 +6271,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'Соколий камень Аргамач Красноуфимск скала', queryEn: 'Sokoliy Rock Argamach Krasnoufimsk cliff'
             },
             {
-                id: 'braviy-kazak', hasMapMark: true, cat: 'monuments', icon: '⚔️', year: '2020-е гг.',
+                id: 'braviy-kazak', lat: '56.622660', lon: '57.774191', hasMapMark: true, cat: 'monuments', icon: '⚔️', year: '2020-е гг.',
                 style: { ru: 'Городская скульптура', en: 'City Sculpture' },
                 status: { ru: 'Памятник основателям', en: 'Founders Monument' },
                 title: { ru: 'Скульптура «Бравый казак»', en: 'Brave Cossack Sculpture' },
@@ -5905,7 +6281,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'Бравый казак Красноуфимск', queryEn: 'Krasnoufimsk Brave Cossack'
             },
             {
-                id: 'sosnovye-bory', hasMapMark: true, cat: 'nature', icon: '🌲', year: 'Природа',
+                id: 'sosnovye-bory', lat: '56.616047', lon: '57.762592', hasMapMark: true, cat: 'nature', icon: '🌲', year: 'Природа',
                 style: { ru: 'Лесопарковый памятник природы', en: 'Protected Forest Park' },
                 status: { ru: 'Реликтовый лесопарковый памятник природы', en: 'Relic Protected Forest Landscape' },
                 title: { ru: 'Реликтовые Красноуфимские сосновые боры', en: 'Relic Krasnoufimsk Pine Forests' },
@@ -5915,7 +6291,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'парк Целитель Красноуфимск', queryEn: 'Krasnoufimsk Tselitel park'
             },
             {
-                id: 'gelikoprion', hasMapMark: true, cat: 'monuments', icon: '🦈', year: '2020-е гг.',
+                id: 'gelikoprion', lat: '56.622210', lon: '57.774966', hasMapMark: true, cat: 'monuments', icon: '🦈', year: '2020-е гг.',
                 style: { ru: 'Арт-объект', en: 'Art Object' },
                 status: { ru: 'Палеонтологический памятник', en: 'Paleontological Monument' },
                 title: { ru: 'Арт-объект «Акула Геликоприон»', en: 'Helicoprion Shark Art Object' },
@@ -5925,7 +6301,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'Акула Геликоприон Красноуфимск', queryEn: 'Krasnoufimsk Helicoprion Shark'
             },
             {
-                id: 'shtab-azina', hasMapMark: true, cat: 'architecture', icon: '⭐', year: '1919 г.',
+                id: 'shtab-azina', lat: '56.624019', lon: '57.767153', hasMapMark: true, cat: 'architecture', icon: '⭐', year: '1919 г.',
                 style: { ru: 'Историческое здание', en: 'Historical Building' },
                 status: { ru: 'Памятник истории Гражданской войны', en: 'Civil War Historical Monument' },
                 title: { ru: 'Штаб 28-й дивизии В.М. Азина', en: 'Headquarters of Azin\'s 28th Division' },
@@ -5936,7 +6312,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             }
         ,
             {
-                id: 'girl_airplane', hasMapMark: true, cat: 'monuments', icon: '✈️', year: '2020-е гг.',
+                id: 'girl_airplane', lat: '56.622400', lon: '57.775550', hasMapMark: true, cat: 'monuments', icon: '✈️', year: '2020-е гг.',
                 style: { ru: 'Современная городская скульптура', en: 'Modern Urban Sculpture' },
                 status: { ru: 'Арт-объект', en: 'Art Object' },
                 title: { ru: 'Скульптура «Девочка с самолётиком»', en: 'Sculpture "Girl with an Airplane"' },
@@ -5948,7 +6324,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             }
         ,
             {
-                id: 'watchtower', hasMapMark: true, cat: 'monuments', icon: '🗼', year: 'XVIII в.',
+                id: 'watchtower', lat: '56.622410', lon: '57.771979', hasMapMark: true, cat: 'monuments', icon: '🗼', year: 'XVIII в.',
                 style: { ru: 'Деревянное крепостное зодчество (утрачено)', en: 'Wooden Fortress Architecture (lost)' },
                 status: { ru: 'Историческое место', en: 'Historical Site' },
                 title: { ru: 'Место, где стояла сторожевая башня на реке Уфе', en: 'Site of the Watchtower on the Ufa River' },
@@ -6005,6 +6381,143 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
         function renderSightsSelector(filterCat = 'all') {
             updateSightsDropdownMenu();
         }
+
+        
+        /* ==========================================================================
+           ИНТЕРАКТИВНАЯ КАРТА ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ (LEAFLET + КАРТОГРАФИЯ)
+           ========================================================================== */
+        let sightsMap = null;
+        let sightsMarkersLayer = null;
+        let sightsMarkersMap = {};
+        let currentMapFilter = 'all';
+
+        function initSightsMap() {
+            const mapEl = document.getElementById('sights-leaflet-map');
+            if (!mapEl || typeof L === 'undefined') return;
+            if (sightsMap) {
+                sightsMap.invalidateSize();
+                return;
+            }
+
+            try {
+                // Центр Красноуфимска
+                sightsMap = L.map('sights-leaflet-map', {
+                    center: [56.6160, 57.7660],
+                    zoom: 13,
+                    scrollWheelZoom: false,
+                    attributionControl: false
+                });
+
+                // Высокодетализированные карты OpenStreetMap Humanitarian (без блокировок, полная русская топонимика)
+                L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    subdomains: ['a', 'b', 'c'],
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(sightsMap);
+
+                // Включаем колесо мыши при клике по карте и отключаем при уходе курсора
+                sightsMap.on('focus', function() { sightsMap.scrollWheelZoom.enable(); });
+                mapEl.addEventListener('mouseleave', function() { sightsMap.scrollWheelZoom.disable(); });
+
+                sightsMarkersLayer = L.layerGroup().addTo(sightsMap);
+                renderSightsMapMarkers('all');
+            } catch (err) {
+                console.warn('Map initialization notice:', err);
+            }
+        }
+
+        function renderSightsMapMarkers(category) {
+            if (!sightsMap || !sightsMarkersLayer) return;
+            category = category || currentMapFilter || 'all';
+            sightsMarkersLayer.clearLayers();
+            sightsMarkersMap = {};
+
+            const dict = (typeof i18n !== 'undefined' && i18n[currentLang]) ? i18n[currentLang] : {};
+            const popupBtnLabel = dict.mapPopupMore || ((currentLang === 'ru') ? 'Подробнее в каталоге' : 'View in Catalog');
+
+            sightsData.forEach(function(s) {
+                if (!s.lat || !s.lon) return;
+
+                // Фильтрация
+                if (category !== 'all') {
+                    if (category === 'architecture' && s.cat !== 'architecture') return;
+                    if (category === 'monuments' && s.cat !== 'monuments') return;
+                    if (category === 'nature' && s.cat !== 'nature') return;
+                    if (category === 'engineering' && s.cat !== 'engineering') return;
+                }
+
+                const lat = parseFloat(s.lat);
+                const lon = parseFloat(s.lon);
+
+                const iconHtml = '<div class="custom-map-pin" title="' + (s.title[currentLang] || '') + '">' + (s.icon || '📍') + '</div>';
+                const customIcon = L.divIcon({
+                    html: iconHtml,
+                    className: 'custom-map-pin-wrap',
+                    iconSize: [36, 36],
+                    iconAnchor: [18, 18],
+                    popupAnchor: [0, -18]
+                });
+
+                const marker = L.marker([lat, lon], { icon: customIcon });
+
+                const catLabel = s.style ? s.style[currentLang] : (s.cat || '');
+                const popupHtml = '<div class="map-popup-card">' +
+                    '<div class="map-popup-header">' +
+                        '<span class="map-popup-icon">' + (s.icon || '🏛️') + '</span>' +
+                        '<div>' +
+                            '<div class="map-popup-badge">' + (s.year || '') + ' • ' + catLabel + '</div>' +
+                            '<div class="map-popup-title">' + (s.title[currentLang] || '') + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="map-popup-desc">' + (s.desc[currentLang] || '') + '</div>' +
+                    '<button type="button" class="map-popup-btn" onclick="focusSightFromMap(\'' + s.id + '\')">' +
+                        '<span>' + popupBtnLabel + '</span>' +
+                    '</button>' +
+                '</div>';
+
+                marker.bindPopup(popupHtml, { maxWidth: 300 });
+                sightsMarkersLayer.addLayer(marker);
+                sightsMarkersMap[s.id] = marker;
+            });
+        }
+
+        window.filterSightsMap = function(category) {
+            currentMapFilter = category;
+            const buttons = document.querySelectorAll('.map-filter-btn');
+            buttons.forEach(function(btn) {
+                if (btn.getAttribute('data-cat') === category) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            renderSightsMapMarkers(category);
+        };
+
+        window.resetSightsMapView = function() {
+            if (!sightsMap) return;
+            filterSightsMap('all');
+            sightsMap.flyTo([56.6160, 57.7660], 13, { animate: true, duration: 1.0 });
+        };
+
+        window.focusSightFromMap = function(id) {
+            if (typeof selectSight === 'function') {
+                selectSight(id, false);
+            }
+            const showcase = document.getElementById('sight-showcase');
+            if (showcase) {
+                showcase.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        };
+
+        function syncSightsMapWithSight(id) {
+            if (!sightsMap || !sightsMarkersMap[id]) return;
+            const marker = sightsMarkersMap[id];
+            const latLng = marker.getLatLng();
+            sightsMap.flyTo(latLng, 16, { animate: true, duration: 1.0 });
+            marker.openPopup();
+        }
+
 
         function selectSight(id, shouldScroll = false) {
             let sight;
@@ -6064,6 +6577,13 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
 
             if (shouldScroll) {
                 showcase.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // Синхронизация с интерактивной картой
+            if (typeof syncSightsMapWithSight === 'function') {
+                syncSightsMapWithSight(sight.id);
+            } else if (typeof syncSightsMapWithSight === 'function') {
+                syncSightsMapWithSight(sight.id);
             }
         }
 
@@ -6238,6 +6758,284 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             overflow: hidden !important;
             touch-action: none !important;
         }
+
+        /* ==========================================================================
+           ИНТЕРАКТИВНАЯ КАРТА ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ КРАСНОУФИМСКА
+           ========================================================================== */
+        .sights-map-card {
+            width: 100%;
+            margin-top: 40px;
+            background: var(--bg-card);
+            border: 2px solid var(--border-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            padding: 28px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .sights-map-card:hover {
+            border-color: var(--main-color);
+            box-shadow: 0 16px 36px var(--accent-glow);
+        }
+
+        .sights-map-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .sights-map-title-wrap {
+            max-width: 720px;
+        }
+
+        .sights-map-badge {
+            display: inline-block;
+            background: var(--main-light);
+            color: var(--main-color);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .sights-map-title {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 6px 0;
+            line-height: 1.3;
+        }
+
+        .sights-map-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .sights-map-btn-reset {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-accent);
+            color: var(--text-main);
+            border: 1.5px solid var(--border-card);
+            padding: 9px 18px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sights-map-btn-reset:hover {
+            background: var(--main-color);
+            color: #ffffff;
+            border-color: var(--main-color);
+            transform: translateY(-2px);
+        }
+
+        .sights-map-filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .map-filter-btn {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-card);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .map-filter-btn:hover {
+            border-color: var(--main-color);
+            color: var(--main-color);
+            transform: translateY(-1px);
+        }
+
+        .map-filter-btn.active {
+            background: var(--main-color);
+            color: #ffffff !important;
+            border-color: var(--main-color);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .sights-leaflet-frame {
+            width: 100%;
+            height: 480px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1.5px solid var(--border-card);
+            position: relative;
+            z-index: 1;
+        }
+
+        #sights-leaflet-map {
+            width: 100%;
+            height: 100%;
+            background: #e2e8f0;
+            z-index: 1;
+        }
+
+        .sights-map-footer {
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        .sights-map-hint {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Кастомный пин на карте */
+        .custom-map-pin {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #ffffff;
+            border: 2.5px solid var(--main-color);
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            font-size: 18px;
+            line-height: 1;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .custom-map-pin:hover,
+        .custom-map-pin.active-pin {
+            transform: scale(1.22);
+            border-color: #d97706;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+            z-index: 9999 !important;
+        }
+
+        /* Попап Leaflet */
+        .leaflet-container .leaflet-popup-content-wrapper {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1.5px solid var(--border-card);
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .leaflet-container .leaflet-popup-content {
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .leaflet-container .leaflet-popup-tip {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+        }
+
+        .map-popup-card {
+            padding: 16px;
+            max-width: 280px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .map-popup-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .map-popup-icon {
+            font-size: 26px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .map-popup-badge {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--main-color);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 2px;
+        }
+
+        .map-popup-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+
+        .map-popup-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 6px 0 12px 0;
+            line-height: 1.45;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .map-popup-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: var(--main-color);
+            color: #ffffff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .map-popup-btn:hover {
+            background: var(--main-hover);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .sights-map-card {
+                padding: 18px;
+            }
+            .sights-leaflet-frame {
+                height: 380px;
+            }
+            .sights-map-title {
+                font-size: 1.25rem;
+            }
+            .sights-map-filter-bar {
+                gap: 6px;
+            }
+            .map-filter-btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+
     </style>
     <script>
         // Modal Scroll Bleed Protection
@@ -6401,6 +7199,15 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 if (btnText) btnText.innerText = originalText;
             }
         }
+    
+        // Инициализация интерактивной карты памятников
+        window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initSightsMap, 300);
+        });
+        window.addEventListener('resize', function() {
+            if (sightsMap) sightsMap.invalidateSize();
+        });
+
     </script>
 </body>
 
