@@ -3237,6 +3237,605 @@
             }
         }
 
+        /* ==========================================================================
+           [12. ПАСПОРТ ИССЛЕДОВАТЕЛЯ И ДОСТИЖЕНИЯ]
+           ========================================================================== */
+        .achieve-btn {
+            position: relative;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1.5px solid rgba(255, 255, 255, 0.32);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+            flex-shrink: 0;
+            padding: 0;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .achieve-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            background: rgba(255, 255, 255, 0.26);
+            border-color: #f59e0b;
+            box-shadow: 0 0 14px rgba(245, 158, 11, 0.4);
+        }
+
+        body.dark-theme .achieve-btn {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+        }
+
+        body.dark-theme .achieve-btn:hover {
+            background: rgba(0, 0, 0, 0.55);
+            border-color: #f59e0b;
+            box-shadow: 0 0 14px rgba(245, 158, 11, 0.45);
+        }
+
+        .achieve-icon {
+            font-size: 18px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .achieve-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 4px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #0f172a;
+            line-height: 1;
+            box-shadow: 0 2px 6px rgba(217, 119, 6, 0.5);
+            transition: transform 0.25s ease;
+        }
+
+        .achieve-badge.pulse {
+            animation: badgePulse 0.6s ease;
+        }
+
+        @keyframes badgePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
+        /* Мобильный пункт меню */
+        .mobile-achieve-badge {
+            margin-left: auto;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        /* Модальное окно паспорта */
+        .passport-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
+        }
+
+        .passport-modal-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .passport-modal-window {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 22px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+            max-width: 680px;
+            width: 100%;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.92) translateY(12px);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .passport-modal-backdrop.active .passport-modal-window {
+            transform: scale(1) translateY(0);
+        }
+
+        .passport-modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to bottom, rgba(245, 158, 11, 0.05), transparent);
+        }
+
+        .passport-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .passport-emblem {
+            font-size: 28px;
+            line-height: 1;
+            filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.3));
+        }
+
+        .passport-modal-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .passport-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: block;
+        }
+
+        .passport-close-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-card);
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .passport-close-btn:hover {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-color: #ef4444;
+        }
+
+        .passport-modal-body {
+            padding: 20px 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* Профиль туриста */
+        .passport-profile-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(217, 119, 6, 0.02));
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 16px;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .passport-avatar-picker {
+            position: relative;
+        }
+
+        .passport-avatar-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 2px solid #f59e0b;
+            font-size: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .passport-avatar-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .passport-avatar-dropdown {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 8px;
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .avatar-opt {
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            font-size: 22px;
+            padding: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .avatar-opt:hover {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: #f59e0b;
+            transform: scale(1.15);
+        }
+
+        .passport-user-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .passport-name-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .passport-name-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px dashed var(--border-card);
+            color: var(--text-main);
+            font-size: 1.15rem;
+            font-weight: 700;
+            padding: 2px 4px;
+            outline: none;
+            max-width: 180px;
+            transition: border-color 0.2s ease;
+        }
+
+        .passport-name-input:focus {
+            border-bottom-color: #f59e0b;
+        }
+
+        .passport-edit-hint {
+            font-size: 13px;
+            opacity: 0.6;
+        }
+
+        .passport-rank-badge {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.15);
+            color: #d97706;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            padding: 2px 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        body.dark-mode .passport-rank-badge {
+            color: #fbbf24;
+        }
+
+        .passport-stats-mini {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .passport-stats-num {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #f59e0b;
+            line-height: 1.1;
+        }
+
+        .passport-stats-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Полоса прогресса */
+        .passport-bar-container {
+            height: 8px;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        body.dark-mode .passport-bar-container {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .passport-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f59e0b, #10b981);
+            border-radius: 6px;
+            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Сетка наград */
+        .passport-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .passport-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .badge-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: var(--bg-card-hover, rgba(0,0,0,0.02));
+            border: 1px solid var(--border-card);
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .badge-card.unlocked {
+            border-color: rgba(245, 158, 11, 0.4);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(16, 185, 129, 0.04));
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.1);
+        }
+
+        .badge-card.locked {
+            opacity: 0.62;
+            filter: grayscale(0.5);
+        }
+
+        .badge-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .badge-icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .badge-card.unlocked .badge-icon-box {
+            border-color: #f59e0b;
+            box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
+        }
+
+        .badge-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .badge-title-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 2px;
+        }
+
+        .badge-title {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.25;
+        }
+
+        .badge-status-icon {
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .badge-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin: 0 0 6px 0;
+            line-height: 1.35;
+        }
+
+        .badge-prog-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            border-radius: 6px;
+            padding: 1px 7px;
+        }
+
+        .badge-card.unlocked .badge-prog-tag {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
+        }
+
+        body.dark-mode .badge-card.unlocked .badge-prog-tag {
+            color: #34d399;
+        }
+
+        .badge-card.locked .badge-prog-tag {
+            background: rgba(0, 0, 0, 0.06);
+            color: var(--text-muted);
+        }
+
+        body.dark-mode .badge-card.locked .badge-prog-tag {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .passport-modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: var(--bg-card);
+        }
+
+        .passport-reset-btn {
+            background: transparent;
+            border: 1px dashed var(--border-card);
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .passport-reset-btn:hover {
+            border-color: #ef4444;
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.06);
+        }
+
+        .passport-done-btn {
+            background: var(--main-color);
+            border: none;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 9px 22px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px var(--accent-glow);
+            transition: all 0.2s ease;
+        }
+
+        .passport-done-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
+        /* Toast уведомление */
+        .achieve-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 10002;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            border-radius: 16px;
+            background: var(--bg-card);
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+            transform: translateY(120%);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            max-width: 360px;
+        }
+
+        .achieve-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .achieve-toast-icon {
+            font-size: 26px;
+            line-height: 1;
+            filter: drop-shadow(0 2px 6px rgba(245, 158, 11, 0.3));
+        }
+
+        .achieve-toast-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .achieve-toast-tag {
+            display: block;
+            font-size: 0.7rem;
+            color: #f59e0b;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .achieve-toast-title {
+            display: block;
+            font-size: 0.92rem;
+            color: var(--text-main);
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .achieve-toast-desc {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .achieve-toast-btn {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            color: #d97706;
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        body.dark-mode .achieve-toast-btn {
+            color: #fbbf24;
+        }
+
+        .achieve-toast-btn:hover {
+            background: #f59e0b;
+            color: #ffffff;
+        }
+
     </style>
     </head>
 
@@ -3309,6 +3908,12 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Кнопка «Паспорт исследователя» -->
+                <button class="achieve-btn" id="achieve-btn" title="Паспорт исследователя и достижения" aria-label="Паспорт исследователя" onclick="openPassportModal()">
+                    <span class="achieve-icon">🎖️</span>
+                    <span class="achieve-badge" id="achieve-count-badge">0</span>
+                </button>
 
                 <!-- Кнопка переключения языка (RU / EN) -->
                 <button class="theme-switch-btn" id="theme-switch-btn" aria-label="Toggle Dark Mode">
@@ -3396,6 +4001,11 @@
                     <a href="#quiz" class="mobile-nav-link" onclick="handleMobileNavClick(event, 'quiz')">
                         <span class="mobile-nav-icon">🎯</span>
                         <span data-i18n="navQuiz">Викторина</span>
+                    </a>
+                    <a href="#passport" class="mobile-nav-link" onclick="openPassportModal(); closeMobileMenu(); return false;">
+                        <span class="mobile-nav-icon">🎖️</span>
+                        <span data-i18n="passportNav">Паспорт исследователя</span>
+                        <span class="mobile-achieve-badge" id="mobile-achieve-count-badge">0/12</span>
                     </a>
                 </nav>
             </div>
@@ -3882,6 +4492,80 @@
     <button id="btn-back-to-top" title="Вернуться к началу страницы">↑</button>
 
     <!-- ==========================================================================
+       МОДАЛЬНОЕ ОКНО «ПАСПОРТ ИССЛЕДОВАТЕЛЯ КРАСНОУФИМСКА»
+       ========================================================================== -->
+    <div class="passport-modal-backdrop" id="passport-modal" aria-hidden="true" onclick="handlePassportBackdropClick(event)">
+        <div class="passport-modal-window" role="dialog" aria-modal="true" aria-labelledby="passport-modal-title">
+            <div class="passport-modal-header">
+                <div class="passport-title-wrap">
+                    <span class="passport-emblem">🎖️</span>
+                    <div>
+                        <h3 id="passport-modal-title" data-i18n="passportModalTitle">Паспорт исследователя</h3>
+                        <span class="passport-subtitle" data-i18n="passportModalSub">Красноуфимск • Сквозь эпохи</span>
+                    </div>
+                </div>
+                <button type="button" class="passport-close-btn" onclick="closePassportModal()" aria-label="Закрыть">✕</button>
+            </div>
+
+            <div class="passport-modal-body">
+                <!-- Профиль путешественника -->
+                <div class="passport-profile-card">
+                    <div class="passport-avatar-picker">
+                        <button type="button" class="passport-avatar-btn" id="passport-avatar-current" onclick="toggleAvatarDropdown(event)" title="Сменить аватар">🧭</button>
+                        <div class="passport-avatar-dropdown" id="passport-avatar-dropdown" style="display: none;">
+                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🧭')">🧭</button>
+                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🏛️')">🏛️</button>
+                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🚂')">🚂</button>
+                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🦈')">🦈</button>
+                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🦅')">🦅</button>
+                        </div>
+                    </div>
+                    <div class="passport-user-info">
+                        <div class="passport-name-row">
+                            <input type="text" id="passport-user-name" class="passport-name-input" value="Исследователь" maxlength="25" oninput="savePassportName(this.value)" placeholder="Ваше имя" title="Нажмите для смены имени">
+                            <span class="passport-edit-hint">✏️</span>
+                        </div>
+                        <div class="passport-rank-row">
+                            <span class="passport-rank-label" data-i18n="passportRankLabel">Ранг:</span>
+                            <strong id="passport-rank-val" class="passport-rank-badge">Гость города</strong>
+                        </div>
+                    </div>
+                    <div class="passport-stats-mini">
+                        <span class="passport-stats-num" id="passport-progress-ratio">0/12</span>
+                        <span class="passport-stats-label" data-i18n="passportBadgesLabel">наград</span>
+                    </div>
+                </div>
+
+                <!-- Полоса общего прогресса -->
+                <div class="passport-bar-container">
+                    <div class="passport-bar-fill" id="passport-bar-fill" style="width: 0%;"></div>
+                </div>
+
+                <!-- Сетка 12 достижений -->
+                <div class="passport-grid" id="passport-badges-grid">
+                    <!-- Заполняется динамически через JS renderPassportBadges() -->
+                </div>
+            </div>
+
+            <div class="passport-modal-footer">
+                <button type="button" class="passport-reset-btn" onclick="resetPassportProgress()" data-i18n="passportReset">🔄 Сбросить прогресс</button>
+                <button type="button" class="passport-done-btn" onclick="closePassportModal()" data-i18n="passportDone">Готово</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Всплывающее Toast-уведомление о новом достижении -->
+    <div class="achieve-toast" id="achieve-toast" aria-live="polite">
+        <div class="achieve-toast-icon" id="achieve-toast-icon">✨</div>
+        <div class="achieve-toast-body">
+            <span class="achieve-toast-tag" data-i18n="achieveToastTag">Новое достижение!</span>
+            <strong class="achieve-toast-title" id="achieve-toast-title">Название</strong>
+            <span class="achieve-toast-desc" id="achieve-toast-desc">Описание</span>
+        </div>
+        <button type="button" class="achieve-toast-btn" onclick="openPassportModal(); hideAchieveToast();" data-i18n="achieveToastBtn">Паспорт</button>
+    </div>
+
+    <!-- ==========================================================================
        10. НАШ СКРИПТ: ПОГОДА, ЯЗЫК, СЕЗОНЫ, ТАЙМЛАЙН, СЛАЙДЕР И ВИКТОРИНА
        ========================================================================== -->
     <script>
@@ -4088,7 +4772,20 @@
                 quizResult5: '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!',
                 quizResult4: '👍 Хорошо! Вы хорошо знаете историю города.',
                 quizResult3: '📖 Неплохо! Почитайте о достопримечательностях подробнее.',
-                quizResult2: '🔍 Стоит изучить историю города! Пройдите ленту времени.'
+                quizResult2: '🔍 Стоит изучить историю города! Пройдите ленту времени.',
+
+                // Паспорт исследователя и достижения
+                passportNav: 'Паспорт исследователя',
+                passportModalTitle: 'Паспорт исследователя',
+                passportModalSub: 'Красноуфимск • Сквозь эпохи',
+                passportRankLabel: 'Ранг:',
+                passportBadgesLabel: 'наград',
+                passportReset: '🔄 Сбросить прогресс',
+                passportDone: 'Готово',
+                achieveToastTag: 'Новое достижение!',
+                achieveToastBtn: 'Паспорт',
+                achieveUnlockedTag: 'Получено!',
+                achieveLockedTag: 'В процессе'
             },
             en: {
                 logoTitle: 'Krasnoufimsk',
@@ -4242,6 +4939,18 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 quizScoreMid: '🥈 "Heritage Enthusiast"!',
                 quizScoreLow: '📖 "Beginner Explorer of Krasnoufimsk"!',
 
+                // Explorer Passport and Achievements
+                passportNav: 'Explorer Passport',
+                passportModalTitle: 'Explorer Passport',
+                passportModalSub: 'Krasnoufimsk • Through the Epochs',
+                passportRankLabel: 'Rank:',
+                passportBadgesLabel: 'badges',
+                passportReset: '🔄 Reset Progress',
+                passportDone: 'Done',
+                achieveToastTag: 'New Achievement!',
+                achieveToastBtn: 'Passport',
+                achieveUnlockedTag: 'Unlocked!',
+                achieveLockedTag: 'In progress'
             }
         };
 
@@ -5142,6 +5851,11 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             if (typeof updateSightsDropdownMenu === 'function') updateSightsDropdownMenu();
             if (typeof updateRouteMapLinks === 'function') updateRouteMapLinks();
             if (typeof renderSightsMapMarkers === 'function') renderSightsMapMarkers(currentMapFilter);
+            if (typeof renderPassportBadges === 'function') renderPassportBadges();
+
+            if (lang === 'en' && typeof unlockAchievement === 'function') {
+                unlockAchievement('polyglot_guide');
+            }
 
             // Фикс для мобильного Safari: принудительная перерисовка при смене языка
             setTimeout(() => {
@@ -5259,6 +5973,11 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 if (autoScroll) {
                     setTimeout(scrollToActiveCard, 40);
                 }
+            }
+
+            // Достижение «Хранитель эпох» (долистал до 2026 года)
+            if (index === totalEvents - 1 && typeof unlockAchievement === 'function') {
+                unlockAchievement('chrono_master');
             }
         }
 
@@ -5765,6 +6484,14 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 } else {
                     certBox.style.display = 'none';
                 }
+            }
+
+            // Достижение «Красноуфимский эрудит»
+            if (correct >= 8 && typeof unlockAchievement === 'function') {
+                unlockAchievement('quiz_erudite');
+            }
+            if (nameInp && !nameInp.value && typeof passportState !== 'undefined' && passportState.name && passportState.name !== 'Исследователь') {
+                nameInp.value = passportState.name;
             }
 
             if (banner) {
@@ -6476,6 +7203,9 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 '</div>';
 
                 marker.bindPopup(popupHtml, { maxWidth: 300 });
+                marker.on('click', function() {
+                    if (typeof trackMapExplore === 'function') trackMapExplore(s.id);
+                });
                 sightsMarkersLayer.addLayer(marker);
                 sightsMarkersMap[s.id] = marker;
             });
@@ -6582,8 +7312,11 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             // Синхронизация с интерактивной картой
             if (typeof syncSightsMapWithSight === 'function') {
                 syncSightsMapWithSight(sight.id);
-            } else if (typeof syncSightsMapWithSight === 'function') {
-                syncSightsMapWithSight(sight.id);
+            }
+
+            // Трекинг прогресса для Паспорта исследователя
+            if (typeof trackSightExplored === 'function') {
+                trackSightExplored(sight.id, sight.cat);
             }
         }
 
@@ -6629,6 +7362,9 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 weatherPill.addEventListener('click', function (e) {
                     e.stopPropagation();
                     weatherCard.classList.toggle('show');
+                    if (typeof unlockAchievement === 'function') {
+                        unlockAchievement('weather_watcher');
+                    }
                 });
             }
             if (btnCloseWeather && weatherCard) {
@@ -6641,6 +7377,9 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 btnRefreshWeather.addEventListener('click', function (e) {
                     e.stopPropagation();
                     fetchKrasnoufimskWeather();
+                    if (typeof unlockAchievement === 'function') {
+                        unlockAchievement('weather_watcher');
+                    }
                 });
             }
 
@@ -7046,25 +7785,19 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 const weather = document.getElementById('weather-details-card');
                 if (weather && weather.classList.contains('show')) isModalOpen = true;
 
-                const overlays = document.querySelectorAll('div');
-                for (let i = 0; i < overlays.length; i++) {
-                    let m = overlays[i];
-                    if (!m) continue;
-                    const style = window.getComputedStyle(m);
-                    if (style.position === 'fixed' && style.display !== 'none' && style.opacity !== '0' && style.zIndex > 100) {
-                        if (m.getBoundingClientRect().height >= window.innerHeight * 0.5) {
-                            isModalOpen = true;
-                            break;
-                        }
-                    }
-                }
+                const passport = document.getElementById('passport-modal');
+                if (passport && passport.classList.contains('active')) isModalOpen = true;
+
+                const mobilePanel = document.getElementById('mobile-nav-panel');
+                if (mobilePanel && mobilePanel.classList.contains('open')) isModalOpen = true;
 
                 if (isModalOpen) {
                     document.body.classList.add('modal-open');
                 } else {
                     document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';
                 }
-            }, 50);
+            }, 60);
         });
     </script>
 
@@ -7109,6 +7842,9 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
 
         function executePdfMake(btnText, originalText) {
             try {
+                if (typeof unlockAchievement === 'function') {
+                    unlockAchievement('guide_reader');
+                }
                 const isRu = typeof currentLang !== 'undefined' ? currentLang === 'ru' : true;
 
                 const docDefinition = {
@@ -7206,6 +7942,454 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
         });
         window.addEventListener('resize', function() {
             if (sightsMap) sightsMap.invalidateSize();
+        });
+
+        /* ==========================================================================
+           [13. ПАСПОРТ ИССЛЕДОВАТЕЛЯ И СИСТЕМА 12 ДОСТИЖЕНИЙ]
+           ========================================================================== */
+        const PASSPORT_STORAGE_KEY = 'krasnoufimsk_passport_v1';
+
+        const PASSPORT_BADGES = [
+            {
+                id: 'arch_critic',
+                icon: '🏛️',
+                title: { ru: '«Архитектурный критик»', en: 'Architectural Critic' },
+                desc: { ru: 'Изучить 5 памятников архитектуры в каталоге', en: 'Explore 5 architectural monuments in catalog' },
+                target: 5
+            },
+            {
+                id: 'chrono_master',
+                icon: '📜',
+                title: { ru: '«Хранитель эпох»', en: 'Chronicle Master' },
+                desc: { ru: 'Долистать ленту времени до эпохи 2026 года', en: 'Scroll timeline to contemporary 2026 era' },
+                target: 1
+            },
+            {
+                id: 'quiz_erudite',
+                icon: '🎯',
+                title: { ru: '«Красноуфимский эрудит»', en: 'Krasnoufimsk Erudite' },
+                desc: { ru: 'Пройти викторину на высокий балл (8+ из 10)', en: 'Score 8+ out of 10 in interactive quiz' },
+                target: 1
+            },
+            {
+                id: 'weather_watcher',
+                icon: '🌦️',
+                title: { ru: '«Синоптик»', en: 'Meteo Watcher' },
+                desc: { ru: 'Проверить живую погоду на метеостанции', en: 'Check live weather widget' },
+                target: 1
+            },
+            {
+                id: 'polyglot_guide',
+                icon: '🌍',
+                title: { ru: '«Гид-полиглот»', en: 'Polyglot Guide' },
+                desc: { ru: 'Переключить сайт на английский язык (EN)', en: 'Switch website language to English' },
+                target: 1
+            },
+            {
+                id: 'railway_pioneer',
+                icon: '🚂',
+                title: { ru: '«Покоритель виадуков»', en: 'Viaduct Pioneer' },
+                desc: { ru: 'Изучить вокзал Щусева, паровоз или виадук', en: 'Explore Shchusev station, train or viaduct' },
+                target: 1
+            },
+            {
+                id: 'map_explorer',
+                icon: '🗺️',
+                title: { ru: '«Первопроходец карты»', en: 'Map Pioneer' },
+                desc: { ru: 'Исследовать 3 метки на интерактивной карте', en: 'Explore 3 markers on interactive map' },
+                target: 3
+            },
+            {
+                id: 'paleo_hunter',
+                icon: '🦈',
+                title: { ru: '«Палеонтолог Урала»', en: 'Ural Paleontologist' },
+                desc: { ru: 'Познакомиться с акулой Геликоприон в Краеведческом музее', en: 'Discover prehistoric Helicoprion shark in Local Museum' },
+                target: 1
+            },
+            {
+                id: 'zemstvo_doctor',
+                icon: '🩺',
+                title: { ru: '«Земский доктор»', en: 'Zemstvo Doctor' },
+                desc: { ru: 'Изучить уникальную деревянную больницу доктора Мизерова', en: 'Explore Dr. Mizerov historic wooden zemstvo hospital' },
+                target: 1
+            },
+            {
+                id: 'river_captain',
+                icon: '⛵',
+                title: { ru: '«Капитан Уфы»', en: 'Ufa River Captain' },
+                desc: { ru: 'Исследовать набережную реки Уфа и скалу Красный Яр', en: 'Explore the Ufa River embankment & Krasny Yar bluff' },
+                target: 1
+            },
+            {
+                id: 'guide_reader',
+                icon: '📄',
+                title: { ru: '«Подготовленный турист»', en: 'Prepared Tourist' },
+                desc: { ru: 'Сформировать и скачать PDF-памятку путешественника', en: 'Generate and download official PDF tourist guide' },
+                target: 1
+            },
+            {
+                id: 'honorary_citizen',
+                icon: '👑',
+                title: { ru: '«Почётный гражданин»', en: 'Honorary Citizen' },
+                desc: { ru: 'Собрать все 11 предыдущих достижений', en: 'Unlock all 11 previous achievements' },
+                target: 11
+            }
+        ];
+
+        let isPassportLoaded = false;
+        let passportState = {
+            name: 'Исследователь',
+            avatar: '🧭',
+            unlocked: {},
+            progress: {
+                arch_viewed: [],
+                map_clicks: 0
+            }
+        };
+
+        function loadPassportState() {
+            try {
+                const saved = safeStorageGet(PASSPORT_STORAGE_KEY, null);
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (parsed && typeof parsed === 'object') {
+                        if (parsed.name) passportState.name = parsed.name;
+                        if (parsed.avatar) passportState.avatar = parsed.avatar;
+                        if (parsed.unlocked && typeof parsed.unlocked === 'object') passportState.unlocked = parsed.unlocked;
+                        if (parsed.progress && typeof parsed.progress === 'object') {
+                            passportState.progress = parsed.progress;
+                            if (!Array.isArray(passportState.progress.arch_viewed)) passportState.progress.arch_viewed = [];
+                            if (typeof passportState.progress.map_clicks !== 'number') passportState.progress.map_clicks = 0;
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn('Passport load notice:', e);
+            }
+            isPassportLoaded = true;
+            updatePassportBadgeCount();
+            checkAutoAchievements();
+        }
+
+        function savePassportState() {
+            if (!isPassportLoaded) {
+                loadPassportState();
+            }
+            try {
+                safeStorageSet(PASSPORT_STORAGE_KEY, JSON.stringify(passportState));
+            } catch (e) {
+                console.warn('Passport save notice:', e);
+            }
+            updatePassportBadgeCount();
+        }
+
+        function getUnlockedCount() {
+            return Object.keys(passportState.unlocked).length;
+        }
+
+        function updatePassportBadgeCount() {
+            const count = getUnlockedCount();
+            const badge = document.getElementById('achieve-count-badge');
+            if (badge) {
+                badge.textContent = count;
+                badge.classList.remove('pulse');
+                void badge.offsetWidth;
+                badge.classList.add('pulse');
+            }
+            const mobileBadge = document.getElementById('mobile-achieve-count-badge');
+            if (mobileBadge) {
+                mobileBadge.textContent = `${count}/${PASSPORT_BADGES.length}`;
+            }
+        }
+
+        function checkAutoAchievements() {
+            try {
+                // Если язык английский
+                if (typeof currentLang !== 'undefined' && currentLang === 'en') {
+                    if (!passportState.unlocked['polyglot_guide']) {
+                        unlockAchievement('polyglot_guide');
+                    }
+                }
+                // Если викторина уже была сдана на 8+ в этой сессии
+                if (typeof window.lastQuizScore === 'number' && window.lastQuizScore >= 8) {
+                    if (!passportState.unlocked['quiz_erudite']) {
+                        unlockAchievement('quiz_erudite');
+                    }
+                }
+            } catch (e) {
+                console.warn('Auto achieve check:', e);
+            }
+        }
+
+        function unlockAchievement(id) {
+            if (!isPassportLoaded) loadPassportState();
+            if (passportState.unlocked[id]) return;
+            const badge = PASSPORT_BADGES.find(b => b.id === id);
+            if (!badge) return;
+
+            passportState.unlocked[id] = Date.now();
+
+            // Проверка главного достижения
+            if (id !== 'honorary_citizen') {
+                const countOthers = Object.keys(passportState.unlocked).filter(k => k !== 'honorary_citizen').length;
+                if (countOthers >= 11 && !passportState.unlocked['honorary_citizen']) {
+                    setTimeout(() => unlockAchievement('honorary_citizen'), 1200);
+                }
+            }
+
+            savePassportState();
+            showAchieveToast(badge);
+
+            const modal = document.getElementById('passport-modal');
+            if (modal && modal.classList.contains('active')) {
+                renderPassportBadges();
+            }
+        }
+
+        let toastTimer = null;
+        function showAchieveToast(badge) {
+            const toast = document.getElementById('achieve-toast');
+            if (!toast) return;
+            const iconEl = document.getElementById('achieve-toast-icon');
+            const titleEl = document.getElementById('achieve-toast-title');
+            const descEl = document.getElementById('achieve-toast-desc');
+
+            const lang = (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'ru';
+            if (iconEl) iconEl.textContent = badge.icon;
+            if (titleEl) titleEl.textContent = badge.title[lang] || badge.title.ru;
+            if (descEl) descEl.textContent = badge.desc[lang] || badge.desc.ru;
+
+            toast.classList.add('show');
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                hideAchieveToast();
+            }, 4500);
+        }
+
+        function hideAchieveToast() {
+            const toast = document.getElementById('achieve-toast');
+            if (toast) toast.classList.remove('show');
+        }
+
+        function getPassportRank(unlockedCount, lang) {
+            if (lang === 'en') {
+                if (unlockedCount >= 12) return '👑 Honorary Citizen';
+                if (unlockedCount >= 9) return '🏅 Krasnoufimsk Connoisseur';
+                if (unlockedCount >= 6) return '🧭 Experienced Pathfinder';
+                if (unlockedCount >= 3) return '🎒 Curious Tourist';
+                return '🏛️ City Guest';
+            }
+            if (unlockedCount >= 12) return '👑 Почётный гражданин';
+            if (unlockedCount >= 9) return '🏅 Знаток Красноуфимска';
+            if (unlockedCount >= 6) return '🧭 Опытный следопыт';
+            if (unlockedCount >= 3) return '🎒 Любознательный турист';
+            return '🏛️ Гость города';
+        }
+
+        function renderPassportBadges() {
+            const grid = document.getElementById('passport-badges-grid');
+            if (!grid) return;
+
+            const lang = (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'ru';
+            const dict = (typeof i18n !== 'undefined' && i18n[lang]) ? i18n[lang] : {};
+            const unlockedTag = dict.achieveUnlockedTag || (lang === 'ru' ? 'Получено!' : 'Unlocked!');
+            const lockedTag = dict.achieveLockedTag || (lang === 'ru' ? 'В процессе' : 'In progress');
+
+            const unlockedCount = getUnlockedCount();
+            const totalBadges = PASSPORT_BADGES.length;
+            const pct = Math.round((unlockedCount / totalBadges) * 100);
+
+            // Обновляем шапку профиля
+            const nameInput = document.getElementById('passport-user-name');
+            if (nameInput) nameInput.value = passportState.name;
+
+            const avatarBtn = document.getElementById('passport-avatar-current');
+            if (avatarBtn) avatarBtn.textContent = passportState.avatar;
+
+            const rankBadge = document.getElementById('passport-rank-val');
+            if (rankBadge) rankBadge.textContent = getPassportRank(unlockedCount, lang);
+
+            const ratioEl = document.getElementById('passport-progress-ratio');
+            if (ratioEl) ratioEl.textContent = `${unlockedCount}/${totalBadges}`;
+
+            const fillEl = document.getElementById('passport-bar-fill');
+            if (fillEl) fillEl.style.width = `${pct}%`;
+
+            let html = '';
+            PASSPORT_BADGES.forEach(b => {
+                const isUnlocked = !!passportState.unlocked[b.id];
+                const cardClass = isUnlocked ? 'badge-card unlocked' : 'badge-card locked';
+                const statusIcon = isUnlocked ? '✅' : '🔒';
+                
+                // Прогресс для подсказки
+                let progressText = isUnlocked ? `✨ ${unlockedTag}` : `🔒 ${lockedTag}`;
+                if (!isUnlocked) {
+                    if (b.id === 'arch_critic') {
+                        const cur = (passportState.progress.arch_viewed || []).length;
+                        progressText = `[${cur}/${b.target}] ${lockedTag}`;
+                    } else if (b.id === 'map_explorer') {
+                        const cur = Math.min(b.target, passportState.progress.map_clicks || 0);
+                        progressText = `[${cur}/${b.target}] ${lockedTag}`;
+                    } else if (b.id === 'honorary_citizen') {
+                        const cur = Object.keys(passportState.unlocked).filter(k => k !== 'honorary_citizen').length;
+                        progressText = `[${cur}/${b.target}] ${lockedTag}`;
+                    }
+                }
+
+                html += `
+                    <div class="${cardClass}">
+                        <div class="badge-icon-box">${b.icon}</div>
+                        <div class="badge-info">
+                            <div class="badge-title-row">
+                                <h4 class="badge-title">${b.title[lang] || b.title.ru}</h4>
+                                <span class="badge-status-icon">${statusIcon}</span>
+                            </div>
+                            <p class="badge-desc">${b.desc[lang] || b.desc.ru}</p>
+                            <span class="badge-prog-tag">${progressText}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            grid.innerHTML = html;
+        }
+
+        window.openPassportModal = function() {
+            loadPassportState();
+            const modal = document.getElementById('passport-modal');
+            if (!modal) return;
+            renderPassportBadges();
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
+        };
+
+        window.closePassportModal = function() {
+            const modal = document.getElementById('passport-modal');
+            if (!modal) return;
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            document.body.classList.remove('modal-open');
+            const drop = document.getElementById('passport-avatar-dropdown');
+            if (drop) drop.style.display = 'none';
+        };
+
+        window.handlePassportBackdropClick = function(e) {
+            if (e.target && e.target.id === 'passport-modal') {
+                closePassportModal();
+            }
+        };
+
+        window.toggleAvatarDropdown = function(e) {
+            if (e && e.stopPropagation) e.stopPropagation();
+            const drop = document.getElementById('passport-avatar-dropdown');
+            if (drop) {
+                drop.style.display = drop.style.display === 'none' ? 'flex' : 'none';
+            }
+        };
+
+        window.setPassportAvatar = function(emoji) {
+            passportState.avatar = emoji;
+            savePassportState();
+            const btn = document.getElementById('passport-avatar-current');
+            if (btn) btn.textContent = emoji;
+            const drop = document.getElementById('passport-avatar-dropdown');
+            if (drop) drop.style.display = 'none';
+        };
+
+        window.savePassportName = function(name) {
+            passportState.name = name.trim() || 'Исследователь';
+            savePassportState();
+            const certNameInput = document.getElementById('cert-name-input');
+            if (certNameInput && (!certNameInput.value || certNameInput.value === 'Исследователь')) {
+                certNameInput.value = passportState.name;
+            }
+        };
+
+        window.resetPassportProgress = function() {
+            const lang = (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'ru';
+            const msg = lang === 'en' 
+                ? 'Are you sure you want to reset all achievements and passport progress?' 
+                : 'Вы уверены, что хотите сбросить все достижения и начать путь заново?';
+            if (confirm(msg)) {
+                passportState.unlocked = {};
+                passportState.progress = { arch_viewed: [], map_clicks: 0 };
+                savePassportState();
+                renderPassportBadges();
+            }
+        };
+
+        window.trackSightExplored = function(sightId, cat) {
+            if (!isPassportLoaded) loadPassportState();
+            if (!passportState.progress.arch_viewed) passportState.progress.arch_viewed = [];
+            
+            // Архитектура (для достижения arch_critic)
+            if (cat === 'architecture' && !passportState.progress.arch_viewed.includes(sightId)) {
+                passportState.progress.arch_viewed.push(sightId);
+                savePassportState();
+                if (passportState.progress.arch_viewed.length >= 5) {
+                    unlockAchievement('arch_critic');
+                }
+            }
+
+            // Железнодорожные объекты (вокзал, паровоз, виадук)
+            if (['vokzal', 'parovoz', 'viaduct'].includes(sightId)) {
+                unlockAchievement('railway_pioneer');
+            }
+
+            // Палеонтолог Урала (Краеведческий музей с окаменелостями Helicoprion)
+            if (['museum', 'museum-old'].includes(sightId)) {
+                unlockAchievement('paleo_hunter');
+            }
+
+            // Земский доктор (Музей-больница доктора Мизерова)
+            if (sightId === 'mizerov') {
+                unlockAchievement('zemstvo_doctor');
+            }
+
+            // Капитан Уфы (Набережная реки Уфы и Красный Яр)
+            if (sightId === 'naberezhnaya') {
+                unlockAchievement('river_captain');
+            }
+        };
+
+        window.trackMapExplore = function(sightId) {
+            if (!isPassportLoaded) loadPassportState();
+            passportState.progress.map_clicks = (passportState.progress.map_clicks || 0) + 1;
+            savePassportState();
+            if (passportState.progress.map_clicks >= 3) {
+                unlockAchievement('map_explorer');
+            }
+            if (sightId) {
+                if (['museum', 'museum-old'].includes(sightId)) unlockAchievement('paleo_hunter');
+                if (sightId === 'mizerov') unlockAchievement('zemstvo_doctor');
+                if (sightId === 'naberezhnaya') unlockAchievement('river_captain');
+                if (['vokzal', 'parovoz', 'viaduct'].includes(sightId)) unlockAchievement('railway_pioneer');
+            }
+        };
+
+        // Экспорт глобальных функций
+        window.unlockAchievement = unlockAchievement;
+        window.loadPassportState = loadPassportState;
+        window.savePassportState = savePassportState;
+        window.renderPassportBadges = renderPassportBadges;
+
+        // Загрузка состояния немедленно при парсинге скрипта
+        loadPassportState();
+
+        // Загрузка состояния при DOMContentLoaded и pageshow
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadPassportState);
+        }
+        window.addEventListener('pageshow', loadPassportState);
+
+        // Закрытие по клавише Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePassportModal();
+            }
         });
 
     </script>
