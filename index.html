@@ -3318,6 +3318,27 @@
             100% { transform: scale(1); }
         }
 
+        @media (max-width: 768px) {
+            .achieve-btn {
+                width: 32px !important;
+                height: 32px !important;
+            }
+
+            .achieve-icon {
+                font-size: 15px !important;
+            }
+
+            .achieve-badge {
+                min-width: 15px;
+                height: 15px;
+                font-size: 9.5px;
+                top: -3px;
+                right: -3px;
+                padding: 0 3px;
+                border-width: 1.5px;
+            }
+        }
+
         /* Мобильный пункт меню */
         .mobile-achieve-badge {
             margin-left: auto;
@@ -3834,6 +3855,42 @@
         .achieve-toast-btn:hover {
             background: #f59e0b;
             color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .achieve-toast {
+                left: 14px;
+                right: 14px;
+                bottom: 18px;
+                margin: 0 auto;
+                width: auto;
+                max-width: 380px;
+                padding: 10px 14px;
+                border-radius: 14px;
+                gap: 10px;
+                transform: translateY(140%);
+            }
+
+            .achieve-toast.show {
+                transform: translateY(0);
+            }
+
+            .achieve-toast-icon {
+                font-size: 24px;
+            }
+
+            .achieve-toast-title {
+                font-size: 0.86rem;
+            }
+
+            .achieve-toast-desc {
+                font-size: 0.72rem;
+            }
+
+            .achieve-toast-btn {
+                padding: 5px 10px;
+                font-size: 0.74rem;
+            }
         }
 
     </style>
