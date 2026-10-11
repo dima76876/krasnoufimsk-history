@@ -9129,6 +9129,9 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             if (certBox) {
                 if (pct >= 0.7) {
                     certBox.style.display = 'block';
+                    if (typeof launchConfetti === 'function') {
+                        launchConfetti({ count: 110 });
+                    }
                 } else {
                     certBox.style.display = 'none';
                 }
@@ -10583,10 +10586,123 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             link.download = `Diplom_Krasnoufimsk_${safeDiff}_${safeName}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
+
+            if (typeof launchConfetti === 'function') {
+                launchConfetti({ count: 95 });
+            }
         }
 
-        window.addEventListener('load', function () {
+        /* ==========================================================================
+           САЛЮТ КОНФЕТТИ (NATIVE CANVAS CONFETTI ENGINE)
+           Легковесный, автономный салют с 3D-вращением и благородной уральской палитрой.
+           ========================================================================== */
+        function launchConfetti(opts = {}) {
+            const count = opts.count || 90;
+            const colors = opts.colors || ['#f59e0b', '#fbbf24', '#10b981', '#06b6d4', '#3b82f6', '#ec4899', '#ffffff'];
 
+            let canvas = document.getElementById('confetti-canvas');
+            if (canvas && canvas.parentNode) {
+                canvas.parentNode.removeChild(canvas);
+            }
+            canvas = document.createElement('canvas');
+            canvas.id = 'confetti-canvas';
+            canvas.style.position = 'fixed';
+            canvas.style.inset = '0';
+            canvas.style.width = '100vw';
+            canvas.style.height = '100vh';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '999999';
+            document.body.appendChild(canvas);
+
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            ctx.scale(dpr, dpr);
+
+            const particles = [];
+            for (let i = 0; i < count; i++) {
+                const isLeft = Math.random() < 0.5;
+                const startX = opts.origin ? (opts.origin.x * w) : (isLeft ? w * 0.15 : w * 0.85);
+                const startY = opts.origin ? (opts.origin.y * h) : (h * 0.82);
+                const baseAngle = isLeft ? -0.32 * Math.PI : -0.68 * Math.PI;
+                const angle = baseAngle + (Math.random() - 0.5) * 0.55;
+                const speed = Math.random() * 16 + 11;
+
+                particles.push({
+                    x: startX,
+                    y: startY,
+                    vx: Math.cos(angle) * speed + (Math.random() - 0.5) * 4,
+                    vy: Math.sin(angle) * speed,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    size: Math.random() * 8 + 6,
+                    aspect: Math.random() * 0.6 + 0.4,
+                    tilt: Math.random() * 10,
+                    tiltSpeed: Math.random() * 0.12 + 0.05,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: (Math.random() - 0.5) * 8,
+                    gravity: 0.38,
+                    drag: 0.982,
+                    opacity: 1,
+                    decay: Math.random() * 0.008 + 0.005,
+                    shape: Math.random() > 0.3 ? 'rect' : 'circle'
+                });
+            }
+
+            let animationId = null;
+            const startTime = performance.now();
+
+            function frame(now) {
+                ctx.clearRect(0, 0, w, h);
+                let alive = 0;
+
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    if (p.opacity <= 0 || p.y > h + 50) continue;
+                    alive++;
+
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += p.gravity;
+                    p.vx *= p.drag;
+                    p.vy *= p.drag;
+                    p.tilt += p.tiltSpeed;
+                    p.rotation += p.rotationSpeed;
+                    p.opacity -= p.decay;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.globalAlpha = Math.max(0, p.opacity);
+                    ctx.fillStyle = p.color;
+
+                    const scaleX = Math.cos(p.tilt);
+                    if (p.shape === 'rect') {
+                        ctx.fillRect(-p.size / 2 * scaleX, -p.size * p.aspect / 2, p.size * scaleX, p.size * p.aspect);
+                    } else {
+                        ctx.beginPath();
+                        ctx.arc(0, 0, (p.size / 2) * Math.abs(scaleX), 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    ctx.restore();
+                }
+
+                if (alive > 0 && (now - startTime) < 4000) {
+                    animationId = requestAnimationFrame(frame);
+                } else {
+                    if (canvas && canvas.parentNode) {
+                        canvas.parentNode.removeChild(canvas);
+                    }
+                }
+            }
+
+            animationId = requestAnimationFrame(frame);
+        }
+        window.launchConfetti = launchConfetti;
+
+        window.addEventListener('load', function () {
             window.scrollTo(0, 0);
         });
     </script>
@@ -11031,82 +11147,282 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
 
                 const docDefinition = {
                     pageSize: 'A4',
-                    pageMargins: [ 40, 60, 40, 60 ],
+                    pageMargins: [ 36, 36, 36, 42 ],
+                    footer: function(currentPage, pageCount) {
+                        return {
+                            columns: [
+                                {
+                                    text: isRu 
+                                        ? 'Красноуфимск • Сквозь эпохи  |  Официальный иллюстрированный путеводитель 2026' 
+                                        : 'Krasnoufimsk • Through the Epochs  |  Official Explorer Travel Guide 2026',
+                                    fontSize: 8,
+                                    color: '#94a3b8',
+                                    margin: [36, 0, 0, 0]
+                                },
+                                {
+                                    text: `${currentPage} / ${pageCount}`,
+                                    alignment: 'right',
+                                    fontSize: 8,
+                                    color: '#94a3b8',
+                                    margin: [0, 0, 36, 0]
+                                }
+                            ]
+                        };
+                    },
                     content: [
-                        { text: isRu ? 'КРАСНОУФИМСК' : 'KRASNOUFIMSK', style: 'mainHeader' },
-                        { text: isRu ? 'Памятка туристу' : 'Tourist Guide', style: 'subHeader' },
-                        
-                        { text: isRu ? '\n📜 ИСТОРИЯ В ДАТАХ' : '\n📜 HISTORY IN DATES', style: 'sectionHeader' },
+                        // Верхний фирменный блок (Шапка + Вечный QR-код)
                         {
-                            ul: isRu ? [
-                                '1736 — Основание крепости Красный Яр полковником А. И. Тевкелевым',
-                                '1781 — Статус уездного города, герб с серебряным соколом',
-                                '1875 — Реальное училище в Красноуфимске',
-                                '1880–1886 — Работа М. И. Мизерова и строительство земской больницы',
-                                '1915–1924 — Железнодорожная линия и виадуки',
-                                '1941–1945 — Красноуфимцы на фронте и в тылу',
-                                '2026 — 290-летие города'
-                            ] : [
-                                '1736 — Foundation of the Krasny Yar fortress by Colonel A. I. Tevkelev',
-                                '1781 — Status of a county town, coat of arms with a silver falcon',
-                                '1875 — Real School in Krasnoufimsk',
-                                '1880–1886 — M. I. Mizerov’s work and construction of the zemstvo hospital',
-                                '1915–1924 — Railway line and viaducts',
-                                '1941–1945 — Krasnoufimsk residents at the front and home front',
-                                '2026 — 290th anniversary of the city'
+                            columns: [
+                                {
+                                    width: '*',
+                                    stack: [
+                                        { text: isRu ? 'КРАСНОУФИМСК' : 'KRASNOUFIMSK', style: 'brandTitle' },
+                                        { text: isRu ? 'СКВОЗЬ ЭПОХИ • ОФИЦИАЛЬНЫЙ ПУТЕВОДИТЕЛЬ' : 'THROUGH THE EPOCHS • OFFICIAL EXPLORER GUIDE', style: 'brandSubtitle' },
+                                        { text: isRu ? '290 ЛЕТ ИСТОРИИ (1736–2026) • СВЕРДЛОВСКАЯ ОБЛАСТЬ' : '290 YEARS OF HISTORY (1736–2026) • SVERDLOVSK REGION', style: 'brandTag' },
+                                        { text: isRu ? 'Координаты: 56.6167° с.ш., 57.7667° в.д. | Живописный берег реки Уфы' : 'Coordinates: 56.6167° N, 57.7667° E | Scenic banks of the Ufa River', style: 'brandCoords' }
+                                    ]
+                                },
+                                {
+                                    width: 95,
+                                    alignment: 'right',
+                                    stack: [
+                                        { qr: 'https://krasnoufimsk-history.site/', fit: 68, alignment: 'right' },
+                                        { text: 'krasnoufimsk-history.site', fontSize: 6.5, color: '#475569', alignment: 'right', margin: [0, 3, 0, 0] },
+                                        { text: isRu ? 'Наведите камеру ↗' : 'Scan with camera ↗', fontSize: 6.5, color: '#b45309', bold: true, alignment: 'right' }
+                                    ]
+                                }
                             ],
-                            style: 'listStyle'
+                            margin: [0, 0, 0, 10]
                         },
 
-                        { text: isRu ? '\n\n🏛️ ТОП-5 ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ' : '\n\n🏛️ TOP-5 SIGHTS', style: 'sectionHeader' },
+                        // Золотая акцентная линия
                         {
-                            ul: isRu ? [
-                                'Краеведческий музей (ул. Советская, 42)',
-                                'Свято-Троицкий собор (ул. Куйбышева, 5)',
-                                'Ж/Д Вокзал архитектора Щусева (ул. Станционная, 11)',
-                                'Набережная на реке Уфа',
-                                'Рябиновский виадук'
-                            ] : [
-                                'Local History Museum (42 Sovetskaya St.)',
-                                'Holy Trinity Cathedral (5 Kuybysheva St.)',
-                                'Railway Station by architect Shchusev (11 Stantsionnaya St.)',
-                                'Embankment on the Ufa River',
-                                'Ryabinovsky Viaduct'
-                            ],
-                            style: 'listStyle'
+                            table: {
+                                widths: ['*'],
+                                body: [[{ text: '', fillColor: '#d97706', height: 2 }]]
+                            },
+                            layout: 'noBorders',
+                            margin: [0, 0, 0, 10]
                         },
 
-                        { text: isRu ? '\n\n📞 ПРАКТИЧЕСКАЯ ИНФОРМАЦИЯ' : '\n\n📞 PRACTICAL INFORMATION', style: 'sectionHeader' },
+                        // Блок 1: Хроника и вехи истории
+                        { text: isRu ? '📜 ХРОНИКА И ВЕХИ ГОРОДА' : '📜 CHRONICLE & HISTORICAL MILESTONES', style: 'sectionTitle' },
                         {
-                            ul: isRu ? [
-                                'Центр города: пл. Ленина / ул. Советская',
-                                'Больница: ул. Транспортная, 12',
-                                'Сувениры: Краеведческий музей (ул. Советская, 42)',
-                                'Транспорт: Местные службы такси и автобусы'
-                            ] : [
-                                'City Center: Lenin Sq. / Sovetskaya St.',
-                                'Hospital: 12 Transportnaya St.',
-                                'Souvenirs: Local History Museum (42 Sovetskaya St.)',
-                                'Transport: Local taxi services and buses'
-                            ],
-                            style: 'listStyle'
+                            table: {
+                                widths: ['18%', '82%'],
+                                body: isRu ? [
+                                    [{ text: '1736 г.', bold: true, color: '#b45309', fontSize: 8.5 }, { text: 'Основание крепости Красный Яр полковником А. И. Тевкелевым для защиты восточных рубежей', fontSize: 8.5 }],
+                                    [{ text: '1781 г.', bold: true, color: '#b45309', fontSize: 8.5 }, { text: 'Указ Екатерины II: статус уездного города Пермского наместничества, герб с серебряным соколом', fontSize: 8.5 }],
+                                    [{ text: '1875 г.', bold: true, color: '#b45309', fontSize: 8.5 }, { text: 'Красноуфимское реальное училище — кузница агрономической и инженерной науки Урала', fontSize: 8.5 }],
+                                    [{ text: '1886 г.', bold: true, color: '#b45309', fontSize: 8.5 }, { text: 'Земская больница доктора М. И. Мизерова — образцовый комплекс земской медицины России', fontSize: 8.5 }],
+                                    [{ text: '1915 г.', bold: true, color: '#b45309', fontSize: 8.5 }, { text: 'Ж/д линия Казань–Екатеринбург, вокзал по проекту А. В. Щусева и циклопические бетонные виадуки', fontSize: 8.5 }],
+                                    [{ text: '1941–1945', bold: true, color: '#b45309', fontSize: 8.5 }, { text: 'Красноуфимцы на фронтах Великой Отечественной, самоотверженный труд эвакуированных заводов', fontSize: 8.5 }],
+                                    [{ text: '2026 г.', bold: true, color: '#b45309', fontSize: 8.5 }, { text: '290-летний юбилей Красноуфимска: бережное сохранение архитектурного и природного наследия', fontSize: 8.5 }]
+                                ] : [
+                                    [{ text: '1736', bold: true, color: '#b45309', fontSize: 8.5 }, { text: 'Foundation of the Krasny Yar fortress by Colonel A. I. Tevkelev to defend eastern borders', fontSize: 8.5 }],
+                                    [{ text: '1781', bold: true, color: '#b45309', fontSize: 8.5 }, { text: 'Decree of Catherine the Great: county seat status, coat of arms featuring a silver falcon', fontSize: 8.5 }],
+                                    [{ text: '1875', bold: true, color: '#b45309', fontSize: 8.5 }, { text: 'Krasnoufimsk Real College — hub of advanced agricultural and engineering science in the Urals', fontSize: 8.5 }],
+                                    [{ text: '1886', bold: true, color: '#b45309', fontSize: 8.5 }, { text: 'Zemstvo hospital designed by Dr. M. I. Mizerov — model medical complex of the Russian Empire', fontSize: 8.5 }],
+                                    [{ text: '1915', bold: true, color: '#b45309', fontSize: 8.5 }, { text: 'Kazan–Yekaterinburg railway line, station by architect Alexei Shchusev, and massive viaducts', fontSize: 8.5 }],
+                                    [{ text: '1941–1945', bold: true, color: '#b45309', fontSize: 8.5 }, { text: 'Krasnoufimsk citizens at WWII fronts, heroic labor of evacuated factories and hospitals', fontSize: 8.5 }],
+                                    [{ text: '2026', bold: true, color: '#b45309', fontSize: 8.5 }, { text: '290th anniversary of Krasnoufimsk: preserving authentic architectural and natural heritage', fontSize: 8.5 }]
+                                ]
+                            },
+                            layout: {
+                                hLineWidth: () => 0.5,
+                                vLineWidth: () => 0,
+                                hLineColor: () => '#e2e8f0',
+                                paddingTop: () => 2.5,
+                                paddingBottom: () => 2.5
+                            },
+                            margin: [0, 0, 0, 10]
                         },
-                        
-                        { text: isRu ? '\n\n\nЖелаем приятного путешествия!' : '\n\n\nHave a great trip!', style: 'footer' }
+
+                        // Блок 2: 3 Официальных пешеходных маршрута с сайта
+                        { text: isRu ? '🗺️ 3 ОФИЦИАЛЬНЫХ ТУРИСТИЧЕСКИХ МАРШРУТА' : '🗺️ 3 OFFICIAL SIGHTSEEING ROUTES', style: 'sectionTitle' },
+                        {
+                            table: {
+                                widths: ['*'],
+                                body: isRu ? [
+                                    [
+                                        {
+                                            fillColor: '#f8fafc',
+                                            margin: [4, 4, 4, 4],
+                                            stack: [
+                                                { text: '1. Маршрут «Историческое ядро» 🏛️', bold: true, fontSize: 9.5, color: '#0f172a' },
+                                                { text: '⏱️ Время: ~45 минут   |   📏 Дистанция: 1.8 км (~2 500 шагов)', fontSize: 8, color: '#b45309', bold: true, margin: [0, 1, 0, 1] },
+                                                { text: '📍 Точки: Краеведческий музей → Земская управа → Свято-Троицкий собор', fontSize: 8, color: '#334155' },
+                                                { text: 'Знакомство со старейшими каменными особняками уездного купечества и духовными центрами города.', fontSize: 7.5, color: '#64748b', italics: true, margin: [0, 1, 0, 0] }
+                                            ]
+                                        }
+                                    ],
+                                    [
+                                        {
+                                            fillColor: '#ffffff',
+                                            margin: [4, 4, 4, 4],
+                                            stack: [
+                                                { text: '2. Маршрут «Панорама Уфы и Красный Яр» 🌊', bold: true, fontSize: 9.5, color: '#0f172a' },
+                                                { text: '⏱️ Время: ~1 час 15 минут   |   📏 Дистанция: 2.6 км (~3 600 шагов)', fontSize: 8, color: '#0284c7', bold: true, margin: [0, 1, 0, 1] },
+                                                { text: '📍 Точки: Дивья гора → Красный Яр → Амфитеатр и набережная реки Уфы', fontSize: 8, color: '#334155' },
+                                                { text: 'Прогулка по видовым холмам старинной крепости с выходом на благоустроенную набережную реки Уфы.', fontSize: 7.5, color: '#64748b', italics: true, margin: [0, 1, 0, 0] }
+                                            ]
+                                        }
+                                    ],
+                                    [
+                                        {
+                                            fillColor: '#f8fafc',
+                                            margin: [4, 4, 4, 4],
+                                            stack: [
+                                                { text: '3. Маршрут «Инженерное чудо: Виадуки» 🚂', bold: true, fontSize: 9.5, color: '#0f172a' },
+                                                { text: '⏱️ Время: ~2.5 часа   |   📏 Дистанция: 32 км (автомобиль / велосипед)', fontSize: 8, color: '#059669', bold: true, margin: [0, 1, 0, 1] },
+                                                { text: '📍 Точки: Рябиновский виадук → Саранинский виадук', fontSize: 8, color: '#334155' },
+                                                { text: 'Путешествие к грандиозным арочным бетонным мостам-виадукам начала XX века в живописных ущельях.', fontSize: 7.5, color: '#64748b', italics: true, margin: [0, 1, 0, 0] }
+                                            ]
+                                        }
+                                    ]
+                                ] : [
+                                    [
+                                        {
+                                            fillColor: '#f8fafc',
+                                            margin: [4, 4, 4, 4],
+                                            stack: [
+                                                { text: '1. Route "Historic Core" 🏛️', bold: true, fontSize: 9.5, color: '#0f172a' },
+                                                { text: '⏱️ Time: ~45 min   |   📏 Distance: 1.8 km (~2,500 steps)', fontSize: 8, color: '#b45309', bold: true, margin: [0, 1, 0, 1] },
+                                                { text: '📍 Stops: Local History Museum → Zemstvo Board → Holy Trinity Cathedral', fontSize: 8, color: '#334155' },
+                                                { text: 'Explore the oldest stone merchant mansions and spiritual centers of the historic county town.', fontSize: 7.5, color: '#64748b', italics: true, margin: [0, 1, 0, 0] }
+                                            ]
+                                        }
+                                    ],
+                                    [
+                                        {
+                                            fillColor: '#ffffff',
+                                            margin: [4, 4, 4, 4],
+                                            stack: [
+                                                { text: '2. Route "Ufa Panorama & Krasny Yar" 🌊', bold: true, fontSize: 9.5, color: '#0f172a' },
+                                                { text: '⏱️ Time: ~1 hr 15 min   |   📏 Distance: 2.6 km (~3,600 steps)', fontSize: 8, color: '#0284c7', bold: true, margin: [0, 1, 0, 1] },
+                                                { text: '📍 Stops: Divya Mountain → Krasny Yar Fortress Hill → Embankment Amphitheater', fontSize: 8, color: '#334155' },
+                                                { text: 'Walk along panoramic fortress hills with scenic overlooks and descend to the revitalized Ufa riverfront.', fontSize: 7.5, color: '#64748b', italics: true, margin: [0, 1, 0, 0] }
+                                            ]
+                                        }
+                                    ],
+                                    [
+                                        {
+                                            fillColor: '#f8fafc',
+                                            margin: [4, 4, 4, 4],
+                                            stack: [
+                                                { text: '3. Route "Engineering Marvel: Viaducts" 🚂', bold: true, fontSize: 9.5, color: '#0f172a' },
+                                                { text: '⏱️ Time: ~2.5 hrs   |   📏 Distance: 32 km (car / cycling)', fontSize: 8, color: '#059669', bold: true, margin: [0, 1, 0, 1] },
+                                                { text: '📍 Stops: Ryabinovsky Viaduct → Saraninsky Viaduct', fontSize: 8, color: '#334155' },
+                                                { text: 'Excursion to monumental early 20th-century arched concrete viaduct bridges nestled in Ural river ravines.', fontSize: 7.5, color: '#64748b', italics: true, margin: [0, 1, 0, 0] }
+                                            ]
+                                        }
+                                    ]
+                                ]
+                            },
+                            layout: {
+                                hLineWidth: () => 0.5,
+                                vLineWidth: () => 0.5,
+                                hLineColor: () => '#cbd5e1',
+                                vLineColor: () => '#cbd5e1'
+                            },
+                            margin: [0, 0, 0, 10]
+                        },
+
+                        // Блок 3: 2 Колонки: Адреса достопримечательностей + Памятка и связь
+                        {
+                            columns: [
+                                {
+                                    width: '52%',
+                                    stack: [
+                                        { text: isRu ? '📍 АДРЕСА ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ' : '📍 SIGHTS DIRECTORY', style: 'sectionSubTitle' },
+                                        {
+                                            ul: isRu ? [
+                                                'Краеведческий музей: ул. Советская, 42',
+                                                'Музей земской медицины: ул. Свободы, 16',
+                                                'Ж/д вокзал (арх. Щусев): ул. Станционная, 11',
+                                                'Свято-Троицкий собор: ул. Куйбышева, 5',
+                                                'Набережная реки Уфы: ул. Советская / пл. Ленина'
+                                            ] : [
+                                                'Local History Museum: 42 Sovetskaya St.',
+                                                'Zemstvo Hospital Museum: 16 Svobody St.',
+                                                'Shchusev Railway Station: 11 Stantsionnaya St.',
+                                                'Holy Trinity Cathedral: 5 Kuybysheva St.',
+                                                'Ufa River Embankment: Sovetskaya St. / Lenin Sq.'
+                                            ],
+                                            fontSize: 7.5,
+                                            color: '#334155',
+                                            lineHeight: 1.25
+                                        }
+                                    ]
+                                },
+                                {
+                                    width: '48%',
+                                    stack: [
+                                        { text: isRu ? '📞 ПАМЯТКА И ЭКСТРЕННАЯ СВЯЗЬ' : '📞 TRAVEL MEMO & CONTACTS', style: 'sectionSubTitle' },
+                                        {
+                                            ul: isRu ? [
+                                                'Единая служба спасения: 112 (бесплатно)',
+                                                'Автовокзал Красноуфимск: ул. Интернациональная, 52',
+                                                'Ж/д вокзал Красноуфимск: единый тел. 8 (800) 775-00-00',
+                                                'Сувениры: Сувенирная лавка Краеведческого музея',
+                                                'Гастрономия: Уральские шаньги в кафе центра города'
+                                            ] : [
+                                                'Emergency dispatch: 112 (toll-free)',
+                                                'Central Bus Station: 52 Internatsionalnaya St.',
+                                                'Railway Station: 11 Stantsionnaya St.',
+                                                'Souvenirs: Museum Gift Shop (42 Sovetskaya St.)',
+                                                'Gastronomy: Traditional Ural shangi in downtown cafes'
+                                            ],
+                                            fontSize: 7.5,
+                                            color: '#334155',
+                                            lineHeight: 1.25
+                                        }
+                                    ]
+                                }
+                            ],
+                            margin: [0, 0, 0, 10]
+                        },
+
+                        // Нижняя плашка с вечной ссылкой
+                        {
+                            table: {
+                                widths: ['*'],
+                                body: [
+                                    [
+                                        {
+                                            fillColor: '#0f172a',
+                                            margin: [6, 6, 6, 6],
+                                            alignment: 'center',
+                                            stack: [
+                                                { text: isRu ? '🌟 ИССЛЕДУЙТЕ КРАСНОУФИМСК ОНЛАЙН' : '🌟 EXPLORE KRASNOUFIMSK ONLINE', bold: true, fontSize: 9, color: '#f59e0b' },
+                                                { text: isRu ? 'Интерактивная лента времени, викторина, паспорт исследователя и погода:' : 'Interactive timeline, quiz, explorer passport, and live 7-day weather:', fontSize: 7.5, color: '#94a3b8', margin: [0, 2, 0, 2] },
+                                                { text: 'https://krasnoufimsk-history.site/', fontSize: 8.5, bold: true, color: '#38bdf8' }
+                                            ]
+                                        }
+                                    ]
+                                ]
+                            },
+                            layout: 'noBorders'
+                        }
                     ],
                     styles: {
-                        mainHeader: { fontSize: 26, bold: true, alignment: 'center', color: '#d97706' },
-                        subHeader: { fontSize: 16, alignment: 'center', color: '#475569', margin: [0, 5, 0, 20] },
-                        sectionHeader: { fontSize: 14, bold: true, color: '#1e293b', margin: [0, 15, 0, 10] },
-                        listStyle: { fontSize: 12, color: '#334155', lineHeight: 1.5, margin: [10, 0, 0, 0] },
-                        footer: { fontSize: 14, bold: true, alignment: 'center', color: '#d97706' }
+                        brandTitle: { fontSize: 18, bold: true, color: '#0f172a', letterSpacing: 0.5 },
+                        brandSubtitle: { fontSize: 8.5, bold: true, color: '#d97706', margin: [0, 1, 0, 1] },
+                        brandTag: { fontSize: 7, bold: true, color: '#475569' },
+                        brandCoords: { fontSize: 6.5, color: '#64748b', margin: [0, 1, 0, 0] },
+                        sectionTitle: { fontSize: 10, bold: true, color: '#0f172a', margin: [0, 4, 0, 4] },
+                        sectionSubTitle: { fontSize: 8.5, bold: true, color: '#0f172a', margin: [0, 2, 0, 2] }
                     },
                     defaultStyle: { font: 'Roboto' }
                 };
 
                 const fileName = isRu ? 'Krasnoufimsk_Tourist_Guide.pdf' : 'Krasnoufimsk_Tourist_Guide_EN.pdf';
                 pdfMake.createPdf(docDefinition).download(fileName);
-                
+
+                if (typeof launchConfetti === 'function') {
+                    launchConfetti({ count: 65 });
+                }
+
                 setTimeout(() => {
                     if (btnText) btnText.innerText = originalText;
                 }, 1000);
@@ -11342,6 +11658,9 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             if (descEl) descEl.textContent = badge.desc[lang] || badge.desc.ru;
 
             toast.classList.add('show');
+            if (typeof launchConfetti === 'function') {
+                launchConfetti({ count: 45 });
+            }
             if (toastTimer) clearTimeout(toastTimer);
             toastTimer = setTimeout(() => {
                 hideAchieveToast();
