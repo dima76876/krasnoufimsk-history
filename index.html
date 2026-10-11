@@ -3145,11 +3145,14 @@
         }
 
         .map-popup-card {
-            padding: 16px;
-            max-width: 280px;
+            padding: 16px 18px;
+            width: 310px;
+            max-width: calc(100vw - 48px);
             box-sizing: border-box;
             font-family: inherit;
             background: #ffffff;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .dark-theme .map-popup-card {
@@ -3166,15 +3169,21 @@
 
         .map-popup-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
             margin-bottom: 8px;
         }
 
         .map-popup-icon {
             font-size: 26px;
-            line-height: 1;
+            line-height: 1.1;
             flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .map-popup-header-content {
+            flex: 1;
+            min-width: 0;
         }
 
         .map-popup-badge {
@@ -3183,14 +3192,20 @@
             color: var(--main-color);
             text-transform: uppercase;
             letter-spacing: 0.3px;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
+            line-height: 1.35;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
         }
 
         .map-popup-title {
             font-size: 14px;
             font-weight: 800;
             color: var(--text-main);
-            line-height: 1.3;
+            line-height: 1.35;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
 
         .map-popup-desc {
@@ -3202,6 +3217,8 @@
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
 
         .map-popup-btn {
@@ -7256,8 +7273,8 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 const popupHtml = '<div class="map-popup-card">' +
                     '<div class="map-popup-header">' +
                         '<span class="map-popup-icon">' + (s.icon || '🏛️') + '</span>' +
-                        '<div>' +
-                            '<div class="map-popup-badge">' + (s.year || '') + ' • ' + catLabel + '</div>' +
+                        '<div class="map-popup-header-content">' +
+                            '<div class="map-popup-badge">' + (s.year ? s.year + ' • ' : '') + catLabel + '</div>' +
                             '<div class="map-popup-title">' + (s.title[currentLang] || '') + '</div>' +
                         '</div>' +
                     '</div>' +
@@ -7267,7 +7284,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                     '</button>' +
                 '</div>';
 
-                marker.bindPopup(popupHtml, { maxWidth: 300 });
+                marker.bindPopup(popupHtml, { maxWidth: 330, minWidth: 260 });
                 marker.on('click', function() {
                     if (typeof trackMapExplore === 'function') trackMapExplore(s.id);
                 });
@@ -7753,23 +7770,32 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
         }
 
         .map-popup-card {
-            padding: 16px;
-            max-width: 280px;
+            padding: 16px 18px;
+            width: 310px;
+            max-width: calc(100vw - 48px);
             box-sizing: border-box;
             font-family: inherit;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .map-popup-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
             margin-bottom: 8px;
         }
 
         .map-popup-icon {
             font-size: 26px;
-            line-height: 1;
+            line-height: 1.1;
             flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .map-popup-header-content {
+            flex: 1;
+            min-width: 0;
         }
 
         .map-popup-badge {
@@ -7778,14 +7804,20 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             color: var(--main-color);
             text-transform: uppercase;
             letter-spacing: 0.3px;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
+            line-height: 1.35;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
         }
 
         .map-popup-title {
             font-size: 14px;
             font-weight: 800;
             color: var(--text-main);
-            line-height: 1.3;
+            line-height: 1.35;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
 
         .map-popup-desc {
@@ -7797,6 +7829,8 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
 
         .map-popup-btn {
