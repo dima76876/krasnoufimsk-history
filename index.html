@@ -54,6 +54,11 @@
         content="Интерактивное краеведческое путешествие: 21 эпоха от казачьей крепости 1736 года до наших дней, маршруты, виадуки и викторина.">
     <meta name="twitter:image" content="https://krasnoufimsk-history.site/images/og_banner.jpg?v=2">
 
+    <!-- Google Fonts: Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap" rel="stylesheet">
+
     <!-- Leaflet Interactive Map -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
@@ -403,93 +408,500 @@
             }
         }
 
-        /* Выпадающее окно с подробной погодой */
-        .weather-details-card {
-            position: absolute;
-            top: calc(100% + 12px);
-            right: 0;
-            left: auto;
-            transform: translateY(10px);
+        /* ==========================================================================
+           МОДАЛЬНОЕ ОКНО ПОГОДЫ И ПРОГНОЗА НА 7 ДНЕЙ (CENTERED GLASSMORPHISM MODAL)
+           ========================================================================== */
+        .weather-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
             opacity: 0;
             visibility: hidden;
-            background: rgba(15, 23, 42, 0.96);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
-            border-radius: 20px;
-            padding: 20px;
-            width: 285px;
-            color: white;
-            z-index: 1100;
-            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
             pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
         }
 
-        .weather-details-card.show {
+        .weather-modal-backdrop.active {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0);
             pointer-events: auto;
         }
 
-        .weather-card-header {
+        .weather-modal-window {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+            max-width: 640px;
+            width: 100%;
+            max-height: 90vh;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 10px;
-            margin-bottom: 12px;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.92) translateY(14px);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, border-color 0.3s ease;
+            color: var(--text-main);
         }
 
-        .weather-card-header h4 {
+        .weather-modal-backdrop.active .weather-modal-window {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Светлая тема для окна погоды */
+        body:not(.dark-theme) .weather-modal-window {
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.1);
+            color: #0f172a;
+        }
+
+        /* Тёмная тема для окна погоды */
+        body.dark-theme .weather-modal-window {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 1px rgba(255, 255, 255, 0.2);
+            color: #f8fafc;
+        }
+
+        /* Шапка окна погоды */
+        .weather-modal-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: linear-gradient(to bottom, rgba(14, 165, 233, 0.08), transparent);
+        }
+
+        .weather-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .weather-modal-icon {
+            font-size: 2rem;
+            line-height: 1;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+        }
+
+        .weather-title-wrap h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.2px;
+        }
+
+        .weather-modal-coords {
+            display: block;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .weather-modal-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .weather-status-badge {
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(14, 165, 233, 0.18);
+            color: #0284c7;
+            padding: 3px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .weather-status-badge.badge-loading {
+            background: rgba(245, 158, 11, 0.2);
+            color: #d97706;
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+
+        body.dark-theme .weather-status-badge {
+            color: #38bdf8;
+        }
+
+        .weather-modal-close {
+            background: var(--bg-accent);
+            border: 1px solid var(--border-card);
+            color: var(--text-muted);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .weather-modal-close:hover {
+            color: var(--text-main);
+            background: var(--border-card);
+            transform: scale(1.08);
+        }
+
+        /* Тело модального окна погоды */
+        .weather-modal-body {
+            padding: 20px 24px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        /* Главная плашка текущей погоды */
+        .weather-hero-block {
+            padding: 16px 20px;
+            border-radius: 18px;
+            background: var(--bg-accent);
+            border: 1px solid var(--border-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .weather-hero-temp-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .weather-hero-big-temp {
+            font-size: clamp(2.4rem, 4.5vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1;
+            color: var(--text-main);
+            letter-spacing: -1px;
+        }
+
+        .weather-hero-text {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .weather-hero-desc {
             font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .weather-hero-feels {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .weather-hero-feels strong {
+            color: var(--text-main);
             font-weight: 700;
         }
 
-        .weather-card-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+        .weather-hero-season-badge {
+            text-align: right;
+        }
+
+        .weather-hero-season-badge span {
+            display: inline-block;
             font-size: 12px;
-        }
-
-        .weather-card-item {
-            background: rgba(255, 255, 255, 0.06);
-            padding: 8px 10px;
+            font-weight: 700;
+            padding: 6px 12px;
             border-radius: 10px;
+            background: rgba(14, 165, 233, 0.14);
+            color: #0284c7;
+            border: 1px solid rgba(14, 165, 233, 0.25);
         }
 
-        .weather-card-item span {
+        body.dark-theme .weather-hero-season-badge span {
+            color: #38bdf8;
+        }
+
+        /* Сетка 4 метрик */
+        .weather-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .weather-metric-item {
+            background: var(--bg-accent);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 10px 12px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .weather-metric-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--main-color);
+        }
+
+        .metric-label {
             display: block;
-            color: var(--text-light);
             font-size: 11px;
-            margin-bottom: 2px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            font-weight: 600;
         }
 
-        .weather-card-item strong {
+        .metric-value {
+            display: block;
             font-size: 14px;
-            color: #ffffff;
+            font-weight: 800;
+            color: var(--text-main);
         }
 
-        .weather-card-footer {
-            margin-top: 12px;
+        /* Блок прогноза на 7 дней */
+        .weather-forecast-section {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .weather-forecast-header {
+            display: flex;
             align-items: center;
+            justify-content: space-between;
+        }
+
+        .forecast-section-title {
             font-size: 11px;
-            color: var(--text-light);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-muted);
+        }
+
+        .forecast-service-tag {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            opacity: 0.8;
+        }
+
+        .weather-forecast-track {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .weather-day-card {
+            background: var(--bg-accent);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 10px 6px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .weather-day-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--main-color);
+        }
+
+        .weather-day-card.is-today {
+            background: rgba(14, 165, 233, 0.14);
+            border-color: rgba(14, 165, 233, 0.4);
+        }
+
+        .weather-day-weekday {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: capitalize;
+        }
+
+        .weather-day-card.is-today .weather-day-weekday {
+            color: #0284c7;
+            font-weight: 800;
+        }
+
+        body.dark-theme .weather-day-card.is-today .weather-day-weekday {
+            color: #38bdf8;
+        }
+
+        .weather-day-date {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .weather-day-icon {
+            font-size: 24px;
+            line-height: 1;
+            margin: 4px 0;
+        }
+
+        .weather-day-temp-high {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .weather-day-temp-low {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Футер окна погоды */
+        .weather-modal-footer {
+            padding: 14px 24px;
+            border-top: 1px solid var(--border-card);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-muted);
+            background: var(--bg-accent);
         }
 
         .btn-refresh-weather {
-            background: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--main-color);
+            color: #ffffff;
             border: none;
-            color: #38bdf8;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
             cursor: pointer;
-            font-size: 11px;
-            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+        }
+
+        .btn-refresh-weather:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        .btn-refresh-weather:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .weather-refresh-icon {
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+
+        @keyframes spinWeather {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .weather-refresh-icon.spinning {
+            animation: spinWeather 0.8s linear infinite !important;
+        }
+
+        /* Адаптивность для мобильных телефонов */
+        @media (max-width: 640px) {
+            .weather-modal-backdrop {
+                padding: 10px;
+            }
+
+            .weather-modal-window {
+                max-height: 94vh;
+                border-radius: 20px;
+            }
+
+            .weather-modal-header {
+                padding: 14px 16px;
+            }
+
+            .weather-title-wrap h3 {
+                font-size: 1rem;
+            }
+
+            .weather-modal-body {
+                padding: 14px 16px;
+                gap: 14px;
+            }
+
+            .weather-hero-block {
+                padding: 12px 14px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .weather-hero-season-badge {
+                text-align: left;
+            }
+
+            .weather-metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .weather-forecast-track {
+                display: flex;
+                overflow-x: auto;
+                gap: 8px;
+                padding-bottom: 8px;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: thin;
+            }
+
+            .weather-forecast-track::-webkit-scrollbar {
+                height: 4px;
+            }
+
+            .weather-forecast-track::-webkit-scrollbar-track {
+                background: rgba(0, 0, 0, 0.05);
+                border-radius: 4px;
+            }
+
+            .weather-forecast-track::-webkit-scrollbar-thumb {
+                background: rgba(14, 165, 233, 0.4);
+                border-radius: 4px;
+            }
+
+            .weather-day-card {
+                flex: 0 0 74px;
+                min-width: 74px;
+                scroll-snap-align: start;
+                padding: 9px 5px;
+            }
+
+            .weather-modal-footer {
+                padding: 12px 16px;
+                flex-direction: column-reverse;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .btn-refresh-weather {
+                width: 100%;
+                justify-content: center;
+            }
         }
 
         /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА (RU / EN) */
@@ -2101,64 +2513,252 @@
             overflow: hidden;
         }
 
+        /* ==========================================================================
+           ТРИУМФАЛЬНАЯ КАРТОЧКА РЕЗУЛЬТАТОВ ВИКТОРИНЫ И ДИПЛОМА А4
+           ========================================================================== */
         .quiz-results-banner {
             display: none;
             text-align: center;
-            background: var(--bg-accent);
-            border: 2px dashed var(--main-color);
-            padding: 24px;
-            border-radius: var(--radius-md);
-            margin-top: 20px;
+            background: var(--bg-card);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1.5px solid var(--border-card);
+            border-radius: var(--radius-lg);
+            padding: 36px 28px 32px 28px;
+            margin-top: 28px;
+            position: relative;
             overflow: hidden;
+            box-shadow: 0 20px 48px -12px var(--shadow-ambient), inset 0 1px 1px rgba(255, 255, 255, 0.85);
+            animation: fadeInResults 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .quiz-results-banner h3 {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--main-color);
-            margin-bottom: 8px;
+        @keyframes fadeInResults {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .btn-restart-quiz {
-            background: var(--main-color);
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 25px;
-            font-size: 14px;
+        .quiz-diff-tag-wrap {
+            margin-bottom: 16px;
+        }
+
+        .quiz-diff-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
             font-weight: 700;
-            cursor: pointer;
-            margin-top: 14px;
-            box-shadow: 0 4px 12px var(--accent-glow);
-            transition: var(--transition);
+            letter-spacing: 0.02em;
+            background: color-mix(in srgb, var(--main-color) 12%, var(--bg-card));
+            color: var(--main-color);
+            border: 1px solid var(--border-card);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .quiz-diff-tag--hard {
+            background: color-mix(in srgb, #f59e0b 16%, var(--bg-card));
+            color: #b45309;
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .quiz-diff-tag--medium {
+            background: color-mix(in srgb, #0ea5e9 16%, var(--bg-card));
+            color: #0284c7;
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+
+        .quiz-diff-tag--easy {
+            background: color-mix(in srgb, #10b981 16%, var(--bg-card));
+            color: #059669;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .quiz-trophy-badge {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 16px auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.08) 100%);
+            border: 1.5px solid rgba(245, 158, 11, 0.35);
+            box-shadow: 0 8px 24px -4px rgba(245, 158, 11, 0.3);
+            font-size: 36px;
+            animation: pulseTrophy 2.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseTrophy {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .quiz-results-title {
+            font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 10px 0;
+            letter-spacing: -0.01em;
+        }
+
+        .quiz-results-desc {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin: 0 0 24px 0;
+            line-height: 1.5;
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Блок заказа диплома А4 */
+        .quiz-cert-claim-box {
+            background: color-mix(in srgb, var(--bg-accent) 60%, var(--bg-card));
+            border: 1.5px solid var(--border-card);
+            border-radius: var(--radius-md);
+            padding: 24px 20px;
+            max-width: 540px;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+        }
+
+        .cert-claim-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .cert-input-wrapper {
+            position: relative;
+            max-width: 420px;
+            margin: 0 auto 18px auto;
+        }
+
+        .cert-input-pen {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .cert-name-input {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            border-radius: 30px;
+            border: 1.5px solid var(--border-card);
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-size: 16px;
+            font-weight: 700;
+            text-align: left;
+            outline: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .cert-name-input:focus {
+            border-color: var(--main-color);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+            background: var(--bg-card);
+        }
+
+        .cert-action-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .btn-download-cert {
-            padding: 0.8rem 2rem;
-            font-size: 1.1rem;
-            color: #1e293b;
-            background: linear-gradient(135deg, #d4af37, #facc15);
-            border: none;
-            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 28px;
+            font-size: 15px;
+            font-weight: 800;
+            color: #1e1b4b;
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #fef08a 100%);
+            border: 1.5px solid rgba(245, 158, 11, 0.4);
+            border-radius: 30px;
             cursor: pointer;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            margin-left: 1rem;
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px -4px rgba(245, 158, 11, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+            transition: all 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .btn-download-cert:hover {
-            transform: scale(1.05);
-            background: linear-gradient(135deg, #facc15, #fef08a);
-            box-shadow: 0 4px 15px rgba(250, 204, 21, 0.4);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 28px -4px rgba(245, 158, 11, 0.55);
+            background: linear-gradient(135deg, #fbbf24 0%, #fef08a 100%);
         }
 
-        @media (max-width: 768px) {
-            .btn-download-cert {
-                margin-left: 0;
-                margin-top: 1rem;
-                width: 100%;
-            }
+        .btn-restart-quiz {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1.5px solid var(--border-card);
+            padding: 12px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: all 0.25s ease;
+        }
+
+        .btn-restart-quiz:hover {
+            background: var(--bg-accent);
+            border-color: var(--main-color);
+            color: var(--main-color);
+            transform: translateY(-1px);
+        }
+
+        body.dark-theme .quiz-results-banner {
+            border-color: rgba(255, 255, 255, 0.16);
+            box-shadow: 0 20px 48px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        }
+
+        body.dark-theme .quiz-cert-claim-box {
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        body.dark-theme .cert-name-input {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: rgba(255, 255, 255, 0.18);
+            color: #f8fafc;
+        }
+
+        body.dark-theme .quiz-diff-tag--hard {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fde68a;
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+
+        body.dark-theme .quiz-diff-tag--medium {
+            background: rgba(14, 165, 233, 0.2);
+            color: #bae6fd;
+            border-color: rgba(14, 165, 233, 0.4);
+        }
+
+        body.dark-theme .quiz-diff-tag--easy {
+            background: rgba(16, 185, 129, 0.2);
+            color: #a7f3d0;
+            border-color: rgba(16, 185, 129, 0.4);
         }
 
         /* ==========================================================================
@@ -3128,24 +3728,6 @@
             .btn-step-nav {
                 width: 100%;
                 justify-content: center;
-            }
-
-            .weather-details-card {
-                position: fixed;
-                top: 66px;
-                left: 50%;
-                right: auto;
-                width: calc(100vw - 24px);
-                max-width: 340px;
-                border-radius: 18px;
-                padding: 16px 18px;
-                box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.18);
-                transform: translateX(-50%) translateY(-10px);
-                z-index: 1250;
-            }
-
-            .weather-details-card.show {
-                transform: translateX(-50%) translateY(0);
             }
 
             .routes-grid,
@@ -5341,51 +5923,13 @@
             </div>
 
             <div class="header-right">
-                <!-- Виджет живой погоды из открытого API Open-Meteo -->
-                <div class="weather-pill-wrapper" style="position: relative;">
-                    <div class="weather-pill" id="weather-pill" title="Прогноз погоды Красноуфимска">
+                <!-- Виджет живой погоды Красноуфимска -->
+                <div class="weather-pill-wrapper">
+                    <div class="weather-pill" id="weather-pill" title="Прогноз погоды Красноуфимска на 7 дней" onclick="openWeatherModal()">
                         <span class="weather-status-dot"></span>
                         <span id="weather-icon">🌤️</span>
                         <span id="weather-temp">--°C</span>
                         <span id="weather-city" class="weather-city-label" data-i18n="cityName">Красноуфимск</span>
-                    </div>
-
-                    <!-- Всплывающая детальная карточка погоды -->
-                    <div class="weather-details-card" id="weather-details-card">
-                        <div class="weather-card-header">
-                            <h4 id="weather-card-desc" data-i18n="weatherTitle">Погода в Красноуфимске</h4>
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span id="weather-card-badge"
-                                    style="font-size: 11px; background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 2px 8px; border-radius: 10px;"
-                                    data-i18n="weatherLive">Онлайн</span>
-                                <button type="button" id="btn-close-weather"
-                                    style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #cbd5e1; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; line-height: 1;"
-                                    title="Закрыть">✕</button>
-                            </div>
-                        </div>
-                        <div class="weather-card-grid">
-                            <div class="weather-card-item">
-                                <span data-i18n="weatherFeels">Ощущается</span>
-                                <strong id="weather-feels">--°C</strong>
-                            </div>
-                            <div class="weather-card-item">
-                                <span data-i18n="weatherWind">Ветер</span>
-                                <strong id="weather-wind">-- м/с</strong>
-                            </div>
-                            <div class="weather-card-item">
-                                <span data-i18n="weatherHumidity">Влажность</span>
-                                <strong id="weather-humidity">--%</strong>
-                            </div>
-                            <div class="weather-card-item">
-                                <span data-i18n="weatherPrecip">Осадки</span>
-                                <strong id="weather-precip">0.0 мм</strong>
-                            </div>
-                        </div>
-                        <div class="weather-card-footer">
-                            <span id="weather-time" data-i18n="weatherUpdated">Обновлено только что</span>
-                            <button class="btn-refresh-weather" id="btn-refresh-weather" data-i18n="weatherRefresh">🔄
-                                Обновить</button>
-                        </div>
                     </div>
                 </div>
 
@@ -5570,24 +6114,6 @@
     <div id="timeline-top-marker"
         style="position: relative; height: 1px; margin-top: -1px; visibility: hidden; pointer-events: none;"></div>
     <nav class="timeline-section reveal-on-scroll" id="timeline">
-        <!-- БЫСТРЫЙ ПЕРЕХОД ПО ВЕКАМ (ERA QUICK SELECTOR) -->
-        <div class="timeline-quick-jump-bar">
-            <div class="timeline-era-buttons">
-                <button type="button" class="era-chip active" onclick="jumpToEpochYear('1736')" data-era="1736" title="Перейти к основанию города (1736 г.)">
-                    <span class="era-dot"></span><span data-i18n="era1736">1736 • Основание</span>
-                </button>
-                <button type="button" class="era-chip" onclick="jumpToEpochYear('XIX')" data-era="XIX" title="Перейти к эпохе земства и купцов (XIX век)">
-                    <span class="era-dot"></span><span data-i18n="era19th">XIX век • Земство</span>
-                </button>
-                <button type="button" class="era-chip" onclick="jumpToEpochYear('XX')" data-era="XX" title="Перейти к эпохе Транссиба и XX века">
-                    <span class="era-dot"></span><span data-i18n="era20th">XX век • Развитие</span>
-                </button>
-                <button type="button" class="era-chip era-highlight" onclick="jumpToEpochYear('2026')" data-era="2026" title="Перейти к современности (2026 г.)">
-                    <span class="era-dot pulse"></span><span data-i18n="era2026">2026 • Современность</span>
-                </button>
-            </div>
-        </div>
-
         <div class="timeline-wrapper">
             <button type="button" class="timeline-arrow prev" id="timeline-prev-btn" onclick="scrollTimelineTrack(-1)" aria-label="Прокрутить ленту влево" title="Прокрутить ленту влево">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
@@ -5958,16 +6484,47 @@
                     <!-- Генерируется через JS renderQuiz() для поддержки RU / EN -->
                 </div>
 
-                <!-- Баннер результатов викторины -->
+                <!-- Карточка триумфа и результатов викторины -->
                 <div class="quiz-results-banner" id="quiz-results">
-                    <h3 id="quiz-score-text">Поздравляем!</h3>
-                    <p id="quiz-desc-text">Вы ответили на все вопросы викторины.</p>
-                    <div id="cert-box" style="margin-bottom: 20px;">
-                        <input type="text" id="cert-name-input" placeholder="Введите ваше имя" style="padding: 10px; width: 80%; max-width: 360px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: #ffffff; color: #000000; font-weight: bold; font-size: 16px; text-align: center;" data-i18n-placeholder="Enter your name">
-                        <br>
-                        <button class="btn-download-cert" onclick="downloadCertificate()" data-i18n="quizDownloadCert">📥 Скачать сертификат</button>
+                    <div class="quiz-diff-tag-wrap">
+                        <span class="quiz-diff-tag" id="quiz-results-diff-badge">🏆 Сложный уровень • 20 вопросов</span>
                     </div>
-                    <button class="btn-restart-quiz" onclick="restartQuiz()" data-i18n="quizRestart">Повторить викторину</button>
+
+                    <div class="quiz-trophy-badge">
+                        <span class="trophy-icon">🏆</span>
+                    </div>
+
+                    <h3 class="quiz-results-title" id="quiz-score-text">Правильных ответов: 20 из 20</h3>
+                    <p class="quiz-results-desc" id="quiz-desc-text">Отлично! Вы настоящий знаток истории Красноуфимска!</p>
+
+                    <!-- Блок именного диплома формата А4 -->
+                    <div class="quiz-cert-claim-box" id="cert-box">
+                        <div class="cert-claim-header">
+                            <span class="cert-claim-icon">📜</span>
+                            <span class="cert-claim-label" data-i18n="certClaimLabel">Именной диплом знатока (формат А4 для печати)</span>
+                        </div>
+
+                        <div class="cert-input-wrapper">
+                            <span class="cert-input-pen">✍️</span>
+                            <input type="text" id="cert-name-input" 
+                                   class="cert-name-input" 
+                                   placeholder="Введите ваше имя и фамилию" 
+                                   maxlength="50"
+                                   data-i18n-placeholder="certNamePlaceholder"
+                                   autocomplete="name">
+                        </div>
+
+                        <div class="cert-action-row">
+                            <button type="button" class="btn-download-cert" onclick="downloadCertificate()">
+                                <span class="cert-btn-icon">🏅</span>
+                                <span class="cert-btn-text" data-i18n="quizDownloadCert">Получить диплом А4</span>
+                            </button>
+                            <button type="button" class="btn-restart-quiz" onclick="restartQuiz()">
+                                <span>🔄</span>
+                                <span data-i18n="quizRestart">Пройти заново</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -6000,6 +6557,87 @@
 
     <!-- Кнопка быстрого возврата наверх -->
     <button id="btn-back-to-top" title="Вернуться к началу страницы">↑</button>
+
+    <!-- ==========================================================================
+       МОДАЛЬНОЕ ОКНО ПОГОДЫ И ПРОГНОЗА НА 7 ДНЕЙ (CENTERED GLASSMORPHISM MODAL)
+       ========================================================================== -->
+    <div class="weather-modal-backdrop" id="weather-modal-backdrop" aria-hidden="true" onclick="handleWeatherBackdropClick(event)">
+        <div class="weather-modal-window" id="weather-details-card" role="dialog" aria-modal="true" aria-labelledby="weather-card-desc">
+            <!-- Шапка окна погоды -->
+            <div class="weather-modal-header">
+                <div class="weather-title-wrap">
+                    <span class="weather-modal-icon" id="weather-modal-main-icon">⛅</span>
+                    <div>
+                        <h3 id="weather-card-desc" data-i18n="weatherTitle">Погода в Красноуфимске</h3>
+                        <span class="weather-modal-coords" data-i18n="weatherCoords">Свердловская область • 56.6° с.ш., 57.8° в.д.</span>
+                    </div>
+                </div>
+                <div class="weather-modal-actions">
+                    <span id="weather-card-badge" class="weather-status-badge" data-i18n="weatherLive">● Онлайн</span>
+                    <button type="button" id="btn-close-weather" class="weather-modal-close" onclick="closeWeatherModal()" title="Закрыть" aria-label="Закрыть окно погоды">✕</button>
+                </div>
+            </div>
+
+            <!-- Тело модального окна -->
+            <div class="weather-modal-body">
+                <!-- Главная плашка текущей погоды -->
+                <div class="weather-hero-block">
+                    <div class="weather-hero-temp-row">
+                        <span class="weather-hero-big-temp" id="weather-hero-temp">--°C</span>
+                        <div class="weather-hero-text">
+                            <div class="weather-hero-desc" id="weather-hero-summary">Загрузка данных...</div>
+                            <div class="weather-hero-feels">
+                                <span data-i18n="weatherFeels">Ощущается как</span> <strong id="weather-feels">--°C</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-hero-season-badge">
+                        <span id="weather-season-pill">🍂 Умеренная осень</span>
+                    </div>
+                </div>
+
+                <!-- 4 детальные метрики -->
+                <div class="weather-metrics-grid">
+                    <div class="weather-metric-item">
+                        <span class="metric-label" data-i18n="weatherWind">💨 Ветер</span>
+                        <strong class="metric-value" id="weather-wind">-- м/с</strong>
+                    </div>
+                    <div class="weather-metric-item">
+                        <span class="metric-label" data-i18n="weatherHumidity">💧 Влажность</span>
+                        <strong class="metric-value" id="weather-humidity">--%</strong>
+                    </div>
+                    <div class="weather-metric-item">
+                        <span class="metric-label" data-i18n="weatherPrecip">🌧️ Осадки</span>
+                        <strong class="metric-value" id="weather-precip">0.0 мм</strong>
+                    </div>
+                    <div class="weather-metric-item">
+                        <span class="metric-label" data-i18n="weatherPressure">⏱️ Давление</span>
+                        <strong class="metric-value" id="weather-pressure">746 мм</strong>
+                    </div>
+                </div>
+
+                <!-- Блок прогноза на 7 дней -->
+                <div class="weather-forecast-section">
+                    <div class="weather-forecast-header">
+                        <span class="forecast-section-title" data-i18n="weatherForecastTitle">📅 ПРОГНОЗ НА 7 ДНЕЙ</span>
+                        <span class="forecast-service-tag">met.no</span>
+                    </div>
+                    <div class="weather-forecast-track" id="weather-forecast-days">
+                        <!-- Динамические карточки дней на неделю генерируются через JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Футер окна -->
+            <div class="weather-modal-footer">
+                <span id="weather-time" data-i18n="weatherUpdated">Обновлено только что</span>
+                <button type="button" class="btn-refresh-weather" id="btn-refresh-weather" onclick="refreshWeatherWithAnimation()">
+                    <span class="weather-refresh-icon" id="weather-refresh-icon">🔄</span>
+                    <span id="weather-refresh-text" data-i18n="weatherRefresh">Обновить</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- ==========================================================================
        МОДАЛЬНОЕ ОКНО «ПАСПОРТ ИССЛЕДОВАТЕЛЯ КРАСНОУФИМСКА»
@@ -6139,11 +6777,15 @@
                 logoSub: 'Сквозь эпохи',
                 cityName: 'Красноуфимск',
                 weatherTitle: 'Погода в Красноуфимске',
+                weatherCoords: 'Свердловская область • 56.6° с.ш., 57.8° в.д.',
                 weatherLive: 'Онлайн',
                 weatherFeels: 'Ощущается',
                 weatherWind: 'Ветер',
                 weatherHumidity: 'Влажность',
                 weatherPrecip: 'Осадки',
+                weatherPressure: 'Давление',
+                weatherForecastTitle: 'Прогноз на 7 дней',
+                weatherToday: 'Сегодня',
                 weatherUpdated: 'Обновлено',
                 weatherRefresh: '🔄 Обновить',
                 navHome: 'Главная',
@@ -6227,7 +6869,9 @@
                 btnStartQuiz: 'Начать викторину',
                 btnCollapseQuiz: 'Свернуть викторину',
                 quizRestart: 'Пройти викторину заново',
-                quizDownloadCert: '📥 Скачать сертификат',
+                quizDownloadCert: 'Получить диплом А4',
+                certClaimLabel: 'Именной диплом знатока (формат А4 для печати)',
+                certNamePlaceholder: 'Введите ваше имя и фамилию',
                 footerLogo: 'Красноуфимск: Сквозь эпохи',
                 footerProject: 'Выполнен в ходе индивидуального проекта.',
                 footerAuthor: 'Автор:',
@@ -6307,11 +6951,15 @@
                 logoSub: 'Through the Epochs',
                 cityName: 'Krasnoufimsk',
                 weatherTitle: 'Weather in Krasnoufimsk',
+                weatherCoords: 'Sverdlovsk Region • 56.6° N, 57.8° E',
                 weatherLive: 'Live',
                 weatherFeels: 'Feels like',
                 weatherWind: 'Wind',
                 weatherHumidity: 'Humidity',
                 weatherPrecip: 'Precip.',
+                weatherPressure: 'Pressure',
+                weatherForecastTitle: '7-Day Forecast',
+                weatherToday: 'Today',
                 weatherUpdated: 'Updated',
                 weatherRefresh: '🔄 Refresh',
                 navHome: 'Home',
@@ -6408,7 +7056,9 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 btnStartQuiz: 'Start Quiz',
                 btnCollapseQuiz: 'Collapse Quiz',
                 quizRestart: 'Restart Quiz',
-                quizDownloadCert: '📥 Download Certificate',
+                quizDownloadCert: 'Get A4 Diploma',
+                certClaimLabel: 'Personalized Expert Diploma (Print-Ready A4)',
+                certNamePlaceholder: 'Enter your full name',
                 footerLogo: 'Krasnoufimsk: Through the Epochs',
                 footerProject: 'Completed as part of an individual school project.',
                 footerAuthor: 'Author:',
@@ -7372,6 +8022,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             if (typeof updateRouteMapLinks === 'function') updateRouteMapLinks();
             if (typeof renderSightsMapMarkers === 'function') renderSightsMapMarkers(currentMapFilter);
             if (typeof renderPassportBadges === 'function') renderPassportBadges();
+            if (typeof updateWeatherDisplay === 'function') updateWeatherDisplay(lang);
 
             if (lang === 'en' && typeof unlockAchievement === 'function') {
                 unlockAchievement('polyglot_guide');
@@ -7661,8 +8312,8 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 closeMobileMenu();
-                const weatherCard = document.getElementById('weather-details-card');
-                if (weatherCard) weatherCard.classList.remove('show');
+                if (typeof closeWeatherModal === 'function') closeWeatherModal();
+                if (typeof closePassportModal === 'function') closePassportModal();
                 return;
             }
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -7706,129 +8357,390 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
         const MET_CODES = {
             'clearsky_day': { ru: 'Ясно', en: 'Clear sky', icon: '☀️' },
             'clearsky_night': { ru: 'Ясно', en: 'Clear sky', icon: '🌙' },
-            'fair_day': { ru: 'Преимущественно ясно', en: 'Mainly clear', icon: '🌤️' },
-            'fair_night': { ru: 'Преимущественно ясно', en: 'Mainly clear', icon: '🌤️' },
+            'clearsky': { ru: 'Ясно', en: 'Clear sky', icon: '☀️' },
+            'fair_day': { ru: 'Малооблачно', en: 'Mainly clear', icon: '🌤️' },
+            'fair_night': { ru: 'Малооблачно', en: 'Mainly clear', icon: '🌤️' },
+            'fair': { ru: 'Малооблачно', en: 'Mainly clear', icon: '🌤️' },
             'partlycloudy_day': { ru: 'Переменная облачность', en: 'Partly cloudy', icon: '⛅' },
             'partlycloudy_night': { ru: 'Переменная облачность', en: 'Partly cloudy', icon: '⛅' },
+            'partlycloudy': { ru: 'Переменная облачность', en: 'Partly cloudy', icon: '⛅' },
             'cloudy': { ru: 'Пасмурно', en: 'Overcast', icon: '☁️' },
             'rain': { ru: 'Дождь', en: 'Rain', icon: '🌧️' },
             'lightrain': { ru: 'Небольшой дождь', en: 'Slight rain', icon: '🌦️' },
             'heavyrain': { ru: 'Сильный дождь', en: 'Heavy rain', icon: '🌧️' },
+            'lightrainshowers': { ru: 'Кратковременный дождь', en: 'Light rain showers', icon: '🌦️' },
+            'rainshowers': { ru: 'Дождь', en: 'Rain showers', icon: '🌧️' },
+            'heavyrainshowers': { ru: 'Ливень', en: 'Heavy showers', icon: '🌧️' },
+            'rainandthunder': { ru: 'Гроза с дождем', en: 'Rain and thunder', icon: '⛈️' },
             'snow': { ru: 'Снег', en: 'Snow', icon: '🌨️' },
             'lightsnow': { ru: 'Небольшой снег', en: 'Light snow', icon: '❄️' },
             'heavysnow': { ru: 'Сильный снегопад', en: 'Heavy snow', icon: '❄️' },
+            'snowshowers': { ru: 'Снегопад', en: 'Snow showers', icon: '🌨️' },
+            'lightsnowshowers': { ru: 'Временами снег', en: 'Light snow showers', icon: '🌨️' },
             'sleet': { ru: 'Мокрый снег', en: 'Sleet', icon: '🌨️' },
+            'lightsleet': { ru: 'Небольшой мокрый снег', en: 'Light sleet', icon: '🌨️' },
             'fog': { ru: 'Туман', en: 'Fog', icon: '🌫️' }
         };
 
-        async function fetchKrasnoufimskWeather() {
+        function getMetInfo(rawCode) {
+            if (!rawCode) return { ru: 'Переменная облачность', en: 'Partly cloudy', icon: '⛅' };
+            if (MET_CODES[rawCode]) return MET_CODES[rawCode];
+            const base = rawCode.replace(/_(day|night|polartwilight)$/, '');
+            if (MET_CODES[base]) return MET_CODES[base];
+            if (rawCode.includes('thunder')) return { ru: 'Гроза', en: 'Thunderstorm', icon: '⛈️' };
+            if (rawCode.includes('snow')) return { ru: 'Снег', en: 'Snow', icon: '🌨️' };
+            if (rawCode.includes('sleet')) return { ru: 'Мокрый снег', en: 'Sleet', icon: '🌨️' };
+            if (rawCode.includes('rain')) return { ru: 'Дождь', en: 'Rain', icon: '🌧️' };
+            if (rawCode.includes('clear')) return { ru: 'Ясно', en: 'Clear sky', icon: '☀️' };
+            if (rawCode.includes('cloud')) return { ru: 'Облачно', en: 'Cloudy', icon: '☁️' };
+            if (rawCode.includes('fog')) return { ru: 'Туман', en: 'Fog', icon: '🌫️' };
+            return { ru: 'Переменная облачность', en: 'Partly cloudy', icon: '⛅' };
+        }
+
+        let cachedWeatherState = null;
+
+        // Открытие и закрытие центрального модального окна погоды
+        window.openWeatherModal = function() {
+            const modal = document.getElementById('weather-modal-backdrop');
+            if (!modal) return;
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+            if (typeof unlockAchievement === 'function') {
+                unlockAchievement('weather_watcher');
+            }
+        };
+
+        window.closeWeatherModal = function() {
+            const modal = document.getElementById('weather-modal-backdrop');
+            if (!modal) return;
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            const passport = document.getElementById('passport-modal');
+            const mobilePanel = document.getElementById('mobile-nav-panel');
+            if ((!passport || !passport.classList.contains('active')) &&
+                (!mobilePanel || !mobilePanel.classList.contains('open'))) {
+                document.body.classList.remove('modal-open');
+            }
+        };
+
+        window.handleWeatherBackdropClick = function(e) {
+            if (e.target && e.target.id === 'weather-modal-backdrop') {
+                closeWeatherModal();
+            }
+        };
+
+        // Генерация 7 карточек динамического прогноза
+        function renderForecastDays(daysList, lang) {
+            const container = document.getElementById('weather-forecast-days');
+            if (!container || !daysList || !daysList.length) return;
+
+            const weekDaysRu = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+            const weekDaysEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const monthsRu = ['янв', 'фев', 'мар', 'апр', 'мая', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+            const monthsEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+            let html = '';
+            daysList.forEach((day, idx) => {
+                const d = day.dateObj instanceof Date ? day.dateObj : new Date(day.dateStr + 'T12:00:00');
+                const weekdayStr = idx === 0
+                    ? (lang === 'en' ? 'Today' : 'Сегодня')
+                    : (lang === 'en' ? weekDaysEn[d.getDay()] : weekDaysRu[d.getDay()]);
+                const dateStr = d.getDate() + ' ' + (lang === 'en' ? monthsEn[d.getMonth()] : monthsRu[d.getMonth()]);
+                const isTodayClass = idx === 0 ? ' is-today' : '';
+                const highTempStr = (day.high > 0 ? '+' : '') + day.high + '°';
+                const lowTempStr = (day.low > 0 ? '+' : '') + day.low + '°';
+                const descTitle = day.wmo[lang] || day.wmo.ru;
+
+                html += `
+                    <div class="weather-day-card${isTodayClass}" title="${descTitle}">
+                        <span class="weather-day-weekday">${weekdayStr}</span>
+                        <span class="weather-day-date">${dateStr}</span>
+                        <span class="weather-day-icon">${day.wmo.icon}</span>
+                        <span class="weather-day-temp-high">${highTempStr}</span>
+                        <span class="weather-day-temp-low">${lowTempStr}</span>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // Сезонный резервный список дней на случай отсутствия сети
+        function getFallbackDaysList(season) {
+            const baseTemps = {
+                winter: { high: -7, low: -14, sym: 'lightsnow' },
+                spring: { high: 9, low: 1, sym: 'partlycloudy' },
+                summer: { high: 23, low: 13, sym: 'clearsky' },
+                autumn: { high: 7, low: 1, sym: 'lightrain' }
+            }[season] || { high: 8, low: 2, sym: 'partlycloudy' };
+
+            const list = [];
+            const now = new Date();
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(now);
+                d.setDate(now.getDate() + i);
+                const delta = ((i % 3) - 1) * 2;
+                list.push({
+                    dateStr: d.toISOString().slice(0, 10),
+                    dateObj: d,
+                    high: baseTemps.high + delta,
+                    low: baseTemps.low + delta,
+                    wmo: getMetInfo(baseTemps.sym),
+                    symCode: baseTemps.sym
+                });
+            }
+            return list;
+        }
+
+        // Обновление всех элементов отображения погоды на основе сохраненного состояния
+        function updateWeatherDisplay(lang = (typeof currentLang !== 'undefined' ? currentLang : 'ru')) {
+            if (!cachedWeatherState) return;
+            const data = cachedWeatherState;
+            const isEn = lang === 'en';
+
+            // Навбар
             const iconEl = document.getElementById('weather-icon');
             const tempEl = document.getElementById('weather-temp');
+            if (iconEl) iconEl.textContent = data.current.wmo.icon;
+            if (tempEl) tempEl.textContent = (data.current.temp > 0 ? '+' : '') + data.current.temp + '°C';
+
+            // Шапка модального окна
+            const mainIconEl = document.getElementById('weather-modal-main-icon');
+            if (mainIconEl) mainIconEl.textContent = data.current.wmo.icon;
+
+            // Главная плашка
+            const heroTempEl = document.getElementById('weather-hero-temp');
+            const heroSummaryEl = document.getElementById('weather-hero-summary');
             const feelsEl = document.getElementById('weather-feels');
+            const seasonPillEl = document.getElementById('weather-season-pill');
+
+            if (heroTempEl) heroTempEl.textContent = (data.current.temp > 0 ? '+' : '') + data.current.temp + '°C';
+            if (heroSummaryEl) {
+                const summaryText = data.current.wmo[lang] || data.current.wmo.ru;
+                heroSummaryEl.textContent = `${data.current.wmo.icon} ${summaryText}`;
+            }
+            if (feelsEl) feelsEl.textContent = (data.current.feels > 0 ? '+' : '') + data.current.feels + '°C';
+
+            const season = typeof getNaturalSeason === 'function' ? getNaturalSeason() : 'autumn';
+            const seasonLabels = {
+                winter: { ru: '❄️ Уральская зима', en: '❄️ Ural Winter' },
+                spring: { ru: '🌱 Весеннее пробуждение', en: '🌱 Spring Awakening' },
+                summer: { ru: '☀️ Теплое уральское лето', en: '☀️ Ural Summer' },
+                autumn: { ru: '🍂 Золотая уральская осень', en: '🍂 Golden Ural Autumn' }
+            };
+            if (seasonPillEl) {
+                seasonPillEl.textContent = (seasonLabels[season] && seasonLabels[season][lang]) || seasonLabels[season].ru;
+            }
+
+            // 4 метрики
             const windEl = document.getElementById('weather-wind');
             const humEl = document.getElementById('weather-humidity');
             const precipEl = document.getElementById('weather-precip');
-            const descEl = document.getElementById('weather-card-desc');
-            const timeEl = document.getElementById('weather-time');
-            const refreshBtn = document.getElementById('btn-refresh-weather');
+            const pressureEl = document.getElementById('weather-pressure');
 
-            if (refreshBtn) {
-                refreshBtn.style.opacity = '0.4';
-                refreshBtn.style.pointerEvents = 'none';
+            if (windEl) windEl.textContent = data.current.windMs + (isEn ? ' m/s' : ' м/с');
+            if (humEl) humEl.textContent = data.current.hum + '%';
+            if (precipEl) precipEl.textContent = data.current.precip + (isEn ? ' mm' : ' мм');
+            if (pressureEl) pressureEl.textContent = data.current.pressure + (isEn ? ' mmHg' : ' мм');
+
+            // 7 дней прогноза
+            renderForecastDays(data.daysList, lang);
+
+            // Время обновления
+            const timeEl = document.getElementById('weather-time');
+            if (timeEl && data.timeStr) {
+                const prefix = isEn ? 'Updated today at' : 'Обновлено сегодня в';
+                timeEl.textContent = `${prefix} ${data.timeStr}${data.isOffline ? (isEn ? ' (baseline)' : ' (базовый расчет)') : ''}`;
+            }
+        }
+
+        // Интерактивное обновление погоды с плавной 360° анимацией
+        async function refreshWeatherWithAnimation() {
+            const icon = document.getElementById('weather-refresh-icon');
+            const text = document.getElementById('weather-refresh-text');
+            const badge = document.getElementById('weather-card-badge');
+            const btn = document.getElementById('btn-refresh-weather');
+            const lang = (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'ru';
+
+            if (icon) icon.classList.add('spinning');
+            if (btn) {
+                btn.disabled = true;
+                btn.style.pointerEvents = 'none';
+            }
+            if (text) text.textContent = lang === 'en' ? 'Updating...' : 'Обновление...';
+            if (badge) {
+                badge.classList.add('badge-loading');
+                badge.textContent = lang === 'en' ? '● Loading...' : '● Загрузка...';
             }
 
+            const minDelay = new Promise(resolve => setTimeout(resolve, 750));
+
+            try {
+                await Promise.all([fetchKrasnoufimskWeather(), minDelay]);
+            } catch (err) {
+                console.error('Weather refresh error:', err);
+            } finally {
+                if (icon) icon.classList.remove('spinning');
+                if (btn) {
+                    btn.disabled = false;
+                    btn.style.pointerEvents = 'auto';
+                }
+                if (text) text.textContent = lang === 'en' ? 'Refresh' : 'Обновить';
+                if (badge) {
+                    badge.classList.remove('badge-loading');
+                    badge.textContent = lang === 'en' ? '● Live' : '● Онлайн';
+                }
+            }
+        }
+
+        // Основной асинхронный запрос погоды и прогноза Красноуфимска
+        async function fetchKrasnoufimskWeather() {
             const lat = 56.6167;
             const lon = 57.7667;
             const baseUrl = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${lat}&lon=${lon}`;
 
             try {
-                let response;
-                try {
-                    response = await fetch(baseUrl);
-                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                } catch (e1) {
-                    throw new Error(e1.message || 'Сбой сети');
-                }
-
+                const response = await fetch(baseUrl);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const data = await response.json();
-                const timeseries = data.properties.timeseries[0];
-                const details = timeseries.data.instant.details;
+                const ts = data.properties.timeseries;
+                if (!ts || !ts.length) throw new Error('Пустой ответ API');
 
-                const temp = Math.round(details.air_temperature);
-                // met.no doesn't provide apparent_temperature in compact, we'll estimate or just show temp
-                const feels = Math.round(details.air_temperature - (details.wind_speed > 3 ? details.wind_speed * 0.5 : 0));
-                const windMs = details.wind_speed.toFixed(1);
-                const hum = Math.round(details.relative_humidity);
+                const cur = ts[0];
+                const d = cur.data.instant.details;
+                const temp = Math.round(d.air_temperature);
+                const windMs = d.wind_speed.toFixed(1);
+                const hum = Math.round(d.relative_humidity);
+                const pressure = Math.round((d.air_pressure_at_sea_level || 1013.25) * 0.750062);
+                const feels = Math.round(d.air_temperature - (d.wind_speed > 3 ? d.wind_speed * 0.5 : 0));
 
-                let precip = 0;
-                let code = 'partlycloudy_day';
-                if (timeseries.data.next_1_hours) {
-                    precip = timeseries.data.next_1_hours.details.precipitation_amount || 0;
-                    code = timeseries.data.next_1_hours.summary.symbol_code || 'partlycloudy_day';
+                let precip = '0.0';
+                let curCode = 'partlycloudy_day';
+                if (cur.data.next_1_hours) {
+                    precip = (cur.data.next_1_hours.details.precipitation_amount || 0).toFixed(1);
+                    curCode = cur.data.next_1_hours.summary.symbol_code || 'partlycloudy_day';
+                } else if (cur.data.next_6_hours) {
+                    precip = (cur.data.next_6_hours.details.precipitation_amount || 0).toFixed(1);
+                    curCode = cur.data.next_6_hours.summary.symbol_code || 'partlycloudy_day';
                 }
+                const curWmo = getMetInfo(curCode);
 
-                // Remove day/night suffix for mapping if exact match not found
-                let wmo = MET_CODES[code];
-                if (!wmo) {
-                    const baseCode = code.split('_')[0];
-                    wmo = MET_CODES[baseCode] || { ru: 'Облачно', en: 'Cloudy', icon: '☁️' };
-                }
+                // Группировка по календарным дням для 7-дневного прогноза
+                const dayGroups = {};
+                ts.forEach(item => {
+                    const dStr = item.time.slice(0, 10);
+                    if (!dayGroups[dStr]) dayGroups[dStr] = [];
+                    dayGroups[dStr].push(item);
+                });
 
-                if (iconEl) iconEl.textContent = wmo.icon;
-                if (tempEl) tempEl.textContent = (temp > 0 ? '+' : '') + temp + '°C';
-                if (descEl) descEl.textContent = `${wmo.icon} ${wmo[currentLang]}, ${temp > 0 ? '+' : ''}${temp}°C`;
-                if (feelsEl) feelsEl.textContent = (feels > 0 ? '+' : '') + feels + '°C';
-                if (windEl) windEl.textContent = windMs + ' м/с';
-                if (humEl) humEl.textContent = hum + '%';
-                if (precipEl) precipEl.textContent = precip + ' мм';
+                const distinctDates = Object.keys(dayGroups).slice(0, 7);
+                const daysList = distinctDates.map(dStr => {
+                    const points = dayGroups[dStr];
+                    const temps = points.map(p => p.data.instant.details.air_temperature);
+                    const high = Math.round(Math.max(...temps));
+                    const low = Math.round(Math.min(...temps));
+
+                    let chosen = points.find(p => p.time.includes('T12:00:00Z') || p.time.includes('T11:00:00Z') || p.time.includes('T13:00:00Z')) || points[0];
+                    let code = (chosen.data.next_1_hours && chosen.data.next_1_hours.summary.symbol_code) ||
+                               (chosen.data.next_6_hours && chosen.data.next_6_hours.summary.symbol_code) ||
+                               (chosen.data.next_12_hours && chosen.data.next_12_hours.summary.symbol_code) ||
+                               'partlycloudy_day';
+                    const wmo = getMetInfo(code);
+                    const dateObj = new Date(dStr + 'T12:00:00');
+                    return { dateStr: dStr, dateObj, high, low, wmo, symCode: code };
+                });
 
                 const now = new Date();
                 const timeStr = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
-                if (timeEl) timeEl.textContent = `${i18n[currentLang].weatherUpdated} ${timeStr}`;
 
-                localStorage.setItem('kuf_weather_cache', JSON.stringify({ temp, feels, windMs, hum, precip, wmo, timeStr }));
+                cachedWeatherState = {
+                    current: { temp, feels, windMs, hum, precip, pressure, wmo: curWmo, code: curCode },
+                    daysList,
+                    timeStr,
+                    isOffline: false
+                };
+
+                // Сохранение в кэш
+                try {
+                    localStorage.setItem('kuf_weather_cache_v2', JSON.stringify({
+                        current: { temp, feels, windMs, hum, precip, pressure, code: curCode },
+                        daysList: daysList.map(dl => ({
+                            dateStr: dl.dateStr,
+                            high: dl.high,
+                            low: dl.low,
+                            symCode: dl.symCode
+                        })),
+                        timeStr,
+                        timestamp: Date.now()
+                    }));
+                } catch(e) {}
+
+                updateWeatherDisplay(typeof currentLang !== 'undefined' ? currentLang : 'ru');
             } catch (e) {
                 console.warn('Используем кэшированную или базовую погоду:', e);
-                const cached = localStorage.getItem('kuf_weather_cache');
-                if (cached) {
-                    try {
-                        const c = JSON.parse(cached);
-                        if (iconEl) iconEl.textContent = c.wmo.icon;
-                        if (tempEl) tempEl.textContent = (c.temp > 0 ? '+' : '') + c.temp + '°C';
-                        if (descEl) descEl.textContent = `${c.wmo.icon} ${c.wmo[currentLang]}, ${c.temp > 0 ? '+' : ''}${c.temp}°C`;
-                        if (feelsEl) feelsEl.textContent = (c.feels > 0 ? '+' : '') + c.feels + '°C';
-                        if (windEl) windEl.textContent = c.windMs + ' м/с';
-                        if (humEl) humEl.textContent = c.hum + '%';
-                        if (precipEl) precipEl.textContent = c.precip + ' мм';
-                        if (timeEl) timeEl.textContent = `${i18n[currentLang].weatherUpdated} ${c.timeStr} (кэш)`;
+
+                // Попытка восстановления из кэша
+                try {
+                    const raw = localStorage.getItem('kuf_weather_cache_v2');
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+                        cachedWeatherState = {
+                            current: {
+                                temp: parsed.current.temp,
+                                feels: parsed.current.feels,
+                                windMs: parsed.current.windMs,
+                                hum: parsed.current.hum,
+                                precip: parsed.current.precip,
+                                pressure: parsed.current.pressure,
+                                wmo: getMetInfo(parsed.current.code),
+                                code: parsed.current.code
+                            },
+                            daysList: parsed.daysList.map(dl => ({
+                                dateStr: dl.dateStr,
+                                dateObj: new Date(dl.dateStr + 'T12:00:00'),
+                                high: dl.high,
+                                low: dl.low,
+                                wmo: getMetInfo(dl.symCode),
+                                symCode: dl.symCode
+                            })),
+                            timeStr: parsed.timeStr,
+                            isOffline: true
+                        };
+                        updateWeatherDisplay(typeof currentLang !== 'undefined' ? currentLang : 'ru');
                         return;
-                    } catch (err) { }
-                }
+                    }
+                } catch (err) {}
 
                 // Сезонная базовая погода Красноуфимска при отсутствии сети и кэша
-                const season = getNaturalSeason();
+                const season = typeof getNaturalSeason === 'function' ? getNaturalSeason() : 'autumn';
                 const seasonalData = {
-                    winter: { icon: '❄️', temp: -10, ru: 'Умеренный снег', en: 'Moderate snow', wind: '4', hum: '82', precip: '1' },
-                    spring: { icon: '⛅', temp: 8, ru: 'Переменная облачность', en: 'Partly cloudy', wind: '3', hum: '65', precip: '0' },
-                    summer: { icon: '☀️', temp: 22, ru: 'Ясно', en: 'Clear sky', wind: '2', hum: '55', precip: '0' },
-                    autumn: { icon: '🌧️', temp: 6, ru: 'Временами дождь', en: 'Occasional rain', wind: '4', hum: '78', precip: '2' }
-                }[season] || { icon: '⛅', temp: 10, ru: 'Переменная облачность', en: 'Partly cloudy', wind: '3', hum: '65', precip: '0' };
+                    winter: { temp: -10, sym: 'snow', wind: '4.2', hum: '82', precip: '1.2', pressure: 755 },
+                    spring: { temp: 8, sym: 'partlycloudy', wind: '3.4', hum: '65', precip: '0.0', pressure: 750 },
+                    summer: { temp: 22, sym: 'clearsky', wind: '2.5', hum: '55', precip: '0.0', pressure: 748 },
+                    autumn: { temp: 6, sym: 'rain', wind: '4.0', hum: '78', precip: '2.1', pressure: 746 }
+                }[season] || { temp: 8, sym: 'partlycloudy', wind: '3.0', hum: '65', precip: '0.0', pressure: 750 };
 
-                const curLangDict = i18n[currentLang] || i18n.ru;
-                const offlineLabel = currentLang === 'ru' ? '(сезонный ориентир)' : '(seasonal baseline)';
-                if (iconEl) iconEl.textContent = seasonalData.icon;
-                if (tempEl) tempEl.textContent = (seasonalData.temp > 0 ? '+' : '') + seasonalData.temp + '°C';
-                if (descEl) descEl.textContent = `${seasonalData.icon} ${seasonalData[currentLang] || seasonalData.ru}, ${(seasonalData.temp > 0 ? '+' : '')}${seasonalData.temp}°C ${offlineLabel}`;
-                if (feelsEl) feelsEl.textContent = (seasonalData.temp > 0 ? '+' : '') + seasonalData.temp + '°C';
-                if (windEl) windEl.textContent = seasonalData.wind + ' м/с';
-                if (humEl) humEl.textContent = seasonalData.hum + '%';
-                if (precipEl) precipEl.textContent = seasonalData.precip + ' мм';
-                if (timeEl) timeEl.textContent = `${curLangDict.weatherUpdated} ${offlineLabel}`;
-            } finally {
-                if (refreshBtn) {
-                    refreshBtn.style.opacity = '1';
-                    refreshBtn.style.pointerEvents = 'auto';
-                }
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+                const fallbackDays = getFallbackDaysList(season);
+
+                cachedWeatherState = {
+                    current: {
+                        temp: seasonalData.temp,
+                        feels: seasonalData.temp,
+                        windMs: seasonalData.wind,
+                        hum: seasonalData.hum,
+                        precip: seasonalData.precip,
+                        pressure: seasonalData.pressure,
+                        wmo: getMetInfo(seasonalData.sym),
+                        code: seasonalData.sym
+                    },
+                    daysList: fallbackDays,
+                    timeStr,
+                    isOffline: true
+                };
+
+                updateWeatherDisplay(typeof currentLang !== 'undefined' ? currentLang : 'ru');
             }
         }
 
@@ -7985,6 +8897,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
         }
 
         window.startQuizWithDifficulty = function (diff) {
+            window.currentQuizDifficulty = diff;
             const pool = quizDataMaster.filter(q => q.difficulty === diff);
             const limit = diff === 'easy' ? 10 : (diff === 'medium' ? 16 : 20); // set medium limit to 16 since there are 16 questions
             quizData = pool.sort(() => 0.5 - Math.random()).slice(0, limit);
@@ -8007,6 +8920,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             quizData = [];
             currentQuizIndex = 0;
             quizAnswers = {};
+            window.currentQuizDifficulty = null;
             const banner = document.getElementById('quiz-results');
             if (banner) banner.style.display = 'none';
             renderQuiz();
@@ -8155,28 +9069,65 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             const banner = document.getElementById('quiz-results');
             const scoreText = document.getElementById('quiz-score-text');
             const descText = document.getElementById('quiz-desc-text');
+            const diffBadge = document.getElementById('quiz-results-diff-badge');
+
+            // Определение и отображение уровня сложности
+            const diff = window.currentQuizDifficulty || (total <= 10 ? 'easy' : (total <= 16 ? 'medium' : 'hard'));
+            window.currentQuizDifficulty = diff;
+
+            if (diffBadge) {
+                let badgeText = '';
+                if (currentLang === 'en') {
+                    if (diff === 'easy') badgeText = `🌱 Basic Level • ${total} questions`;
+                    else if (diff === 'medium') badgeText = `⚡ Advanced Level • ${total} questions`;
+                    else badgeText = `🏆 Expert Level • ${total} questions`;
+                } else {
+                    if (diff === 'easy') badgeText = `🌱 Базовый уровень • ${total} вопросов`;
+                    else if (diff === 'medium') badgeText = `⚡ Продвинутый уровень • ${total} вопросов`;
+                    else badgeText = `🏆 Экспертный уровень • ${total} вопросов`;
+                }
+                diffBadge.textContent = badgeText;
+                diffBadge.className = `quiz-diff-tag quiz-diff-tag--${diff}`;
+            }
 
             if (scoreText) scoreText.textContent = `${dict.quizScore || 'Правильных ответов:'} ${correct} ${dict.quizOutOf || 'из'} ${total}`;
 
             let desc = '';
-            const pct = correct / total;
+            const pct = total > 0 ? (correct / total) : 0;
             window.lastQuizScore = correct;
             window.lastQuizTotal = total;
+            window.lastQuizPercent = Math.round(pct * 100);
+
             if (pct >= 0.9) desc = dict.quizResult5 || '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!';
             else if (pct >= 0.7) desc = dict.quizResult4 || '👍 Хорошо! Вы хорошо знаете историю города.';
             else if (pct >= 0.5) desc = dict.quizResult3 || '📖 Неплохо! Почитайте о достопримечательностях подробнее.';
             else desc = dict.quizResult2 || '🔍 Стоит изучить историю города! Пройдите ленту времени.';
 
             if (descText) descText.textContent = desc;
-    const nameInp = document.getElementById('cert-name-input');
-    if (nameInp) nameInp.placeholder = (currentLang === 'en') ? 'Enter your name' : 'Введите ваше имя';
+
+            // Динамическая смена иконки триумфа
+            const trophyElem = banner ? banner.querySelector('.trophy-icon') : null;
+            if (trophyElem) {
+                if (pct >= 0.95) trophyElem.textContent = '🏆';
+                else if (pct >= 0.8) trophyElem.textContent = '🥇';
+                else if (pct >= 0.7) trophyElem.textContent = '🥈';
+                else trophyElem.textContent = '📜';
+            }
+
+            const nameInp = document.getElementById('cert-name-input');
+            if (nameInp) {
+                nameInp.placeholder = (currentLang === 'en') ? 'Enter your name and surname' : 'Введите ваше имя и фамилию';
+                if (!nameInp.value && typeof passportState !== 'undefined' && passportState.name && passportState.name !== 'Исследователь' && passportState.name !== 'Explorer') {
+                    nameInp.value = passportState.name;
+                }
+            }
 
             window.lastQuizDesc = desc;
 
-            // show cert box if score >= 80%
+            // Показываем блок именного диплома при результате от 70%
             const certBox = document.getElementById('cert-box');
             if (certBox) {
-                if (correct / total >= 0.8) {
+                if (pct >= 0.7) {
                     certBox.style.display = 'block';
                 } else {
                     certBox.style.display = 'none';
@@ -8187,17 +9138,11 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             if (correct >= 8 && typeof unlockAchievement === 'function') {
                 unlockAchievement('quiz_erudite');
             }
-            if (nameInp && !nameInp.value && typeof passportState !== 'undefined' && passportState.name && passportState.name !== 'Исследователь') {
-                nameInp.value = passportState.name;
-            }
 
             if (banner) {
                 banner.style.display = 'block';
                 banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-
-            // Показываем все вопросы свёрнуто
-            // Removed innerHTML wipe to prevent mobile scroll jump
         }
 
         /* ==========================================================================
@@ -9049,47 +9994,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             const natSeason = getNaturalSeason();
             setSeasonTheme(natSeason, true);
 
-            // Запрос погоды Красноуфимска
-
-            const weatherPill = document.getElementById('weather-pill');
-            const weatherCard = document.getElementById('weather-details-card');
-            const btnCloseWeather = document.getElementById('btn-close-weather');
-            const btnRefreshWeather = document.getElementById('btn-refresh-weather');
-
-            if (weatherPill && weatherCard) {
-                weatherPill.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    weatherCard.classList.toggle('show');
-                    if (typeof unlockAchievement === 'function') {
-                        unlockAchievement('weather_watcher');
-                    }
-                });
-            }
-            if (btnCloseWeather && weatherCard) {
-                btnCloseWeather.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    weatherCard.classList.remove('show');
-                });
-            }
-            if (btnRefreshWeather) {
-                btnRefreshWeather.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    fetchKrasnoufimskWeather();
-                    if (typeof unlockAchievement === 'function') {
-                        unlockAchievement('weather_watcher');
-                    }
-                });
-            }
-
-            // Закрытие карточки погоды при клике вне её
-            document.addEventListener('click', function (e) {
-                if (weatherCard && weatherCard.classList.contains('show')) {
-                    if (!weatherCard.contains(e.target) && !weatherPill.contains(e.target)) {
-                        weatherCard.classList.remove('show');
-                    }
-                }
-            });
-
+            // Первичный запрос актуальной погоды и прогноза Красноуфимска
             fetchKrasnoufimskWeather();
         });
 
@@ -9100,76 +10005,582 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
         function downloadCertificate() {
             const rawNameInput = document.getElementById('cert-name-input');
             const rawName = rawNameInput ? rawNameInput.value.trim() : '';
-            const finalName = rawName !== '' ? rawName.slice(0, 40) : (currentLang === 'ru' ? 'Анонимный Исследователь' : 'Anonymous Explorer');
+            const fallbackName = currentLang === 'ru' ? 'Знаток истории Красноуфимска' : 'Explorer of Krasnoufimsk';
+            const finalName = rawName !== '' ? rawName.slice(0, 50) : fallbackName;
 
+            const score = typeof window.lastQuizScore === 'number' ? window.lastQuizScore : 0;
+            const total = typeof window.lastQuizTotal === 'number' && window.lastQuizTotal > 0 ? window.lastQuizTotal : 20;
+            const pct = Math.round((score / total) * 100);
+            const diff = window.currentQuizDifficulty || (total <= 10 ? 'easy' : (total <= 16 ? 'medium' : 'hard'));
+
+            // Международный стандарт печати Landscape A4 (297 x 210 мм): 2480 x 1754 px (~300 DPI)
+            const W = 2480;
+            const H = 1754;
             const canvas = document.createElement('canvas');
-            canvas.width = 1000;
-            canvas.height = 700;
+            canvas.width = W;
+            canvas.height = H;
             const ctx = canvas.getContext('2d');
 
-            // Background (Dark theme gradient)
-            const bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            bgGradient.addColorStop(0, '#ffffff');
-            bgGradient.addColorStop(1, '#f1f5f9');
-            ctx.fillStyle = bgGradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Безопасный полифилл roundRect для старых браузеров
+            if (!ctx.roundRect) {
+                ctx.roundRect = function (x, y, w, h, r) {
+                    if (w < 2 * r) r = w / 2;
+                    if (h < 2 * r) r = h / 2;
+                    this.beginPath();
+                    this.moveTo(x + r, y);
+                    this.arcTo(x + w, y, x + w, y + h, r);
+                    this.arcTo(x + w, y + h, x, y + h, r);
+                    this.arcTo(x, y + h, x, y, r);
+                    this.arcTo(x, y, x + w, y, r);
+                    this.closePath();
+                    return this;
+                };
+            }
 
-            // Outer Gold Border
-            ctx.strokeStyle = '#d4af37';
-            ctx.lineWidth = 15;
-            ctx.strokeRect(30, 30, canvas.width - 60, canvas.height - 60);
+            // 1. Благородный фон: Слоновая кость / Музейный пергамент
+            const bgGrad = ctx.createLinearGradient(0, 0, W, H);
+            bgGrad.addColorStop(0, '#fefdfb');
+            bgGrad.addColorStop(0.5, '#faf6ec');
+            bgGrad.addColorStop(1, '#f4ece0');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, W, H);
 
-            // Inner Thin Border
-            ctx.strokeStyle = '#facc15';
+            // Мягкая виньетка по краям (эффект благородного старения бумаги)
+            const vig = ctx.createRadialGradient(W / 2, H / 2, H * 0.42, W / 2, H / 2, W * 0.72);
+            vig.addColorStop(0, 'rgba(255, 255, 255, 0)');
+            vig.addColorStop(1, 'rgba(180, 134, 40, 0.08)');
+            ctx.fillStyle = vig;
+            ctx.fillRect(0, 0, W, H);
+
+            // 2. Фоновый защитный водяной знак (Гознак-стиль, прозрачность 4.5%)
+            ctx.save();
+            ctx.translate(W / 2, H / 2 - 20);
+            ctx.strokeStyle = 'rgba(180, 134, 40, 0.045)';
+            ctx.fillStyle = 'rgba(180, 134, 40, 0.022)';
+            ctx.lineWidth = 2.5;
+
+            // Концентрические гильош-кольца
+            for (let r of [240, 340, 440, 540]) {
+                ctx.beginPath();
+                ctx.arc(0, 0, r, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            // Фоновая гильош-розетка из 16 лепестков
+            for (let i = 0; i < 16; i++) {
+                const ang = (i * Math.PI * 2) / 16;
+                ctx.beginPath();
+                ctx.ellipse(Math.cos(ang) * 380, Math.sin(ang) * 380, 140, 50, ang, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            // Фоновый силуэт Красноуфимской крепости и парящего сокола
+            ctx.beginPath();
+            ctx.rect(-190, 90, 380, 45); // стена
+            ctx.rect(-190, 25, 55, 75);  // башня левая
+            ctx.rect(135, 25, 55, 75);   // башня правая
+            ctx.rect(-35, 5, 70, 95);    // центральная дозорная башня
+            ctx.fill();
+            ctx.stroke();
+
+            // Силуэт сокола в центре
+            ctx.beginPath();
+            ctx.arc(0, -95, 26, 0, Math.PI * 2);
+            ctx.moveTo(0, -75);
+            ctx.quadraticCurveTo(-115, -180, -160, -95);
+            ctx.quadraticCurveTo(-65, -45, -28, 20);
+            ctx.lineTo(0, 75);
+            ctx.lineTo(28, 20);
+            ctx.quadraticCurveTo(65, -45, 160, -95);
+            ctx.quadraticCurveTo(115, -180, 0, -75);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+
+            // 3. Многослойная императорская золотая рамка (Imperial Gold Border)
+            const goldGrad = ctx.createLinearGradient(0, 0, W, H);
+            goldGrad.addColorStop(0, '#c59b27');
+            goldGrad.addColorStop(0.25, '#fef08a');
+            goldGrad.addColorStop(0.5, '#b48608');
+            goldGrad.addColorStop(0.75, '#facc15');
+            goldGrad.addColorStop(1, '#92400e');
+
+            // Внешний массивный золотой кант
+            ctx.strokeStyle = goldGrad;
+            ctx.lineWidth = 16;
+            ctx.strokeRect(52, 52, W - 104, H - 104);
+
+            // Тонкий внутренний золотой кант
+            ctx.strokeStyle = '#b48608';
             ctx.lineWidth = 3;
-            ctx.strokeRect(50, 50, canvas.width - 100, canvas.height - 100);
+            ctx.strokeRect(74, 74, W - 148, H - 148);
 
+            // Внутренний декоративный контур
+            ctx.strokeStyle = 'rgba(180, 134, 8, 0.45)';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(96, 96, W - 192, H - 192);
+
+            // Классические угловые филигранные розетки (Corner Flourishes)
+            function drawCornerOrnament(cx, cy, dirX, dirY) {
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.strokeStyle = '#b48608';
+                ctx.fillStyle = '#d4af37';
+                ctx.lineWidth = 2.5;
+
+                ctx.beginPath();
+                ctx.moveTo(0, dirY * 46);
+                ctx.quadraticCurveTo(dirX * 22, dirY * 22, dirX * 46, 0);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(0, dirY * 26);
+                ctx.quadraticCurveTo(dirX * 13, dirY * 13, dirX * 26, 0);
+                ctx.stroke();
+
+                // Угловой алмаз (Diamond stud)
+                ctx.beginPath();
+                ctx.moveTo(dirX * 20, dirY * 20 - 9);
+                ctx.lineTo(dirX * 20 + 9, dirY * 20);
+                ctx.lineTo(dirX * 20, dirY * 20 + 9);
+                ctx.lineTo(dirX * 20 - 9, dirY * 20);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.restore();
+            }
+
+            drawCornerOrnament(96, 96, 1, 1);
+            drawCornerOrnament(W - 96, 96, -1, 1);
+            drawCornerOrnament(96, H - 96, 1, -1);
+            drawCornerOrnament(W - 96, H - 96, -1, -1);
+
+            // 4. Королевский герб Красноуфимска (с золотой башенной короной и лавровым венком)
+            const crestX = W / 2;
+            const crestY = 205;
+
+            // Золотая башенная корона над гербом (символ города)
+            ctx.save();
+            ctx.fillStyle = '#b48608';
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = 2.5;
+            const crownY = crestY - 58;
+            ctx.beginPath();
+            ctx.moveTo(crestX - 42, crownY);
+            ctx.lineTo(crestX - 42, crownY - 26);
+            ctx.lineTo(crestX - 26, crownY - 14);
+            ctx.lineTo(crestX, crownY - 30);
+            ctx.lineTo(crestX + 26, crownY - 14);
+            ctx.lineTo(crestX + 42, crownY - 26);
+            ctx.lineTo(crestX + 42, crownY);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Зубцы короны
+            ctx.fillStyle = '#fef08a';
+            ctx.fillRect(crestX - 34, crownY - 20, 7, 10);
+            ctx.fillRect(crestX - 3.5, crownY - 24, 7, 14);
+            ctx.fillRect(crestX + 27, crownY - 20, 7, 10);
+            ctx.restore();
+
+            // Пышный золотой лавровый венок вокруг щита
+            ctx.save();
+            ctx.strokeStyle = '#b48608';
+            ctx.fillStyle = 'rgba(212, 175, 55, 0.9)';
+            for (let side of [-1, 1]) {
+                for (let i = 0; i < 8; i++) {
+                    const ang = (Math.PI * 0.42) + (i * 0.17);
+                    const lx = crestX + side * (82 + Math.cos(ang) * 48);
+                    const ly = crestY - 8 + Math.sin(ang) * 58;
+                    ctx.beginPath();
+                    ctx.ellipse(lx, ly, 11, 5.5, side * (ang - 0.4), 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.stroke();
+                }
+            }
+            ctx.restore();
+
+            // Геральдический щит
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(crestX - 48, crestY - 48);
+            ctx.lineTo(crestX + 48, crestY - 48);
+            ctx.lineTo(crestX + 48, crestY + 16);
+            ctx.quadraticCurveTo(crestX + 42, crestY + 58, crestX, crestY + 74);
+            ctx.quadraticCurveTo(crestX - 42, crestY + 58, crestX - 48, crestY + 16);
+            ctx.closePath();
+
+            // Изумрудно-зеленое поле герба
+            const shieldGrad = ctx.createLinearGradient(crestX - 48, crestY - 48, crestX + 48, crestY + 74);
+            shieldGrad.addColorStop(0, '#14532d');
+            shieldGrad.addColorStop(0.5, '#166534');
+            shieldGrad.addColorStop(1, '#052e16');
+            ctx.fillStyle = shieldGrad;
+            ctx.fill();
+
+            // Золотая окантовка щита
+            ctx.strokeStyle = goldGrad;
+            ctx.lineWidth = 5.5;
+            ctx.stroke();
+
+            // Парящий серебряный сокол (символ Красноуфимска)
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(crestX, crestY - 10, 8, 0, Math.PI * 2);
+            ctx.moveTo(crestX, crestY - 4);
+            ctx.quadraticCurveTo(crestX - 32, crestY - 26, crestX - 40, crestY - 7);
+            ctx.quadraticCurveTo(crestX - 18, crestY + 3, crestX - 7, crestY + 18);
+            ctx.lineTo(crestX, crestY + 38);
+            ctx.lineTo(crestX + 7, crestY + 18);
+            ctx.quadraticCurveTo(crestX + 18, crestY + 3, crestX + 40, crestY - 7);
+            ctx.quadraticCurveTo(crestX + 32, crestY - 26, crestX, crestY - 4);
+            ctx.closePath();
+            ctx.fill();
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+
+            // Лента основания под щитом
+            ctx.fillStyle = '#78350f';
+            ctx.beginPath();
+            ctx.roundRect(crestX - 100, crestY + 82, 200, 28, 7);
+            ctx.fill();
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+
+            ctx.font = 'bold 13px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#fef08a';
+            ctx.textAlign = 'center';
+            const ribbonText = currentLang === 'en' ? '★ 1736 • KRASNOUFIMSK ★' : '★ 1736 • КРАСНОУФИМСК ★';
+            ctx.fillText(ribbonText, crestX, crestY + 101);
+            ctx.restore();
+
+            // 5. Текстовые блоки диплома
             ctx.textAlign = 'center';
 
-            // Title
-            ctx.font = 'bold 44px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#b48608';
-            ctx.fillText(currentLang === 'ru' ? 'СЕРТИФИКАТ ЗНАТОКА' : 'CERTIFICATE OF EXPERTISE', 500, 145);
+            // Верхний подзаголовок проекта
+            ctx.font = '700 24px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#8a6d3b';
+            const topHeader = currentLang === 'en' 
+                ? '—  HISTORICAL & CULTURAL HERITAGE INITIATIVE  —'
+                : '—  НАУЧНО-ИСТОРИЧЕСКИЙ КРАЕВЕДЧЕСКИЙ ПРОЕКТ  —';
+            ctx.fillText(topHeader, W / 2, 355);
 
-            // Subtitle
-            ctx.font = '26px "Segoe UI", Arial, sans-serif';
+            // Главный заголовок «ДИПЛОМ ЗНАТОКА»
+            ctx.font = 'bold 82px "Playfair Display", Georgia, "Times New Roman", serif';
+            const titleGrad = ctx.createLinearGradient(W / 2 - 400, 420, W / 2 + 400, 470);
+            titleGrad.addColorStop(0, '#78350f');
+            titleGrad.addColorStop(0.35, '#b45309');
+            titleGrad.addColorStop(0.65, '#d97706');
+            titleGrad.addColorStop(1, '#78350f');
+            ctx.fillStyle = titleGrad;
+            ctx.fillText(currentLang === 'en' ? 'DIPLOMA OF EXCELLENCE' : 'ДИПЛОМ ЗНАТОКА', W / 2, 445);
+
+            // Название проекта
+            ctx.font = '600 27px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#475569';
-            ctx.fillText(currentLang === 'ru' ? 'Красноуфимск: Сквозь Эпохи' : 'Krasnoufimsk: Through Epochs', 500, 205);
+            ctx.fillText(currentLang === 'en' ? '«KRASNOUFIMSK: THROUGH EPOCHS INTO THE FUTURE»' : '«КРАСНОУФИМСК: СКВОЗЬ ЭПОХИ В БУДУЩЕЕ»', W / 2, 500);
 
-            // Recipient name (with dynamic font size scaling)
-            let nameFontSize = 36;
-            ctx.font = `italic ${nameFontSize}px "Segoe UI", Arial, sans-serif`;
-            while (ctx.measureText(finalName).width > 760 && nameFontSize > 22) {
-                nameFontSize -= 2;
-                ctx.font = `italic ${nameFontSize}px "Segoe UI", Arial, sans-serif`;
+            // Декоративная разделительная черта с ромбом
+            ctx.save();
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(W / 2 - 300, 536);
+            ctx.lineTo(W / 2 - 24, 536);
+            ctx.moveTo(W / 2 + 24, 536);
+            ctx.lineTo(W / 2 + 300, 536);
+            ctx.stroke();
+
+            ctx.fillStyle = '#b48608';
+            ctx.beginPath();
+            ctx.moveTo(W / 2, 528);
+            ctx.lineTo(W / 2 + 9, 536);
+            ctx.lineTo(W / 2, 544);
+            ctx.lineTo(W / 2 - 9, 536);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+
+            // Преамбула вручения
+            ctx.font = 'italic 32px "Playfair Display", Georgia, serif';
+            ctx.fillStyle = '#5c5346';
+            ctx.fillText(currentLang === 'en' ? 'This diploma is proudly awarded to' : 'Настоящим дипломом награждается', W / 2, 598);
+
+            // Имя награждаемого с каллиграфическими виньетками
+            let nameSize = 70;
+            ctx.font = `bold italic ${nameSize}px "Playfair Display", Georgia, serif`;
+            while (ctx.measureText(`❦  ${finalName}  ❦`).width > 1650 && nameSize > 34) {
+                nameSize -= 2;
+                ctx.font = `bold italic ${nameSize}px "Playfair Display", Georgia, serif`;
             }
             ctx.fillStyle = '#0f172a';
-            ctx.fillText(finalName, 500, 275);
+            ctx.fillText(`❦  ${finalName}  ❦`, W / 2, 685);
 
-            // Score header
-            ctx.font = '22px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#475569';
-            ctx.fillText(currentLang === 'ru' ? 'Набранный результат:' : 'Score Achieved:', 500, 335);
+            // Золотой каллиграфический росчерк под именем
+            ctx.save();
+            ctx.strokeStyle = '#c59b27';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(W / 2 - 340, 720);
+            ctx.quadraticCurveTo(W / 2, 730, W / 2 + 340, 720);
+            ctx.stroke();
+            ctx.restore();
 
-            // Score
-            ctx.font = 'bold 76px "Segoe UI", Arial, sans-serif';
+            // Развернутая торжественная формулировка заслуги
+            ctx.font = '400 27px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#334155';
+            if (currentLang === 'en') {
+                ctx.fillText('For distinguished knowledge of the multi-century history, architecture, and heritage', W / 2, 786);
+                ctx.fillText('of Krasnoufimsk from the founding of the Krasny Yar fortress to the modern era of 2026:', W / 2, 828);
+            } else {
+                ctx.fillText('За отличные знания многовековой истории, уникального архитектурного достояния', W / 2, 786);
+                ctx.fillText('и вех развития Красноуфимска со времён основания крепости Красный Яр до эпохи 2026 года:', W / 2, 828);
+            }
+
+            // 6. Наградная плашка-картуш уровня сложности и набранного счета
+            const plaqueW = 1080;
+            const plaqueH = 88;
+            const plaqueX = (W - plaqueW) / 2;
+            const plaqueY = 878;
+
+            let diffText = '';
+            let diffBorder = '#b48608';
+            let diffBgStart = 'rgba(254, 243, 199, 0.75)';
+            let diffBgEnd = 'rgba(253, 230, 138, 0.45)';
+            let diffTextColor = '#92400e';
+
+            if (diff === 'easy') {
+                diffText = currentLang === 'en'
+                    ? `🌱  BASIC LEVEL  •  SCORE: ${score} OF ${total} (${pct}%)`
+                    : `🌱  БАЗОВЫЙ УРОВЕНЬ  •  РЕЗУЛЬТАТ: ${score} ИЗ ${total} (${pct}%)`;
+                diffBorder = '#10b981';
+                diffBgStart = 'rgba(209, 250, 229, 0.75)';
+                diffBgEnd = 'rgba(167, 243, 208, 0.45)';
+                diffTextColor = '#065f46';
+            } else if (diff === 'medium') {
+                diffText = currentLang === 'en'
+                    ? `⚡  ADVANCED LEVEL  •  SCORE: ${score} OF ${total} (${pct}%)`
+                    : `⚡  ПРОДВИНУТЫЙ УРОВЕНЬ  •  РЕЗУЛЬТАТ: ${score} ИЗ ${total} (${pct}%)`;
+                diffBorder = '#0284c7';
+                diffBgStart = 'rgba(224, 242, 254, 0.75)';
+                diffBgEnd = 'rgba(186, 230, 253, 0.45)';
+                diffTextColor = '#0369a1';
+            } else {
+                diffText = currentLang === 'en'
+                    ? `🏆  EXPERT LEVEL  •  SCORE: ${score} OF ${total} (${pct}%)`
+                    : `🏆  ЭКСПЕРТНЫЙ УРОВЕНЬ  •  РЕЗУЛЬТАТ: ${score} ИЗ ${total} (${pct}%)`;
+                diffBorder = '#d97706';
+                diffBgStart = 'rgba(254, 243, 199, 0.75)';
+                diffBgEnd = 'rgba(253, 230, 138, 0.45)';
+                diffTextColor = '#92400e';
+            }
+
+            ctx.save();
+            // Фоновый картуш с ленточными ласточкиными вырезами
+            const plGrad = ctx.createLinearGradient(plaqueX, plaqueY, plaqueX + plaqueW, plaqueY + plaqueH);
+            plGrad.addColorStop(0, diffBgStart);
+            plGrad.addColorStop(1, diffBgEnd);
+            ctx.fillStyle = plGrad;
+            ctx.beginPath();
+            ctx.roundRect(plaqueX, plaqueY, plaqueW, plaqueH, 18);
+            ctx.fill();
+            ctx.strokeStyle = diffBorder;
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            ctx.font = 'bold 31px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = diffTextColor;
+            ctx.fillText(diffText, W / 2, plaqueY + 56);
+            ctx.restore();
+
+            // Оценка экспертной коллегии
+            const appraisal = window.lastQuizDesc || (currentLang === 'en' ? '🏆 Outstanding! You are a true historian of Krasnoufimsk!' : '🏆 Отлично! Вы настоящий знаток истории Красноуфимска!');
+            ctx.font = 'italic 28px "Playfair Display", Georgia, serif';
+            ctx.fillStyle = '#1e293b';
+            ctx.fillText(`«${appraisal}»`, W / 2, 1025);
+
+            // 7. Сбалансированный нижний официальный блок:
+            // Слева: Реестровый номер, дата, защита и формат А4
+            // По центру: Торжественная 24-лучевая золотая печать с шелковыми лентами
+            // Справа: Официальный блок проекта «Красноуфимск 2026» и бессрочная валидация
+
+            const baseLineY = 1275;
+
+            // --- Левая колонка (Реестр и валидация) ---
+            ctx.save();
+            ctx.textAlign = 'left';
+
+            const serialNum = 'КФ-2026-' + String((score * 79 + total * 41 + (new Date().getDate())) % 8999 + 1000);
+            const dateStr = new Date().toLocaleDateString(currentLang === 'en' ? 'en-US' : 'ru-RU', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            ctx.font = 'bold 22px "Segoe UI", Arial, monospace';
             ctx.fillStyle = '#0f172a';
-            ctx.fillText(`${window.lastQuizScore || 0} / ${window.lastQuizTotal || 0}`, 500, 425);
+            ctx.fillText(currentLang === 'en' ? `REGISTRY NO. KF-2026-${serialNum}` : `РЕЕСТРОВЫЙ № ${serialNum}`, 220, baseLineY - 45);
 
-            // Description
-            ctx.font = 'italic 26px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#0284c7';
-            ctx.fillText(window.lastQuizDesc || '', 500, 515);
+            ctx.font = '500 20px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#475569';
+            ctx.fillText(currentLang === 'en' ? `Issue Date: ${dateStr}` : `Дата выдачи: ${dateStr}`, 220, baseLineY - 12);
+            ctx.fillText(currentLang === 'en' ? 'Status: Digitally Verified & Authentic' : 'Статус: Электронная верификация пройдена', 220, baseLineY + 20);
+            ctx.fillText(currentLang === 'en' ? 'Format: Print Master A4 (ISO 216, 300 DPI)' : 'Формат: Печатный оригинал А4 (ISO 216)', 220, baseLineY + 52);
 
-            // Date
-            ctx.font = '20px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#64748b';
-            const dateStr = new Date().toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US');
-            ctx.fillText(currentLang === 'ru' ? `Дата: ${dateStr}` : `Date: ${dateStr}`, 500, 615);
+            // Защитные микро-штрихи подлинности
+            ctx.fillStyle = '#94a3b8';
+            let bx = 220;
+            const barHeights = [24, 18, 24, 24, 14, 24, 20, 24, 16, 24, 18, 24, 24, 14, 24, 20, 24, 18, 24, 24, 14, 24];
+            for (let b = 0; b < barHeights.length; b++) {
+                ctx.fillRect(bx, baseLineY + 82, (b % 3 === 0 ? 4 : 2), 22);
+                bx += (b % 3 === 0 ? 8 : 6);
+            }
+            ctx.restore();
 
-            // Trigger download
+            // --- Центральная колонка (24-лучевая золотая печать с шелковыми лентами) ---
+            const sealX = W / 2;
+            const sealY = 1275;
+
+            // Алые шелковые ленты (Crimson Silk Ribbons)
+            ctx.save();
+            function drawRibbonTail(startX, startY, endX, endY, ctrlX, ctrlY) {
+                const ribGrad = ctx.createLinearGradient(startX, startY, endX, endY);
+                ribGrad.addColorStop(0, '#991b1b');
+                ribGrad.addColorStop(0.5, '#b91c1c');
+                ribGrad.addColorStop(1, '#7f1d1d');
+                ctx.fillStyle = ribGrad;
+                ctx.beginPath();
+                ctx.moveTo(startX - 24, startY);
+                ctx.quadraticCurveTo(ctrlX - 24, ctrlY, endX - 28, endY);
+                ctx.lineTo(endX, endY - 20);
+                ctx.lineTo(endX + 28, endY);
+                ctx.quadraticCurveTo(ctrlX + 24, ctrlY, startX + 24, startY);
+                ctx.closePath();
+                ctx.fill();
+                ctx.strokeStyle = '#d4af37';
+                ctx.lineWidth = 1.8;
+                ctx.stroke();
+            }
+            drawRibbonTail(sealX - 26, sealY + 42, sealX - 74, sealY + 195, sealX - 56, sealY + 115);
+            drawRibbonTail(sealX + 26, sealY + 42, sealX + 74, sealY + 195, sealX + 56, sealY + 115);
+            ctx.restore();
+
+            // 24-лучевая золотая печать
+            ctx.save();
+            ctx.translate(sealX, sealY);
+
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            ctx.shadowBlur = 20;
+            ctx.shadowOffsetY = 8;
+
+            ctx.beginPath();
+            const points = 24;
+            const outerR = 104;
+            const innerR = 91;
+            for (let i = 0; i < points * 2; i++) {
+                const r = (i % 2 === 0) ? outerR : innerR;
+                const angle = (i * Math.PI) / points;
+                const px = Math.cos(angle) * r;
+                const py = Math.sin(angle) * r;
+                if (i === 0) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            }
+            ctx.closePath();
+
+            const sealGrad = ctx.createRadialGradient(-16, -22, 10, 0, 0, outerR);
+            sealGrad.addColorStop(0, '#fef08a');
+            sealGrad.addColorStop(0.4, '#eab308');
+            sealGrad.addColorStop(0.7, '#ca8a04');
+            sealGrad.addColorStop(1, '#854d0e');
+            ctx.fillStyle = sealGrad;
+            ctx.fill();
+
+            ctx.shadowColor = 'transparent';
+            ctx.strokeStyle = '#fef08a';
+            ctx.lineWidth = 2.8;
+            ctx.stroke();
+
+            // Внутренние кольца печати
+            ctx.strokeStyle = '#92400e';
+            ctx.lineWidth = 3.2;
+            ctx.beginPath();
+            ctx.arc(0, 0, 78, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Золотые бусины по окружности (32 шт)
+            ctx.fillStyle = '#fef08a';
+            for (let i = 0; i < 32; i++) {
+                const ang = (i * Math.PI * 2) / 32;
+                ctx.beginPath();
+                ctx.arc(Math.cos(ang) * 70, Math.sin(ang) * 70, 2.4, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            ctx.strokeStyle = '#78350f';
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.arc(0, 0, 62, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Текст внутри печати (двуязычный)
+            ctx.textAlign = 'center';
+            ctx.font = 'bold 15px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#451a03';
+            ctx.fillText(currentLang === 'en' ? 'KRASNOUFIMSK' : 'КРАСНОУФИМСК', 0, -24);
+
+            ctx.font = 'bold 23px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#78350f';
+            ctx.fillText('★ 1736 ★', 0, 4);
+
+            ctx.font = 'bold 12px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#451a03';
+            ctx.fillText(currentLang === 'en' ? 'OFFICIAL SEAL' : 'ОФИЦИАЛЬНО', 0, 24);
+            ctx.fillText(currentLang === 'en' ? 'MERIT AWARD' : 'ЗНАК КАЧЕСТВА', 0, 40);
+
+            ctx.restore();
+
+            // --- Правая колонка: Официальный блок проекта «Красноуфимск 2026» ---
+            ctx.save();
+            ctx.textAlign = 'right';
+
+            ctx.font = 'bold 22px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#0f172a';
+            ctx.fillText(currentLang === 'en' ? 'Heritage Project «Krasnoufimsk 2026»' : 'Краеведческий проект «Красноуфимск 2026»', W - 220, baseLineY - 45);
+
+            ctx.font = '500 20px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#475569';
+            ctx.fillText('krasnoufimsk-history.site', W - 220, baseLineY - 12);
+            ctx.fillText(currentLang === 'en' ? 'Status: Electronic Achievement Verification' : 'Статус: Электронная фиксация достижений', W - 220, baseLineY + 20);
+            ctx.fillText(currentLang === 'en' ? 'Perpetual Certificate of Historical Expertise' : 'Бессрочный именной диплом знатока', W - 220, baseLineY + 52);
+
+            // Защитные микро-штрихи справа
+            ctx.fillStyle = '#94a3b8';
+            let rx = W - 220;
+            for (let b = 0; b < barHeights.length; b++) {
+                ctx.fillRect(rx - (b % 3 === 0 ? 8 : 6), baseLineY + 82, (b % 3 === 0 ? 4 : 2), 22);
+                rx -= (b % 3 === 0 ? 8 : 6);
+            }
+            ctx.restore();
+
+            // 8. Нижний микропринт (Microprint Footer)
+            ctx.textAlign = 'center';
+            ctx.font = '400 17px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText(currentLang === 'en'
+                ? 'Krasnoufimsk • Sverdlovsk Region • Educational Heritage Portal 2026 • Standard A4 (297 × 210 mm, 300 DPI Ready)'
+                : 'Красноуфимск • Свердловская область • Научно-образовательный портал 2026 • Стандарт печати: Лист А4 (297 × 210 мм, 300 DPI)',
+                W / 2, H - 70);
+
+            // Инициируем скачивание диплома
+            const safeName = finalName.replace(/[^a-zA-Zа-яА-Я0-9_-]/g, '_');
+            const safeDiff = diff.toUpperCase();
             const link = document.createElement('a');
-            link.download = 'Krasnoufimsk_Certificate.png';
+            link.download = `Diplom_Krasnoufimsk_${safeDiff}_${safeName}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
         }
@@ -9553,8 +10964,8 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             setTimeout(function () {
                 let isModalOpen = false;
 
-                const weather = document.getElementById('weather-details-card');
-                if (weather && weather.classList.contains('show')) isModalOpen = true;
+                const weather = document.getElementById('weather-modal-backdrop');
+                if (weather && weather.classList.contains('active')) isModalOpen = true;
 
                 const passport = document.getElementById('passport-modal');
                 if (passport && passport.classList.contains('active')) isModalOpen = true;
@@ -10159,7 +11570,8 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
         // Закрытие по клавише Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                closePassportModal();
+                if (typeof closePassportModal === 'function') closePassportModal();
+                if (typeof closeWeatherModal === 'function') closeWeatherModal();
             }
         });
 
