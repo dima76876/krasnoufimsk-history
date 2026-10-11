@@ -77,19 +77,19 @@
            сайт мгновенно перекрашивается под текущее время года (или по клику).
            ========================================================================== */
         :root {
-            /* Тема "Осень" (по умолчанию) */
-            --main-color: #ea580c;
-            /* Основной акцентный цвет (оранжево-терракотовый) */
-            --main-hover: #c2410c;
+            /* Тема "Осень" (по умолчанию: мягкая благородная пастель) */
+            --main-color: #d9651a;
+            /* Основной акцентный цвет (тёплый янтарь/терракота) */
+            --main-hover: #b84f0e;
             /* Цвет при наведении */
-            --main-light: #ffedd5;
-            /* Светлый оттенок для фонов и бейджей */
-            --bg-accent: #fff7ed;
-            /* Мягкий тёплый фон блоков */
-            --accent-glow: rgba(234, 88, 12, 0.25);
+            --main-light: #faede1;
+            /* Светлый мягкий оттенок для фонов и бейджей */
+            --bg-accent: #f8f3eb;
+            /* Мягкий нейтрально-льняной фон блоков */
+            --accent-glow: rgba(217, 101, 26, 0.18);
             --gradient-hero: linear-gradient(135deg, rgba(38, 20, 12, 0.86) 0%, rgba(65, 31, 14, 0.76) 100%);
             --bg-image-hero: url('images/unsplash.webp');
-            --particle-color: 253, 186, 116;
+            --particle-color: 245, 175, 110;
 
             /* Общие нейтральные цвета интерфейса */
             --text-main: #1e293b;
@@ -98,12 +98,12 @@
             /* Второстепенный цвет текста */
             --text-light: #94a3b8;
             /* Цвет мелких подписей и дат */
-            --bg-body: #f8fafc;
-            /* Цвет фона страницы */
-            --bg-card: #ffffff;
-            /* Цвет фона карточек */
-            --border-card: rgba(0, 0, 0, 0.08);
-            /* Тонкая рамка карточек */
+            --bg-body: #faf7f2;
+            /* Цвет фона страницы (светлый алебастр, без резкой желтизны) */
+            --bg-card: rgba(255, 255, 255, 0.95);
+            /* Цвет фона карточек (чистое матовое стекло) */
+            --border-card: rgba(217, 101, 26, 0.15);
+            /* Тонкая деликатная рамка карточек */
             --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             --shadow-md: 0 12px 24px -4px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.12);
@@ -118,8 +118,11 @@
             --main-color: #0284c7;
             --main-hover: #0369a1;
             --main-light: #e0f2fe;
-            --bg-accent: #f0f9ff;
-            --accent-glow: rgba(2, 132, 199, 0.25);
+            --bg-accent: #e1f0fe;
+            --bg-body: #e6f2fd;
+            --bg-card: rgba(244, 250, 255, 0.94);
+            --border-card: rgba(2, 132, 199, 0.22);
+            --accent-glow: rgba(2, 132, 199, 0.32);
             --gradient-hero: linear-gradient(135deg, rgba(12, 28, 48, 0.88) 0%, rgba(15, 42, 74, 0.78) 100%);
             --bg-image-hero: url('images/bg_winter.webp');
             --particle-color: 186, 230, 253;
@@ -130,8 +133,11 @@
             --main-color: #16a34a;
             --main-hover: #15803d;
             --main-light: #dcfce7;
-            --bg-accent: #f0fdf4;
-            --accent-glow: rgba(22, 163, 74, 0.25);
+            --bg-accent: #e2f7e9;
+            --bg-body: #eaf6ee;
+            --bg-card: rgba(246, 254, 249, 0.94);
+            --border-card: rgba(22, 163, 74, 0.22);
+            --accent-glow: rgba(22, 163, 74, 0.32);
             --gradient-hero: linear-gradient(135deg, rgba(13, 38, 23, 0.88) 0%, rgba(20, 56, 33, 0.78) 100%);
             --bg-image-hero: url('images/bg_spring.webp');
             --particle-color: 134, 239, 172;
@@ -142,23 +148,29 @@
             --main-color: #0d9488;
             --main-hover: #0f766e;
             --main-light: #ccfbf1;
-            --bg-accent: #f0fdfa;
-            --accent-glow: rgba(13, 148, 136, 0.25);
+            --bg-accent: #dcf4f2;
+            --bg-body: #e6f6f5;
+            --bg-card: rgba(244, 254, 253, 0.94);
+            --border-card: rgba(13, 148, 136, 0.22);
+            --accent-glow: rgba(13, 148, 136, 0.32);
             --gradient-hero: linear-gradient(135deg, rgba(10, 37, 39, 0.88) 0%, rgba(13, 53, 56, 0.78) 100%);
             --bg-image-hero: url('images/bg_summer.webp');
             --particle-color: 94, 234, 212;
         }
 
-        /* ТЕМА: ОСЕНЬ (Тёплая охра) */
+        /* ТЕМА: ОСЕНЬ (Спокойная тёплая пастель) */
         body.season-autumn {
-            --main-color: #ea580c;
-            --main-hover: #c2410c;
-            --main-light: #ffedd5;
-            --bg-accent: #fff7ed;
-            --accent-glow: rgba(234, 88, 12, 0.25);
+            --main-color: #d9651a;
+            --main-hover: #b84f0e;
+            --main-light: #faede1;
+            --bg-accent: #f8f3eb;
+            --bg-body: #faf7f2;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --border-card: rgba(217, 101, 26, 0.15);
+            --accent-glow: rgba(217, 101, 26, 0.18);
             --gradient-hero: linear-gradient(135deg, rgba(38, 20, 12, 0.88) 0%, rgba(59, 29, 12, 0.78) 100%);
             --bg-image-hero: url('images/unsplash.webp');
-            --particle-color: 253, 186, 116;
+            --particle-color: 245, 175, 110;
         }
 
         /* ==========================================================================
@@ -175,6 +187,7 @@
         html {
             scroll-behavior: smooth;
             scroll-padding-top: 90px;
+            background-color: #0f172a;
         }
 
         body {
@@ -634,6 +647,8 @@
             border: 1px solid rgba(255, 255, 255, 0.16);
             border-radius: 22px;
             padding: 16px;
+            max-height: calc(100vh - 90px);
+            overflow-y: auto;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             opacity: 0;
             visibility: hidden;
@@ -937,7 +952,7 @@
 
         .season-btn {
             background: var(--bg-card);
-            border: 1.5px solid rgba(0, 0, 0, 0.08);
+            border: 1.5px solid rgba(0, 0, 0, 0.18);
             color: var(--text-main);
             padding: 7px 16px;
             border-radius: 20px;
@@ -945,6 +960,7 @@
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .season-btn:hover {
@@ -954,10 +970,17 @@
         }
 
         .season-btn.active {
-            background: var(--main-color);
-            border-color: var(--main-color);
-            color: white;
+            background: var(--main-color) !important;
+            border-color: var(--main-color) !important;
+            color: white !important;
             box-shadow: 0 4px 14px var(--accent-glow);
+        }
+
+        body.dark-theme .season-btn,
+        .dark-theme .season-btn {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1.5px solid rgba(255, 255, 255, 0.32);
+            color: #f8fafc;
         }
 
         /* ==========================================================================
@@ -1052,11 +1075,24 @@
             border-radius: var(--radius-lg);
             padding: 44px;
             box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-card);
+            border: 1.5px solid var(--border-card);
             display: none;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.35s ease, transform 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--main-color), color-mix(in srgb, var(--main-color) 30%, transparent));
+            opacity: 0.85;
         }
 
         .event-card.active {
@@ -1091,7 +1127,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: var(--bg-accent);
+            background: var(--main-light);
             color: var(--main-color);
             padding: 6px 14px;
             border-radius: 20px;
@@ -1099,7 +1135,8 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.6px;
-            border: 1px solid var(--border-card);
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 32%, transparent);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .event-card-index {
@@ -1125,14 +1162,26 @@
         }
 
         .historical-fact-box {
-            background: var(--bg-body);
-            border-left: 4px solid var(--main-color);
+            background: color-mix(in srgb, var(--main-color) 5%, var(--bg-card)) !important;
+            border: 1px solid color-mix(in srgb, var(--main-color) 16%, transparent) !important;
+            border-left: 4px solid var(--main-color) !important;
             border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
             padding: 16px 20px;
             margin-bottom: 26px;
             font-size: 15px;
             color: var(--text-muted);
             line-height: 1.6;
+            box-shadow: 0 2px 8px color-mix(in srgb, var(--main-color) 8%, transparent);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        body.dark-theme .historical-fact-box,
+        .dark-theme .historical-fact-box {
+            background: color-mix(in srgb, var(--main-color) 12%, rgba(30, 41, 59, 0.75)) !important;
+            border: 1px solid color-mix(in srgb, var(--main-color) 30%, transparent) !important;
+            border-left: 4px solid var(--main-color) !important;
+            color: #cbd5e1 !important;
         }
 
         .historical-fact-box strong {
@@ -1173,19 +1222,19 @@
         .landmark-address-card {
             width: 100%;
             max-width: 580px;
-            background: var(--bg-card);
-            border: 1.5px solid var(--border-card);
+            background: color-mix(in srgb, var(--bg-card) 96%, var(--main-color) 4%);
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 18%, rgba(0, 0, 0, 0.09));
             border-radius: var(--radius-md);
             padding: 16px 20px;
             margin-top: 10px;
             text-align: center;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 16px var(--accent-glow);
             transition: var(--transition);
         }
 
         .landmark-address-card:hover {
             border-color: var(--main-color);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 24px var(--accent-glow);
         }
 
         .address-header {
@@ -1198,10 +1247,12 @@
             text-transform: uppercase;
             letter-spacing: 0.8px;
             color: var(--main-color);
-            background: var(--bg-accent);
+            background: var(--main-light);
             padding: 4px 14px;
             border-radius: 20px;
             display: inline-block;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 32%, transparent);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .address-details {
@@ -1249,31 +1300,33 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid var(--border-card);
+            border-top: 1.5px solid color-mix(in srgb, var(--main-color) 20%, rgba(0, 0, 0, 0.08));
             padding-top: 24px;
             gap: 12px;
         }
 
         .btn-step-nav {
-            background: var(--bg-body);
+            background: color-mix(in srgb, var(--main-color) 8%, var(--bg-card));
             color: var(--text-main);
-            border: none;
-            padding: 10px 20px;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 32%, rgba(0, 0, 0, 0.15));
+            padding: 10px 22px;
             border-radius: 25px;
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 700;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: var(--transition);
+            box-shadow: 0 3px 10px var(--accent-glow);
         }
 
         .btn-step-nav:hover:not(:disabled) {
             background: var(--main-color);
-            color: white;
+            border-color: var(--main-color);
+            color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--accent-glow);
+            box-shadow: 0 6px 18px var(--accent-glow);
         }
 
         .btn-step-nav:disabled {
@@ -1297,7 +1350,7 @@
 
         .routes-badge {
             display: inline-block;
-            background: var(--bg-accent);
+            background: var(--main-light);
             color: var(--main-color);
             padding: 5px 16px;
             border-radius: 20px;
@@ -1306,6 +1359,8 @@
             text-transform: uppercase;
             letter-spacing: 0.8px;
             margin-bottom: 10px;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 32%, transparent);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .routes-header h2 {
@@ -1323,7 +1378,7 @@
 
         .route-card {
             background: var(--bg-card);
-            border: 1px solid var(--border-card);
+            border: 1.5px solid var(--border-card);
             border-radius: var(--radius-md);
             padding: 28px 24px;
             box-shadow: var(--shadow-md);
@@ -1331,18 +1386,60 @@
             flex-direction: column;
             justify-content: space-between;
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .route-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--main-color), color-mix(in srgb, var(--main-color) 35%, transparent));
+            opacity: 0.85;
+            transition: var(--transition);
         }
 
         .route-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px var(--accent-glow);
             border-color: var(--main-color);
         }
 
+        .route-card:hover::before {
+            height: 5px;
+            opacity: 1;
+        }
+
         .route-icon-box {
-            font-size: 38px;
-            margin-bottom: 14px;
-            display: inline-block;
+            width: 58px;
+            height: 58px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            border-radius: 16px;
+            background: color-mix(in srgb, var(--main-color) 12%, rgba(255, 255, 255, 0.7));
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 28%, transparent);
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px color-mix(in srgb, var(--main-color) 12%, transparent);
+            transition: var(--transition);
+        }
+
+        .route-card:hover .route-icon-box {
+            transform: scale(1.08) rotate(3deg);
+            border-color: var(--main-color);
+            box-shadow: 0 6px 16px var(--accent-glow);
+        }
+
+        body.dark-theme .route-icon-box,
+        .dark-theme .route-icon-box {
+            background: color-mix(in srgb, var(--main-color) 20%, rgba(30, 41, 59, 0.8));
+            border-color: color-mix(in srgb, var(--main-color) 40%, rgba(255, 255, 255, 0.2));
         }
 
         .route-card h3 {
@@ -1383,10 +1480,11 @@
             margin-top: 12px;
         }
 
-        .btn-view-route {
-            background: var(--bg-card);
-            color: var(--text-main);
-            border: 1.5px solid var(--border-card);
+        .btn-view-route,
+        .btn-route-timeline {
+            background: color-mix(in srgb, var(--main-color) 8%, var(--bg-card));
+            color: var(--main-color);
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 35%, rgba(0, 0, 0, 0.15));
             padding: 9px 18px;
             border-radius: 20px;
             font-size: 13px;
@@ -1398,42 +1496,17 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 7px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
         }
 
-        .btn-view-route:hover {
-            background: var(--main-color);
-            border-color: var(--main-color);
-            color: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px var(--accent-glow);
-        }
-
-        .btn-route-timeline {
-            background: var(--bg-card);
-            color: var(--text-main);
-            border: 1.5px solid var(--border-card);
-            padding: 9px 18px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-        }
-
+        .btn-view-route:hover,
         .btn-route-timeline:hover {
             background: var(--main-color);
             border-color: var(--main-color);
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px var(--accent-glow);
+            box-shadow: 0 6px 18px var(--accent-glow);
         }
 
         /* ==========================================================================
@@ -1472,7 +1545,7 @@
 
         .quiz-badge {
             display: inline-block;
-            background: var(--bg-accent);
+            background: var(--main-light);
             color: var(--main-color);
             padding: 6px 16px;
             border-radius: 20px;
@@ -1481,6 +1554,8 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 12px;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 32%, transparent);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .quiz-header h2 {
@@ -1658,29 +1733,395 @@
             }
         }
 
-        /* === ЛИСТАНИЕ ВИКТОРИНЫ === */
-        .quiz-progress-bar-wrap {
-            background: var(--border-card);
-            border-radius: 99px;
-            height: 8px;
-            margin: 0 4px 18px 4px;
+        /* ==========================================================================
+           ВЫБОР УРОВНЯ СЛОЖНОСТИ ВИКТОРИНЫ (GLASSMORPHISM КАРТОЧКИ)
+           ========================================================================== */
+        .quiz-start-screen {
+            text-align: center;
+            padding: 30px 16px;
+        }
+
+        .quiz-diff-title {
+            font-size: clamp(1.35rem, 2.5vw, 1.7rem);
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .quiz-diff-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 26px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .quiz-diff-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-diff-grid {
+                grid-template-columns: 1fr;
+                max-width: 340px;
+            }
+        }
+
+        .quiz-diff-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-card);
+            border-radius: 20px;
+            padding: 22px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
             overflow: hidden;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            font-family: inherit;
+            text-decoration: none;
+            outline: none;
+        }
+
+        .quiz-diff-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            opacity: 0.9;
+            transition: height 0.3s ease;
+        }
+
+        .quiz-diff-card--easy::before {
+            background: linear-gradient(90deg, #22c55e, #16a34a);
+        }
+
+        .quiz-diff-card--medium::before {
+            background: linear-gradient(90deg, #f97316, #ea580c);
+        }
+
+        .quiz-diff-card--hard::before {
+            background: linear-gradient(90deg, #f43f5e, #e11d48);
+        }
+
+        .quiz-diff-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .quiz-diff-card:active {
+            transform: translateY(-2px) scale(0.99);
+        }
+
+        /* Лёгкий уровень */
+        .quiz-diff-card--easy {
+            border-color: rgba(34, 197, 94, 0.32);
+            background: linear-gradient(160deg, rgba(34, 197, 94, 0.08), var(--bg-card));
+        }
+        .quiz-diff-card--easy:hover {
+            border-color: #22c55e;
+            box-shadow: 0 12px 28px rgba(34, 197, 94, 0.28);
+        }
+
+        /* Средний уровень */
+        .quiz-diff-card--medium {
+            border-color: rgba(249, 115, 22, 0.32);
+            background: linear-gradient(160deg, rgba(249, 115, 22, 0.08), var(--bg-card));
+        }
+        .quiz-diff-card--medium:hover {
+            border-color: #f97316;
+            box-shadow: 0 12px 28px rgba(249, 115, 22, 0.28);
+        }
+
+        /* Сложный уровень */
+        .quiz-diff-card--hard {
+            border-color: rgba(244, 63, 94, 0.32);
+            background: linear-gradient(160deg, rgba(244, 63, 94, 0.08), var(--bg-card));
+        }
+        .quiz-diff-card--hard:hover {
+            border-color: #f43f5e;
+            box-shadow: 0 12px 28px rgba(244, 63, 94, 0.28);
+        }
+
+        /* Тёмная тема */
+        body.dark-theme .quiz-diff-card,
+        .dark-theme .quiz-diff-card {
+            background: rgba(30, 41, 59, 0.65);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-theme .quiz-diff-card--easy,
+        .dark-theme .quiz-diff-card--easy {
+            background: linear-gradient(160deg, rgba(34, 197, 94, 0.15), rgba(30, 41, 59, 0.75));
+            border-color: rgba(34, 197, 94, 0.45);
+        }
+        body.dark-theme .quiz-diff-card--easy:hover,
+        .dark-theme .quiz-diff-card--easy:hover {
+            border-color: #4ade80;
+            box-shadow: 0 12px 30px rgba(34, 197, 94, 0.35);
+        }
+
+        body.dark-theme .quiz-diff-card--medium,
+        .dark-theme .quiz-diff-card--medium {
+            background: linear-gradient(160deg, rgba(249, 115, 22, 0.15), rgba(30, 41, 59, 0.75));
+            border-color: rgba(249, 115, 22, 0.45);
+        }
+        body.dark-theme .quiz-diff-card--medium:hover,
+        .dark-theme .quiz-diff-card--medium:hover {
+            border-color: #fb923c;
+            box-shadow: 0 12px 30px rgba(249, 115, 22, 0.35);
+        }
+
+        body.dark-theme .quiz-diff-card--hard,
+        .dark-theme .quiz-diff-card--hard {
+            background: linear-gradient(160deg, rgba(244, 63, 94, 0.15), rgba(30, 41, 59, 0.75));
+            border-color: rgba(244, 63, 94, 0.45);
+        }
+        body.dark-theme .quiz-diff-card--hard:hover,
+        .dark-theme .quiz-diff-card--hard:hover {
+            border-color: #fb7185;
+            box-shadow: 0 12px 30px rgba(244, 63, 94, 0.35);
+        }
+
+        /* Иконка уровня */
+        .quiz-diff-icon-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .quiz-diff-card--easy .quiz-diff-icon-wrap {
+            background: rgba(34, 197, 94, 0.15);
+            border: 1.5px solid rgba(34, 197, 94, 0.35);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+        }
+
+        .quiz-diff-card--medium .quiz-diff-icon-wrap {
+            background: rgba(249, 115, 22, 0.15);
+            border: 1.5px solid rgba(249, 115, 22, 0.35);
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+        }
+
+        .quiz-diff-card--hard .quiz-diff-icon-wrap {
+            background: rgba(244, 63, 94, 0.15);
+            border: 1.5px solid rgba(244, 63, 94, 0.35);
+            box-shadow: 0 4px 12px rgba(244, 63, 94, 0.2);
+        }
+
+        .quiz-diff-card:hover .quiz-diff-icon-wrap {
+            transform: scale(1.12) rotate(6deg);
+        }
+
+        /* Название уровня */
+        .quiz-diff-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        /* Бейдж с количеством вопросов */
+        .quiz-diff-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.2px;
+        }
+
+        .quiz-diff-card--easy .quiz-diff-badge {
+            background: rgba(34, 197, 94, 0.16);
+            color: #15803d;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        body.dark-theme .quiz-diff-card--easy .quiz-diff-badge,
+        .dark-theme .quiz-diff-card--easy .quiz-diff-badge {
+            color: #4ade80;
+        }
+
+        .quiz-diff-card--medium .quiz-diff-badge {
+            background: rgba(249, 115, 22, 0.16);
+            color: #c2410c;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+        }
+        body.dark-theme .quiz-diff-card--medium .quiz-diff-badge,
+        .dark-theme .quiz-diff-card--medium .quiz-diff-badge {
+            color: #fb923c;
+        }
+
+        .quiz-diff-card--hard .quiz-diff-badge {
+            background: rgba(244, 63, 94, 0.16);
+            color: #be123c;
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+        body.dark-theme .quiz-diff-card--hard .quiz-diff-badge,
+        .dark-theme .quiz-diff-card--hard .quiz-diff-badge {
+            color: #fb7185;
+        }
+
+        /* Описание */
+        .quiz-diff-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 16px;
+            min-height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Кнопка "Начать" внутри карточки */
+        .quiz-diff-btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 9px 16px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #ffffff;
+            transition: all 0.25s ease;
+            border: none;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+            user-select: none;
+        }
+
+        .quiz-diff-card--easy .quiz-diff-btn-action {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+        }
+
+        .quiz-diff-card--medium .quiz-diff-btn-action {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+        }
+
+        .quiz-diff-card--hard .quiz-diff-btn-action {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+        }
+
+        .quiz-diff-card:hover .quiz-diff-btn-action {
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* === ЛИСТАНИЕ ВИКТОРИНЫ (GLASSMORPHISM ПРОГРЕСС И СЧЁТЧИК) === */
+        .quiz-progress-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            gap: 10px;
+        }
+
+        .quiz-counter-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-main);
+            background: color-mix(in srgb, var(--main-color) 10%, var(--bg-card));
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 28%, transparent);
+            padding: 6px 14px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px color-mix(in srgb, var(--main-color) 12%, transparent);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .quiz-counter-pill strong {
+            color: var(--main-color);
+            font-size: 1rem;
+        }
+
+        .quiz-percent-pill {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: var(--main-color);
+            background: color-mix(in srgb, var(--main-color) 12%, var(--bg-card));
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 30%, transparent);
+            padding: 5px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .quiz-progress-bar-wrap {
+            background: color-mix(in srgb, var(--text-muted) 16%, rgba(0, 0, 0, 0.05));
+            border: 1px solid color-mix(in srgb, var(--main-color) 20%, transparent);
+            border-radius: 99px;
+            height: 10px;
+            margin: 0 2px 22px 2px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         .quiz-progress-bar {
             height: 100%;
-            background: var(--main-color);
+            background: linear-gradient(90deg, var(--main-color), var(--main-hover));
             border-radius: 99px;
-            transition: width 0.4s ease;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 0 12px var(--accent-glow);
         }
 
-        .quiz-counter {
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--main-color);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 18px;
+        .quiz-progress-bar-glow {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 24px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6));
+            filter: blur(2px);
+            animation: progressShimmer 2s infinite ease-in-out;
+        }
+
+        @keyframes progressShimmer {
+            0%, 100% { opacity: 0.35; }
+            50% { opacity: 0.9; }
+        }
+
+        body.dark-theme .quiz-counter-pill,
+        .dark-theme .quiz-counter-pill {
+            background: rgba(30, 41, 59, 0.7);
+            border-color: color-mix(in srgb, var(--main-color) 40%, rgba(255, 255, 255, 0.2));
+            color: #f8fafc;
+        }
+
+        body.dark-theme .quiz-percent-pill,
+        .dark-theme .quiz-percent-pill {
+            background: rgba(30, 41, 59, 0.7);
+            border-color: color-mix(in srgb, var(--main-color) 45%, rgba(255, 255, 255, 0.25));
+        }
+
+        body.dark-theme .quiz-progress-bar-wrap,
+        .dark-theme .quiz-progress-bar-wrap {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.12);
         }
 
         .quiz-nav-btns {
@@ -1807,7 +2248,22 @@
             border-radius: var(--radius-lg);
             padding: 44px;
             box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-card);
+            border: 1.5px solid var(--border-card);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .tourist-guide-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--main-color), color-mix(in srgb, var(--main-color) 30%, transparent));
+            opacity: 0.85;
         }
 
         .guide-header {
@@ -1817,7 +2273,7 @@
 
         .guide-badge {
             display: inline-block;
-            background: var(--bg-accent);
+            background: var(--main-light);
             color: var(--main-color);
             padding: 5px 16px;
             border-radius: 20px;
@@ -1826,6 +2282,8 @@
             text-transform: uppercase;
             letter-spacing: 0.8px;
             margin-bottom: 10px;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 32%, transparent);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .guide-header h2 {
@@ -1848,8 +2306,8 @@
         }
 
         .guide-item {
-            background: var(--bg-body);
-            border: 1px solid rgba(0, 0, 0, 0.06);
+            background: color-mix(in srgb, var(--bg-card) 96%, var(--main-color) 4%);
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 16%, rgba(0, 0, 0, 0.08));
             border-radius: var(--radius-md);
             padding: 24px 22px;
             transition: var(--transition);
@@ -1857,19 +2315,37 @@
             flex-direction: column;
             cursor: pointer;
             position: relative;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
         }
 
         .guide-item:hover {
-            transform: translateY(-4px);
-            background: var(--bg-accent);
+            transform: translateY(-5px);
+            background: color-mix(in srgb, var(--main-color) 10%, var(--bg-card));
             border-color: var(--main-color);
-            box-shadow: 0 8px 24px var(--accent-glow);
+            box-shadow: 0 12px 28px var(--accent-glow);
         }
 
         .guide-item-icon {
-            font-size: 34px;
-            display: block;
-            margin-bottom: 12px;
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border-radius: 14px;
+            background: color-mix(in srgb, var(--main-color) 10%, rgba(255, 255, 255, 0.9));
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 20%, transparent);
+            margin-bottom: 14px;
+            box-shadow: 0 4px 12px color-mix(in srgb, var(--main-color) 10%, transparent);
+            transition: var(--transition);
+        }
+
+        .guide-item:hover .guide-item-icon {
+            transform: scale(1.1) rotate(4deg);
+            border-color: var(--main-color);
+            box-shadow: 0 6px 16px var(--accent-glow);
         }
 
         .guide-item h4 {
@@ -1889,9 +2365,10 @@
 
         .guide-item-action,
         .guide-item-action-btn {
-            background: transparent;
-            border: none;
-            padding: 0;
+            background: color-mix(in srgb, var(--main-color) 6%, transparent);
+            border: 1px solid color-mix(in srgb, var(--main-color) 20%, transparent);
+            padding: 8px 16px;
+            border-radius: 14px;
             font-family: inherit;
             font-size: 13px;
             font-weight: 700;
@@ -1908,8 +2385,11 @@
         .guide-item:hover .guide-item-action,
         .guide-item:hover .guide-item-action-btn,
         .guide-item-action-btn:hover {
-            color: var(--main-hover);
+            background: var(--main-color);
+            color: #ffffff;
+            border-color: var(--main-color);
             transform: translateX(4px);
+            box-shadow: 0 4px 12px var(--accent-glow);
         }
 
         /* ==========================================================================
@@ -1948,6 +2428,10 @@
             padding: 60px 20px 40px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             text-align: center;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 0;
+            width: 100%;
         }
 
         .footer-content {
@@ -2290,6 +2774,20 @@
                 font-size: 11px;
                 padding: 5px 12px;
             }
+
+            .stat-item {
+                min-width: 90px;
+                padding: 10px 12px;
+                flex: 1 1 95px;
+            }
+
+            .stat-number {
+                font-size: 22px;
+            }
+
+            .stat-label {
+                font-size: 10.5px;
+            }
         }
 
         /* ==========================================================================
@@ -2491,6 +2989,8 @@
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 32%, transparent);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         /* Меню выбора достопримечательностей с кнопками листания */
@@ -2566,7 +3066,7 @@
             width: 100%;
             background: var(--bg-accent);
             color: var(--text-main);
-            border: 1.5px solid var(--border-card);
+            border: 1.5px solid rgba(0, 0, 0, 0.18);
             border-radius: 12px;
             padding: 10px 14px;
             font-size: 0.94rem;
@@ -2575,6 +3075,12 @@
             outline: none;
             cursor: pointer;
             transition: var(--transition);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        body.dark-theme .sights-dropdown-select,
+        .dark-theme .sights-dropdown-select {
+            border-color: rgba(255, 255, 255, 0.28);
         }
 
         .sights-dropdown-select:hover,
@@ -2658,11 +3164,6 @@
             gap: 14px;
         }
 
-        .sight-meta-pill--status {
-            background: var(--main-color);
-            color: #fff;
-        }
-
         @media (max-width: 600px) {
             .sight-showcase-body--full {
                 padding: 20px 16px;
@@ -2685,14 +3186,22 @@
         }
 
         .sight-meta-pill {
-            font-size: 0.8rem;
-            padding: 4px 10px;
-            border-radius: 12px;
-            background: var(--bg-accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.82rem;
+            padding: 5px 12px;
+            border-radius: 14px;
+            background: var(--main-light);
             color: var(--main-color);
-            font-weight: 600;
-            border: 1px solid var(--border-card);
+            font-weight: 700;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 32%, transparent);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
         }
+
 
         .sight-showcase-desc {
             font-size: 0.96rem;
@@ -2703,12 +3212,14 @@
 
         .sight-showcase-fact {
             background: var(--bg-accent);
+            border: 1px solid color-mix(in srgb, var(--main-color) 20%, transparent);
             border-left: 4px solid var(--main-color);
             padding: 10px 14px;
             border-radius: 0 8px 8px 0;
             font-size: 0.88rem;
             color: var(--text-main);
             margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         }
 
         .sight-showcase-address {
@@ -2772,12 +3283,14 @@
             margin-top: 14px;
             padding: 12px 16px;
             background: var(--bg-accent);
+            border: 1px solid color-mix(in srgb, var(--main-color) 20%, transparent);
             border-left: 4px solid var(--main-color);
             border-radius: 0 8px 8px 0;
             font-size: 0.92rem;
             color: var(--text-main);
             line-height: 1.55;
             animation: fadeIn 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         }
 
 
@@ -2813,11 +3326,12 @@
         /* ТЕМА: ТЁМНАЯ (DARK) */
         body.dark-theme {
             --bg-body: #0f172a;
-            --bg-card: #1e293b;
+            --bg-card: rgba(30, 41, 59, 0.72);
             --text-main: #f8fafc;
             --text-muted: #cbd5e1;
             --bg-accent: #334155;
-            --border-card: rgba(255, 255, 255, 0.1);
+            --main-light: color-mix(in srgb, var(--main-color) 20%, rgba(30, 41, 59, 0.7));
+            --border-card: rgba(255, 255, 255, 0.16);
             --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
             --shadow-md: 0 12px 24px -4px rgba(0, 0, 0, 0.5);
         }
@@ -2894,53 +3408,361 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-        /* Glassmorphism эффект для карточек */
-        :root {
-            --bg-card: rgba(255, 255, 255, 0.75);
-            --border-card: rgba(255, 255, 255, 0.6);
-        }
-        .dark-theme {
-            --bg-card: rgba(30, 41, 59, 0.65);
-            --border-card: rgba(255, 255, 255, 0.15);
+        /* Glassmorphism эффект для карточек и элементов */
+        .dark-theme, body.dark-theme {
+            --bg-card: rgba(30, 41, 59, 0.72);
+            --border-card: rgba(255, 255, 255, 0.16);
         }
         
-        .event-card, .sight-showcase-card, .quiz-card, .route-card, .intro-card, .tourist-guide-card, .weather-details-card {
-            backdrop-filter: blur(12px) !important;
-            -webkit-backdrop-filter: blur(12px) !important;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1) !important;
+        .event-card, 
+        .sight-showcase-card, 
+        .quiz-card, 
+        .route-card, 
+        .intro-card, 
+        .tourist-guide-card, 
+        .weather-details-card,
+        .sights-map-card,
+        .sights-menu-selector-bar,
+        .landmark-address-card,
+        .question-box,
+        .guide-item,
+        .passport-modal-window,
+        .passport-profile-card {
+            backdrop-filter: blur(14px) !important;
+            -webkit-backdrop-filter: blur(14px) !important;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08) !important;
         }
         
-        .dark-theme .event-card, .dark-theme .sight-showcase-card, .dark-theme .quiz-card, .dark-theme .route-card, .dark-theme .intro-card, .dark-theme .tourist-guide-card, .dark-theme .weather-details-card {
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+        .dark-theme .event-card, 
+        .dark-theme .sight-showcase-card, 
+        .dark-theme .quiz-card, 
+        .dark-theme .route-card, 
+        .dark-theme .intro-card, 
+        .dark-theme .tourist-guide-card, 
+        .dark-theme .weather-details-card,
+        .dark-theme .sights-map-card,
+        .dark-theme .sights-menu-selector-bar,
+        .dark-theme .landmark-address-card,
+        .dark-theme .question-box,
+        .dark-theme .guide-item,
+        .dark-theme .passport-modal-window,
+        .dark-theme .passport-profile-card,
+        body.dark-theme .event-card, 
+        body.dark-theme .sight-showcase-card, 
+        body.dark-theme .quiz-card, 
+        body.dark-theme .route-card, 
+        body.dark-theme .intro-card, 
+        body.dark-theme .tourist-guide-card, 
+        body.dark-theme .weather-details-card,
+        body.dark-theme .sights-map-card,
+        body.dark-theme .sights-menu-selector-bar,
+        body.dark-theme .landmark-address-card,
+        body.dark-theme .question-box,
+        body.dark-theme .guide-item,
+        body.dark-theme .passport-modal-window,
+        body.dark-theme .passport-profile-card {
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35) !important;
         }
 
-        .dark-theme .sights-badge {
-            background: color-mix(in srgb, var(--main-color) 20%, transparent) !important;
+        .dark-theme .routes-badge,
+        .dark-theme .guide-badge,
+        .dark-theme .quiz-badge,
+        .dark-theme .epoch-badge,
+        .dark-theme .address-badge,
+        .dark-theme .sights-badge,
+        .dark-theme .sights-map-badge,
+        .dark-theme .sight-meta-pill,
+        body.dark-theme .routes-badge,
+        body.dark-theme .guide-badge,
+        body.dark-theme .quiz-badge,
+        body.dark-theme .epoch-badge,
+        body.dark-theme .address-badge,
+        body.dark-theme .sights-badge,
+        body.dark-theme .sights-map-badge,
+        body.dark-theme .sight-meta-pill {
+            background: color-mix(in srgb, var(--main-color) 22%, rgba(30, 41, 59, 0.7)) !important;
+            color: var(--main-color) !important;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 45%, transparent) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+        }
+
+
+        /* Обводка кнопок фильтров интерактивной карты в светлой и тёмной темах */
+        .map-filter-btn:not(.active) {
+            background: #ffffff !important;
+            border: 1.5px solid rgba(0, 0, 0, 0.22) !important;
+            color: var(--text-main) !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+        }
+        .map-filter-btn:hover:not(.active) {
+            border-color: var(--main-color) !important;
+            color: var(--main-color) !important;
+            background: rgba(0, 0, 0, 0.03) !important;
+        }
+        .sights-map-btn-reset {
+            border: 1.5px solid rgba(0, 0, 0, 0.22) !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+        }
+        body.dark-theme .map-filter-btn:not(.active),
+        .dark-theme .map-filter-btn:not(.active) {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+            color: #f8fafc !important;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25) !important;
+        }
+        body.dark-theme .map-filter-btn:hover:not(.active),
+        .dark-theme .map-filter-btn:hover:not(.active) {
+            border-color: var(--main-color) !important;
+            background: rgba(255, 255, 255, 0.16) !important;
             color: var(--main-color) !important;
         }
-
-        .dark-theme .time-btn:not(.active) {
-            border-color: rgba(255, 255, 255, 0.35);
-            background: rgba(255, 255, 255, 0.05);
-            color: #e2e8f0;
+        body.dark-theme .sights-map-btn-reset,
+        .dark-theme .sights-map-btn-reset {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+            color: #f8fafc !important;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25) !important;
+        }
+        body.dark-theme .sights-map-btn-reset:hover,
+        .dark-theme .sights-map-btn-reset:hover {
+            background: var(--main-color) !important;
+            color: #ffffff !important;
+            border-color: var(--main-color) !important;
         }
 
-        .dark-theme .btn-route-timeline {
-            border-color: rgba(255, 255, 255, 0.35) !important;
-            background: rgba(255, 255, 255, 0.05) !important;
-            color: #e2e8f0 !important;
+        /* Обводка и контраст кнопок навигации по эпохам и объектам */
+        .btn-step-nav {
+            background: color-mix(in srgb, var(--main-color) 8%, var(--bg-card)) !important;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 32%, rgba(0, 0, 0, 0.15)) !important;
+            color: var(--text-main) !important;
+            box-shadow: 0 3px 10px var(--accent-glow) !important;
+        }
+        body.dark-theme .btn-step-nav,
+        .dark-theme .btn-step-nav {
+            background: color-mix(in srgb, var(--main-color) 12%, rgba(30, 41, 59, 0.75)) !important;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 40%, rgba(255, 255, 255, 0.25)) !important;
+            color: #f8fafc !important;
+            box-shadow: 0 3px 12px var(--accent-glow) !important;
+        }
+        .btn-step-nav:hover:not(:disabled),
+        body.dark-theme .btn-step-nav:hover:not(:disabled),
+        .dark-theme .btn-step-nav:hover:not(:disabled) {
+            background: var(--main-color) !important;
+            border-color: var(--main-color) !important;
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px var(--accent-glow) !important;
         }
 
-        /* Fix for route buttons visibility in light theme */
-        .btn-route-timeline:not(:hover), .btn-view-route:not(:hover) {
-            border: 1.5px solid rgba(0, 0, 0, 0.15) !important;
-            background: rgba(0, 0, 0, 0.04) !important;
+        .sights-nav-btn {
+            background: var(--bg-card) !important;
+            border: 1.5px solid rgba(0, 0, 0, 0.22) !important;
+            color: var(--text-main) !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+        }
+        body.dark-theme .sights-nav-btn,
+        .dark-theme .sights-nav-btn {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+            color: #f8fafc !important;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
+        }
+        .sights-nav-btn:hover,
+        body.dark-theme .sights-nav-btn:hover,
+        .dark-theme .sights-nav-btn:hover {
+            background: var(--main-color) !important;
+            border-color: var(--main-color) !important;
+            color: #ffffff !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--accent-glow) !important;
+        }
+
+        /* Кнопки эпох на ленте времени (timeline) */
+        .time-btn:not(.active) {
+            border: 1.5px solid rgba(0, 0, 0, 0.22) !important;
+            background: rgba(0, 0, 0, 0.02) !important;
             color: var(--text-main) !important;
         }
-        .dark-theme .btn-route-timeline:not(:hover), .dark-theme .btn-view-route:not(:hover) {
-            border-color: rgba(255, 255, 255, 0.35) !important;
+        body.dark-theme .time-btn:not(.active),
+        .dark-theme .time-btn:not(.active) {
+            border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
             background: rgba(255, 255, 255, 0.08) !important;
-            color: #e2e8f0 !important;
+            color: #f8fafc !important;
+        }
+
+        /* Кнопки туристических маршрутов */
+        .btn-view-route,
+        .btn-route-timeline {
+            background: color-mix(in srgb, var(--main-color) 8%, var(--bg-card)) !important;
+            color: var(--main-color) !important;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 35%, rgba(0, 0, 0, 0.15)) !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+            padding: 9px 18px !important;
+            border-radius: 20px !important;
+            font-size: 13px !important;
+            font-weight: 700 !important;
+            text-align: center !important;
+            text-decoration: none !important;
+            cursor: pointer !important;
+            transition: var(--transition) !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 7px !important;
+        }
+
+        .btn-view-route:hover,
+        .btn-route-timeline:hover {
+            background: var(--main-color) !important;
+            color: #ffffff !important;
+            border-color: var(--main-color) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 18px var(--accent-glow) !important;
+        }
+
+        body.dark-theme .btn-view-route,
+        body.dark-theme .btn-route-timeline,
+        .dark-theme .btn-view-route,
+        .dark-theme .btn-route-timeline {
+            background: color-mix(in srgb, var(--main-color) 15%, rgba(30, 41, 59, 0.75)) !important;
+            color: #f8fafc !important;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 45%, rgba(255, 255, 255, 0.25)) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        body.dark-theme .btn-view-route:hover,
+        body.dark-theme .btn-route-timeline:hover,
+        .dark-theme .btn-view-route:hover,
+        .dark-theme .btn-route-timeline:hover {
+            background: var(--main-color) !important;
+            color: #ffffff !important;
+            border-color: var(--main-color) !important;
+        }
+
+        /* Варианты ответов в викторине */
+        .option-btn:not(.correct):not(.wrong) {
+            border: 1.5px solid rgba(0, 0, 0, 0.2) !important;
+            background: #ffffff !important;
+            color: var(--text-main) !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+        }
+        body.dark-theme .option-btn:not(.correct):not(.wrong),
+        .dark-theme .option-btn:not(.correct):not(.wrong) {
+            background: rgba(255, 255, 255, 0.07) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+            color: #f8fafc !important;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
+        }
+        .option-btn:hover:not(.disabled):not(.correct):not(.wrong) {
+            border-color: var(--main-color) !important;
+            color: var(--main-color) !important;
+            background: color-mix(in srgb, var(--main-color) 8%, #ffffff) !important;
+        }
+        body.dark-theme .option-btn:hover:not(.disabled):not(.correct):not(.wrong),
+        .dark-theme .option-btn:hover:not(.disabled):not(.correct):not(.wrong) {
+            border-color: var(--main-color) !important;
+            color: #ffffff !important;
+            background: color-mix(in srgb, var(--main-color) 25%, rgba(30, 41, 59, 0.8)) !important;
+        }
+
+        /* Навигация викторины */
+        body.dark-theme .quiz-nav-btn:not(.quiz-nav-finish),
+        .dark-theme .quiz-nav-btn:not(.quiz-nav-finish) {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border: 2px solid var(--main-color) !important;
+            color: var(--main-color) !important;
+        }
+        body.dark-theme .quiz-nav-btn:hover:not(:disabled),
+        .dark-theme .quiz-nav-btn:hover:not(:disabled) {
+            background: var(--main-color) !important;
+            color: #ffffff !important;
+        }
+
+        /* Кнопки открытия карт */
+        body.dark-theme .btn-open-map,
+        .dark-theme .btn-open-map {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border: 1.5px solid var(--main-color) !important;
+            color: var(--main-color) !important;
+        }
+        body.dark-theme .btn-open-map:hover,
+        .dark-theme .btn-open-map:hover {
+            background: var(--main-color) !important;
+            color: #ffffff !important;
+        }
+
+        /* Селектор достопримечательностей */
+        .sights-dropdown-select {
+            border: 1.5px solid rgba(0, 0, 0, 0.22) !important;
+            background: #ffffff !important;
+        }
+        body.dark-theme .sights-dropdown-select,
+        .dark-theme .sights-dropdown-select {
+            border: 1.5px solid rgba(255, 255, 255, 0.32) !important;
+            background: #1e293b !important;
+            color: #f8fafc !important;
+        }
+
+        /* Карточка адреса и вопрос викторины */
+        .landmark-address-card {
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 25%, rgba(0, 0, 0, 0.12)) !important;
+            box-shadow: 0 4px 16px var(--accent-glow) !important;
+        }
+        .question-box {
+            border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
+        }
+        body.dark-theme .landmark-address-card,
+        .dark-theme .landmark-address-card {
+            background: rgba(30, 41, 59, 0.65) !important;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 30%, rgba(255, 255, 255, 0.18)) !important;
+            box-shadow: 0 4px 18px var(--accent-glow) !important;
+        }
+        body.dark-theme .question-box,
+        .dark-theme .question-box {
+            background: rgba(30, 41, 59, 0.65) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.16) !important;
+        }
+
+        /* Элементы туристического гида */
+        .guide-item {
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 16%, rgba(0, 0, 0, 0.08)) !important;
+            background: color-mix(in srgb, var(--bg-card) 96%, var(--main-color) 4%) !important;
+        }
+        .guide-item:hover {
+            background: color-mix(in srgb, var(--main-color) 10%, var(--bg-card)) !important;
+            border-color: var(--main-color) !important;
+            box-shadow: 0 12px 28px var(--accent-glow) !important;
+        }
+        body.dark-theme .guide-item,
+        .dark-theme .guide-item {
+            background: rgba(30, 41, 59, 0.6) !important;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 25%, rgba(255, 255, 255, 0.16)) !important;
+        }
+        body.dark-theme .guide-item:hover,
+        .dark-theme .guide-item:hover {
+            background: color-mix(in srgb, var(--main-color) 20%, rgba(30, 41, 59, 0.8)) !important;
+            border-color: var(--main-color) !important;
+            box-shadow: 0 12px 28px var(--accent-glow) !important;
+        }
+        body.dark-theme .guide-item-icon,
+        .dark-theme .guide-item-icon {
+            background: color-mix(in srgb, var(--main-color) 20%, rgba(30, 41, 59, 0.7)) !important;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 35%, rgba(255, 255, 255, 0.15)) !important;
+        }
+        body.dark-theme .guide-item-action-btn,
+        .dark-theme .guide-item-action-btn {
+            background: color-mix(in srgb, var(--main-color) 15%, rgba(30, 41, 59, 0.7)) !important;
+            border-color: color-mix(in srgb, var(--main-color) 35%, rgba(255, 255, 255, 0.2)) !important;
+            color: #ffffff !important;
+        }
+        body.dark-theme .guide-item-action-btn:hover,
+        .dark-theme .guide-item-action-btn:hover {
+            background: var(--main-color) !important;
+            border-color: var(--main-color) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px var(--accent-glow) !important;
         }
 
 
@@ -2987,6 +3809,9 @@
             border-radius: 20px;
             margin-bottom: 8px;
             letter-spacing: 0.3px;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 32%, transparent);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         .sights-map-title {
@@ -3590,7 +4415,8 @@
             font-weight: 600;
         }
 
-        body.dark-mode .passport-rank-badge {
+        body.dark-theme .passport-rank-badge,
+        .dark-theme .passport-rank-badge {
             color: #fbbf24;
         }
 
@@ -3621,7 +4447,8 @@
             margin-bottom: 20px;
         }
 
-        body.dark-mode .passport-bar-container {
+        body.dark-theme .passport-bar-container,
+        .dark-theme .passport-bar-container {
             background: rgba(255, 255, 255, 0.08);
         }
 
@@ -3640,6 +4467,42 @@
         }
 
         @media (max-width: 600px) {
+            .passport-modal-backdrop {
+                padding: 10px;
+            }
+
+            .passport-modal-window {
+                max-height: 92vh;
+                border-radius: 18px;
+            }
+
+            .passport-modal-header {
+                padding: 14px 16px;
+            }
+
+            .passport-modal-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .passport-modal-body {
+                padding: 14px 16px;
+            }
+
+            .passport-modal-footer {
+                padding: 12px 16px;
+                gap: 8px;
+            }
+
+            .passport-done-btn {
+                padding: 8px 18px;
+                font-size: 0.85rem;
+            }
+
+            .passport-reset-btn {
+                padding: 7px 10px;
+                font-size: 0.74rem;
+            }
+
             .passport-grid {
                 grid-template-columns: 1fr;
             }
@@ -3736,7 +4599,8 @@
             color: #059669;
         }
 
-        body.dark-mode .badge-card.unlocked .badge-prog-tag {
+        body.dark-theme .badge-card.unlocked .badge-prog-tag,
+        .dark-theme .badge-card.unlocked .badge-prog-tag {
             color: #34d399;
         }
 
@@ -3745,7 +4609,8 @@
             color: var(--text-muted);
         }
 
-        body.dark-mode .badge-card.locked .badge-prog-tag {
+        body.dark-theme .badge-card.locked .badge-prog-tag,
+        .dark-theme .badge-card.locked .badge-prog-tag {
             background: rgba(255, 255, 255, 0.08);
         }
 
@@ -3873,7 +4738,8 @@
             transition: all 0.2s ease;
         }
 
-        body.dark-mode .achieve-toast-btn {
+        body.dark-theme .achieve-toast-btn,
+        .dark-theme .achieve-toast-btn {
             color: #fbbf24;
         }
 
@@ -3884,20 +4750,21 @@
 
         @media (max-width: 768px) {
             .achieve-toast {
-                left: 14px;
-                right: 14px;
+                left: 50%;
+                right: auto;
                 bottom: 18px;
-                margin: 0 auto;
-                width: auto;
-                max-width: 380px;
+                margin: 0;
+                width: calc(100vw - 28px);
+                max-width: 360px;
                 padding: 10px 14px;
                 border-radius: 14px;
                 gap: 10px;
-                transform: translateY(140%);
+                transform: translateX(-50%) translateY(140%);
+                box-sizing: border-box;
             }
 
             .achieve-toast.show {
-                transform: translateY(0);
+                transform: translateX(-50%) translateY(0);
             }
 
             .achieve-toast-icon {
@@ -4094,13 +4961,13 @@
         </header>
     </div>
 
-    <!-- Холст для анимированных сезонных частиц -->
-    <canvas id="particle-canvas"></canvas>
-
     <!-- ==========================================================================
        2. ПЕРВЫЙ ЭКРАН (HERO): НАЗВАНИЕ, ЦИФРЫ И СЕЗОН
        ========================================================================== -->
     <section class="hero" id="hero">
+        <!-- Холст для анимированных сезонных частиц -->
+        <canvas id="particle-canvas"></canvas>
+
         <div class="hero-content">
             <div class="hero-badge" data-i18n="heroBadge">🏛️ Краеведческий веб-проект • 2026</div>
             <h1 id="hero-title">
@@ -4244,16 +5111,16 @@
                     🌟 Все (30)
                 </button>
                 <button type="button" class="map-filter-btn" data-cat="architecture" onclick="filterSightsMap('architecture')" data-i18n="mapFilterArch">
-                    🏛️ Архитектура (14)
+                    🏛️ Архитектура (13)
                 </button>
                 <button type="button" class="map-filter-btn" data-cat="monuments" onclick="filterSightsMap('monuments')" data-i18n="mapFilterMonuments">
-                    🚩 Памятники (12)
+                    🚩 Памятники (11)
                 </button>
                 <button type="button" class="map-filter-btn" data-cat="nature" onclick="filterSightsMap('nature')" data-i18n="mapFilterNature">
-                    🌿 Природа (3)
+                    🌿 Природа (4)
                 </button>
                 <button type="button" class="map-filter-btn" data-cat="engineering" onclick="filterSightsMap('engineering')" data-i18n="mapFilterEng">
-                    🌉 Виадуки и Ж/Д (1)
+                    🌉 Виадуки и Ж/Д (2)
                 </button>
             </div>
 
@@ -4548,7 +5415,7 @@
     <!-- ==========================================================================
        9. ПОДВАЛ (FOOTER)
        ========================================================================== -->
-    <footer class="reveal-on-scroll">
+    <footer>
         <div class="footer-content">
             <div class="footer-logo" data-i18n="footerLogo">Красноуфимск: Сквозь эпохи</div>
             <div class="footer-meta">
@@ -4819,19 +5686,19 @@
                 sightsHeading: 'Достопримечательности и памятники Красноуфимска',
                 sightsSub: 'Интерактивная галерея памятников истории, архитектуры и природы Красноуфимска. Выберите объект для детального изучения с фотографиями и историческими фактами.',
                 catAll: 'Все объекты (30)',
-                catArch: 'Архитектура (14)',
-                catMonuments: 'Памятники и история (12)',
-                catNature: 'Природа и геология (3)',
-                catEng: 'Инженерия (1)',
+                catArch: 'Архитектура (13)',
+                catMonuments: 'Памятники и история (11)',
+                catNature: 'Природа и геология (4)',
+                catEng: 'Инженерия и Ж/Д (2)',
                 sightsMapBadge: '📍 Интерактивная карта',
                 sightsMapTitle: '30 памятников и исторических мест на карте Красноуфимска',
                 sightsMapDesc: 'Нажмите на любую метку, чтобы открыть краткую справку и перейти к подробному изучению объекта в каталоге.',
                 sightsMapReset: '🎯 Показать все объекты',
                 mapFilterAll: '🌟 Все (30)',
-                mapFilterArch: '🏛️ Архитектура (14)',
-                mapFilterMonuments: '🚩 Памятники (12)',
-                mapFilterNature: '🌿 Природа (3)',
-                mapFilterEng: '🌉 Виадуки и Ж/Д (1)',
+                mapFilterArch: '🏛️ Архитектура (13)',
+                mapFilterMonuments: '🚩 Памятники (11)',
+                mapFilterNature: '🌿 Природа (4)',
+                mapFilterEng: '🌉 Виадуки и Ж/Д (2)',
                 sightsMapHint: '💡 Нажатие на карточку в каталоге выше автоматически центрирует карту на выбранном памятнике',
                 mapPopupMore: '🔍 Подробнее в каталоге',
                 registryTitle: 'Сводный реестр памятников истории, архитектуры и природы Красноуфимска',
@@ -4995,19 +5862,19 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 sightsHeading: 'Krasnoufimsk Landmarks & Monuments',
                 sightsSub: 'Interactive gallery of key historical, architectural and natural monuments. Choose an object to explore authentic photos, historical facts and smart navigation.',
                 catAll: 'All Objects (30)',
-                catArch: 'Architecture (14)',
-                catMonuments: 'Monuments & History (12)',
-                catNature: 'Nature & Scenery (3)',
-                catEng: 'Engineering (1)',
+                catArch: 'Architecture (13)',
+                catMonuments: 'Monuments & History (11)',
+                catNature: 'Nature & Scenery (4)',
+                catEng: 'Engineering & Rail (2)',
                 sightsMapBadge: '📍 Interactive Map',
                 sightsMapTitle: '30 Monuments and Historic Sites on the Map of Krasnoufimsk',
                 sightsMapDesc: 'Click any marker to view a brief summary and explore the landmark in detail.',
                 sightsMapReset: '🎯 Show All Sites',
                 mapFilterAll: '🌟 All (30)',
-                mapFilterArch: '🏛️ Architecture (14)',
-                mapFilterMonuments: '🚩 Monuments (12)',
-                mapFilterNature: '🌿 Nature (3)',
-                mapFilterEng: '🌉 Viaducts & Rail (1)',
+                mapFilterArch: '🏛️ Architecture (13)',
+                mapFilterMonuments: '🚩 Monuments (11)',
+                mapFilterNature: '🌿 Nature (4)',
+                mapFilterEng: '🌉 Viaducts & Rail (2)',
                 sightsMapHint: '💡 Selecting an item in the catalog above automatically centers the map on the chosen landmark',
                 mapPopupMore: '🔍 View in Catalog',
                 registryTitle: 'Official Registry of Historic, Architectural & Natural Monuments',
@@ -6294,7 +7161,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             autumn: {
                 ru: { title: 'СКВОЗЬ ЭПОХИ', heading: 'Город на живописном берегу реки Уфы' },
                 en: { title: 'THROUGH EPOCHS', heading: 'City on the scenic banks of the Ufa River' },
-                metaColor: '#ea580c'
+                metaColor: '#d9651a'
             }
         };
 
@@ -6351,19 +7218,57 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             if (!quizContainer) return;
 
             if (quizData.length === 0) {
-                const dict = (typeof i18n !== 'undefined' ? i18n[currentLang] : null) || (typeof i18n !== 'undefined' ? i18n.ru : {});
-                const title = currentLang === 'en' ? 'Choose Difficulty' : 'Выберите уровень сложности';
-                const easy = currentLang === 'en' ? 'Easy (10 Q)' : 'Легкий (10 в.)';
-                const medium = currentLang === 'en' ? 'Medium (16 Q)' : 'Средний (16 в.)';
-                const hard = currentLang === 'en' ? 'Hard (20 Q)' : 'Сложный (20 в.)';
+                const isEn = (currentLang === 'en');
+                const title = isEn ? 'Choose Difficulty' : 'Выберите уровень сложности';
+                const subtitle = isEn
+                    ? 'Select your preferred pace and number of historical questions'
+                    : 'Выберите подходящий темп и количество вопросов о городе';
+                const startLabel = isEn ? 'Start' : 'Начать';
+
+                const easyTitle = isEn ? 'Easy' : 'Лёгкий';
+                const easyBadge = isEn ? '10 questions' : '10 вопросов';
+                const easyDesc = isEn ? 'Fast & friendly introduction' : 'Для первого знакомства';
+
+                const medTitle = isEn ? 'Medium' : 'Средний';
+                const medBadge = isEn ? '16 questions' : '16 вопросов';
+                const medDesc = isEn ? 'Test your local knowledge' : 'Проверьте свою эрудицию';
+
+                const hardTitle = isEn ? 'Hard' : 'Сложный';
+                const hardBadge = isEn ? '20 questions' : '20 вопросов';
+                const hardDesc = isEn ? 'For true Krasnoufimsk experts' : 'Для знатоков истории';
 
                 quizContainer.innerHTML = `
-                    <div class="quiz-start-screen" style="text-align: center; padding: 2rem;">
-                        <h3 style="margin-bottom: 2rem; font-size: 1.5rem; color: var(--text-main);">${title}</h3>
-                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                            <button class="btn-primary" onclick="startQuizWithDifficulty('easy')" style="background: #16a34a; border-color: #16a34a; color: #ffffff; padding: 12px 24px; border-radius: 20px; font-weight: bold; box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4); min-width: 180px;">${easy}</button>
-                            <button class="btn-primary" onclick="startQuizWithDifficulty('medium')" style="background: #ea580c; border-color: #ea580c; color: #ffffff; padding: 12px 24px; border-radius: 20px; font-weight: bold; box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4); min-width: 180px;">${medium}</button>
-                            <button class="btn-primary" onclick="startQuizWithDifficulty('hard')" style="background: #e11d48; border-color: #e11d48; color: #ffffff; padding: 12px 24px; border-radius: 20px; font-weight: bold; box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4); min-width: 180px;">${hard}</button>
+                    <div class="quiz-start-screen">
+                        <h3 class="quiz-diff-title">${title}</h3>
+                        <p class="quiz-diff-subtitle">${subtitle}</p>
+                        <div class="quiz-diff-grid">
+                            <button type="button" class="quiz-diff-card quiz-diff-card--easy" onclick="startQuizWithDifficulty('easy')" title="${easyTitle}: ${easyBadge}">
+                                <div class="quiz-diff-icon-wrap">
+                                    <span class="quiz-diff-icon">🌱</span>
+                                </div>
+                                <div class="quiz-diff-name">${easyTitle}</div>
+                                <div class="quiz-diff-badge">${easyBadge}</div>
+                                <div class="quiz-diff-desc">${easyDesc}</div>
+                                <div class="quiz-diff-btn-action">${startLabel} →</div>
+                            </button>
+                            <button type="button" class="quiz-diff-card quiz-diff-card--medium" onclick="startQuizWithDifficulty('medium')" title="${medTitle}: ${medBadge}">
+                                <div class="quiz-diff-icon-wrap">
+                                    <span class="quiz-diff-icon">🧭</span>
+                                </div>
+                                <div class="quiz-diff-name">${medTitle}</div>
+                                <div class="quiz-diff-badge">${medBadge}</div>
+                                <div class="quiz-diff-desc">${medDesc}</div>
+                                <div class="quiz-diff-btn-action">${startLabel} →</div>
+                            </button>
+                            <button type="button" class="quiz-diff-card quiz-diff-card--hard" onclick="startQuizWithDifficulty('hard')" title="${hardTitle}: ${hardBadge}">
+                                <div class="quiz-diff-icon-wrap">
+                                    <span class="quiz-diff-icon">🏆</span>
+                                </div>
+                                <div class="quiz-diff-name">${hardTitle}</div>
+                                <div class="quiz-diff-badge">${hardBadge}</div>
+                                <div class="quiz-diff-desc">${hardDesc}</div>
+                                <div class="quiz-diff-btn-action">${startLabel} →</div>
+                            </button>
                         </div>
                     </div>
                 `;
@@ -6424,10 +7329,18 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             const progressPct = Math.round((answeredCount / total) * 100);
 
             quizContainer.innerHTML = `
-                <div class="quiz-progress-bar-wrap">
-                    <div class="quiz-progress-bar" style="width: ${progressPct}%"></div>
+                <div class="quiz-progress-header">
+                    <div class="quiz-counter-pill">
+                        <span>🧭</span>
+                        <span>${dict.quizCounterLabel || 'Вопрос'} <strong>${qNum}</strong> ${dict.quizCounterOf || 'из'} ${total}</span>
+                    </div>
+                    <div class="quiz-percent-pill" id="quiz-percent-text">${progressPct}%</div>
                 </div>
-                <div class="quiz-counter">${dict.quizCounterLabel || 'Вопрос'} ${qNum} ${dict.quizCounterOf || 'из'} ${total}</div>
+                <div class="quiz-progress-bar-wrap">
+                    <div class="quiz-progress-bar" style="width: ${progressPct}%">
+                        <div class="quiz-progress-bar-glow"></div>
+                    </div>
+                </div>
                 <div class="question-box" data-q="${qNum}" ${answered ? 'data-answered="true"' : ''}>
                     <div class="question-title">
                         <span class="question-num">${qNum}</span>
@@ -6525,10 +7438,13 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 dotsSpan.innerHTML = quizData.map((_, i) => `<span class="quiz-dot ${i === currentQuizIndex ? 'active' : ''} ${quizAnswers[i + 1] !== undefined ? (quizAnswers[i + 1] ? 'answered-correct' : 'answered-wrong') : ''}"></span>`).join('');
             }
 
-            // Прогресс-бар
+            // Прогресс-бар и процент
             const answeredCount = Object.keys(quizAnswers).length;
+            const pct = Math.round((answeredCount / quizData.length) * 100);
             const bar = document.querySelector('.quiz-progress-bar');
-            if (bar) bar.style.width = Math.round((answeredCount / quizData.length) * 100) + '%';
+            if (bar) bar.style.width = pct + '%';
+            const pctText = document.getElementById('quiz-percent-text');
+            if (pctText) pctText.textContent = pct + '%';
         }
 
         function finishQuiz() {
@@ -6623,8 +7539,9 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             if (particleAnimId) cancelAnimationFrame(particleAnimId);
 
             function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+                const hero = document.getElementById('hero');
+                canvas.width = hero ? hero.clientWidth : window.innerWidth;
+                canvas.height = hero ? hero.clientHeight : window.innerHeight;
             }
             resize();
             window.removeEventListener('resize', resize);
@@ -6830,7 +7747,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 queryRu: 'Красноуфимск ул Риммы Горбуновой 35 казачья изба', queryEn: 'Krasnoufimsk 35 Rimy Gorbunovoy St Cossack hut'
             },
             {
-                id: 'vokzal', lat: '56.598250', lon: '57.757864', hasMapMark: true, cat: 'architecture', icon: '🚂', year: '1915 г.',
+                id: 'vokzal', lat: '56.598250', lon: '57.757864', hasMapMark: true, cat: 'engineering', icon: '🚂', year: '1915 г.',
                 style: { ru: 'Петровское барокко', en: 'Petrine Baroque' },
                 status: { ru: 'ОКН регионального значения', en: 'Regional Cultural Heritage Site' },
                 title: { ru: 'Вокзал Красноуфимска (арх. А. В. Щусев)', en: 'Krasnoufimsk Station (Arch. A. Shchusev)' },
@@ -6961,7 +7878,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
 
             // ── 2. ПАМЯТНИКИ И ИСТОРИЯ ─────────────────────────────────────────
             {
-                id: 'divizionnaya', lat: '56.618024', lon: '57.761235', cat: 'monuments', icon: '⛰️', year: '1774 г. / памятный знак',
+                id: 'divizionnaya', lat: '56.618024', lon: '57.761235', cat: 'nature', icon: '⛰️', year: '1774 г. / памятный знак',
                 hasMapMark: true,
                 style: { ru: 'Природно-исторический мемориал', en: 'Natural & Historical Memorial' },
                 status: { ru: 'Официальный памятник природы и истории', en: 'Official Natural & Historic Heritage' },
@@ -7368,7 +8285,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                             <span class="sight-meta-pill">📍 ${counterText}</span>
                             <span class="sight-meta-pill">🗓️ ${sight.year}</span>
                             <span class="sight-meta-pill">🎨 ${sight.style[currentLang]}</span>
-                            ${(sight.status && sight.status[currentLang]) ? `<span class="sight-meta-pill sight-meta-pill--status">⭐ ${sight.status[currentLang]}</span>` : ''}
+                            ${(sight.status && sight.status[currentLang]) ? `<span class="sight-meta-pill">⭐ ${sight.status[currentLang]}</span>` : ''}
                         </div>
                         <h3 class="sight-showcase-title">${sight.icon} ${sight.title[currentLang]}</h3>
                         <p class="sight-showcase-desc">${sight.desc[currentLang]}</p>
@@ -7623,6 +8540,21 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             border-radius: 20px;
             margin-bottom: 8px;
             letter-spacing: 0.3px;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 32%, transparent);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body.dark-theme .sights-map-badge,
+        .dark-theme .sights-map-badge,
+        body.dark-theme .sight-meta-pill,
+        .dark-theme .sight-meta-pill {
+            background: color-mix(in srgb, var(--main-color) 22%, rgba(30, 41, 59, 0.7)) !important;
+            color: var(--main-color) !important;
+            border: 1.5px solid color-mix(in srgb, var(--main-color) 45%, transparent) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
         }
 
         .sights-map-title {
@@ -7646,13 +8578,14 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             gap: 6px;
             background: var(--bg-accent);
             color: var(--text-main);
-            border: 1.5px solid var(--border-card);
+            border: 1.5px solid rgba(0, 0, 0, 0.22);
             padding: 9px 18px;
             border-radius: 12px;
             font-size: 0.9rem;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .sights-map-btn-reset:hover {
@@ -7660,6 +8593,21 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             color: #ffffff;
             border-color: var(--main-color);
             transform: translateY(-2px);
+        }
+
+        body.dark-theme .sights-map-btn-reset,
+        .dark-theme .sights-map-btn-reset {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1.5px solid rgba(255, 255, 255, 0.32);
+            color: #f8fafc;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        body.dark-theme .sights-map-btn-reset:hover,
+        .dark-theme .sights-map-btn-reset:hover {
+            background: var(--main-color);
+            color: #ffffff;
+            border-color: var(--main-color);
         }
 
         .sights-map-filter-bar {
@@ -7670,8 +8618,8 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
         }
 
         .map-filter-btn {
-            background: var(--bg-card);
-            border: 1.5px solid var(--border-card);
+            background: #ffffff;
+            border: 1.5px solid rgba(0, 0, 0, 0.22);
             color: var(--text-main);
             padding: 8px 16px;
             border-radius: 20px;
@@ -7680,19 +8628,44 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             cursor: pointer;
             transition: all 0.2s ease;
             user-select: none;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .map-filter-btn:hover {
             border-color: var(--main-color);
             color: var(--main-color);
+            background: rgba(0, 0, 0, 0.03);
             transform: translateY(-1px);
         }
 
         .map-filter-btn.active {
-            background: var(--main-color);
+            background: var(--main-color) !important;
             color: #ffffff !important;
+            border-color: var(--main-color) !important;
+            box-shadow: 0 4px 12px var(--accent-glow) !important;
+        }
+
+        body.dark-theme .map-filter-btn,
+        .dark-theme .map-filter-btn {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1.5px solid rgba(255, 255, 255, 0.32);
+            color: #f8fafc;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        body.dark-theme .map-filter-btn:hover,
+        .dark-theme .map-filter-btn:hover {
             border-color: var(--main-color);
-            box-shadow: 0 4px 12px var(--accent-glow);
+            background: rgba(255, 255, 255, 0.14);
+            color: var(--main-color);
+        }
+
+        body.dark-theme .map-filter-btn.active,
+        .dark-theme .map-filter-btn.active {
+            background: var(--main-color) !important;
+            color: #ffffff !important;
+            border-color: var(--main-color) !important;
+            box-shadow: 0 4px 12px var(--accent-glow) !important;
         }
 
         .sights-leaflet-frame {
