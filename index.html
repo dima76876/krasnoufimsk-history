@@ -258,6 +258,7 @@
             letter-spacing: 0.5px;
             display: flex;
             flex-direction: column;
+            white-space: nowrap;
         }
 
         .logo-sub {
@@ -266,6 +267,7 @@
             color: var(--text-light);
             letter-spacing: 1px;
             text-transform: uppercase;
+            white-space: nowrap;
         }
 
         /* ВИДЖЕТ ПОГОДЫ (ВЫВОДИТ ТЕМПЕРАТУРУ ИЗ OPEN-METEO) */
@@ -2081,7 +2083,7 @@
         /* ==========================================================================
            [14. АДАПТИВНОСТЬ ДЛЯ СМАРТФОНОВ И ПЛАНШЕТОВ]
            ========================================================================== */
-        @media (max-width: 1200px) {
+        @media (max-width: 1380px) {
             .header-wrapper {
                 top: 8px;
                 padding: 0 10px;
@@ -2834,9 +2836,15 @@
             cursor: pointer;
             font-size: 1.3rem;
             transition: var(--transition);
-            color: var(--text-main);
+            color: #ffffff;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
+        }
+
+        #theme-icon {
+            display: inline-flex;
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+            transition: transform 0.3s ease;
         }
 
         @media (max-width: 768px) {
