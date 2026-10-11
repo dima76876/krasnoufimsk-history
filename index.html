@@ -648,6 +648,8 @@
             padding: 10px 12px;
             text-align: center;
             transition: var(--transition);
+            min-width: 0;
+            overflow: hidden;
         }
 
         .weather-metric-item:hover {
@@ -858,6 +860,11 @@
             .weather-metrics-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 8px;
+            }
+
+            .weather-metric-item {
+                padding: 8px 6px;
+                min-width: 0;
             }
 
             .weather-forecast-track {
@@ -1504,96 +1511,6 @@
             box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.06);
             padding: 16px 0 18px 0;
             transition: var(--transition);
-        }
-
-        /* Быстрый переход по векам (Era Quick Selector) */
-        .timeline-quick-jump-bar {
-            max-width: 1360px;
-            margin: 0 auto 12px auto;
-            padding: 0 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .timeline-era-buttons {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: color-mix(in srgb, var(--bg-card) 92%, var(--bg-accent));
-            padding: 4px 6px;
-            border-radius: 30px;
-            border: 1.5px solid var(--border-card);
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04), inset 0 1px 1px rgba(255, 255, 255, 0.7);
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .era-chip {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
-            white-space: nowrap;
-            outline: none;
-        }
-
-        .era-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: color-mix(in srgb, var(--main-color) 60%, #94a3b8);
-            transition: all 0.2s ease;
-        }
-
-        .era-chip:hover {
-            color: var(--main-color);
-            background: var(--bg-card);
-            transform: translateY(-1px);
-        }
-
-        .era-chip:hover .era-dot {
-            background: var(--main-color);
-            transform: scale(1.3);
-        }
-
-        .era-chip.active {
-            background: var(--main-color);
-            color: #ffffff !important;
-            box-shadow: 0 4px 12px var(--accent-glow);
-        }
-
-        .era-chip.active .era-dot {
-            background: #ffffff;
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
-        }
-
-        .era-chip.era-highlight {
-            font-weight: 800;
-        }
-
-        .era-chip.era-highlight .era-dot.pulse {
-            background: var(--main-color);
-            box-shadow: 0 0 8px 1px var(--main-color);
-            animation: eraPulseGlow 2s infinite ease-in-out;
-        }
-
-        .era-chip.era-highlight.active .era-dot.pulse {
-            background: #ffffff;
-            box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.9);
-        }
-
-        @keyframes eraPulseGlow {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.6; }
         }
 
         .timeline-wrapper {
@@ -6026,7 +5943,7 @@
                         <span class="mobile-nav-icon">🎯</span>
                         <span data-i18n="navQuiz">Викторина</span>
                     </a>
-                    <a href="#passport" class="mobile-nav-link" onclick="openPassportModal(); closeMobileMenu(); return false;">
+                    <a href="#passport-modal" class="mobile-nav-link" onclick="openPassportModal(); closeMobileMenu(); return false;">
                         <span class="mobile-nav-icon">🎖️</span>
                         <span data-i18n="passportNav">Паспорт исследователя</span>
                         <span class="mobile-achieve-badge" id="mobile-achieve-count-badge">0/12</span>
@@ -6697,7 +6614,7 @@
 
             <div class="passport-modal-footer">
                 <button type="button" class="passport-reset-btn" onclick="resetPassportProgress()" data-i18n="passportReset">🔄 Сбросить прогресс</button>
-                <button type="button" class="passport-done-btn" onclick="closePassportModal()" data-i18n="passportDone">Готово</button>
+                <button type="button" class="passport-done-btn" onclick="closePassportModal()" data-i18n="passportDone" aria-label="Закрыть паспорт исследователя">Готово</button>
             </div>
         </div>
     </div>
@@ -6787,7 +6704,7 @@
                 weatherForecastTitle: 'Прогноз на 7 дней',
                 weatherToday: 'Сегодня',
                 weatherUpdated: 'Обновлено',
-                weatherRefresh: '🔄 Обновить',
+                weatherRefresh: 'Обновить',
                 navHome: 'Главная',
                 navIntro: 'О городе',
                 navTimeline: 'Лента',
@@ -6895,11 +6812,6 @@
                 sightsBadge: '🏛️ Культурное наследие • Объекты истории, архитектуры и природы',
                 sightsHeading: 'Достопримечательности и памятники Красноуфимска',
                 sightsSub: 'Интерактивная галерея памятников истории, архитектуры и природы Красноуфимска. Выберите объект для детального изучения с фотографиями и историческими фактами.',
-                catAll: 'Все объекты (30)',
-                catArch: 'Архитектура (13)',
-                catMonuments: 'Памятники и история (11)',
-                catNature: 'Природа и геология (4)',
-                catEng: 'Инженерия и Ж/Д (2)',
                 sightsMapBadge: '📍 Интерактивная карта',
                 sightsMapTitle: '30 памятников и исторических мест на карте Красноуфимска',
                 sightsMapDesc: 'Нажмите на любую метку, чтобы открыть краткую справку и перейти к подробному изучению объекта в каталоге.',
@@ -6911,16 +6823,11 @@
                 mapFilterEng: '🌉 Виадуки и Ж/Д (2)',
                 sightsMapHint: '💡 Нажатие на карточку в каталоге выше автоматически центрирует карту на выбранном памятнике',
                 mapPopupMore: '🔍 Подробнее в каталоге',
-                registryTitle: 'Сводный реестр памятников истории, архитектуры и природы Красноуфимска',
                 btnOpenMap: '📍 Открыть на Яндекс.Картах ↗',
                 btnRouteOpenMap: 'Открыть маршрут на Яндекс.Картах ↗',
 
                 // Викторина
                 quizExplainerTitle: '💡 Исторический факт-пояснение:',
-                quizScoreTop: '🏆 Высшая категория — «Главный краевед-исследователь Красноуфимска»!',
-                quizScoreGood: '🥇 «Уверенный знаток уральской истории»!',
-                quizScoreMid: '🥈 «Любитель истории родного края»!',
-                quizScoreLow: '📖 «Начинающий исследователь Красноуфимска»!',
                 quizCounterLabel: 'Вопрос',
                 quizCounterOf: 'из',
                 quizPrev: '← Назад',
@@ -6961,26 +6868,13 @@
                 weatherForecastTitle: '7-Day Forecast',
                 weatherToday: 'Today',
                 weatherUpdated: 'Updated',
-                weatherRefresh: '🔄 Refresh',
+                weatherRefresh: 'Refresh',
                 navHome: 'Home',
                 navIntro: 'About',
                 navTimeline: 'Timeline',
                 navRoutes: 'Routes',
                 navGuide: 'Tourist Guide',
                 navQuiz: 'Quiz',
-
-quizCounterLabel: 'QUESTION',
-quizCounterOf: 'OF',
-quizPrev: '← Back',
-quizNext: 'Next →',
-quizFinish: '🏆 Show Result',
-quizScore: 'Correct answers:',
-quizOutOf: 'out of',
-quizResult5: '🏆 Excellent! You are a true expert!',
-quizResult4: '👍 Good! You know the city well.',
-quizResult3: '📖 Not bad! Read more about the sights.',
-quizResult2: '🔍 Worth studying! Check out the timeline.',
-
                 navMenuTitle: 'Navigation Menu',
                 heroBadge: '🏛️ Educational Web Project • 2026',
                 heroMain: 'KRASNOUFIMSK',
@@ -7082,11 +6976,6 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 sightsBadge: '🏛️ Cultural Heritage • Heritage Objects',
                 sightsHeading: 'Krasnoufimsk Landmarks & Monuments',
                 sightsSub: 'Interactive gallery of key historical, architectural and natural monuments. Choose an object to explore authentic photos, historical facts and smart navigation.',
-                catAll: 'All Objects (30)',
-                catArch: 'Architecture (13)',
-                catMonuments: 'Monuments & History (11)',
-                catNature: 'Nature & Scenery (4)',
-                catEng: 'Engineering & Rail (2)',
                 sightsMapBadge: '📍 Interactive Map',
                 sightsMapTitle: '30 Monuments and Historic Sites on the Map of Krasnoufimsk',
                 sightsMapDesc: 'Click any marker to view a brief summary and explore the landmark in detail.',
@@ -7098,16 +6987,22 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 mapFilterEng: '🌉 Viaducts & Rail (2)',
                 sightsMapHint: '💡 Selecting an item in the catalog above automatically centers the map on the chosen landmark',
                 mapPopupMore: '🔍 View in Catalog',
-                registryTitle: 'Official Registry of Historic, Architectural & Natural Monuments',
                 btnOpenMap: '📍 Open in Yandex Maps ↗',
                 btnRouteOpenMap: 'Open route in Yandex Maps ↗',
 
                 // Quiz
                 quizExplainerTitle: '💡 Historical Educational Fact:',
-                quizScoreTop: '🏆 Highest Category — "Master Local History Researcher"!',
-                quizScoreGood: '🥇 "Expert in Ural History"!',
-                quizScoreMid: '🥈 "Heritage Enthusiast"!',
-                quizScoreLow: '📖 "Beginner Explorer of Krasnoufimsk"!',
+                quizCounterLabel: 'QUESTION',
+                quizCounterOf: 'OF',
+                quizPrev: '← Back',
+                quizNext: 'Next →',
+                quizFinish: '🏆 Show Result',
+                quizScore: 'Correct answers:',
+                quizOutOf: 'out of',
+                quizResult5: '🏆 Excellent! You are a true expert!',
+                quizResult4: '👍 Good! You know the city well.',
+                quizResult3: '📖 Not bad! Read more about the sights.',
+                quizResult2: '🔍 Worth studying! Check out the timeline.',
 
                 // Explorer Passport and Achievements
                 passportNav: 'Explorer Passport',
@@ -7178,7 +7073,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
 
         // ТЕКСТЫ ДЛЯ 11 КАРТОЧЕК ЭПОХ (ДВУЯЗЫЧНЫЕ)
         // =========================================================================
-        // ЛЕНТА ВРЕМЕНИ — 22 КЛЮЧЕВЫХ СОБЫТИЯ ИСТОРИИ КРАСНОУФИМСКА (1736–2026)
+        // ЛЕНТА ВРЕМЕНИ — 21 КЛЮЧЕВАЯ ЭПОХАЛЬНАЯ ВЕХА ИСТОРИИ КРАСНОУФИМСКА (1736–2026)
         // =========================================================================
         const eventsData = [
             {
@@ -7241,14 +7136,14 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 year: '1781',
                 tag: { ru: '• Герб Сокола', en: '• Falcon Coat of Arms' },
                 badge: { ru: '🦅 Императорский указ • Символика', en: '🦅 Imperial Decree • Heraldry' },
-                title: { ru: '1781 год — Статус уездного города и герб с соколом', en: '1781 — District Town Status \u0026 Falcon Emblem' },
+                title: { ru: '1781 год — Статус уездного города и герб с соколом (1783)', en: '1781 — District Town Status \u0026 Falcon Emblem (1783)' },
                 desc: {
-                    ru: 'Указом императрицы Екатерины II Красноуфимск стал уездным городом Пермского наместничества. Вскоре был высочайше утверждён герб: серебряный сокол на зелёном поле — символ обилия этих благородных птиц в окрестных лесах. Город получил право на регулярную торговлю и ярмарки.',
-                    en: 'By decree of Empress Catherine the Great, Krasnoufimsk gained district town status in the Perm Viceroyalty. Its coat of arms was granted: a silver falcon on green, symbolizing the abundance of these noble birds in local forests.'
+                    ru: 'Указом императрицы Екатерины II в декабре 1781 года Красноуфимск стал уездным городом Пермского наместничества. 17 июля 1783 года городу был высочайше утверждён исторический герб: серебряный сокол на зелёном поле — символ обилия этих благородных птиц в окрестных лесах, зоркости и свободы.',
+                    en: 'By decree of Empress Catherine the Great in December 1781, Krasnoufimsk gained district town status in the Perm Viceroyalty. On July 17, 1783, its historic coat of arms was officially granted: a silver falcon on a green field, symbolizing vigilance, nobility and the abundance of these birds in local forests.'
                 },
                 fact: {
-                    ru: 'Образ сокола остаётся главным символом города, олицетворяя зоркость, благородство и свободу. Сокол — официальная птица Красноуфимска и символ его гербовой традиции с 1781 года.',
-                    en: 'The falcon remains the city\'s proud emblem representing vigilance, nobility and freedom — Krasnoufimsk\'s heraldic symbol since 1781.'
+                    ru: 'Образ сокола остаётся главным символом города с момента высочайшего утверждения герба Екатериной II в 1783 году, олицетворяя зоркость, благородство и свободу уральского края.',
+                    en: 'The silver falcon has served as the city\'s proud official heraldic emblem since its imperial confirmation by Catherine II in 1783.'
                 },
                 icon: '🦅',
                 mapTitle: { ru: 'Центральная площадь и герб города', en: 'Central Square and Town Coat of Arms' },
@@ -8122,21 +8017,6 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
             setTimeout(updateTimelineArrows, 260);
         }
 
-        // Быстрый переход по ключевым векам (1736, XIX, XX, 2026)
-        function jumpToEpochYear(key) {
-            let targetIndex = 0;
-            if (key === '1736') targetIndex = 0;
-            else if (key === 'XIX') targetIndex = 4; // 1828 (19 век)
-            else if (key === 'XX') targetIndex = 10; // 1914 (20 век)
-            else if (key === '2026') targetIndex = totalEvents - 1; // 2026 (Современность)
-
-            openEvent(targetIndex, 'event' + (targetIndex + 1), true);
-
-            document.querySelectorAll('.era-chip').forEach(chip => {
-                chip.classList.toggle('active', chip.getAttribute('data-era') === key);
-            });
-        }
-
         // Поддержка свободного перетаскивания ленты мышью (Drag-to-Scroll)
         function enableDragToScroll(el) {
             if (!el || el.dataset.dragEnabled) return;
@@ -8244,16 +8124,6 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 } else {
                     btn.classList.remove('active');
                 }
-            });
-
-            // Подсветка соответствующего века в верхней плашке
-            let activeEra = '1736';
-            if (index >= 20) activeEra = '2026';
-            else if (index >= 10) activeEra = 'XX';
-            else if (index >= 4) activeEra = 'XIX';
-
-            document.querySelectorAll('.era-chip').forEach(chip => {
-                chip.classList.toggle('active', chip.getAttribute('data-era') === activeEra);
             });
 
             updateTimelineArrows();
