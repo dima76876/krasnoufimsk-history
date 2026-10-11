@@ -215,6 +215,81 @@
         }
 
         /* ==========================================================================
+           [ПРЕМИУМ: ФОНОВАЯ ЖИВАЯ АУРА ГЛУБИНЫ (AMBIENT AURORA GLOW)]
+           ========================================================================== */
+        .ambient-glow-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .ambient-glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(110px);
+            -webkit-filter: blur(110px);
+            opacity: 0.15;
+            transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
+            will-change: transform;
+        }
+
+        .orb-top {
+            width: 520px;
+            height: 520px;
+            top: -100px;
+            right: 6%;
+            background: var(--main-color);
+            animation: orbFloatTop 26s ease-in-out infinite alternate;
+        }
+
+        .orb-mid {
+            width: 620px;
+            height: 620px;
+            top: 40%;
+            left: -160px;
+            background: var(--main-hover);
+            animation: orbFloatMid 34s ease-in-out infinite alternate;
+        }
+
+        .orb-bot {
+            width: 580px;
+            height: 580px;
+            bottom: -120px;
+            right: -80px;
+            background: var(--main-color);
+            animation: orbFloatBot 30s ease-in-out infinite alternate;
+        }
+
+        @keyframes orbFloatTop {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-70px, 50px) scale(1.08); }
+            100% { transform: translate(50px, -30px) scale(0.96); }
+        }
+
+        @keyframes orbFloatMid {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(80px, -60px) scale(1.06); }
+            100% { transform: translate(-50px, 70px) scale(0.95); }
+        }
+
+        @keyframes orbFloatBot {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-60px, -40px) scale(1.1); }
+            100% { transform: translate(40px, 30px) scale(0.94); }
+        }
+
+        body.dark-theme .ambient-glow-orb {
+            opacity: 0.22;
+            filter: blur(125px);
+            -webkit-filter: blur(125px);
+        }
+
+        /* ==========================================================================
            [3. ШАПКА В СТИЛЕ GLASSMORPHISM (МАТОВОЕ СТЕКЛО)]
            ========================================================================== */
         .header-wrapper {
@@ -836,34 +911,51 @@
         }
 
         .stat-item {
-            background: rgba(0, 0, 0, 0.38);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            border-radius: 16px;
-            padding: 12px 22px;
-            min-width: 140px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 20px;
+            padding: 14px 22px;
+            min-width: 145px;
             text-align: center;
+            box-shadow: 
+                0 8px 24px rgba(0, 0, 0, 0.22),
+                inset 0 1px 1px rgba(255, 255, 255, 0.6),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.15);
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
 
         .stat-item:hover {
-            transform: translateY(-3px);
-            background: rgba(0, 0, 0, 0.52);
+            transform: translateY(-4px) scale(1.02);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.55);
+            box-shadow: 
+                0 14px 32px rgba(0, 0, 0, 0.32),
+                0 0 20px var(--accent-glow),
+                inset 0 1px 1px rgba(255, 255, 255, 0.8);
         }
 
         .stat-number {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 900;
             color: #ffffff;
             display: block;
+            line-height: 1.2;
+            margin-bottom: 2px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
         }
 
         .stat-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #cbd5e1;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #e2e8f0;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            opacity: 0.95;
         }
 
         .scroll-down-btn {
@@ -1082,6 +1174,38 @@
             transition: opacity 0.35s ease, transform 0.35s ease;
             position: relative;
             overflow: hidden;
+        }
+
+        .event-card-watermark {
+            position: absolute;
+            right: 28px;
+            top: 14px;
+            font-size: clamp(80px, 13vw, 130px);
+            font-weight: 900;
+            line-height: 1;
+            color: var(--main-color);
+            opacity: 0.055;
+            letter-spacing: -3px;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        body.dark-theme .event-card-watermark {
+            opacity: 0.08;
+            color: #ffffff;
+        }
+
+        .card-header-bar,
+        .event-card h3,
+        .event-card p.event-desc,
+        .historical-fact-box,
+        .map-container,
+        .card-nav-footer {
+            position: relative;
+            z-index: 1;
         }
 
         .event-card::before {
@@ -3414,6 +3538,9 @@
             --border-card: rgba(255, 255, 255, 0.16);
         }
         
+        /* ==========================================================================
+           [ПРЕМИУМ: ФИЗИКА СТЕКЛА С АЛМАЗНОЙ ФАСКОЙ (VISIONOS GLASS)]
+           ========================================================================== */
         .event-card, 
         .sight-showcase-card, 
         .quiz-card, 
@@ -3428,9 +3555,14 @@
         .guide-item,
         .passport-modal-window,
         .passport-profile-card {
-            backdrop-filter: blur(14px) !important;
-            -webkit-backdrop-filter: blur(14px) !important;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            box-shadow: 
+                0 2px 4px -1px rgba(0, 0, 0, 0.03),
+                0 12px 32px -4px rgba(0, 0, 0, 0.06),
+                0 24px 48px -12px var(--accent-glow),
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.8),
+                inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04) !important;
         }
         
         .dark-theme .event-card, 
@@ -3461,7 +3593,62 @@
         body.dark-theme .guide-item,
         body.dark-theme .passport-modal-window,
         body.dark-theme .passport-profile-card {
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35) !important;
+            box-shadow: 
+                0 4px 12px 0 rgba(0, 0, 0, 0.4),
+                0 16px 40px -8px rgba(0, 0, 0, 0.6),
+                0 0 24px -4px var(--accent-glow),
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.22),
+                inset 0 -1px 1px 0 rgba(0, 0, 0, 0.5) !important;
+        }
+
+        /* Премиальный скользящий световой блик на стеклянных карточках */
+        .event-card,
+        .sight-showcase-card,
+        .route-card,
+        .guide-item,
+        .intro-card,
+        .tourist-guide-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::after,
+        .sight-showcase-card::after,
+        .route-card::after,
+        .guide-item::after,
+        .intro-card::after,
+        .tourist-guide-card::after {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -60%;
+            width: 220%;
+            height: 220%;
+            background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.22) 50%, transparent 58%);
+            transform: translateX(-120%) rotate(25deg);
+            transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0;
+        }
+
+        .event-card:hover::after,
+        .sight-showcase-card:hover::after,
+        .route-card:hover::after,
+        .guide-item:hover::after,
+        .intro-card:hover::after,
+        .tourist-guide-card:hover::after {
+            transform: translateX(120%) rotate(25deg);
+            opacity: 1;
+        }
+
+        body.dark-theme .event-card::after,
+        body.dark-theme .sight-showcase-card::after,
+        body.dark-theme .route-card::after,
+        body.dark-theme .guide-item::after,
+        body.dark-theme .intro-card::after,
+        body.dark-theme .tourist-guide-card::after {
+            background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.12) 50%, transparent 58%);
         }
 
         .dark-theme .routes-badge,
@@ -4790,6 +4977,13 @@
 
 <body class="season-autumn">
 
+    <!-- Премиальная фоновая аура глубины (Ambient Aurora Glow) -->
+    <div class="ambient-glow-backdrop" aria-hidden="true">
+        <div class="ambient-glow-orb orb-top"></div>
+        <div class="ambient-glow-orb orb-mid"></div>
+        <div class="ambient-glow-orb orb-bot"></div>
+    </div>
+
     <!-- Индикатор прогресса чтения -->
     <div id="reading-progress"></div>
 
@@ -4985,12 +5179,16 @@
                     <span class="stat-label" data-i18n="statFounded">Год основания</span>
                 </div>
                 <div class="stat-item">
+                    <span class="stat-number" id="city-age-stat">290 лет</span>
+                    <span class="stat-label" data-i18n="statYears">Истории города</span>
+                </div>
+                <div class="stat-item">
                     <span class="stat-number">21</span>
                     <span class="stat-label" data-i18n="statEpochs">Ключевых эпох</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" id="city-age-stat">290 лет</span>
-                    <span class="stat-label" data-i18n="statYears">Истории города</span>
+                    <span class="stat-number">30</span>
+                    <span class="stat-label" data-i18n="statMonuments">Памятников истории</span>
                 </div>
             </div>
 
@@ -5599,6 +5797,7 @@
                 statFounded: 'Год основания',
                 statEpochs: 'Ключевых эпох',
                 statYears: 'Истории города',
+                statMonuments: 'Памятников истории',
                 exploreHistory: 'Исследовать историю',
                 introHeading: 'Город на живописных берегах реки Уфы',
                 introText: 'Красноуфимск — старейший исторический город на юго-западе Свердловской области. Заложенный как форпост для защиты уральских заводов, город вобрал в себя летопись пугачёвского восстания, купеческие традиции, триумф инженерной мысли в виде знаменитых виадуков и трудовой подвиг в годы Великой Отечественной войны. Ниже представлена интерактивная летопись из 21 важнейшего этапа, определивших судьбу Красноуфимска.',
@@ -5775,6 +5974,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
                 statFounded: 'Year founded',
                 statEpochs: 'Key epochs',
                 statYears: 'Years of history',
+                statMonuments: 'Historic sites',
                 exploreHistory: 'Explore history',
                 introHeading: 'City on the scenic banks of the Ufa River',
                 introText: 'Krasnoufimsk is one of the oldest historical cities in southwestern Sverdlovsk Oblast. Founded as an outpost to protect Ural factories, it witnessed Pugachev’s rebellion, merchant prosperity, landmark viaduct engineering, and wartime labor heroics. Below is an interactive chronicle of 21 defining milestones.',
@@ -6839,6 +7039,7 @@ quizResult2: '🔍 Worth studying! Check out the timeline.',
 
                 html += `
                 <article class="event-card ${activeClass}" id="event${idx + 1}" data-index="${idx}">
+                    <div class="event-card-watermark" aria-hidden="true">${ev.year}</div>
                     <div class="card-header-bar">
                         <span class="epoch-badge">${ev.badge[currentLang]}</span>
                         <span class="event-card-index">${dict.epochWord} ${idx + 1} ${dict.fromWord}</span>
