@@ -6,6 +6,7 @@
 # Архивы и резервные копии
 *.zip
 *_back.html
+*.backup_*.html
 
 # Системные файлы Windows и macOS
 Thumbs.db
