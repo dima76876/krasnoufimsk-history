@@ -88,7 +88,9 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('./sw.js').catch(function() {});
+                navigator.serviceWorker.register('./sw.js').then(function(reg) {
+                    reg.update().catch(function() {});
+                }).catch(function() {});
             });
         }
     </script>
@@ -3971,9 +3973,68 @@
         }
 
         /* ==========================================================================
-           [14. АДАПТИВНОСТЬ ДЛЯ СМАРТФОНОВ И ПЛАНШЕТОВ]
+           [14. АДАПТИВНОСТЬ ДЛЯ НОУТБУКОВ, ПЛАНШЕТОВ И СМАРТФОНОВ]
            ========================================================================== */
-        @media (max-width: 1380px) {
+        /* Компактный режим для ноутбуков (включая 1366x768, 1280x800 и проекторы) */
+        @media (max-width: 1380px) and (min-width: 1101px) {
+            .header-wrapper {
+                top: 8px;
+                padding: 0 10px;
+            }
+
+            header {
+                padding: 6px 12px;
+                border-radius: 28px;
+                position: relative;
+            }
+
+            .logo-sub {
+                display: none;
+            }
+
+            .weather-city-label {
+                display: none;
+            }
+
+            .weather-pill {
+                padding: 5px 8px;
+                gap: 5px;
+                font-size: 11.5px;
+            }
+
+            .lang-switch-btn {
+                padding: 5px 8px;
+                font-size: 11.5px;
+                gap: 4px;
+            }
+
+            .theme-switch-btn {
+                width: 32px;
+                height: 32px;
+            }
+
+            .achieve-btn {
+                height: 32px;
+                padding: 0 8px;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 2px;
+            }
+
+            .nav-link {
+                padding: 4px 6px;
+                font-size: 11.5px;
+            }
+
+            .mobile-menu-btn {
+                display: none !important;
+            }
+        }
+
+        /* Переход в мобильное меню только для планшетов и смартфонов (<= 1100px) */
+        @media (max-width: 1100px) {
             .header-wrapper {
                 top: 8px;
                 padding: 0 10px;
@@ -4011,6 +4072,42 @@
                 padding: 6px 10px;
                 font-size: 12px;
                 gap: 4px;
+            }
+        }
+
+        /* Оптимизация вертикального пространства для ноутбуков с экраном 768px (1366x768) */
+        @media (max-height: 800px) and (min-width: 901px) {
+            .hero {
+                padding: 95px 20px 40px;
+            }
+
+            .hero-badge {
+                margin-bottom: 12px;
+                padding: 5px 14px;
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                margin-bottom: 14px;
+            }
+
+            .hero p {
+                margin-bottom: 20px;
+                line-height: 1.6;
+            }
+
+            .hero-stats {
+                margin-bottom: 22px;
+                gap: 12px;
+            }
+
+            .stat-item {
+                padding: 10px 16px;
+                min-width: 125px;
+            }
+
+            .stat-number {
+                font-size: 24px;
             }
         }
 
@@ -7582,7 +7679,7 @@
         <div class="pwa-install-card">
             <div class="pwa-card-header">
                 <div class="pwa-icon-glow">
-                    <img src="images/apple-touch-icon.png?v=7" alt="Логотип Красноуфимск" class="pwa-app-logo">
+                    <img src="images/apple-touch-icon.png?v=7" alt="Логотип Красноуфимск" class="pwa-app-logo" loading="lazy" width="64" height="64">
                 </div>
                 <div class="pwa-text-header">
                     <span class="pwa-badge" data-i18n="pwaBadge">📲 Мобильное приложение PWA</span>
@@ -7652,7 +7749,7 @@
                 Красноуфимск • 2026 год. Разработано с гордостью за родной край.
             </div>
             <div class="footer-legal">
-                <a href="#privacy" onclick="openPrivacyModal(); return false;" class="footer-legal-link" data-i18n="footerPrivacyLink">🔒 Политика конфиденциальности и 152-ФЗ</a>
+                <a href="#privacy-modal" onclick="openPrivacyModal(); return false;" class="footer-legal-link" data-i18n="footerPrivacyLink">🔒 Политика конфиденциальности и 152-ФЗ</a>
                 <span class="footer-legal-sep">•</span>
                 <span data-i18n="footerTerms">Некоммерческий образовательный краеведческий проект</span>
             </div>

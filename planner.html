@@ -70,7 +70,9 @@
         } catch(e) {}
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('./sw.js').catch(function() {});
+                navigator.serviceWorker.register('./sw.js').then(function(reg) {
+                    reg.update().catch(function() {});
+                }).catch(function() {});
             });
         }
     </script>
@@ -748,33 +750,89 @@
             align-items: center;
             justify-content: center;
             font-size: 1.25rem;
+            transition: all 0.2s ease;
         }
 
         .mobile-panel {
             display: none;
             position: fixed;
-            top: 65px; left: 0; right: 0;
-            background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            top: 56px;
+            left: 0;
+            right: 0;
+            background: color-mix(in srgb, var(--bg-card) 96%, transparent);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 2px solid var(--border-card);
-            padding: 16px 20px;
-            z-index: 999;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 12px 14px 20px 14px;
+            z-index: 9999;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+            max-height: calc(100vh - 58px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .mobile-panel.show { display: block; }
+        .mobile-panel.show {
+            display: block;
+            animation: slideDownMobile 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideDownMobile {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mobile-nav-divider {
+            height: 1px;
+            background: var(--border-card);
+            margin: 8px 0;
+            opacity: 0.8;
+        }
+
+        .mobile-nav-section-title {
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            padding: 6px 10px 4px 10px;
+        }
+
+        .mobile-seasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(68px, 1fr));
+            gap: 6px;
+            padding: 4px 0;
+        }
+
+        .mobile-weather-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: var(--bg-accent);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-sm);
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mobile-weather-row:hover {
+            border-color: var(--main-color);
+            background: color-mix(in srgb, var(--main-color) 8%, var(--bg-accent));
+        }
 
         .mobile-nav-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 14px;
+            padding: 10px 14px;
             color: var(--text-main);
             text-decoration: none;
+            font-size: 0.92rem;
             font-weight: 600;
             border-radius: var(--radius-sm);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             transition: background 0.2s;
         }
 
@@ -833,11 +891,17 @@
             line-height: 1.6;
         }
 
-        /* ==========================================================================
-           4. ВЫБОР ГОРОДА ОТПРАВЛЕНИЯ
-           ========================================================================== */
-        .city-picker-card {
-            max-width: 1240px;
+        /* Смещение при переходе по якорным ссылкам с учётом липкой шапки */
+        .city-picker-card, .transport-section-card, .trip-settings-card, .bottom-layout {
+            scroll-margin-top: 75px;
+        }
+
+        /* Общие правила карточек шагов калькулятора (аккуратные отступы от краёв экрана) */
+        .city-picker-card,
+        .transport-section-card,
+        .trip-settings-card {
+            max-width: 1200px;
+            width: calc(100% - 40px);
             margin: 0 auto 24px auto;
             padding: 24px 28px;
             background: var(--bg-card);
@@ -847,6 +911,10 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             position: relative;
+            box-sizing: border-box;
+        }
+
+        .city-picker-card {
             overflow: visible;
             z-index: 30;
         }
@@ -1317,16 +1385,6 @@
            5. ВАРИАНТЫ ТРАНСПОРТА И ПЕРЕСАДОК (МУЛЬТИМОДАЛЬНЫЕ КАРТОЧКИ)
            ========================================================================== */
         .transport-section-card {
-            max-width: 1240px;
-            margin: 0 auto 24px auto;
-            padding: 24px 28px;
-            background: var(--bg-card);
-            border: 1.5px solid var(--border-card);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            position: relative;
             overflow: hidden;
         }
 
@@ -1447,16 +1505,6 @@
            6. ПАРАМЕТРЫ ПРЕБЫВАНИЯ: ДНИ, ЛЮДИ И СТИЛЬ ОТДЫХА
            ========================================================================== */
         .trip-settings-card {
-            max-width: 1240px;
-            margin: 0 auto 24px auto;
-            padding: 24px 28px;
-            background: var(--bg-card);
-            border: 1.5px solid var(--border-card);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-card);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            position: relative;
             overflow: visible;
             z-index: 25;
         }
@@ -1724,26 +1772,30 @@
            7. ИТОГОВАЯ СМЕТА БЮДЖЕТА И ПРОГРАММА ПОЕЗДКИ
            ========================================================================== */
         .bottom-layout {
-            max-width: 1240px;
+            max-width: 1200px;
+            width: 100%;
             margin: 0 auto 60px auto;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: 460px 1fr;
+            grid-template-columns: 440px 1fr;
             gap: 24px;
             align-items: start;
+            box-sizing: border-box;
         }
 
         .budget-card {
             background: var(--bg-card);
             border: 1.5px solid var(--border-card);
             border-radius: var(--radius-lg);
-            padding: 24px 26px;
+            padding: 22px 24px;
             box-shadow: var(--shadow-lg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             position: sticky;
-            top: 86px;
-            overflow: hidden;
+            top: 76px;
+            max-height: calc(100vh - 90px);
+            overflow-y: auto;
+            scrollbar-width: thin;
         }
 
         .budget-card::before {
@@ -2007,14 +2059,60 @@
             }
             .budget-card {
                 position: static;
+                max-height: none;
+                overflow: visible;
             }
         }
 
         @media (max-width: 768px) {
+            header {
+                padding: 8px 14px;
+                gap: 8px;
+            }
+            .header-center {
+                display: none !important;
+            }
+            .season-dropdown-wrap {
+                display: none !important;
+            }
+            .weather-city-label {
+                display: none !important;
+            }
+            .weather-pill {
+                padding: 5px 8px;
+                font-size: 12px;
+                gap: 5px;
+            }
+            .header-right {
+                gap: 6px;
+            }
+            .control-btn {
+                height: 36px;
+                padding: 0 8px;
+                font-size: 0.82rem;
+            }
+            .mobile-menu-btn {
+                display: flex !important;
+                width: 36px;
+                height: 36px;
+                font-size: 1.15rem;
+            }
+            .mobile-panel {
+                top: 53px;
+                max-height: calc(100vh - 55px);
+            }
             .nav-links { display: none; }
-            .mobile-menu-btn { display: flex; }
-            .city-picker-card, .transport-section-card, .trip-settings-card, .program-card, .budget-card {
+            .city-picker-card, .transport-section-card, .trip-settings-card {
+                width: calc(100% - 32px);
+                margin: 0 auto 20px auto;
                 padding: 18px 16px;
+            }
+            .program-card, .budget-card {
+                padding: 18px 16px;
+            }
+            .bottom-layout {
+                padding: 0 16px;
+                margin: 0 auto 40px auto;
             }
             .city-chips-grid { gap: 6px; }
             .city-chip { padding: 6px 12px; font-size: 0.84rem; }
@@ -2024,19 +2122,70 @@
         }
 
         @media (max-width: 480px) {
+            header {
+                padding: 6px 8px;
+                gap: 6px;
+            }
+            .logo-group {
+                gap: 6px;
+                min-width: 0;
+                flex-shrink: 1;
+            }
+            .logo-icon {
+                font-size: 1.55rem;
+            }
+            .logo-title {
+                font-size: 1.05rem;
+                white-space: nowrap;
+            }
+            .logo-sub {
+                display: none !important;
+            }
+            .weather-pill {
+                display: none !important;
+            }
+            .header-right {
+                gap: 4px;
+                flex-shrink: 0;
+            }
+            .control-btn {
+                height: 34px;
+                padding: 0 6px;
+                font-size: 0.78rem;
+            }
+            .mobile-menu-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 1.05rem;
+            }
+            .mobile-panel {
+                top: 48px;
+                padding: 12px 14px 18px 14px;
+                max-height: calc(100vh - 50px);
+            }
             .planner-hero {
                 padding: 0 14px;
-                margin: 20px auto 14px auto;
+                margin: 18px auto 12px auto;
             }
             .hero-title {
-                font-size: 1.85rem;
+                font-size: 1.75rem;
             }
             .hero-desc {
-                font-size: 0.94rem;
+                font-size: 0.92rem;
             }
-            .city-picker-card, .transport-section-card, .trip-settings-card, .program-card, .budget-card {
+            .city-picker-card, .transport-section-card, .trip-settings-card {
+                width: calc(100% - 24px);
+                margin: 0 auto 16px auto;
                 padding: 16px 14px;
                 border-radius: var(--radius-md);
+            }
+            .program-card, .budget-card {
+                padding: 16px 14px;
+                border-radius: var(--radius-md);
+            }
+            .bottom-layout {
+                padding: 0 12px;
+                margin: 0 auto 36px auto;
             }
             .budget-total-amount {
                 font-size: 1.95rem;
@@ -2177,16 +2326,47 @@
 
     <!-- Мобильная панель -->
     <div class="mobile-panel" id="mobile-nav-panel">
-        <a href="index.html" class="mobile-nav-item"><span>🏠</span> <span data-lang="navHomeFull">На главную страницу</span></a>
-        <div style="padding:14px 10px 6px 10px; border-top:1px solid var(--border-card); margin-top:8px;">
-            <div style="font-size:0.8rem; font-weight:700; color:var(--text-muted); margin-bottom:8px;" data-lang="mobileSeasonTitle">🎨 ВЫБОР ДИЗАЙНА (СЕЗОН):</div>
-            <div style="display:flex; flex-wrap:wrap; gap:6px;">
-                <button type="button" class="season-chip-btn" data-season="auto" data-lang="mobileSeasonAuto" onclick="applySeason('auto')">🔄 Авто</button>
-                <button type="button" class="season-chip-btn" data-season="autumn" data-lang="mobileSeasonAutumn" onclick="applySeason('autumn')">🍂 Осень</button>
-                <button type="button" class="season-chip-btn" data-season="winter" data-lang="mobileSeasonWinter" onclick="applySeason('winter')">❄️ Зима</button>
-                <button type="button" class="season-chip-btn" data-season="spring" data-lang="mobileSeasonSpring" onclick="applySeason('spring')">🌿 Весна</button>
-                <button type="button" class="season-chip-btn" data-season="summer" data-lang="mobileSeasonSummer" onclick="applySeason('summer')">☀️ Лето</button>
-            </div>
+        <!-- Кнопка на главную -->
+        <a href="index.html" class="mobile-nav-item" onclick="closeMobilePanel()">
+            <span>🏠</span> <span data-lang="navHomeFull">На главную страницу</span>
+        </a>
+
+        <!-- Погода в Красноуфимске (для мобилок) -->
+        <div class="mobile-weather-row" onclick="closeMobilePanel(); openWeatherModal();" role="button" tabindex="0" title="Открыть подробный прогноз на 7 дней">
+            <span class="weather-status-dot"></span>
+            <span id="mobile-weather-icon">🌤️</span>
+            <span id="mobile-weather-temp" style="font-weight:700;">--°C</span>
+            <span style="font-size:0.86rem; color:var(--text-muted); flex:1;" data-lang="mobileNavWeather">Погода в Красноуфимске на 7 дней</span>
+            <span style="font-size:0.8rem; opacity:0.6;">↗</span>
+        </div>
+
+        <div class="mobile-nav-divider"></div>
+
+        <!-- Быстрая навигация по шагам калькулятора -->
+        <div class="mobile-nav-section-title" data-lang="mobileNavSectionsTitle">📍 Быстрый переход по шагам:</div>
+        <a href="#city-picker-section" class="mobile-nav-item" onclick="closeMobilePanel()">
+            <span>📍</span> <span data-lang="mobileNavStep1">1. Город отправления</span>
+        </a>
+        <a href="#transport-section" class="mobile-nav-item" onclick="closeMobilePanel()">
+            <span>🚆</span> <span data-lang="mobileNavStep2">2. Транспорт и билеты</span>
+        </a>
+        <a href="#trip-settings-section" class="mobile-nav-item" onclick="closeMobilePanel()">
+            <span>🏨</span> <span data-lang="mobileNavStep3">3. Отель и параметры</span>
+        </a>
+        <a href="#budget-section" class="mobile-nav-item" onclick="closeMobilePanel()">
+            <span>💰</span> <span data-lang="mobileNavStep4">4. Смета и программа тура</span>
+        </a>
+
+        <div class="mobile-nav-divider"></div>
+
+        <!-- Выбор темы / сезона -->
+        <div class="mobile-nav-section-title" data-lang="mobileSeasonTitle">🎨 ВЫБОР ДИЗАЙНА (СЕЗОН):</div>
+        <div class="mobile-seasons-grid">
+            <button type="button" class="season-chip-btn" data-season="auto" data-lang="mobileSeasonAuto" onclick="applySeason('auto'); closeMobilePanel();">🔄 Авто</button>
+            <button type="button" class="season-chip-btn" data-season="autumn" data-lang="mobileSeasonAutumn" onclick="applySeason('autumn'); closeMobilePanel();">🍂 Осень</button>
+            <button type="button" class="season-chip-btn" data-season="winter" data-lang="mobileSeasonWinter" onclick="applySeason('winter'); closeMobilePanel();">❄️ Зима</button>
+            <button type="button" class="season-chip-btn" data-season="spring" data-lang="mobileSeasonSpring" onclick="applySeason('spring'); closeMobilePanel();">🌿 Весна</button>
+            <button type="button" class="season-chip-btn" data-season="summer" data-lang="mobileSeasonSummer" onclick="applySeason('summer'); closeMobilePanel();">☀️ Лето</button>
         </div>
     </div>
 
@@ -2204,7 +2384,7 @@
     </section>
 
     <!-- 1. ВЫБОР ГОРОДА ОТПРАВЛЕНИЯ -->
-    <section class="city-picker-card reveal-on-scroll" style="max-width: 1200px; margin: 0 auto 24px auto;">
+    <section id="city-picker-section" class="city-picker-card reveal-on-scroll">
         <div class="section-label-bar">
             <h2 class="section-heading-title">
                 <span>📍</span> <span data-lang="citySectionTitle">Шаг 1. Откуда вы отправляетесь?</span>
@@ -2230,17 +2410,17 @@
                 </div>
             </div>
 
-            <!-- Быстрые подсказки других городов -->
+            <!-- Быстрые подсказки других городов-миллионников -->
             <div class="city-suggestions-bar" id="city-suggestions-bar">
                 <span style="font-weight:600;" data-lang="citySuggestionsLabel">Подсказки:</span>
-                <button type="button" class="city-suggestion-pill" data-city-id="tyumen" onclick="selectCity('tyumen')">Тюмень</button>
                 <button type="button" class="city-suggestion-pill" data-city-id="samara" onclick="selectCity('samara')">Самара</button>
                 <button type="button" class="city-suggestion-pill" data-city-id="novosibirsk" onclick="selectCity('novosibirsk')">Новосибирск</button>
                 <button type="button" class="city-suggestion-pill" data-city-id="nizhny" onclick="selectCity('nizhny')">Нижний Новгород</button>
+                <button type="button" class="city-suggestion-pill" data-city-id="omsk" onclick="selectCity('omsk')">Омск</button>
                 <button type="button" class="city-suggestion-pill" data-city-id="krasnoyarsk" onclick="selectCity('krasnoyarsk')">Красноярск</button>
                 <button type="button" class="city-suggestion-pill" data-city-id="rostov" onclick="selectCity('rostov')">Ростов-на-Дону</button>
                 <button type="button" class="city-suggestion-pill" data-city-id="krasnodar" onclick="selectCity('krasnodar')">Краснодар</button>
-                <button type="button" class="city-suggestion-pill" data-city-id="sochi" onclick="selectCity('sochi')">Сочи</button>
+                <button type="button" class="city-suggestion-pill" data-city-id="volgograd" onclick="selectCity('volgograd')">Волгоград</button>
             </div>
 
             <div id="city-search-not-found" class="city-search-not-found-msg" style="display:none;">
@@ -2255,7 +2435,7 @@
     </section>
 
     <!-- 2. ВАРИАНТЫ ТРАНСПОРТА И ПЕРЕСАДОК -->
-    <section class="transport-section-card reveal-on-scroll" style="max-width: 1200px; margin: 0 auto 24px auto;">
+    <section id="transport-section" class="transport-section-card reveal-on-scroll">
         <div class="section-label-bar">
             <h2 class="section-heading-title">
                 <span>🔀</span> <span data-lang="transSectionTitle">Шаг 2. Выберите способ передвижения:</span>
@@ -2269,7 +2449,7 @@
     </section>
 
     <!-- 3. ПАРАМЕТРЫ ПРЕБЫВАНИЯ В ГОРОДЕ -->
-    <section class="trip-settings-card reveal-on-scroll" style="max-width: 1200px; margin: 0 auto 24px auto;">
+    <section id="trip-settings-section" class="trip-settings-card reveal-on-scroll">
         <div class="section-label-bar">
             <h2 class="section-heading-title">
                 <span>🗓️</span> <span data-lang="settingsSectionTitle">Шаг 3. Детали вашей поездки:</span>
@@ -2380,7 +2560,7 @@
     </section>
 
     <!-- 4. ИТОГОВАЯ СМЕТА РАСХОДОВ И ПРОГРАММА ПОЕЗДКИ -->
-    <main class="bottom-layout">
+    <main id="budget-section" class="bottom-layout">
 
         <!-- Левая колонка: Калькулятор сметы -->
         <aside class="budget-card reveal-on-scroll">
@@ -2782,28 +2962,6 @@
                 ]
             },
             {
-                id: 'tyumen', name: { ru: 'Тюмень', en: 'Tyumen' },
-                distKm: 525, lat: 57.1530, lon: 65.5343, isPopular: false,
-                options: [
-                    {
-                        type: 'train_fast', icon: '🚆',
-                        title: { ru: 'Поезд Тюмень — Красноуфимск (прямой)', en: 'Direct Train Tyumen — Krasnoufimsk' },
-                        badge: { ru: 'Прямой рейс', en: 'Direct service' },
-                        time: { ru: '8 часов', en: '8 hours' },
-                        priceOneWay: 1600,
-                        desc: { ru: 'Прямые поезда сибирского направления останавливаются в Красноуфимске.', en: 'Direct Siberian line trains stop at Krasnoufimsk.' }
-                    },
-                    {
-                        type: 'car', icon: '🚗',
-                        title: { ru: 'Автомобиль через Екатеринбург', en: 'Car via Yekaterinburg' },
-                        badge: { ru: 'Федеральная трасса', en: 'Federal highway' },
-                        time: { ru: '6 ч 30 мин', en: '6 h 30 min' },
-                        priceOneWay: 2800,
-                        desc: { ru: 'По четырёхполосной трассе Тюмень — Екатеринбург и далее по Р-242.', en: 'Via 4-lane federal highway through Yekaterinburg.' }
-                    }
-                ]
-            },
-            {
                 id: 'samara', name: { ru: 'Самара', en: 'Samara' },
                 distKm: 760, lat: 53.1959, lon: 50.1002, isPopular: false,
                 options: [
@@ -2848,28 +3006,6 @@
                 ]
             },
             {
-                id: 'sochi', name: { ru: 'Сочи', en: 'Sochi' },
-                distKm: 2400, lat: 43.6028, lon: 39.7342, isPopular: false,
-                options: [
-                    {
-                        type: 'plane_train', icon: '✈️+🚆',
-                        title: { ru: 'Самолёт до Екатеринбурга + «Ласточка»', en: 'Flight to Yekaterinburg + Train' },
-                        badge: { ru: 'Курорт → Урал', en: 'Resort to Urals' },
-                        time: { ru: '~7 часов', en: '~7 hours' },
-                        priceOneWay: 7500,
-                        desc: { ru: 'Прямой авиарейс Сочи → Екатеринбург (3 ч 20 мин) + пересадка на «Ласточку».', en: 'Direct flight to Yekaterinburg plus express train to Krasnoufimsk.' }
-                    },
-                    {
-                        type: 'train_direct', icon: '🚆',
-                        title: { ru: 'Прямой сезонный поезд южного направления', en: 'Direct Seasonal Train' },
-                        badge: { ru: 'Без пересадок', en: 'Direct rail' },
-                        time: { ru: '52 часа', en: '52 hours' },
-                        priceOneWay: 4500,
-                        desc: { ru: 'Прямой железнодорожный маршрут через Поволжье и Урал.', en: 'Direct railway service linking southern Russia to Krasnoufimsk.' }
-                    }
-                ]
-            },
-            {
                 id: 'nizhny', name: { ru: 'Нижний Новгород', en: 'Nizhny Novgorod' },
                 distKm: 950, lat: 56.3269, lon: 44.0059, isPopular: false,
                 options: [
@@ -2900,50 +3036,6 @@
                 ]
             },
             {
-                id: 'izhevsk', name: { ru: 'Ижевск', en: 'Izhevsk' },
-                distKm: 380, lat: 56.8528, lon: 53.2115, isPopular: false,
-                options: [
-                    {
-                        type: 'car', icon: '🚗',
-                        title: { ru: 'Автомобиль (через Воткинск и Чернушку)', en: 'Car (via Votkinsk & Chernushka)' },
-                        badge: { ru: 'Самый быстрый путь', en: 'Fastest route' },
-                        time: { ru: '5 часов', en: '5 hours' },
-                        priceOneWay: 2000,
-                        desc: { ru: 'Живописная дорога через Удмуртию и юг Пермского края.', en: 'Scenic route across Udmurtia and southern Perm region.' }
-                    },
-                    {
-                        type: 'train_transfer', icon: '🚆',
-                        title: { ru: 'Поезд через Агрыз / Дружинино', en: 'Train via Agryz / Druzhinino' },
-                        badge: { ru: 'Железная дорога', en: 'Rail connection' },
-                        time: { ru: '7 часов', en: '7 hours' },
-                        priceOneWay: 1200,
-                        desc: { ru: 'Ж/д сообщение с пересадкой или стыковкой в Красноуфимск.', en: 'Rail service with connection to Krasnoufimsk.' }
-                    }
-                ]
-            },
-            {
-                id: 'kurgan', name: { ru: 'Курган', en: 'Kurgan' },
-                distKm: 550, lat: 55.4410, lon: 65.3411, isPopular: false,
-                options: [
-                    {
-                        type: 'train_transfer', icon: '🚆+🚆',
-                        title: { ru: 'Поезд через Екатеринбург + «Ласточка»', en: 'Train via Yekaterinburg + «Lastochka»' },
-                        badge: { ru: 'Удобное расписание', en: 'Convenient schedule' },
-                        time: { ru: '7.5 часов', en: '7.5 hours' },
-                        priceOneWay: 1550,
-                        desc: { ru: 'Скоростной электропоезд в Екатеринбург (4 ч) и пересадка на «Ласточку» в Красноуфимск.', en: 'Fast train to Yekaterinburg and connection to Lastochka.' }
-                    },
-                    {
-                        type: 'car', icon: '🚗',
-                        title: { ru: 'Автомобиль (Р-354 и Р-242)', en: 'Car (R-354 & R-242)' },
-                        badge: { ru: 'Через Екатеринбург', en: 'Via Yekaterinburg' },
-                        time: { ru: '6.5 часов', en: '6.5 hours' },
-                        priceOneWay: 2900,
-                        desc: { ru: 'Через Каменск-Уральский и объездную Екатеринбурга на Московский тракт.', en: 'Via Kamensk-Uralsky and Yekaterinburg bypass to Moskovsky Trakt.' }
-                    }
-                ]
-            },
-            {
                 id: 'omsk', name: { ru: 'Омск', en: 'Omsk' },
                 distKm: 1180, lat: 54.9885, lon: 73.3242, isPopular: false,
                 options: [
@@ -2962,50 +3054,6 @@
                         time: { ru: '~5.5 часов', en: '~5.5 hours' },
                         priceOneWay: 6200,
                         desc: { ru: 'Рейс Омск → Екатеринбург (1 ч 30 мин) + «Ласточка» в Красноуфимск.', en: 'Flight Omsk to Yekaterinburg + Lastochka express train.' }
-                    }
-                ]
-            },
-            {
-                id: 'surgut', name: { ru: 'Сургут (ХМАО — Югра)', en: 'Surgut (KhMAO)' },
-                distKm: 1350, lat: 61.2540, lon: 73.3962, isPopular: false,
-                options: [
-                    {
-                        type: 'plane_train', icon: '✈️+🚆',
-                        title: { ru: 'Самолёт Сургут → Кольцово + «Ласточка»', en: 'Flight Surgut → Koltsovo + Train' },
-                        badge: { ru: 'Север → Урал • Самый быстрый', en: 'North → Urals • Fastest' },
-                        time: { ru: '~5.5 часов', en: '~5.5 hours' },
-                        priceOneWay: 6500,
-                        desc: { ru: 'Прямой перелёт Сургут → Екатеринбург (1 ч 50 мин) + скоростная «Ласточка» в Красноуфимск.', en: 'Direct flight from Surgut to Koltsovo + connecting train.' }
-                    },
-                    {
-                        type: 'train_direct', icon: '🚆',
-                        title: { ru: 'Прямой поезд Северного направления', en: 'Direct Northern Line Train' },
-                        badge: { ru: 'Прямой вагон', en: 'Direct carriage' },
-                        time: { ru: '24 часа', en: '24 hours' },
-                        priceOneWay: 2900,
-                        desc: { ru: 'Прямой поезд Нижневартовск/Сургут — Пенза/Волгоград через Красноуфимск.', en: 'Direct long-distance train stopping at Krasnoufimsk.' }
-                    }
-                ]
-            },
-            {
-                id: 'urengoy', name: { ru: 'Новый Уренгой (ЯНАО)', en: 'Novy Urengoy (YaNAO)' },
-                distKm: 2050, lat: 66.0844, lon: 76.6809, isPopular: false,
-                options: [
-                    {
-                        type: 'plane_train', icon: '✈️+🚆',
-                        title: { ru: 'Самолёт в Кольцово + «Ласточка»', en: 'Flight to Koltsovo + Train' },
-                        badge: { ru: 'Заполярье → Красноуфимск', en: 'Arctic → Urals' },
-                        time: { ru: '~6.5 часов', en: '~6.5 hours' },
-                        priceOneWay: 7800,
-                        desc: { ru: 'Прямой авиарейс Новый Уренгой → Екатеринбург (2 ч 20 мин) + пересадка на «Ласточку».', en: 'Flight from Yamal to Yekaterinburg + train to Krasnoufimsk.' }
-                    },
-                    {
-                        type: 'train_direct', icon: '🚆',
-                        title: { ru: 'Прямой поезд Новый Уренгой — Москва/Уфа', en: 'Direct Train Urengoy — Urals' },
-                        badge: { ru: 'Без пересадок', en: 'Direct train' },
-                        time: { ru: '38 часов', en: '38 hours' },
-                        priceOneWay: 3900,
-                        desc: { ru: 'Поезд дальнего следования с остановкой на станции Красноуфимск.', en: 'Long-distance train through Siberia and Urals to Krasnoufimsk.' }
                     }
                 ]
             },
@@ -3303,6 +3351,12 @@
                 headerLogoSub: 'Калькулятор и гид',
                 navHome: 'На главную',
                 navHomeFull: 'На главную страницу',
+                mobileNavSectionsTitle: '📍 Быстрый переход по шагам:',
+                mobileNavStep1: '1. Город отправления',
+                mobileNavStep2: '2. Транспорт и билеты',
+                mobileNavStep3: '3. Отель и параметры',
+                mobileNavStep4: '4. Смета и программа тура',
+                mobileNavWeather: 'Погода в Красноуфимске на 7 дней',
                 weatherCityLabel: 'Красноуфимск',
                 mobileSeasonTitle: '🎨 ВЫБОР ДИЗАЙНА (СЕЗОН):',
                 seasonOptAuto: '🔄 Авто (по сезону)',
@@ -3380,7 +3434,7 @@
                 geoSearchDivider: '🌍 Найденные города и населённые пункты:',
                 searchingCities: 'Поиск по городам России и мира...',
                 shareCopiedToast: 'Смета и план поездки скопированы в буфер обмена!',
-                popularCitiesHeader: 'Популярные города отправления (22 основных направления):',
+                popularCitiesHeader: 'Города-миллионники России (быстрый выбор):',
                 otherCitiesHintTitle: 'Другие города можно найти через поиск',
                 otherCitiesHintDesc: 'Введите название любого города или посёлка в поле выше — геокодер найдёт абсолютно любой населённый пункт России и мира!',
                 otherCitiesRefineHint: '💡 Не нашли нужный пункт? Уточните написание города в строке поиска'
@@ -3389,6 +3443,12 @@
                 headerLogoSub: 'Calculator & Guide',
                 navHome: 'Home',
                 navHomeFull: 'To main portal',
+                mobileNavSectionsTitle: '📍 Quick step navigation:',
+                mobileNavStep1: '1. Departure city',
+                mobileNavStep2: '2. Transport & tickets',
+                mobileNavStep3: '3. Hotel & parameters',
+                mobileNavStep4: '4. Budget & itinerary',
+                mobileNavWeather: 'Krasnoufimsk 7-day weather',
                 weatherCityLabel: 'Krasnoufimsk',
                 mobileSeasonTitle: '🎨 DESIGN THEME (SEASON):',
                 seasonOptAuto: '🔄 Auto (Seasonal)',
@@ -3466,7 +3526,7 @@
                 geoSearchDivider: '🌍 Found cities & locations:',
                 searchingCities: 'Searching cities worldwide...',
                 shareCopiedToast: 'Trip itinerary and budget copied to clipboard!',
-                popularCitiesHeader: 'Popular departure cities (22 main hubs):',
+                popularCitiesHeader: 'Russian million-plus cities (quick select):',
                 otherCitiesHintTitle: 'Other cities can be found via search',
                 otherCitiesHintDesc: 'Type any city or town name into the search bar above — all locations worldwide are supported!',
                 otherCitiesRefineHint: '💡 Looking for another location? Try refining the city name above'
@@ -3476,6 +3536,9 @@
         function applyLanguage(lang) {
             currentLang = (lang === 'en') ? 'en' : 'ru';
             document.documentElement.lang = currentLang;
+            document.title = (currentLang === 'en')
+                ? 'Trip Planner — Krasnoufimsk: Through the Ages'
+                : 'Планировщик поездки — Красноуфимск: Сквозь эпохи';
             const dict = i18nPlanner[currentLang] || i18nPlanner.ru;
 
             // Поле поиска городов
@@ -3616,12 +3679,21 @@
             if (langBtn) langBtn.addEventListener('click', toggleLanguage);
 
             const mobileBtn = document.getElementById('btn-mobile-menu');
-            if (mobileBtn) mobileBtn.addEventListener('click', () => {
-                document.getElementById('mobile-nav-panel').classList.toggle('show');
-            });
+            const mobilePanel = document.getElementById('mobile-nav-panel');
+            if (mobileBtn && mobilePanel) {
+                mobileBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mobilePanel.classList.toggle('show');
+                });
+            }
 
-            // Закрытие выпадающего меню сезона, поиска и кастомных списков при клике вне их
+            // Закрытие выпадающего меню сезона, поиска, мобильной панели и кастомных списков при клике вне их
             document.addEventListener('click', (e) => {
+                if (mobilePanel && mobilePanel.classList.contains('show')) {
+                    if (!mobilePanel.contains(e.target) && !mobileBtn?.contains(e.target)) {
+                        mobilePanel.classList.remove('show');
+                    }
+                }
                 const wrap = document.getElementById('season-dropdown-wrap');
                 const menu = document.getElementById('season-dropdown-menu');
                 if (wrap && menu && !wrap.contains(e.target)) {
@@ -3647,7 +3719,20 @@
                     document.getElementById('food-trigger')?.classList.remove('active');
                 }
             });
+
+            // Автоматическое закрытие мобильного меню при переходе на экран ПК
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768 && mobilePanel) {
+                    mobilePanel.classList.remove('show');
+                }
+            });
         }
+
+        function closeMobilePanel() {
+            const panel = document.getElementById('mobile-nav-panel');
+            if (panel) panel.classList.remove('show');
+        }
+        window.closeMobilePanel = closeMobilePanel;
 
         function toggleTheme() {
             const isDark = document.body.classList.toggle('dark-mode');
@@ -3853,11 +3938,16 @@
             const isEn = (lang === 'en');
             const tempStr = (data.current.temp > 0 ? '+' : '') + data.current.temp + '°C';
 
-            // Навбар
+            // Навбар и мобильное меню
             const elNavTemp = document.getElementById('weather-temp');
             const elNavIcon = document.getElementById('weather-icon');
             if (elNavTemp) elNavTemp.textContent = tempStr;
             if (elNavIcon) elNavIcon.textContent = data.current.wmo.icon;
+
+            const elMobTemp = document.getElementById('mobile-weather-temp');
+            const elMobIcon = document.getElementById('mobile-weather-icon');
+            if (elMobTemp) elMobTemp.textContent = tempStr;
+            if (elMobIcon) elMobIcon.textContent = data.current.wmo.icon;
 
             // Модальное окно
             const elHeroTemp = document.getElementById('weather-hero-temp');
