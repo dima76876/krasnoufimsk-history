@@ -1,0 +1,53 @@
+name: CI & Quality Audit
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Integrity & Tag Balance Verification
+        run: |
+          python - <<'PY'
+          import re
+          for file in ['index.html', 'planner.html']:
+              with open(file, 'r', encoding='utf-8') as f:
+                  content = f.read()
+              for tag in ['div', 'section', 'nav', 'header', 'footer']:
+                  o = len(re.findall(rf'<{tag}\b', content, re.I))
+                  c = len(re.findall(rf'</{tag}>', content, re.I))
+                  assert o == c, f'{file}: <{tag}> mismatch: open={o}, close={c}'
+              print(f'PASS: {file} tags balanced successfully')
+          PY
+
+      - name: Verify Manifest, SW, and SEO Assets
+        run: |
+          python - <<'PY'
+          import os, json
+          required = ['sw.js', 'manifest.json', 'sitemap.xml', 'robots.txt', 'CNAME']
+          for r in required:
+              assert os.path.exists(r), f'Missing {r}'
+          with open('manifest.json', 'r', encoding='utf-8') as f:
+              m = json.load(f)
+          assert m.get('name'), 'Manifest missing name'
+          assert m.get('short_name'), 'Manifest missing short_name'
+          assert m.get('start_url'), 'Manifest missing start_url'
+          assert m.get('icons'), 'Manifest missing icons'
+          print('PASS: All configuration and manifest files verified!')
+          PY
