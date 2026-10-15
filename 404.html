@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>404 — Страница не найдена | Красноуфимск: Сквозь эпохи</title>
+    <meta name="description" content="Запрошенная страница не найдена. Вернитесь к интерактивному путеводителю «Красноуфимск: Сквозь эпохи».">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/favicon.png?v=7">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=7">
+    <meta name="theme-color" content="#0f172a">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #f8fafc;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .error-card {
+            background: rgba(30, 41, 59, 0.7);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            padding: 48px 32px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .error-badge {
+            display: inline-block;
+            font-size: 4rem;
+            margin-bottom: 12px;
+        }
+
+        .error-code {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: -0.05em;
+        }
+
+        .error-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #f1f5f9;
+        }
+
+        .error-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #94a3b8;
+            margin-bottom: 32px;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 20px -5px rgba(2, 132, 199, 0.4);
+        }
+
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 25px -5px rgba(2, 132, 199, 0.6);
+        }
+
+        :focus-visible {
+            outline: 2px solid #38bdf8;
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="error-card">
+        <div class="error-badge">🦅</div>
+        <div class="error-code">404</div>
+        <h1 class="error-title">Страница не найдена</h1>
+        <p class="error-desc">Похоже, эта тропа истории ещё не исследована или адрес был введён с опечаткой. Вернитесь к интерактивному путеводителю по Красноуфимску.</p>
+        <a href="index.html" class="btn-home">
+            <span>🏛️</span>
+            <span>Вернуться в путеводитель</span>
+        </a>
+    </main>
+</body>
+
+</html>

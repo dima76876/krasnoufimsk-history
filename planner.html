@@ -12,7 +12,7 @@
       ========================================================================== 
     -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>Планировщик поездки — Красноуфимск: Сквозь эпохи</title>
     <meta name="description"
         content="Умный планировщик поездки в Красноуфимск: маршруты из любого города России на авто, поезде и автобусе, расчёт бюджета, гостиниц, питания и программа тура.">
@@ -21,7 +21,7 @@
     <meta name="author" content="Ужегов Дмитрий, учащийся 10А класса МАОУ СШ №3 (2026 год)">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://krasnoufimsk-history.site/planner.html" id="canonical-url">
-    <meta name="theme-color" content="#d9651a" id="theme-color-meta">
+    <meta name="theme-color" content="#0f172a" id="theme-color-meta">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -39,9 +39,16 @@
     <meta name="twitter:image" content="https://krasnoufimsk-history.site/images/og_banner.jpg?v=2">
 
     <!-- Фавиконки и манифест -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="192x192" href="images/favicon.png?v=7">
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png?v=7">
     <link rel="manifest" href="manifest.json?v=7">
+
+    <!-- Настройки для красивой установки PWA на iOS / Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Красноуфимск">
 
     <!-- Структурированные микроданные Schema.org (JSON-LD) -->
     <script type="application/ld+json">
@@ -880,8 +887,10 @@
         .hero-title .highlight {
             background: linear-gradient(120deg, var(--main-color), #f59e0b);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
 
         .hero-desc {
             max-width: 820px;
@@ -1203,14 +1212,16 @@
             border: 2px solid color-mix(in srgb, var(--main-color) 30%, transparent);
             border-top-color: var(--main-color);
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+            animation: spinWeatherRefresh 0.8s linear infinite;
         }
+
 
         /* Интерактивный чек-лист сборов в поездку */
         .checklist-items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 10px;
+            will-change: transform;
         }
 
         .checklist-item-card {
@@ -1391,10 +1402,17 @@
         .transport-section-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--main-color), color-mix(in srgb, var(--main-color) 30%, transparent));
-            opacity: 0.85;
+            top: -1.5px;
+            left: -1.5px;
+            right: -1.5px;
+            height: 32px;
+            border-top: 3.5px solid var(--main-color);
+            border-top-left-radius: var(--radius-lg);
+            border-top-right-radius: var(--radius-lg);
+            mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
+            -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
+            pointer-events: none;
+            z-index: 2;
         }
 
         .transport-grid {
@@ -1512,12 +1530,17 @@
         .trip-settings-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--main-color), color-mix(in srgb, var(--main-color) 30%, transparent));
-            opacity: 0.85;
+            top: -1.5px;
+            left: -1.5px;
+            right: -1.5px;
+            height: 32px;
+            border-top: 3.5px solid var(--main-color);
             border-top-left-radius: var(--radius-lg);
             border-top-right-radius: var(--radius-lg);
+            mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
+            -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
+            pointer-events: none;
+            z-index: 2;
         }
 
         .settings-grid {
@@ -1795,16 +1818,24 @@
             top: 76px;
             max-height: calc(100vh - 90px);
             overflow-y: auto;
+            overflow-x: hidden;
             scrollbar-width: thin;
         }
 
         .budget-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--main-color), #f59e0b);
-            opacity: 0.85;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 32px;
+            border-top: 3.5px solid var(--main-color);
+            border-top-left-radius: var(--radius-lg);
+            border-top-right-radius: var(--radius-lg);
+            mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
+            -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
+            pointer-events: none;
+            z-index: 2;
         }
 
         .budget-total-box {
@@ -2179,6 +2210,13 @@
                 padding: 16px 14px;
                 border-radius: var(--radius-md);
             }
+            .city-picker-card::before,
+            .transport-section-card::before,
+            .trip-settings-card::before,
+            .budget-card::before {
+                border-top-left-radius: var(--radius-md);
+                border-top-right-radius: var(--radius-md);
+            }
             .program-card, .budget-card {
                 padding: 16px 14px;
                 border-radius: var(--radius-md);
@@ -2235,7 +2273,7 @@
         }
 
         @media print {
-            .header-wrapper, .ambient-glow-backdrop, .city-chips-grid, .custom-city-row, .budget-actions, .footer-links, .weather-modal-overlay, .toast-notify, .city-search-container, .city-suggestions-bar, .mobile-nav-panel {
+            .header-wrapper, .ambient-glow-backdrop, .city-chips-grid, .custom-city-row, .budget-actions, .footer-links, .weather-modal-backdrop, .toast-notify, .city-search-container, .city-suggestions-bar, .mobile-nav-panel {
                 display: none !important;
             }
             body { background: #ffffff !important; color: #000000 !important; }
@@ -2250,6 +2288,95 @@
                 visibility: visible !important;
             }
         }
+
+        /* ============================================================
+           АДАПТИВНЫЙ МИНИМУМ v1 — закрытие дефицитных маркеров
+           (svh, safe-area, pointer/hover, landscape, @supports, 4K)
+           ============================================================ */
+
+        /* --- 1. svh: герой без прыжков при скрытии панели браузера --- */
+        #hero, .hero {
+            min-height: 100vh;    /* фолбэк для старых браузеров */
+            min-height: 100svh;   /* современная высота без URL-бара */
+        }
+        .planner-hero {
+            min-height: auto;
+        }
+
+        /* --- 2. Safe Areas: чёлка и home-индикатор iPhone в PWA --- */
+        header, .site-header, .header-wrapper {
+            padding-top: max(10px, env(safe-area-inset-top));
+        }
+        footer, .site-footer, .cookie-banner {
+            padding-bottom: max(14px, env(safe-area-inset-bottom));
+        }
+        #btn-back-to-top, .scroll-top {
+            bottom: calc(16px + env(safe-area-inset-bottom));
+            right:  calc(16px + env(safe-area-inset-right));
+        }
+
+        /* --- 3. pointer: coarse — тач-таргеты 44px и свайпы --- */
+        @media (pointer: coarse) {
+            button, select, .chip, .filter-chip, .season-btn,
+            .carousel-arrow, .scroll-top, .icon-btn, .control-btn, .season-chip-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            .carousel-arrow { display: none; }
+            .filters, .chips-row, .city-hints, .city-chips-grid { gap: 10px; }
+            .timeline-track, .timeline-scroll-container {
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+            .timeline-track > *, .timeline-scroll-container > * { scroll-snap-align: center; }
+        }
+
+        /* --- 4. hover: hover — отмена «залипшего» ховера на таче --- */
+        @media (hover: none) and (pointer: coarse) {
+            .sight-card:hover, .route-card:hover, .quiz-card:hover,
+            .transport-card:hover, .card:hover, .btn:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+
+        /* --- 5. Ландшафт телефона (высота < 500px) --- */
+        @media (orientation: landscape) and (max-height: 500px) {
+            #hero, .hero { min-height: auto; }
+            .planner-hero { min-height: auto; padding: 48px 16px 24px; }
+            .snow, .snow-layer { display: none; }
+            .modal-body { max-height: 72vh; overflow-y: auto; }
+        }
+
+        /* --- 6. Стекло без фолбэка: Firefox и старые браузеры --- */
+        @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+            .glass, .modal, header, .card, .city-picker-card, .transport-section-card, .trip-settings-card, .budget-card, .program-card {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                background: rgba(13, 27, 42, 0.94);
+            }
+        }
+
+        /* --- 7. 4K и сверхширокие: текст не растекается --- */
+        @media (min-width: 1920px) {
+            section p, section li { max-width: 75ch; }
+            .container, .wrapper, .planner-container { max-width: 1440px; margin-inline: auto; }
+        }
+
+        /* --- 8. Защита от паразитного зума Safari iOS при фокусе --- */
+        input, select, textarea { font-size: 16px; }
+
+        /* --- 9. scroll-snap для ленты прогноза на 7 дней --- */
+        .forecast-row { scroll-snap-type: x proximity; }
+        .forecast-row > * { scroll-snap-align: start; }
+
+        /* --- 10. Доступность (a11y): чёткая подсветка фокуса при навигации с клавиатуры --- */
+        :focus-visible {
+            outline: 2px solid #38bdf8;
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
     </style>
 </head>
 
@@ -2297,7 +2424,7 @@
                         <span style="font-size:0.7rem; opacity:0.6;">▾</span>
                     </button>
                     <div class="season-dropdown-menu" id="season-dropdown-menu">
-                        <button type="button" class="season-menu-item" data-lang="seasonOptAuto" onclick="applySeason('auto')">🔄 Авто (по сезону)</button>
+                        <button type="button" class="season-menu-item" data-lang="seasonOptAuto" onclick="applySeason('auto')">🔄 Авто</button>
                         <button type="button" class="season-menu-item" data-lang="seasonOptAutumn" onclick="applySeason('autumn')">🍂 Осень</button>
                         <button type="button" class="season-menu-item" data-lang="seasonOptWinter" onclick="applySeason('winter')">❄️ Зима</button>
                         <button type="button" class="season-menu-item" data-lang="seasonOptSpring" onclick="applySeason('spring')">🌿 Весна</button>
@@ -2317,7 +2444,7 @@
                 </button>
 
                 <!-- Мобильное меню -->
-                <button type="button" class="mobile-menu-btn" id="btn-mobile-menu" aria-label="Открыть мобильное меню">
+                <button type="button" class="mobile-menu-btn" id="btn-mobile-menu" data-lang-aria="ariaOpenMobileMenu" aria-label="Открыть мобильное меню">
                     ☰
                 </button>
             </div>
@@ -2373,7 +2500,7 @@
     <!-- Hero-блок -->
     <section class="planner-hero reveal-on-scroll">
         <div class="hero-badge">
-            <span>✈️ 🚆 🚗 🚌</span> <span data-lang="heroBadge">Умный калькулятор путешествия • 2026</span>
+            <span>🚆 🚗 🚌</span> <span data-lang="heroBadge">Умный калькулятор путешествия • 2026</span>
         </div>
         <h1 class="hero-title" id="page-hero-title" data-lang="pageHeroTitle">
             Как добраться и <span class="highlight">спланировать поездку</span> в Красноуфимск
@@ -2390,7 +2517,7 @@
                 <span>📍</span> <span data-lang="citySectionTitle">Шаг 1. Откуда вы отправляетесь?</span>
             </h2>
             <div class="city-summary-pill" id="city-distance-badge">
-                <span>📏</span> <span id="city-distance-text">Екатеринбург → Красноуфимск: ~200 км</span>
+                <span>📏</span> <span id="city-distance-text">Екатеринбург → Красноуфимск: ~230 км по трассе / ~200 км по ж/д</span>
             </div>
         </div>
 
@@ -2420,6 +2547,7 @@
                 <button type="button" class="city-suggestion-pill" data-city-id="krasnoyarsk" onclick="selectCity('krasnoyarsk')">Красноярск</button>
                 <button type="button" class="city-suggestion-pill" data-city-id="rostov" onclick="selectCity('rostov')">Ростов-на-Дону</button>
                 <button type="button" class="city-suggestion-pill" data-city-id="krasnodar" onclick="selectCity('krasnodar')">Краснодар</button>
+                <button type="button" class="city-suggestion-pill" data-city-id="voronezh" onclick="selectCity('voronezh')">Воронеж</button>
                 <button type="button" class="city-suggestion-pill" data-city-id="volgograd" onclick="selectCity('volgograd')">Волгоград</button>
             </div>
 
@@ -2445,6 +2573,10 @@
 
         <div class="transport-grid" id="transport-cards-grid">
             <!-- Заполняется динамически через JS под выбранный город -->
+        </div>
+
+        <div style="font-size:0.82rem; color:var(--text-muted); margin-top:12px; padding:8px 12px; background:var(--bg-accent); border-radius:8px; border-left:3px solid var(--main-color);">
+            <span data-lang="transportDisclaimer">⚠️ Время в пути и цены — ориентировочные, рассчитаны для 2026 года. Уточняйте актуальные тарифы и расписания на rzd.ru, bla-bla-car.ru и yandex.ru/maps.</span>
         </div>
     </section>
 
@@ -2484,7 +2616,7 @@
                 <label class="setting-label" data-lang="labelHotel">🏨 Проживание (в сутки):</label>
                 <div class="custom-select-wrap" id="hotel-custom-wrap">
                     <button type="button" class="custom-select-trigger" id="hotel-trigger" onclick="toggleCustomSelect('hotel')">
-                        <span class="custom-select-value" id="hotel-trigger-text">🏨 Гостиница «Таёжная» (~2 800 ₽)</span>
+                        <span class="custom-select-value" id="hotel-trigger-text">🏨 Гостиница «Центральная» / «Ковчег» (~2 800 ₽)</span>
                         <span class="custom-select-arrow">▾</span>
                     </button>
                     <div class="custom-select-menu" id="hotel-menu">
@@ -2498,7 +2630,7 @@
                         <div class="custom-select-option selected" data-val="2800" onclick="chooseHotel(2800, this)">
                             <span class="opt-icon">🏨</span>
                             <div class="opt-text">
-                                <span class="opt-title">Гостиница «Таёжная» / «Красноуфимск»</span>
+                                <span class="opt-title">Гостиница «Центральная» / «Ковчег»</span>
                                 <span class="opt-price">~2 800 ₽ / сутки</span>
                             </div>
                         </div>
@@ -2523,7 +2655,7 @@
                 <label class="setting-label" data-lang="labelFood">🍽️ Питание в день на человека:</label>
                 <div class="custom-select-wrap" id="food-custom-wrap">
                     <button type="button" class="custom-select-trigger" id="food-trigger" onclick="toggleCustomSelect('food')">
-                        <span class="custom-select-value" id="food-trigger-text">🍽️ Стандарт: уютные кафе (~950 ₽)</span>
+                        <span class="custom-select-value" id="food-trigger-text">🍽️ Стандарт: уютные кафе на Советской (~950 ₽)</span>
                         <span class="custom-select-arrow">▾</span>
                     </button>
                     <div class="custom-select-menu" id="food-menu">
@@ -2570,8 +2702,8 @@
 
             <div class="budget-total-box">
                 <div class="budget-total-label" data-lang="budgetTotalLabel">Итоговый бюджет:</div>
-                <div class="budget-total-amount" id="budget-total-val">~9 400 ₽</div>
-                <div class="budget-per-person" id="budget-per-person-val">~4 700 ₽ на человека</div>
+                <div class="budget-total-amount" id="budget-total-val">~10 600 ₽</div>
+                <div class="budget-per-person" id="budget-per-person-val">~5 300 ₽ на человека</div>
             </div>
 
             <div class="budget-rows-list">
@@ -2585,7 +2717,7 @@
                 </div>
                 <div class="budget-row">
                     <span class="budget-row-label"><span>🍽️</span> <span data-lang="rowFood">Питание и кафе:</span></span>
-                    <span class="budget-row-val" id="row-food-val">~2 800 ₽</span>
+                    <span class="budget-row-val" id="row-food-val">~3 800 ₽</span>
                 </div>
                 <div class="budget-row">
                     <span class="budget-row-label"><span>🏛️</span> <span data-lang="rowMuseums">Музеи и выставки:</span></span>
@@ -2593,12 +2725,12 @@
                 </div>
                 <div class="budget-row">
                     <span class="budget-row-label"><span>🎁</span> <span data-lang="rowSouvenirs">Сувениры и гостинцы:</span></span>
-                    <span class="budget-row-val" id="row-souvenirs-val">~500 ₽</span>
+                    <span class="budget-row-val" id="row-souvenirs-val">~700 ₽</span>
                 </div>
             </div>
 
             <div class="budget-actions">
-                <a href="#" target="_blank" rel="noopener noreferrer" class="btn-budget-primary" id="btn-open-navigator">
+                <a href="https://yandex.ru/maps/?rtext=56.8389,60.6057~56.6160,57.7660&rtt=auto" target="_blank" rel="noopener noreferrer" class="btn-budget-primary" id="btn-open-navigator">
                     <span>🧭</span> <span data-lang="btnNavigator">Построить маршрут в Яндекс Картах ↗</span>
                 </a>
                 <button type="button" class="btn-budget-secondary" id="btn-share-trip" onclick="shareTripPlan()" style="width:100%; margin-top:8px;">
@@ -2625,7 +2757,7 @@
                     <h3 class="program-title" style="margin-bottom:0;">
                         <span>🎒</span> <span data-lang="checklistTitle">Чек-лист сборов в дорогу:</span>
                     </h3>
-                    <span id="checklist-progress-badge" class="city-summary-pill" style="font-size:0.8rem; padding:4px 12px;">0/5</span>
+                    <span id="checklist-progress-badge" class="city-summary-pill" style="font-size:0.8rem; padding:4px 12px;">0/7</span>
                 </div>
                 <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:14px; line-height:1.5;" data-lang="checklistSubtitle">
                     Список необходимых вещей с учётом сезона и транспорта в Красноуфимск:
@@ -2652,7 +2784,7 @@
             <a href="index.html#routes" class="footer-link" data-lang="footerLinkRoutes">Пешие гиды</a>
             <a href="index.html#guide" class="footer-link" data-lang="footerLinkGuide">Памятка туриста</a>
             <a href="index.html#quiz" class="footer-link" data-lang="footerLinkQuiz">Викторина</a>
-            <a href="index.html#privacy" class="footer-link" onclick="window.location.href='index.html#privacy'; return false;" data-lang="footerLinkPrivacy">🔒 Политика 152-ФЗ</a>
+            <a href="index.html#privacy-modal" class="footer-link" onclick="window.location.href='index.html#privacy-modal'; return false;" data-lang="footerLinkPrivacy">🔒 Политика 152-ФЗ</a>
         </div>
         <p data-lang="footerCopy">© 2026 «Красноуфимск: Сквозь эпохи». Проект учащегося 10А класса Ужегова Дмитрия.</p>
         <p style="font-size:0.82rem; margin-top:4px; opacity:0.8;" data-lang="footerSchool">МАОУ СШ №3 Красноуфимск</p>
@@ -2708,11 +2840,11 @@
                     </div>
                     <div class="weather-metric-item">
                         <span class="metric-label" id="lbl-precip">🌧️ Осадки</span>
-                        <strong class="metric-value" id="weather-precip">0.0 мм</strong>
+                        <strong class="metric-value" id="weather-precip">-- мм</strong>
                     </div>
                     <div class="weather-metric-item">
                         <span class="metric-label" id="lbl-pressure">⏱️ Давление</span>
-                        <strong class="metric-value" id="weather-pressure">746 мм</strong>
+                        <strong class="metric-value" id="weather-pressure">-- мм</strong>
                     </div>
                 </div>
 
@@ -2730,7 +2862,7 @@
 
             <!-- Футер окна -->
             <div class="weather-modal-footer">
-                <span id="weather-time">Обновлено только что</span>
+                <span id="weather-time">Ожидание данных...</span>
                 <button type="button" class="btn-refresh-weather" id="btn-refresh-weather" onclick="refreshWeatherWithAnimation()">
                     <span class="weather-refresh-icon" id="weather-refresh-icon">🔄</span>
                     <span id="weather-refresh-text" data-lang="weatherBtnRefresh">Обновить</span>
@@ -2763,6 +2895,20 @@
             })[s]);
         }
 
+        // Безопасная работа с локальным хранилищем (защита от SecurityError / Private Browsing)
+        function safeStorageGet(key, fallback = null) {
+            try { const v = window.localStorage.getItem(key); return v === null ? fallback : v; }
+            catch (e) { return fallback; }
+        }
+        function safeStorageSet(key, value) {
+            try { window.localStorage.setItem(key, value); return true; }
+            catch (e) { return false; }
+        }
+        function safeStorageRemove(key) {
+            try { window.localStorage.removeItem(key); return true; }
+            catch (e) { return false; }
+        }
+
         /* =========================================================================
            1. БАЗА ГОРОДОВ РОССИИ И ДАННЫЕ МАРШРУТОВ ДО КРАСНОУФИМСКА
            ========================================================================= */
@@ -2775,9 +2921,9 @@
                         type: 'train_fast', icon: '🚆',
                         title: { ru: 'Скоростной электропоезд «Ласточка»', en: 'Fast «Lastochka» Electric Train' },
                         badge: { ru: 'Рекомендуем • Быстро и удобно', en: 'Recommended • Fast & Comfy' },
-                        time: { ru: '3 ч 15 мин', en: '3 h 15 min' },
+                        time: { ru: '~3 ч 20 мин', en: '~3 h 20 min' },
                         priceOneWay: 650,
-                        desc: { ru: 'Прямой комфортный рейс с ж/д вокзала Екатеринбург-Пасс. Прибытие на исторический Щусевский вокзал Красноуфимска.', en: 'Direct train from Yekaterinburg Main Station to Krasnoufimsk Shchusev Station.' }
+                        desc: { ru: 'Прямой комфортный рейс с ж/д вокзала Екатеринбург-Пасс. Прибытие на исторический вокзал Красноуфимска (мастерская А. В. Щусева).', en: 'Direct train from Yekaterinburg Main Station to Krasnoufimsk historic station (Shchusev workshop).' }
                     },
                     {
                         type: 'bus', icon: '🚌',
@@ -2815,7 +2961,7 @@
                         badge: { ru: 'Самый быстрый способ', en: 'Fastest Travel Option' },
                         time: { ru: '~6 часов (суммарно)', en: '~6 hours total' },
                         priceOneWay: 5400,
-                        desc: { ru: 'Перелёт Москва → Екатеринбург (2 ч 20 мин, от 4 600 ₽) + скоростная «Ласточка» в Красноуфимск (3 ч 15 мин, ~650 ₽).', en: 'Flight to Yekaterinburg Koltsovo Airport + connecting express train to Krasnoufimsk.' }
+                        desc: { ru: 'Перелёт Москва → Екатеринбург (2 ч 20 мин, от 4 600 ₽) + скоростная «Ласточка» в Красноуфимск (~3 ч 20 мин, ~650 ₽).', en: 'Flight to Yekaterinburg Koltsovo Airport + connecting express train to Krasnoufimsk (~3 h 20 min).' }
                     },
                     {
                         type: 'train_direct', icon: '🚆',
@@ -2839,7 +2985,7 @@
                         badge: { ru: 'Новая скоростная трасса', en: 'New Expressway' },
                         time: { ru: '~15 часов', en: '~15 hours' },
                         priceOneWay: 7200,
-                        desc: { ru: 'Маршрут через Владимир, Казань и башкирские холмы прямо в Красноуфимск. Расход ~115 л топлива + платная трасса.', en: 'Via modern M-12 toll highway through Kazan directly to Krasnoufimsk district.' }
+                        desc: { ru: 'По скоростной трассе М-12 «Восток» до примыкания Дюртюли—Ачит, далее по Р-242 до Красноуфимска. Расход ~115 л топлива.', en: 'Via modern M-12 Vostok expressway to the Dyurtyuli–Achit junction, then via R-242 to Krasnoufimsk. ~115 liters of fuel.' }
                     }
                 ]
             },
@@ -2927,7 +3073,7 @@
                         badge: { ru: 'Комфортно за ночь', en: 'Overnight comfort' },
                         time: { ru: '8 ч 30 мин', en: '8 h 30 min' },
                         priceOneWay: 1450,
-                        desc: { ru: 'Историческая Казанско-Бугульминская ветка. Вечером садитесь в Казани — утром выходите на вокзале Щусева в Красноуфимске.', en: 'Historic railway trunk line. Board in evening in Kazan, wake up in Krasnoufimsk.' }
+                        desc: { ru: 'Историческая Казанско-Бугульминская ветка. Вечером садитесь в Казани — утром выходите на историческом вокзале в Красноуфимске (мастерская А. В. Щусева).', en: 'Historic railway trunk line. Board in evening in Kazan, wake up at the historic station in Krasnoufimsk (Shchusev workshop).' }
                     },
                     {
                         type: 'car', icon: '🚗',
@@ -2935,7 +3081,7 @@
                         badge: { ru: 'Скоростное шоссе', en: 'Expressway' },
                         time: { ru: '5 ч 45 мин', en: '5 h 45 min' },
                         priceOneWay: 2800,
-                        desc: { ru: 'По новейшей трассе М-12 «Восток» через Набережные Челны и Дюртюли прямо в Красноуфимск.', en: 'Via modern M-12 expressway through Naberezhnye Chelny.' }
+                        desc: { ru: 'По скоростной трассе М-12 «Восток» через Набережные Челны до примыкания Дюртюли—Ачит, далее по Р-242 до Красноуфимска. Расход ~42 л топлива.', en: 'Via M-12 Vostok expressway through Naberezhnye Chelny to the Dyurtyuli–Achit junction, then via R-242 to Krasnoufimsk. ~42 liters of fuel.' }
                     }
                 ]
             },
@@ -3023,7 +3169,7 @@
                         badge: { ru: 'Скоростное шоссе', en: 'Expressway' },
                         time: { ru: '10 часов', en: '10 hours' },
                         priceOneWay: 4800,
-                        desc: { ru: 'Скоростной маршрут через Чувашию, Татарстан и Башкирию прямо в Красноуфимск.', en: 'Expressway route via Chuvashia, Tatarstan, and Bashkiria.' }
+                        desc: { ru: 'Скоростной маршрут по М-12 «Восток» до примыкания Дюртюли—Ачит, далее по Р-242 до Красноуфимска.', en: 'Expressway route via M-12 Vostok to the Dyurtyuli–Achit junction, then via R-242 to Krasnoufimsk.' }
                     },
                     {
                         type: 'plane_train', icon: '✈️+🚆',
@@ -3097,7 +3243,7 @@
                         badge: { ru: 'Оптимально по времени', en: 'Fastest connection' },
                         time: { ru: '~7.5 часов', en: '~7.5 hours' },
                         priceOneWay: 7200,
-                        desc: { ru: 'Авиарейс в Екатеринбург (аэропорт Кольцово) + скоростной электропоезд «Ласточка» в Красноуфимск.', en: 'Flight to Yekaterinburg Koltsovo Airport + direct express train to Krasnoufimsk.' }
+                        desc: { ru: 'Вылет через хаб Сочи/Минводы в Екатеринбург (Кольцово) + «Ласточка» в Красноуфимск (или прямой скорый поезд).', en: 'Flight via Sochi/MinVody hub to Yekaterinburg (Koltsovo) + express «Lastochka» to Krasnoufimsk (or direct train).' }
                     },
                     {
                         type: 'car', icon: '🚗',
@@ -3149,7 +3295,7 @@
                         badge: { ru: 'Без пересадок • Прямо в центр', en: 'Direct • No transfers' },
                         time: { ru: '26 часов', en: '26 hours' },
                         priceOneWay: 2900,
-                        desc: { ru: 'Прямой поезд с вокзала Воронеж-1 через Пензу и Самару до вокзала Щусева в Красноуфимске.', en: 'Direct train from Voronezh-1 via Penza and Samara to Krasnoufimsk.' }
+                        desc: { ru: 'Прямой поезд с вокзала Воронеж-1 через Пензу и Самару до исторического вокзала в Красноуфимске (мастерская А. В. Щусева).', en: 'Direct train from Voronezh-1 via Penza and Samara to the historic station in Krasnoufimsk (Shchusev workshop).' }
                     },
                     {
                         type: 'train_transfer', icon: '🚆+🚆',
@@ -3179,7 +3325,7 @@
                         badge: { ru: 'Без пересадок • Прямо в центр', en: 'Direct • No transfers' },
                         time: { ru: '25 часов', en: '25 hours' },
                         priceOneWay: 2700,
-                        desc: { ru: 'Прямое ж/д сообщение с вокзала Волгоград-1 до вокзала Щусева в Красноуфимске.', en: 'Direct train from Volgograd-1 terminal stopping at Krasnoufimsk.' }
+                        desc: { ru: 'Прямое ж/д сообщение с вокзала Волгоград-1 до исторического вокзала в Красноуфимске (мастерская А. В. Щусева).', en: 'Direct train from Volgograd-1 terminal to the historic station in Krasnoufimsk (Shchusev workshop).' }
                     },
                     {
                         type: 'plane_train', icon: '✈️+🚆',
@@ -3187,7 +3333,7 @@
                         badge: { ru: 'Оптимально по времени', en: 'Best travel time' },
                         time: { ru: '~6 часов', en: '~6 hours' },
                         priceOneWay: 6400,
-                        desc: { ru: 'Перелёт Волгоград (Гумрак) → Екатеринбург (Кольцово, 2 ч) + электропоезд до Красноуфимска (3 ч 15 мин).', en: 'Flight Volgograd to Yekaterinburg (2 h) + connecting express train to Krasnoufimsk.' }
+                        desc: { ru: 'Перелёт Волгоград (Гумрак) → Екатеринбург (Кольцово, 2 ч) + электропоезд до Красноуфимска (~3 ч 20 мин).', en: 'Flight Volgograd to Yekaterinburg (2 h) + connecting express train to Krasnoufimsk (~3 h 20 min).' }
                     },
                     {
                         type: 'car', icon: '🚗',
@@ -3208,10 +3354,10 @@
                     dayNum: 1,
                     title: { ru: 'День 1: Экспресс-знакомство с купеческим сердцем и рекой Уфой', en: 'Day 1: Highlights of Merchant Heritage & Ufa River' },
                     places: [
-                        { ru: '10:00 — Краеведческий музей (Особняк мирового судьи Сенкевича 1912 г., зубная спираль геликоприона)', en: '10:00 — Regional Museum (Art Nouveau mansion, Helicoprion shark whorl)' },
-                        { ru: '12:00 — Пешеходная купеческая улица Советская: усадьбы купцов Шевелина, Серебренникова и Земская управа', en: '12:00 — Historic Sovetskaya Street: merchant estates and Zemstvo Board' },
-                        { ru: '13:30 — Обед в кафе на пешеходной зоне (традиционные уральские шаньги и травяной чай)', en: '13:30 — Lunch at local bakery café (traditional Ural pastries)' },
-                        { ru: '14:45 — Свято-Троицкий собор 1828 года (величие русского классицизма)', en: '14:45 — Holy Trinity Cathedral (classicist stone architecture)' },
+                        { ru: '10:00 — Краеведческий музей (ул. Советская, 42 — палеонтология, зубная спираль геликоприона)', en: '10:00 — Regional Museum (42 Sovetskaya St. — paleontology, Helicoprion shark whorl)' },
+                        { ru: '12:00 — Историческая купеческая улица Советская: усадьбы купцов Шевелина, Серебренникова и Земская управа', en: '12:00 — Historic Sovetskaya Street: merchant estates and Zemstvo Board' },
+                        { ru: '13:30 — Обед в кафе в историческом центре (традиционные уральские шаньги и травяной чай)', en: '13:30 — Lunch at a cafe in the historic downtown (traditional Ural pastries)' },
+                        { ru: '14:45 — Свято-Троицкий собор 1804 года (величие русского классицизма)', en: '14:45 — Holy Trinity Cathedral (classicist stone architecture)' },
                         { ru: '16:00 — Обновлённая набережная «Красный Яр», скульптура «Девочка с самолётиком» и панорама с Дивьей горы', en: '16:00 — Krasny Yar Embankment promenade and Divya Mountain viewpoint' },
                         { ru: '18:30 — Памятные сувениры с серебряным соколом и вечерний отъезд', en: '18:30 — Souvenir shopping and departure' }
                     ]
@@ -3232,10 +3378,10 @@
                 },
                 {
                     dayNum: 2,
-                    title: { ru: 'День 2: Архитектура Щусева и триумф вековых виадуков', en: 'Day 2: Shchusev Architecture & Monumental Viaducts' },
+                    title: { ru: 'День 2: Наследие мастерской Щусева и триумф вековых виадуков', en: 'Day 2: Shchusev Workshop Heritage & Monumental Viaducts' },
                     places: [
                         { ru: '10:00 — Завтрак в отеле', en: '10:00 — Breakfast at hotel' },
-                        { ru: '11:00 — Исторический ж/д вокзал архитектора А. В. Щусева (петровское барокко 1915 г.) и паровоз-памятник «Лебедянка»', en: '11:00 — Historic railway station by Alexey Shchusev and steam train monument' },
+                        { ru: '11:00 — Исторический ж/д вокзал (архитектурная мастерская А. В. Щусева, петровское барокко 1915 г.) и паровоз-памятник «Лебедянка»', en: '11:00 — Historic railway station (A. Shchusev architectural workshop, Petrine Baroque 1915) and steam train monument' },
                         { ru: '12:30 — Поездка к Рябиновскому виадуку (32-метровый арочный мост из монолитного бетона 1915 г.)', en: '12:30 — Excursion to Ryabinovka Concrete Arched Viaduct (32 m high)' },
                         { ru: '15:00 — Музей Земской медицины доктора Мизерова (старейший больничный городок Урала)', en: '15:00 — Dr. Mizerov Zemstvo Medicine Museum' },
                         { ru: '17:00 — Покупка сувениров (уральский мёд, иван-чай) и отъезд', en: '17:00 — Souvenirs and departure' }
@@ -3248,18 +3394,18 @@
                     title: { ru: 'День 1: Город купцов, соколов и первопроходцев', en: 'Day 1: Town of Merchants, Falcons and Pioneers' },
                     places: [
                         { ru: '11:00 — Первая казачья изба XVIII века (колыбель крепости)', en: '11:00 — 18th-century Cossack Log Hut' },
-                        { ru: '12:30 — Краеведческий музей Сенкевича и палеонтология Урала', en: '12:30 — Regional Museum and Ural paleontology' },
+                        { ru: '12:30 — Краеведческий музей (ул. Советская, 42) и палеонтология Урала', en: '12:30 — Regional Museum (42 Sovetskaya St.) and Ural paleontology' },
                         { ru: '14:30 — Обед и пешая прогулка по купеческому кварталу', en: '14:30 — Lunch and historic quarter walk' },
                         { ru: '16:30 — Набережная «Красный Яр» и смотровая площадка на Дивьей горе', en: '16:30 — Krasny Yar riverfront & Divya Mountain' }
                     ]
                 },
                 {
                     dayNum: 2,
-                    title: { ru: 'День 2: Инженерные шедевры: Вокзал Щусева и Рябиновский виадук', en: 'Day 2: Engineering Wonders: Shchusev Station & Viaduct' },
+                    title: { ru: 'День 2: Инженерные шедевры: Вокзал мастерской Щусева и Рябиновский виадук', en: 'Day 2: Engineering Wonders: Shchusev Workshop Station & Viaduct' },
                     places: [
                         { ru: '10:30 — Архитектурный ансамбль станции Красноуфимск', en: '10:30 — Krasnoufimsk Railway Station ensemble' },
                         { ru: '12:30 — Экскурсия к монументальному Рябиновскому арочному виадуку', en: '12:30 — Trip to Ryabinovka concrete viaduct' },
-                        { ru: '15:30 — Саранинский виадук и живописный Саранский пруд среди тайги', en: '15:30 — Sarana viaduct and forest lake' }
+                        { ru: '15:30 — Пудлинговский (Саранинский) виадук и живописный Саранинский пруд среди тайги', en: '15:30 — Pudlingovyi (Sarana) viaduct and forest lake' }
                     ]
                 },
                 {
@@ -3278,19 +3424,19 @@
                     dayNum: 1,
                     title: { ru: 'День 1: Историческое купеческое ядро и казачья колыбель', en: 'Day 1: Historic Merchant Core & Cossack Cradle' },
                     places: [
-                        { ru: '10:30 — Краеведческий музей (Особняк Сенкевича 1912 г., зубная спираль геликоприона Карпинского, казачья крепость 1736 г.)', en: '10:30 — Museum of Local Lore (Art Nouveau mansion, Helicoprion shark whorl, 1736 fortress model)' },
-                        { ru: '12:30 — Пешеходная купеческая улица Советская: усадьбы Шевелина, Серебренникова и Земская управа 1888 г.', en: '12:30 — Historic Sovetskaya Street: merchant estates and 1888 Zemstvo Board' },
+                        { ru: '10:30 — Краеведческий музей (ул. Советская, 42, зубная спираль геликоприона Helicoprion bessonowi, макет крепости 1736 г.)', en: '10:30 — Museum of Local Lore (42 Sovetskaya St., Helicoprion shark whorl, 1736 fortress model)' },
+                        { ru: '12:30 — Историческая купеческая улица Советская: усадьбы Шевелина, Серебренникова и Земская управа 1912 г.', en: '12:30 — Historic Sovetskaya Street: merchant estates and 1912 Zemstvo Board' },
                         { ru: '14:00 — Обед в историческом центре (уральские шаньги, жаркое по-уральски)', en: '14:00 — Lunch in historic town center (traditional Ural cuisine)' },
-                        { ru: '15:30 — Свято-Троицкий собор 1828 г. и старейшая казачья изба XVIII века', en: '15:30 — Holy Trinity Cathedral (1828) & 18th-century Cossack Hut' },
+                        { ru: '15:30 — Свято-Троицкий собор 1804 г. и старейшая казачья изба XVIII века', en: '15:30 — Holy Trinity Cathedral (1804) & 18th-century Cossack Hut' },
                         { ru: '17:30 — Набережная «Красный Яр», смотровой амфитеатр и закат на Дивьей горе с видом на излучину Уфы', en: '17:30 — Krasny Yar Embankment & sunset panorama on Divya Mountain' },
                         { ru: '19:30 — Заселение в гостиницу, вечерний отдых', en: '19:30 — Hotel check-in & evening rest' }
                     ]
                 },
                 {
                     dayNum: 2,
-                    title: { ru: 'День 2: Инженерный триумф Щусева и музей Земской медицины', en: 'Day 2: Shchusev Architecture & Zemstvo Medicine' },
+                    title: { ru: 'День 2: Инженерный триумф мастерской Щусева и музей Земской медицины', en: 'Day 2: Shchusev Workshop Architecture & Zemstvo Medicine' },
                     places: [
-                        { ru: '10:00 — Ж/д вокзал архитектора А. В. Щусева (петровское барокко 1915 г.) и паровоз-памятник «Лебедянка»', en: '10:00 — Historic railway station by Alexey Shchusev and steam locomotive monument' },
+                        { ru: '10:00 — Исторический ж/д вокзал (архитектурная мастерская А. В. Щусева, петровское барокко 1915 г.) и паровоз-памятник «Лебедянка»', en: '10:00 — Historic railway station (A. Shchusev workshop, Petrine Baroque 1915) and steam locomotive monument' },
                         { ru: '12:00 — Красноуфимское Реальное училище (неоготика 1875 г., альма-матер маршала Б. М. Шапошникова)', en: '12:00 — Krasnoufimsk Real College (1875 Neo-Gothic)' },
                         { ru: '13:30 — Обед в кафе старого города', en: '13:30 — Lunch in the historic district' },
                         { ru: '15:00 — Единственный в России музей Земской больницы доктора М. И. Мизерова (парк и резные деревянные корпуса)', en: '15:00 — Dr. Mizerov Zemstvo Medicine Museum (unique wooden medical campus)' },
@@ -3302,9 +3448,9 @@
                     title: { ru: 'День 3: Монументальные виадуки Красноуфимска и посёлок Сарана', en: 'Day 3: Monumental Viaducts & Sarana Settlement' },
                     places: [
                         { ru: '10:00 — Автоэкспедиция к Рябиновскому виадуку (32-метровый железнодорожный арочный мост из монолитного бетона 1915 г.)', en: '10:00 — Road trip to Ryabinovka Concrete Arched Viaduct (32 m high, 1915)' },
-                        { ru: '12:30 — Пудлинговский монументальный виадук — циклопическое инженерное чудо Транссибирского хода среди таёжных холмов', en: '12:30 — Pudlingovyi Monumental Viaduct nestled among taiga hills' },
-                        { ru: '14:30 — Посёлок Сарана: арочный Саранинский виадук и плотина железоделательного завода 1758 года', en: '14:30 — Sarana settlement: viaduct and 1758 historic ironworks dam' },
-                        { ru: '16:30 — Берег Саранского водохранилища среди уральских скал, чай на таёжных травах', en: '16:30 — Shore of Sarana reservoir among Ural limestone cliffs, herbal tea' },
+                        { ru: '12:30 — Пудлинговский (Саранинский) монументальный виадук — циклопическое инженерное чудо Транссибирского хода среди таёжных холмов', en: '12:30 — Pudlingovyi (Sarana) Monumental Viaduct nestled among taiga hills' },
+                        { ru: '14:30 — Посёлок Сарана: Долговский виадук (Долгий Мост) и плотина исторического железоделательного завода', en: '14:30 — Sarana settlement: Dolgovsky viaduct and historic ironworks dam' },
+                        { ru: '16:30 — Берег Саранинского водохранилища среди уральских скал, чай на таёжных травах', en: '16:30 — Shore of Sarana reservoir among Ural limestone cliffs, herbal tea' },
                         { ru: '19:00 — Возвращение в Красноуфимск, ужин', en: '19:00 — Return to Krasnoufimsk, dinner' }
                     ]
                 },
@@ -3317,16 +3463,6 @@
                         { ru: '13:30 — Обед на местном форелевом хозяйстве с дегустацией свежевыловленной рыбы и уральского мёда', en: '13:30 — Lunch at local trout farm: fresh fish & Ural honey tasting' },
                         { ru: '15:30 — Эко-тропа вдоль скалистых берегов реки Уфы, поиск окаменелостей пермского периода', en: '15:30 — Eco-trail along rocky Ufa riverbanks, hunt for Permian fossils' },
                         { ru: '18:00 — Покупка аутентичных сувениров (соколиная символика, пряники, иван-чай) и памятный отъезд', en: '18:00 — Souvenir shopping and departure' }
-                    ]
-                },
-                {
-                    dayNum: 5,
-                    title: { ru: 'День 5 (для длительного тура): Эко-маршруты реки Уфы, сплавы и гастрономия', en: 'Day 5 (Extended Stay): Eco-trails, River Waters & Gastronomy' },
-                    places: [
-                        { ru: '10:00 — Сосновый бор на Красноуфимских песчаниках: целебный воздух и природные тропы', en: '10:00 — Pine forest on sandstone ridges: curative mountain air' },
-                        { ru: '12:00 — Водная прогулка на сапбордах или лодках по спокойным водам реки Уфы', en: '12:00 — SUP-boarding or boating along serene Ufa River waters' },
-                        { ru: '14:30 — Фермерский обед: дегустация авторских уральских сыров и ягодных варений', en: '14:30 — Farmstead lunch: artisanal cheeses and wild berry delicacies' },
-                        { ru: '16:30 — Панорамные фотосессии на смотровых точках города и завершение большого путешествия', en: '16:30 — Farewell photo sessions at viewpoints and final wrap-up' }
                     ]
                 }
             ]
@@ -3359,7 +3495,7 @@
                 mobileNavWeather: 'Погода в Красноуфимске на 7 дней',
                 weatherCityLabel: 'Красноуфимск',
                 mobileSeasonTitle: '🎨 ВЫБОР ДИЗАЙНА (СЕЗОН):',
-                seasonOptAuto: '🔄 Авто (по сезону)',
+                seasonOptAuto: '🔄 Авто',
                 seasonOptAutumn: '🍂 Осень',
                 seasonOptWinter: '❄️ Зима',
                 seasonOptSpring: '🌿 Весна',
@@ -3419,7 +3555,7 @@
                 persOpt3: '3 чел.',
                 persOpt4: '4+ чел.',
                 hotelGuest: '🏡 Гостевой дом / Квартира (~1 600 ₽)',
-                hotelStandard: '🏨 Гостиница «Таёжная» / «Красноуфимск» (~2 800 ₽)',
+                hotelStandard: '🏨 Гостиница «Центральная» / «Ковчег» (~2 800 ₽)',
                 hotelComfort: '⭐ Комфорт / Отель с завтраком (~4 200 ₽)',
                 foodEconomy: '☕ Эконом: выпечка, столовые (~500 ₽)',
                 foodStandard: '🍽️ Стандарт: уютные кафе на Советской (~950 ₽)',
@@ -3429,6 +3565,9 @@
                 citySearchPlaceholder: 'Поиск города отправления (например: Москва, Новосибирск, Казань...)',
                 cityNotFoundMsg: 'Город не найден. Выберите город из списка ниже или очистите поиск:',
                 btnShareTrip: 'Поделиться сметой поездки',
+                btnPrintBudget: 'Распечатать / сохранить в PDF',
+                transportDisclaimer: '⚠️ Время в пути и цены — ориентировочные, рассчитаны для 2026 года. Уточняйте актуальные тарифы и расписания на rzd.ru, bla-bla-car.ru и yandex.ru/maps.',
+                ariaOpenMobileMenu: 'Открыть мобильное меню',
                 checklistTitle: 'Чек-лист сборов в дорогу:',
                 checklistSubtitle: 'Список необходимых вещей с учётом сезона и транспорта в Красноуфимск:',
                 geoSearchDivider: '🌍 Найденные города и населённые пункты:',
@@ -3451,7 +3590,7 @@
                 mobileNavWeather: 'Krasnoufimsk 7-day weather',
                 weatherCityLabel: 'Krasnoufimsk',
                 mobileSeasonTitle: '🎨 DESIGN THEME (SEASON):',
-                seasonOptAuto: '🔄 Auto (Seasonal)',
+                seasonOptAuto: '🔄 Auto',
                 seasonOptAutumn: '🍂 Autumn',
                 seasonOptWinter: '❄️ Winter',
                 seasonOptSpring: '🌿 Spring',
@@ -3463,7 +3602,7 @@
                 mobileSeasonSummer: '☀️ Summer',
                 heroBadge: 'Smart Travel Calculator • 2026',
                 pageHeroTitle: 'How to get to & <span class="highlight">plan your trip</span> to Krasnoufimsk',
-                pageHeroDesc: 'Select your departure city, transport mode, and length of stay. The system instantly calculates travel time, road expenses, hotel, dining, and generates a personalized daily itinerary.',
+                pageHeroDesc: 'Select your departure city, transport mode, and length of stay. The system instantly calculates travel time, transportation expenses, hotel stays, meal costs, and generates a personalized daily itinerary.',
                 citySectionTitle: 'Step 1. Where are you departing from?',
                 citySuggestionsLabel: 'Suggestions:',
                 transSectionTitle: 'Step 2. Choose your transport mode:',
@@ -3511,7 +3650,7 @@
                 persOpt3: '3 pers.',
                 persOpt4: '4+ pers.',
                 hotelGuest: '🏡 Guesthouse / Apartment (~1,600 ₽)',
-                hotelStandard: '🏨 Hotel "Tayozhnaya" / "Krasnoufimsk" (~2,800 ₽)',
+                hotelStandard: '🏨 Hotel "Tsentralnaya" / "Kovcheg" (~2,800 ₽)',
                 hotelComfort: '⭐ Comfort / Hotel with breakfast (~4,200 ₽)',
                 foodEconomy: '☕ Economy: bakeries, canteens (~500 ₽)',
                 foodStandard: '🍽️ Standard: cozy cafes on Sovetskaya (~950 ₽)',
@@ -3521,6 +3660,9 @@
                 citySearchPlaceholder: 'Search departure city (e.g. Moscow, Novosibirsk, Kazan...)',
                 cityNotFoundMsg: 'City not found. Choose a city from suggestions below or clear search:',
                 btnShareTrip: 'Share Budget & Itinerary',
+                btnPrintBudget: 'Print / Save as PDF',
+                transportDisclaimer: '⚠️ Travel times and prices are estimates for 2026. Check current fares and schedules on rzd.ru, bla-bla-car.ru and yandex.ru/maps.',
+                ariaOpenMobileMenu: 'Open mobile menu',
                 checklistTitle: 'Travel Packing Checklist:',
                 checklistSubtitle: 'Essential packing list tailored to season & travel mode:',
                 geoSearchDivider: '🌍 Found cities & locations:',
@@ -3561,6 +3703,12 @@
                         el.textContent = dict[key];
                     }
                 }
+            });
+
+            // Переводим атрибуты aria-label с data-lang-aria
+            document.querySelectorAll('[data-lang-aria]').forEach(el => {
+                const k = el.getAttribute('data-lang-aria');
+                if (dict[k]) el.setAttribute('aria-label', dict[k]);
             });
 
             // Подсказки городов под поиском
@@ -3632,7 +3780,7 @@
             if (lblPress) lblPress.textContent = (currentLang === 'en') ? '⏱️ Pressure' : '⏱️ Давление';
 
             // Названия в меню сезона
-            const savedSeason = localStorage.getItem('krasnoufimsk_season') || 'auto';
+            const savedSeason = safeStorageGet('krasnoufimsk_season', 'auto');
             applySeason(savedSeason, false);
 
             // Обновляем отображение погоды под текущий язык
@@ -3650,23 +3798,26 @@
            ========================================================================= */
         function initApp() {
             // Тема (светлая / тёмная)
-            const savedTheme = localStorage.getItem('krasnoufimsk_theme');
+            const savedTheme = safeStorageGet('kuf_theme') || safeStorageGet('krasnoufimsk_theme');
             if (savedTheme === 'dark') {
                 document.body.classList.add('dark-mode');
                 document.getElementById('theme-btn-icon').textContent = '☀️';
             }
 
             // Дизайн (сезон года)
-            const savedSeason = localStorage.getItem('krasnoufimsk_season') || 'auto';
+            const savedSeason = safeStorageGet('krasnoufimsk_season', 'auto');
             applySeason(savedSeason, false);
 
             // Язык
-            const savedLang = localStorage.getItem('krasnoufimsk_lang') || 'ru';
+            const savedLang = safeStorageGet('krasnoufimsk_lang', 'ru');
             currentLang = (savedLang === 'en') ? 'en' : 'ru';
             applyLanguage(currentLang);
 
             // Загрузка живой погоды для Красноуфимска
             fetchKrasnoufimskWeather();
+
+            // Инициализация выбранного города (Екатеринбург по умолчанию), транспорта и сметы
+            selectCity(currentCityId || 'ekb');
 
             // Плавное появление секций и карточек при скролле (Scroll Reveal)
             initScrollReveal();
@@ -3736,13 +3887,15 @@
 
         function toggleTheme() {
             const isDark = document.body.classList.toggle('dark-mode');
-            localStorage.setItem('krasnoufimsk_theme', isDark ? 'dark' : 'light');
+            const themeVal = isDark ? 'dark' : 'light';
+            safeStorageSet('krasnoufimsk_theme', themeVal);
+            safeStorageSet('kuf_theme', themeVal);
             document.getElementById('theme-btn-icon').textContent = isDark ? '☀️' : '🌙';
         }
 
         function toggleLanguage() {
             currentLang = (currentLang === 'ru') ? 'en' : 'ru';
-            localStorage.setItem('krasnoufimsk_lang', currentLang);
+            safeStorageSet('krasnoufimsk_lang', currentLang);
             applyLanguage(currentLang);
             fetchKrasnoufimskWeather();
         }
@@ -3773,7 +3926,7 @@
             document.body.classList.add('season-' + actualSeason);
 
             if (save) {
-                localStorage.setItem('krasnoufimsk_season', season);
+                safeStorageSet('krasnoufimsk_season', season);
             }
 
             const seasonLabels = {
@@ -3921,10 +4074,10 @@
                     current: {
                         temp: baseCur.high,
                         feels: baseCur.high - 2,
-                        windMs: '3.2',
-                        hum: 76,
-                        precip: '0.0',
-                        pressure: 746,
+                        windMs: '—',
+                        hum: '—',
+                        precip: '—',
+                        pressure: '—',
                         wmo: baseCur.wmo,
                         code: baseCur.symCode
                     },
@@ -3967,10 +4120,10 @@
                 elHeroSummary.textContent = `${data.current.wmo.icon} ${summaryText}`;
             }
             if (elFeels) elFeels.textContent = (data.current.feels > 0 ? '+' : '') + data.current.feels + '°C';
-            if (elWind) elWind.textContent = data.current.windMs + (isEn ? ' m/s' : ' м/с');
-            if (elHum) elHum.textContent = data.current.hum + '%';
-            if (elPrecip) elPrecip.textContent = data.current.precip + (isEn ? ' mm' : ' мм');
-            if (elPress) elPress.textContent = data.current.pressure + (isEn ? ' mmHg' : ' мм');
+            if (elWind) elWind.textContent = (data.isOffline || data.current.windMs === '—') ? '—' : (data.current.windMs + (isEn ? ' m/s' : ' м/с'));
+            if (elHum) elHum.textContent = (data.isOffline || data.current.hum === '—') ? '—' : (data.current.hum + '%');
+            if (elPrecip) elPrecip.textContent = (data.isOffline || data.current.precip === '—') ? '—' : (data.current.precip + (isEn ? ' mm' : ' мм'));
+            if (elPress) elPress.textContent = (data.isOffline || data.current.pressure === '—') ? '—' : (data.current.pressure + (isEn ? ' mmHg' : ' мм'));
             if (elMainIcon) elMainIcon.textContent = data.current.wmo.icon;
 
             const season = typeof getNaturalSeason === 'function' ? getNaturalSeason() : 'autumn';
@@ -3989,8 +4142,7 @@
             if (badge) {
                 if (data.isOffline) {
                     badge.className = 'weather-status-badge badge-offline';
-                    badge.textContent = isEn ? '● Базовый' : '● Базовый';
-                    if (isEn) badge.textContent = '● Baseline';
+                    badge.textContent = isEn ? '● Baseline' : '● Базовый';
                 } else {
                     badge.className = 'weather-status-badge';
                     badge.textContent = isEn ? '● Online' : '● Онлайн';
@@ -4023,6 +4175,18 @@
             }
         }
 
+        // Поддержка закрытия модальных окон и меню по клавише Escape
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeWeatherModal();
+                if (typeof closeMobilePanel === 'function') closeMobilePanel();
+                const hotelWrap = document.getElementById('hotel-custom-wrap');
+                const foodWrap = document.getElementById('food-custom-wrap');
+                if (hotelWrap) hotelWrap.classList.remove('open');
+                if (foodWrap) foodWrap.classList.remove('open');
+            }
+        });
+
         async function refreshWeatherWithAnimation() {
             const icon = document.getElementById('weather-refresh-icon');
             const text = document.getElementById('weather-refresh-text');
@@ -4046,9 +4210,16 @@
 
             try {
                 await Promise.all([fetchKrasnoufimskWeather(), minDelay]);
-                showToast(isEn ? 'Weather forecast updated!' : 'Прогноз погоды успешно обновлён!');
+                if (cachedWeatherState && !cachedWeatherState.isOffline) {
+                    showToast(isEn ? 'Weather forecast updated!' : 'Прогноз погоды успешно обновлён!');
+                } else {
+                    showToast(isEn
+                        ? '⚠️ Offline: baseline seasonal forecast shown'
+                        : '⚠️ Нет связи с сервером. Показан базовый сезонный прогноз');
+                }
             } catch (err) {
                 console.error('Weather refresh error:', err);
+                showToast(isEn ? '⚠️ Failed to update weather' : '⚠️ Не удалось обновить погоду');
             } finally {
                 if (icon) icon.classList.remove('spinning');
                 if (btn) {
@@ -4057,6 +4228,9 @@
                     btn.style.pointerEvents = 'auto';
                 }
                 if (text) text.textContent = isEn ? 'Refresh' : 'Обновить';
+                if (badge && badge.classList.contains('badge-loading')) {
+                    badge.classList.remove('badge-loading');
+                }
             }
         }
 
@@ -4181,19 +4355,17 @@
                     isOffline: false
                 };
 
-                try {
-                    localStorage.setItem('kuf_weather_cache_v2', JSON.stringify({
-                        current: { temp, feels, windMs, hum, precip, pressure, code: metCode },
-                        daysList: daysList.map(dl => ({
-                            dateStr: dl.dateStr,
-                            high: dl.high,
-                            low: dl.low,
-                            symCode: dl.symCode
-                        })),
-                        timeStr,
-                        timestamp: Date.now()
-                    }));
-                } catch(e) {}
+                safeStorageSet('kuf_weather_cache_v2', JSON.stringify({
+                    current: { temp, feels, windMs, hum, precip, pressure, code: metCode },
+                    daysList: daysList.map(dl => ({
+                        dateStr: dl.dateStr,
+                        high: dl.high,
+                        low: dl.low,
+                        symCode: dl.symCode
+                    })),
+                    timeStr,
+                    timestamp: Date.now()
+                }));
 
                 updateWeatherDisplay(currentLang);
             } catch (err) {
@@ -4209,10 +4381,10 @@
                     current: {
                         temp: baseCur.high,
                         feels: baseCur.high - 2,
-                        windMs: '3.2',
-                        hum: 76,
-                        precip: '0.0',
-                        pressure: 746,
+                        windMs: '—',
+                        hum: '—',
+                        precip: '—',
+                        pressure: '—',
                         wmo: baseCur.wmo,
                         code: baseCur.symCode
                     },
@@ -4228,6 +4400,7 @@
            4. РЕНДЕР СЕЛЕКТОРОВ ГОРОДОВ И ЖИВОЙ ПОИСК (ВКЛЮЧАЯ GEOCODING API)
            ========================================================================= */
         let geoSearchTimer = null;
+        let geoAbortController = null;
         let currentGeoSearchQuery = '';
         let externalGeoResults = [];
         let isGeoSearching = false;
@@ -4354,18 +4527,32 @@
         // Запрос к Open-Meteo Geocoding API (без ключей, бесплатный и надёжный)
         async function fetchExternalCities(query) {
             if (!query || query.trim().length < 2) {
+                if (geoAbortController) {
+                    geoAbortController.abort();
+                    geoAbortController = null;
+                }
                 externalGeoResults = [];
                 isGeoSearching = false;
                 renderCitySearchDropdown(query);
                 return;
             }
 
+            if (geoAbortController) geoAbortController.abort();
+            geoAbortController = new AbortController();
+            const currentQuery = query.trim();
+
             try {
                 const langParam = (currentLang === 'en') ? 'en' : 'ru';
-                const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query.trim())}&count=6&language=${langParam}&format=json`;
-                const res = await fetch(url);
+                const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(currentQuery)}&count=6&language=${langParam}&format=json`;
+                const res = await fetch(url, { signal: geoAbortController.signal });
                 if (!res.ok) throw new Error('Geocoding status ' + res.status);
                 const data = await res.json();
+
+                // Игнорируем ответ, если пользователь уже изменил поисковый запрос
+                const activeInput = document.getElementById('city-search-input');
+                if (activeInput && activeInput.value.trim() !== currentQuery) {
+                    return;
+                }
 
                 if (data && data.results && Array.isArray(data.results)) {
                     // Исключаем те, которые уже есть в CITIES_DATA
@@ -4394,11 +4581,15 @@
                     externalGeoResults = [];
                 }
             } catch(err) {
+                if (err.name === 'AbortError') return;
                 console.warn('Geocoding search error:', err);
                 externalGeoResults = [];
             } finally {
-                isGeoSearching = false;
-                renderCitySearchDropdown(query);
+                const activeInput = document.getElementById('city-search-input');
+                if (!activeInput || activeInput.value.trim() === currentQuery) {
+                    isGeoSearching = false;
+                    renderCitySearchDropdown(currentQuery);
+                }
             }
         }
 
@@ -4440,7 +4631,7 @@
                 html += `
                     <div class="city-search-dropdown-header">
                         <span>📌</span>
-                        <span>${dict.popularCitiesHeader || 'Популярные города отправления (22 основных направления):'}</span>
+                        <span>${dict.popularCitiesHeader || 'Популярные города отправления (быстрый выбор):'}</span>
                     </div>
                 `;
             }
@@ -4723,11 +4914,13 @@
            7. ПАРАМЕТРЫ ПОЕЗДКИ И РАСЧЕТ СМЕТЫ
            ========================================================================= */
         function setSetting(type, val) {
-            if (type === 'days') tripDays = val;
-            if (type === 'persons') tripPersons = val;
+            const numVal = parseInt(val, 10) || 1;
+            if (type === 'days') tripDays = numVal;
+            if (type === 'persons' || type === 'people') tripPersons = numVal;
 
-            document.querySelectorAll(`.setting-btn[data-type="${type}"]`).forEach(btn => {
-                if (parseInt(btn.getAttribute('data-val')) === val) {
+            const targetType = (type === 'people') ? 'persons' : type;
+            document.querySelectorAll(`.setting-btn[data-type="${targetType}"]`).forEach(btn => {
+                if (parseInt(btn.getAttribute('data-val'), 10) === numVal) {
                     btn.classList.add('active');
                 } else {
                     btn.classList.remove('active');
@@ -4746,8 +4939,8 @@
             },
             2800: {
                 icon: '🏨',
-                ru: { title: 'Гостиница «Таёжная» / «Красноуфимск»', price: '~2 800 ₽ / сутки', short: 'Гостиница «Таёжная» (~2 800 ₽)' },
-                en: { title: 'Hotel «Tayozhnaya» / «Krasnoufimsk»', price: '~2,800 ₽ / night', short: 'Hotel «Tayozhnaya» (~2,800 ₽)' }
+                ru: { title: 'Гостиница «Центральная» / «Ковчег»', price: '~2 800 ₽ / сутки', short: 'Гостиница «Центральная» / «Ковчег» (~2 800 ₽)' },
+                en: { title: 'Hotel «Tsentralnaya» / «Kovcheg»', price: '~2,800 ₽ / night', short: 'Hotel «Tsentralnaya» / «Kovcheg» (~2,800 ₽)' }
             },
             4200: {
                 icon: '⭐',
@@ -4764,8 +4957,8 @@
             },
             950: {
                 icon: '🍽️',
-                ru: { title: 'Стандарт: уютные кафе на Советской', price: '~950 ₽ / день', short: 'Стандарт: уютные кафе (~950 ₽)' },
-                en: { title: 'Standard: cozy cafes on Sovetskaya', price: '~950 ₽ / day', short: 'Standard: cozy cafes (~950 ₽)' }
+                ru: { title: 'Стандарт: уютные кафе на Советской', price: '~950 ₽ / день', short: 'Стандарт: уютные кафе на Советской (~950 ₽)' },
+                en: { title: 'Standard: cozy cafes on Sovetskaya', price: '~950 ₽ / day', short: 'Standard: cozy cafes on Sovetskaya (~950 ₽)' }
             },
             1600: {
                 icon: '🍷',
@@ -4911,9 +5104,10 @@
 
             // 1. Дорога (туда и обратно на всех пассажиров)
             let transportTotal = 0;
-            if (transportOpt.type === 'car') {
-                // Если машина — платится за бензин машины целиком, а не на каждого человека
-                transportTotal = transportOpt.priceOneWay * 2;
+            if (transportOpt.type === 'car' || transportOpt.type === 'carpool') {
+                // При 4+ пассажирах — минивэн или 2 машины
+                const cars = (tripPersons >= 4) ? 2 : 1;
+                transportTotal = transportOpt.priceOneWay * 2 * cars;
             } else {
                 transportTotal = transportOpt.priceOneWay * 2 * tripPersons;
             }
@@ -4926,8 +5120,9 @@
             // 3. Питание (дней * человек * ставка)
             let foodTotal = tripDays * tripPersons * foodCostPerDayPerPerson;
 
-            // 4. Музеи и выставки (билеты в музеи ~250 ₽ на человека)
-            let museumsTotal = 250 * tripPersons;
+            // 4. Музеи и выставки (для 2+ дней — 500 ₽ на человека, иначе 250 ₽)
+            const museumsPerPerson = (tripDays >= 2) ? 500 : 250;
+            let museumsTotal = museumsPerPerson * tripPersons;
 
             // 5. Сувениры (~350 ₽ на человека)
             let souvenirsTotal = 350 * tripPersons;
@@ -4999,9 +5194,21 @@
         function updateNavigatorLink(city) {
             const btn = document.getElementById('btn-open-navigator');
             if (!btn) return;
-            const cityName = encodeURIComponent(city.name.ru);
+            const transportOpt = (city.options && (city.options[selectedTransportIndex] || city.options[0])) || null;
+            const rttMap = {
+                'car': 'auto',
+                'carpool': 'auto',
+                'train_fast': 'auto',
+                'train_direct': 'auto',
+                'train_transfer': 'auto',
+                'bus': 'auto',
+                'bus_train': 'auto',
+                'plane_train': 'auto',
+                'plane_bus': 'auto'
+            };
+            const rtt = (transportOpt && rttMap[transportOpt.type]) ? rttMap[transportOpt.type] : 'auto';
             // Прямая ссылка в Яндекс.Карты / Навигатор от города до Красноуфимска
-            btn.href = `https://yandex.ru/maps/?rtext=${city.lat},${city.lon}~56.6160,57.7660&rtt=auto`;
+            btn.href = `https://yandex.ru/maps/?rtext=${city.lat},${city.lon}~56.6160,57.7660&rtt=${rtt}`;
         }
 
         /* =========================================================================
@@ -5021,9 +5228,10 @@
             const totalBudget = document.getElementById('budget-total-val') ? document.getElementById('budget-total-val').textContent : '';
             const perPersonBudget = document.getElementById('budget-per-person-val') ? document.getElementById('budget-per-person-val').textContent : '';
 
+            const currentYear = new Date().getFullYear();
             let text = (currentLang === 'en')
-                ? `🧭 TRIP PLAN TO KRASNOUFIMSK (2026)\n\n`
-                : `🧭 ПЛАН ПОЕЗДКИ В КРАСНОУФИМСК (2026)\n\n`;
+                ? `🧭 TRIP PLAN TO KRASNOUFIMSK (${currentYear})\n\n`
+                : `🧭 ПЛАН ПОЕЗДКИ В КРАСНОУФИМСК (${currentYear})\n\n`;
 
             text += (currentLang === 'en')
                 ? `📍 Departure: ${cityName} (~${city.distKm} km)\n`
@@ -5058,7 +5266,6 @@
             }
         }
 
-        const copyTripPlan = shareTripPlan;
 
         function fallbackCopy(text, toastMsg) {
             const ta = document.createElement('textarea');
@@ -5135,7 +5342,7 @@
                     {
                         id: 'winter_crampons',
                         icon: '❄️',
-                        text: isEn ? 'Ice grips/cleats for shoes (essential on hilly streets & Dikiy Stone)' : 'Ледоступы для обуви (актуально на спусках и подъемах у Дивьего камня)'
+                        text: isEn ? 'Ice grips/cleats for shoes (essential on steep slopes of Divya Mountain)' : 'Ледоступы для обуви (актуально на спусках и подъемах Дивьей горы)'
                     }
                 );
             } else if (currentSeason === 'summer') {
@@ -5191,7 +5398,7 @@
 
         function getSavedChecklist() {
             try {
-                const raw = localStorage.getItem('kuf_planner_checklist');
+                const raw = safeStorageGet('kuf_planner_checklist', null);
                 return raw ? JSON.parse(raw) : [];
             } catch(e) {
                 return [];
@@ -5199,9 +5406,7 @@
         }
 
         function saveChecklist(checkedIds) {
-            try {
-                localStorage.setItem('kuf_planner_checklist', JSON.stringify(checkedIds));
-            } catch(e) {}
+            safeStorageSet('kuf_planner_checklist', JSON.stringify(checkedIds));
         }
 
         function toggleChecklistItem(id) {

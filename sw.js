@@ -3,14 +3,15 @@
    Обеспечивает кэширование страниц и офлайн-доступ к путеводителю и планировщику.
    ========================================================================== */
 
-const CACHE_NAME = 'kuf-history-v6';
+const CACHE_NAME = 'kuf-history-v15';
 const STATIC_ASSETS = [
   './',
   './index.html',
   './planner.html',
   './manifest.json',
-  './images/favicon.png?v=7',
-  './images/apple-touch-icon.png?v=7',
+  './favicon.ico',
+  './images/favicon.png',
+  './images/apple-touch-icon.png',
   './images/icon-512.png'
 ];
 
@@ -44,8 +45,13 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
 
-  // Для внешних погодных и гео-API — прямой запрос в сеть с фоллбэком
-  if (url.origin.includes('open-meteo.com') || url.origin.includes('met.no') || url.origin.includes('yandex.ru')) {
+  // Внешние API и тайлы карт (OSM, Leaflet, Яндекс) — прямой запрос в сеть без кэширования
+  const NO_CACHE_HOSTS = [
+    'open-meteo.com', 'met.no', 'yandex.ru',
+    'openstreetmap.org', 'tile.openstreetmap.org',
+    'openstreetmap.fr', 'tile.openstreetmap.fr'
+  ];
+  if (NO_CACHE_HOSTS.some(h => url.hostname.includes(h))) {
     return;
   }
 
@@ -63,9 +69,10 @@ self.addEventListener('fetch', event => {
       .catch(() => {
         return caches.match(event.request).then(cachedResponse => {
           if (cachedResponse) return cachedResponse;
-          if (event.request.headers.get('accept')?.includes('text/html')) {
+          if (event.request.mode === 'navigate' || event.request.headers.get('accept')?.includes('text/html')) {
             return caches.match('./index.html');
           }
+          return Response.error();
         });
       })
   );
