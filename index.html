@@ -98,10 +98,10 @@
     <!-- Регистрация PWA Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('./sw.js').then(function(reg) {
-                    reg.update().catch(function() {});
-                }).catch(function() {});
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('./sw.js').then(function (reg) {
+                    reg.update().catch(function () { });
+                }).catch(function () { });
             });
         }
     </script>
@@ -109,15 +109,21 @@
     <!-- Google Fonts: Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&display=swap"
+        rel="stylesheet">
 
     <!-- Leaflet Interactive Map -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w==" crossorigin="" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg==" crossorigin=""></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+        integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w=="
+        crossorigin="" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"
+        integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg=="
+        crossorigin=""></script>
 
 
 
-    
+
     <style>
         /* ==========================================================================
            [1. CSS-ПЕРЕМЕННЫЕ И СЕЗОННЫЕ ПАЛИТРЫ]
@@ -233,11 +239,13 @@
         @view-transition {
             navigation: auto;
         }
+
         ::view-transition-old(root),
         ::view-transition-new(root) {
             animation-duration: 0.35s;
             animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
         }
+
         .logo-group {
             view-transition-name: brand-falcon;
         }
@@ -324,21 +332,45 @@
         }
 
         @keyframes orbFloatTop {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-70px, 50px) scale(1.08); }
-            100% { transform: translate(50px, -30px) scale(0.96); }
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(-70px, 50px) scale(1.08);
+            }
+
+            100% {
+                transform: translate(50px, -30px) scale(0.96);
+            }
         }
 
         @keyframes orbFloatMid {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(80px, -60px) scale(1.06); }
-            100% { transform: translate(-50px, 70px) scale(0.95); }
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(80px, -60px) scale(1.06);
+            }
+
+            100% {
+                transform: translate(-50px, 70px) scale(0.95);
+            }
         }
 
         @keyframes orbFloatBot {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-60px, -40px) scale(1.1); }
-            100% { transform: translate(40px, 30px) scale(0.94); }
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(-60px, -40px) scale(1.1);
+            }
+
+            100% {
+                transform: translate(40px, 30px) scale(0.94);
+            }
         }
 
         body.dark-theme .ambient-glow-orb {
@@ -544,7 +576,7 @@
 
         /* Внутренний блок заголовка сжимается вместе с родителем —
            иначе текст наезжает на бейдж «Онлайн» и кнопку закрытия */
-        .weather-title-wrap > div {
+        .weather-title-wrap>div {
             min-width: 0;
             flex: 1;
         }
@@ -883,8 +915,13 @@
         }
 
         @keyframes spinWeather {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .weather-refresh-icon.spinning {
@@ -1305,7 +1342,7 @@
         /* ==========================================================================
            [4. ПЕРВЫЙ ЭКРАН (HERO) И ХОЛСТ ЧАСТИЦ]
            ========================================================================== */
-                .hero {
+        .hero {
             position: relative;
             min-height: 100vh;
             display: flex;
@@ -1334,8 +1371,17 @@
         }
 
         @keyframes heroSeasonFade {
-            0% { opacity: 0.35; filter: blur(4px); transform: scale(1.02); }
-            100% { opacity: 1; filter: blur(0); transform: scale(1); }
+            0% {
+                opacity: 0.35;
+                filter: blur(4px);
+                transform: scale(1.02);
+            }
+
+            100% {
+                opacity: 1;
+                filter: blur(0);
+                transform: scale(1);
+            }
         }
 
         /* Холст сезонных частиц (падающие листья/снежинки) */
@@ -1428,7 +1474,7 @@
             padding: 14px 22px;
             min-width: 145px;
             text-align: center;
-            box-shadow: 
+            box-shadow:
                 0 8px 24px rgba(0, 0, 0, 0.22),
                 inset 0 1px 1px rgba(255, 255, 255, 0.6),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.15);
@@ -1441,7 +1487,7 @@
             transform: translateY(-4px) scale(1.02);
             background: rgba(255, 255, 255, 0.2);
             border-color: rgba(255, 255, 255, 0.55);
-            box-shadow: 
+            box-shadow:
                 0 14px 32px rgba(0, 0, 0, 0.32),
                 0 0 20px var(--accent-glow),
                 inset 0 1px 1px rgba(255, 255, 255, 0.8);
@@ -1634,12 +1680,12 @@
             left: 48px;
             right: 48px;
             height: 2px;
-            background: linear-gradient(90deg, 
-                rgba(217, 101, 26, 0.08) 0%, 
-                color-mix(in srgb, var(--main-color) 40%, transparent) 15%,
-                color-mix(in srgb, var(--main-color) 70%, transparent) 50%,
-                color-mix(in srgb, var(--main-color) 40%, transparent) 85%,
-                rgba(217, 101, 26, 0.08) 100%);
+            background: linear-gradient(90deg,
+                    rgba(217, 101, 26, 0.08) 0%,
+                    color-mix(in srgb, var(--main-color) 40%, transparent) 15%,
+                    color-mix(in srgb, var(--main-color) 70%, transparent) 50%,
+                    color-mix(in srgb, var(--main-color) 40%, transparent) 85%,
+                    rgba(217, 101, 26, 0.08) 100%);
             border-radius: 2px;
             pointer-events: none;
             z-index: 1;
@@ -1697,8 +1743,13 @@
             -webkit-backdrop-filter: blur(12px);
         }
 
-        .timeline-arrow.prev { left: 4px; }
-        .timeline-arrow.next { right: 4px; }
+        .timeline-arrow.prev {
+            left: 4px;
+        }
+
+        .timeline-arrow.next {
+            right: 4px;
+        }
 
         .timeline-arrow:hover:not(:disabled) {
             color: var(--main-color);
@@ -1861,27 +1912,39 @@
             .timeline-wrapper {
                 padding: 0 36px;
             }
+
             .timeline-wrapper::before {
                 left: 36px;
                 right: 36px;
             }
+
             .timeline-arrow {
                 width: 32px;
                 height: 32px;
             }
+
             .timeline-arrow svg {
                 width: 15px;
                 height: 15px;
             }
-            .timeline-arrow.prev { left: 2px; }
-            .timeline-arrow.next { right: 2px; }
+
+            .timeline-arrow.prev {
+                left: 2px;
+            }
+
+            .timeline-arrow.next {
+                right: 2px;
+            }
+
             .time-btn-pill {
                 min-width: 104px;
                 padding: 6px 10px;
             }
+
             .time-year-text {
                 font-size: 13px;
             }
+
             .time-topic-text {
                 font-size: 10px;
                 max-width: 115px;
@@ -2568,8 +2631,15 @@
         }
 
         @keyframes fadeInResults {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .quiz-diff-tag-wrap {
@@ -2625,8 +2695,15 @@
         }
 
         @keyframes pulseTrophy {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
         }
 
         .quiz-results-title {
@@ -2894,6 +2971,7 @@
             border-color: rgba(34, 197, 94, 0.32);
             background: linear-gradient(160deg, rgba(34, 197, 94, 0.08), var(--bg-card));
         }
+
         .quiz-diff-card--easy:hover {
             border-color: #22c55e;
             box-shadow: 0 12px 28px rgba(34, 197, 94, 0.28);
@@ -2904,6 +2982,7 @@
             border-color: rgba(249, 115, 22, 0.32);
             background: linear-gradient(160deg, rgba(249, 115, 22, 0.08), var(--bg-card));
         }
+
         .quiz-diff-card--medium:hover {
             border-color: #f97316;
             box-shadow: 0 12px 28px rgba(249, 115, 22, 0.28);
@@ -2914,6 +2993,7 @@
             border-color: rgba(244, 63, 94, 0.32);
             background: linear-gradient(160deg, rgba(244, 63, 94, 0.08), var(--bg-card));
         }
+
         .quiz-diff-card--hard:hover {
             border-color: #f43f5e;
             box-shadow: 0 12px 28px rgba(244, 63, 94, 0.28);
@@ -2931,6 +3011,7 @@
             background: linear-gradient(160deg, rgba(34, 197, 94, 0.15), rgba(30, 41, 59, 0.75));
             border-color: rgba(34, 197, 94, 0.45);
         }
+
         body.dark-theme .quiz-diff-card--easy:hover,
         .dark-theme .quiz-diff-card--easy:hover {
             border-color: #4ade80;
@@ -2942,6 +3023,7 @@
             background: linear-gradient(160deg, rgba(249, 115, 22, 0.15), rgba(30, 41, 59, 0.75));
             border-color: rgba(249, 115, 22, 0.45);
         }
+
         body.dark-theme .quiz-diff-card--medium:hover,
         .dark-theme .quiz-diff-card--medium:hover {
             border-color: #fb923c;
@@ -2953,6 +3035,7 @@
             background: linear-gradient(160deg, rgba(244, 63, 94, 0.15), rgba(30, 41, 59, 0.75));
             border-color: rgba(244, 63, 94, 0.45);
         }
+
         body.dark-theme .quiz-diff-card--hard:hover,
         .dark-theme .quiz-diff-card--hard:hover {
             border-color: #fb7185;
@@ -3018,6 +3101,7 @@
             color: #15803d;
             border: 1px solid rgba(34, 197, 94, 0.3);
         }
+
         body.dark-theme .quiz-diff-card--easy .quiz-diff-badge,
         .dark-theme .quiz-diff-card--easy .quiz-diff-badge {
             color: #4ade80;
@@ -3028,6 +3112,7 @@
             color: #c2410c;
             border: 1px solid rgba(249, 115, 22, 0.3);
         }
+
         body.dark-theme .quiz-diff-card--medium .quiz-diff-badge,
         .dark-theme .quiz-diff-card--medium .quiz-diff-badge {
             color: #fb923c;
@@ -3038,6 +3123,7 @@
             color: #be123c;
             border: 1px solid rgba(244, 63, 94, 0.3);
         }
+
         body.dark-theme .quiz-diff-card--hard .quiz-diff-badge,
         .dark-theme .quiz-diff-card--hard .quiz-diff-badge {
             color: #fb7185;
@@ -3164,8 +3250,15 @@
         }
 
         @keyframes progressShimmer {
-            0%, 100% { opacity: 0.35; }
-            50% { opacity: 0.9; }
+
+            0%,
+            100% {
+                opacity: 0.35;
+            }
+
+            50% {
+                opacity: 0.9;
+            }
         }
 
         body.dark-theme .quiz-counter-pill,
@@ -3481,16 +3574,21 @@
             html {
                 scroll-behavior: auto !important;
             }
-            *, *::before, *::after {
+
+            *,
+            *::before,
+            *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
+
             .reveal-on-scroll {
                 opacity: 1 !important;
                 transform: none !important;
                 transition: none !important;
             }
+
             .leaf-particle {
                 display: none !important;
             }
@@ -3637,6 +3735,7 @@
                 opacity: 0;
                 transform: translateY(6px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0);
@@ -3768,6 +3867,7 @@
                 align-items: flex-start;
                 padding: 20px;
             }
+
             .planner-cta-btn {
                 width: 100%;
                 justify-content: center;
@@ -3954,10 +4054,12 @@
                 width: auto;
                 padding: 14px 16px;
             }
+
             .cookie-banner-actions {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
             }
+
             .cookie-btn-accept,
             .cookie-btn-info {
                 width: 100%;
@@ -4115,18 +4217,63 @@
 
         /* Фит-гард (JS): если шапка всё равно переполняется на любой ширине —
            сначала принудительно компактный режим, затем — бургер-меню */
-        body.nav-compact-force .header-wrapper { top: 8px; padding: 0 10px; }
-        body.nav-compact-force header { padding: 6px 12px; border-radius: 28px; }
-        body.nav-compact-force .logo-sub { display: none; }
-        body.nav-compact-force .weather-city-label { display: none; }
-        body.nav-compact-force .weather-pill { padding: 5px 8px; gap: 5px; font-size: 11.5px; }
-        body.nav-compact-force .lang-switch-btn { padding: 5px 8px; font-size: 11.5px; gap: 4px; }
-        body.nav-compact-force .theme-switch-btn { width: 32px; height: 32px; }
-        body.nav-compact-force .achieve-btn { height: 32px; padding: 0 8px; }
-        body.nav-compact-force .nav-links { display: flex; gap: 2px; }
-        body.nav-compact-force .nav-link { padding: 4px 6px; font-size: 11.5px; }
-        body.nav-burger-force .nav-links { display: none !important; }
-        body.nav-burger-force .mobile-menu-btn { display: flex !important; }
+        body.nav-compact-force .header-wrapper {
+            top: 8px;
+            padding: 0 10px;
+        }
+
+        body.nav-compact-force header {
+            padding: 6px 12px;
+            border-radius: 28px;
+        }
+
+        body.nav-compact-force .logo-sub {
+            display: none;
+        }
+
+        body.nav-compact-force .weather-city-label {
+            display: none;
+        }
+
+        body.nav-compact-force .weather-pill {
+            padding: 5px 8px;
+            gap: 5px;
+            font-size: 11.5px;
+        }
+
+        body.nav-compact-force .lang-switch-btn {
+            padding: 5px 8px;
+            font-size: 11.5px;
+            gap: 4px;
+        }
+
+        body.nav-compact-force .theme-switch-btn {
+            width: 32px;
+            height: 32px;
+        }
+
+        body.nav-compact-force .achieve-btn {
+            height: 32px;
+            padding: 0 8px;
+        }
+
+        body.nav-compact-force .nav-links {
+            display: flex;
+            gap: 2px;
+        }
+
+        body.nav-compact-force .nav-link {
+            padding: 4px 6px;
+            font-size: 11.5px;
+        }
+
+        body.nav-burger-force .nav-links {
+            display: none !important;
+        }
+
+        body.nav-burger-force .mobile-menu-btn {
+            display: flex !important;
+        }
 
         /* Переход в мобильное меню только для планшетов и смартфонов (<= 1100px) */
         @media (max-width: 1100px) {
@@ -4561,7 +4708,7 @@
                 page-break-inside: avoid;
             }
 
-    
+
 
 
             .routes-grid {
@@ -4848,8 +4995,15 @@
         }
 
         @keyframes sightsMenuFade {
-            from { opacity: 0; transform: translateY(-6px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Поле поиска внутри меню */
@@ -4995,6 +5149,7 @@
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
             white-space: normal;
             line-height: 1.25;
@@ -5068,7 +5223,7 @@
         .sights-nav-btn {
             width: 42px;
             height: 42px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             background: var(--bg-card);
             border: 1.5px solid var(--border-card);
@@ -5374,23 +5529,24 @@
         }
 
         /* Glassmorphism эффект для карточек и элементов */
-        .dark-theme, body.dark-theme {
+        .dark-theme,
+        body.dark-theme {
             --bg-card: rgba(30, 41, 59, 0.72);
             --border-card: rgba(255, 255, 255, 0.16);
         }
 
         /* Тёмные тайлы для интерактивной карты Leaflet */
-        body.dark-theme #sights-leaflet-map .leaflet-tile-pane,
-        body.season-winter #sights-leaflet-map .leaflet-tile-pane {
+        body.dark-theme #sights-leaflet-map .leaflet-tile-pane {
             filter: brightness(0.68) invert(1) contrast(2.6) hue-rotate(200deg) saturate(0.35);
         }
-        body.dark-theme #sights-leaflet-map,
-        body.season-winter #sights-leaflet-map {
+
+        body.dark-theme #sights-leaflet-map {
             background: #090d16;
         }
 
         /* 3D-Tilt эффект на карточках для десктопа */
         @media (hover: hover) and (pointer: fine) {
+
             .sight-showcase-card,
             .route-card,
             .event-card,
@@ -5400,16 +5556,16 @@
                 transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease;
             }
         }
-        
+
         /* ==========================================================================
            [ПРЕМИУМ: ФИЗИКА СТЕКЛА С АЛМАЗНОЙ ФАСКОЙ (VISIONOS GLASS)]
            ========================================================================== */
-        .event-card, 
-        .sight-showcase-card, 
-        .quiz-card, 
-        .route-card, 
-        .intro-card, 
-        .tourist-guide-card, 
+        .event-card,
+        .sight-showcase-card,
+        .quiz-card,
+        .route-card,
+        .intro-card,
+        .tourist-guide-card,
         .weather-details-card,
         .sights-map-card,
         .sights-menu-selector-bar,
@@ -5420,20 +5576,20 @@
         .passport-profile-card {
             backdrop-filter: blur(16px) !important;
             -webkit-backdrop-filter: blur(16px) !important;
-            box-shadow: 
+            box-shadow:
                 0 2px 4px -1px rgba(0, 0, 0, 0.03),
                 0 12px 32px -4px rgba(0, 0, 0, 0.06),
                 0 24px 48px -12px var(--accent-glow),
                 inset 0 1px 1px 0 rgba(255, 255, 255, 0.8),
                 inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04) !important;
         }
-        
-        .dark-theme .event-card, 
-        .dark-theme .sight-showcase-card, 
-        .dark-theme .quiz-card, 
-        .dark-theme .route-card, 
-        .dark-theme .intro-card, 
-        .dark-theme .tourist-guide-card, 
+
+        .dark-theme .event-card,
+        .dark-theme .sight-showcase-card,
+        .dark-theme .quiz-card,
+        .dark-theme .route-card,
+        .dark-theme .intro-card,
+        .dark-theme .tourist-guide-card,
         .dark-theme .weather-details-card,
         .dark-theme .sights-map-card,
         .dark-theme .sights-menu-selector-bar,
@@ -5442,12 +5598,12 @@
         .dark-theme .guide-item,
         .dark-theme .passport-modal-window,
         .dark-theme .passport-profile-card,
-        body.dark-theme .event-card, 
-        body.dark-theme .sight-showcase-card, 
-        body.dark-theme .quiz-card, 
-        body.dark-theme .route-card, 
-        body.dark-theme .intro-card, 
-        body.dark-theme .tourist-guide-card, 
+        body.dark-theme .event-card,
+        body.dark-theme .sight-showcase-card,
+        body.dark-theme .quiz-card,
+        body.dark-theme .route-card,
+        body.dark-theme .intro-card,
+        body.dark-theme .tourist-guide-card,
         body.dark-theme .weather-details-card,
         body.dark-theme .sights-map-card,
         body.dark-theme .sights-menu-selector-bar,
@@ -5456,7 +5612,7 @@
         body.dark-theme .guide-item,
         body.dark-theme .passport-modal-window,
         body.dark-theme .passport-profile-card {
-            box-shadow: 
+            box-shadow:
                 0 4px 12px 0 rgba(0, 0, 0, 0.4),
                 0 16px 40px -8px rgba(0, 0, 0, 0.6),
                 0 0 24px -4px var(--accent-glow),
@@ -5546,15 +5702,18 @@
             color: var(--text-main) !important;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
         }
+
         .map-filter-btn:hover:not(.active) {
             border-color: var(--main-color) !important;
             color: var(--main-color) !important;
             background: rgba(0, 0, 0, 0.03) !important;
         }
+
         .sights-map-btn-reset {
             border: 1.5px solid rgba(0, 0, 0, 0.22) !important;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
         }
+
         body.dark-theme .map-filter-btn:not(.active),
         .dark-theme .map-filter-btn:not(.active) {
             background: rgba(255, 255, 255, 0.08) !important;
@@ -5562,12 +5721,14 @@
             color: #f8fafc !important;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25) !important;
         }
+
         body.dark-theme .map-filter-btn:hover:not(.active),
         .dark-theme .map-filter-btn:hover:not(.active) {
             border-color: var(--main-color) !important;
             background: rgba(255, 255, 255, 0.16) !important;
             color: var(--main-color) !important;
         }
+
         body.dark-theme .sights-map-btn-reset,
         .dark-theme .sights-map-btn-reset {
             background: rgba(255, 255, 255, 0.08) !important;
@@ -5575,6 +5736,7 @@
             color: #f8fafc !important;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25) !important;
         }
+
         body.dark-theme .sights-map-btn-reset:hover,
         .dark-theme .sights-map-btn-reset:hover {
             background: var(--main-color) !important;
@@ -5589,6 +5751,7 @@
             color: var(--text-main) !important;
             box-shadow: 0 3px 10px var(--accent-glow) !important;
         }
+
         body.dark-theme .btn-step-nav,
         .dark-theme .btn-step-nav {
             background: color-mix(in srgb, var(--main-color) 12%, rgba(30, 41, 59, 0.75)) !important;
@@ -5596,6 +5759,7 @@
             color: #f8fafc !important;
             box-shadow: 0 3px 12px var(--accent-glow) !important;
         }
+
         .btn-step-nav:hover:not(:disabled),
         body.dark-theme .btn-step-nav:hover:not(:disabled),
         .dark-theme .btn-step-nav:hover:not(:disabled) {
@@ -5612,6 +5776,7 @@
             color: var(--text-main) !important;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
         }
+
         body.dark-theme .sights-nav-btn,
         .dark-theme .sights-nav-btn {
             background: rgba(255, 255, 255, 0.08) !important;
@@ -5619,6 +5784,7 @@
             color: #f8fafc !important;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
         }
+
         .sights-nav-btn:hover,
         body.dark-theme .sights-nav-btn:hover,
         .dark-theme .sights-nav-btn:hover {
@@ -5635,6 +5801,7 @@
             background: var(--bg-card) !important;
             color: var(--text-main) !important;
         }
+
         body.dark-theme .time-btn:not(.active) .time-btn-pill,
         .dark-theme .time-btn:not(.active) .time-btn-pill {
             border: 1.5px solid rgba(255, 255, 255, 0.18) !important;
@@ -5650,10 +5817,10 @@
         }
 
         body.dark-theme .timeline-wrapper::before {
-            background: linear-gradient(90deg, 
-                rgba(255, 255, 255, 0.05) 0%, 
-                color-mix(in srgb, var(--main-color) 50%, transparent) 50%, 
-                rgba(255, 255, 255, 0.05) 100%) !important;
+            background: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0.05) 0%,
+                    color-mix(in srgb, var(--main-color) 50%, transparent) 50%,
+                    rgba(255, 255, 255, 0.05) 100%) !important;
         }
 
         body.dark-theme .time-year-text {
@@ -5731,6 +5898,7 @@
             color: var(--text-main) !important;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
         }
+
         body.dark-theme .option-btn:not(.correct):not(.wrong),
         .dark-theme .option-btn:not(.correct):not(.wrong) {
             background: rgba(255, 255, 255, 0.07) !important;
@@ -5738,11 +5906,13 @@
             color: #f8fafc !important;
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
         }
+
         .option-btn:hover:not(.disabled):not(.correct):not(.wrong) {
             border-color: var(--main-color) !important;
             color: var(--main-color) !important;
             background: color-mix(in srgb, var(--main-color) 8%, #ffffff) !important;
         }
+
         body.dark-theme .option-btn:hover:not(.disabled):not(.correct):not(.wrong),
         .dark-theme .option-btn:hover:not(.disabled):not(.correct):not(.wrong) {
             border-color: var(--main-color) !important;
@@ -5757,6 +5927,7 @@
             border: 2px solid var(--main-color) !important;
             color: var(--main-color) !important;
         }
+
         body.dark-theme .quiz-nav-btn:hover:not(:disabled),
         .dark-theme .quiz-nav-btn:hover:not(:disabled) {
             background: var(--main-color) !important;
@@ -5770,6 +5941,7 @@
             border: 1.5px solid var(--main-color) !important;
             color: var(--main-color) !important;
         }
+
         body.dark-theme .btn-open-map:hover,
         .dark-theme .btn-open-map:hover {
             background: var(--main-color) !important;
@@ -5781,6 +5953,7 @@
             border: 1.5px solid rgba(0, 0, 0, 0.22) !important;
             background: #ffffff !important;
         }
+
         body.dark-theme .sights-dropdown-select,
         .dark-theme .sights-dropdown-select {
             border: 1.5px solid rgba(255, 255, 255, 0.32) !important;
@@ -5793,15 +5966,18 @@
             border: 1.5px solid color-mix(in srgb, var(--main-color) 25%, rgba(0, 0, 0, 0.12)) !important;
             box-shadow: 0 4px 16px var(--accent-glow) !important;
         }
+
         .question-box {
             border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
         }
+
         body.dark-theme .landmark-address-card,
         .dark-theme .landmark-address-card {
             background: rgba(30, 41, 59, 0.65) !important;
             border: 1.5px solid color-mix(in srgb, var(--main-color) 30%, rgba(255, 255, 255, 0.18)) !important;
             box-shadow: 0 4px 18px var(--accent-glow) !important;
         }
+
         body.dark-theme .question-box,
         .dark-theme .question-box {
             background: rgba(30, 41, 59, 0.65) !important;
@@ -5813,33 +5989,39 @@
             border: 1.5px solid color-mix(in srgb, var(--main-color) 16%, rgba(0, 0, 0, 0.08)) !important;
             background: color-mix(in srgb, var(--bg-card) 96%, var(--main-color) 4%) !important;
         }
+
         .guide-item:hover {
             background: color-mix(in srgb, var(--main-color) 10%, var(--bg-card)) !important;
             border-color: var(--main-color) !important;
             box-shadow: 0 12px 28px var(--accent-glow) !important;
         }
+
         body.dark-theme .guide-item,
         .dark-theme .guide-item {
             background: rgba(30, 41, 59, 0.6) !important;
             border: 1.5px solid color-mix(in srgb, var(--main-color) 25%, rgba(255, 255, 255, 0.16)) !important;
         }
+
         body.dark-theme .guide-item:hover,
         .dark-theme .guide-item:hover {
             background: color-mix(in srgb, var(--main-color) 20%, rgba(30, 41, 59, 0.8)) !important;
             border-color: var(--main-color) !important;
             box-shadow: 0 12px 28px var(--accent-glow) !important;
         }
+
         body.dark-theme .guide-item-icon,
         .dark-theme .guide-item-icon {
             background: color-mix(in srgb, var(--main-color) 20%, rgba(30, 41, 59, 0.7)) !important;
             border: 1.5px solid color-mix(in srgb, var(--main-color) 35%, rgba(255, 255, 255, 0.15)) !important;
         }
+
         body.dark-theme .guide-item-action-btn,
         .dark-theme .guide-item-action-btn {
             background: color-mix(in srgb, var(--main-color) 15%, rgba(30, 41, 59, 0.7)) !important;
             border-color: color-mix(in srgb, var(--main-color) 35%, rgba(255, 255, 255, 0.2)) !important;
             color: #ffffff !important;
         }
+
         body.dark-theme .guide-item-action-btn:hover,
         .dark-theme .guide-item-action-btn:hover {
             background: var(--main-color) !important;
@@ -6157,15 +6339,19 @@
             .sights-map-card {
                 padding: 18px;
             }
+
             .sights-leaflet-frame {
                 height: 380px;
             }
+
             .sights-map-title {
                 font-size: 1.25rem;
             }
+
             .sights-map-filter-bar {
                 gap: 6px;
             }
+
             .map-filter-btn {
                 padding: 6px 12px;
                 font-size: 0.8rem;
@@ -6265,9 +6451,17 @@
         }
 
         @keyframes badgePulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.4); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.4);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         @media (max-width: 768px) {
@@ -6453,7 +6647,7 @@
             display: flex;
             gap: 6px;
             z-index: 10;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .avatar-opt {
@@ -6616,7 +6810,7 @@
             gap: 12px;
             padding: 12px 14px;
             border-radius: 14px;
-            background: var(--bg-card-hover, rgba(0,0,0,0.02));
+            background: var(--bg-card-hover, rgba(0, 0, 0, 0.02));
             border: 1px solid var(--border-card);
             transition: all 0.25s ease;
             position: relative;
@@ -6648,7 +6842,7 @@
             justify-content: center;
             font-size: 22px;
             flex-shrink: 0;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         }
 
         .badge-card.unlocked .badge-icon-box {
@@ -7191,37 +7385,69 @@
            ============================================================ */
 
         /* --- 1. svh: герой без прыжков при скрытии панели браузера --- */
-        #hero, .hero {
-            min-height: 100vh;    /* фолбэк для старых браузеров */
-            min-height: 100svh;   /* современная высота без URL-бара */
+        #hero,
+        .hero {
+            min-height: 100vh;
+            /* фолбэк для старых браузеров */
+            min-height: 100svh;
+            /* современная высота без URL-бара */
         }
 
         /* --- 2. Safe Areas: чёлка и home-индикатор iPhone в PWA --- */
-        header, .site-header {
+        header,
+        .site-header {
             padding-top: max(10px, env(safe-area-inset-top));
         }
-        footer, .site-footer, .cookie-banner {
+
+        footer,
+        .site-footer,
+        .cookie-banner {
             padding-bottom: max(14px, env(safe-area-inset-bottom));
         }
-        #btn-back-to-top, .scroll-top {
+
+        #btn-back-to-top,
+        .scroll-top {
             bottom: calc(16px + env(safe-area-inset-bottom));
-            right:  calc(16px + env(safe-area-inset-right));
+            right: calc(16px + env(safe-area-inset-right));
         }
 
         /* --- 3. pointer: coarse — тач-таргеты 44px и свайпы --- */
         @media (pointer: coarse) {
-            button, select, .chip, .filter-chip, .season-btn,
-            .carousel-arrow, .scroll-top, .icon-btn, .control-btn, .season-chip-btn {
+
+            button,
+            select,
+            .chip,
+            .filter-chip,
+            .season-btn,
+            .carousel-arrow,
+            .scroll-top,
+            .icon-btn,
+            .control-btn,
+            .season-chip-btn {
                 min-height: 44px;
                 min-width: 44px;
             }
-            .carousel-arrow { display: none; }
-            .filters, .chips-row, .city-hints { gap: 10px; }
-            .timeline-track, .timeline-scroll-container {
+
+            .carousel-arrow {
+                display: none;
+            }
+
+            .filters,
+            .chips-row,
+            .city-hints {
+                gap: 10px;
+            }
+
+            .timeline-track,
+            .timeline-scroll-container {
                 scroll-snap-type: x mandatory;
                 -webkit-overflow-scrolling: touch;
             }
-            .timeline-track > *, .timeline-scroll-container > * { scroll-snap-align: center; }
+
+            .timeline-track>*,
+            .timeline-scroll-container>* {
+                scroll-snap-align: center;
+            }
         }
 
         /* --- 3.5. Нормализация кнопки языка на смартфонах ---
@@ -7239,8 +7465,13 @@
                 border-radius: 12px;
                 line-height: 1;
             }
-            .lang-switch-btn span:first-child { font-size: 14px; line-height: 1; }
+
+            .lang-switch-btn span:first-child {
+                font-size: 14px;
+                line-height: 1;
+            }
         }
+
         @media (max-width: 440px) {
             .lang-switch-btn {
                 height: 31px;
@@ -7250,18 +7481,32 @@
                 gap: 3px;
                 border-radius: 10px;
             }
-            .lang-switch-btn span:first-child { font-size: 13px; }
+
+            .lang-switch-btn span:first-child {
+                font-size: 13px;
+            }
         }
+
         /* Совсем узкие экраны (320px): жертвуем погодной плашкой, чтобы шапка не переполнялась */
         @media (max-width: 374px) {
-            .weather-pill { display: none; }
-            .logo-text span:first-child { font-size: 11px; }
+            .weather-pill {
+                display: none;
+            }
+
+            .logo-text span:first-child {
+                font-size: 11px;
+            }
         }
 
         /* --- 4. hover: hover — отмена «залипшего» ховера на таче --- */
         @media (hover: none) and (pointer: coarse) {
-            .sight-card:hover, .route-card:hover, .quiz-card:hover,
-            .transport-card:hover, .card:hover, .btn:hover {
+
+            .sight-card:hover,
+            .route-card:hover,
+            .quiz-card:hover,
+            .transport-card:hover,
+            .card:hover,
+            .btn:hover {
                 transform: none;
                 box-shadow: none;
             }
@@ -7269,14 +7514,33 @@
 
         /* --- 5. Ландшафт телефона (высота < 500px) --- */
         @media (orientation: landscape) and (max-height: 500px) {
-            #hero, .hero { min-height: auto; padding: 96px 16px 48px; }
-            .snow, .snow-layer { display: none; }
-            .modal-body { max-height: 72vh; overflow-y: auto; }
+
+            #hero,
+            .hero {
+                min-height: auto;
+                padding: 96px 16px 48px;
+            }
+
+            .snow,
+            .snow-layer {
+                display: none;
+            }
+
+            .modal-body {
+                max-height: 72vh;
+                overflow-y: auto;
+            }
         }
 
         /* --- 6. Стекло без фолбэка: Firefox и старые браузеры --- */
         @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-            .glass, .modal, header, .card, .sight-card, .route-card {
+
+            .glass,
+            .modal,
+            header,
+            .card,
+            .sight-card,
+            .route-card {
                 backdrop-filter: none;
                 -webkit-backdrop-filter: none;
                 background: rgba(13, 27, 42, 0.94);
@@ -7285,12 +7549,25 @@
 
         /* --- 7. 4K и сверхширокие: текст не растекается --- */
         @media (min-width: 1920px) {
-            section p, section li { max-width: 75ch; }
-            .container, .wrapper { max-width: 1440px; margin-inline: auto; }
+
+            section p,
+            section li {
+                max-width: 75ch;
+            }
+
+            .container,
+            .wrapper {
+                max-width: 1440px;
+                margin-inline: auto;
+            }
         }
 
         /* --- 8. Защита от паразитного зума Safari iOS при фокусе --- */
-        input, select, textarea { font-size: 16px; }
+        input,
+        select,
+        textarea {
+            font-size: 16px;
+        }
 
         /* --- 9. Доступность (a11y): чёткая подсветка фокуса при навигации с клавиатуры --- */
         :focus-visible {
@@ -7298,9 +7575,8 @@
             outline-offset: 3px;
             border-radius: 4px;
         }
-
     </style>
-    </head>
+</head>
 
 <body class="season-autumn">
 
@@ -7321,7 +7597,8 @@
         <header>
             <div class="header-left">
                 <!-- Логотип города сокола -->
-                <a href="#hero" class="logo-group" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+                <a href="#hero" class="logo-group"
+                    onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
                     <span class="logo-icon">🦅</span>
                     <div class="logo-text">
                         <span data-i18n="logoTitle">Красноуфимск</span>
@@ -7333,7 +7610,8 @@
             <div class="header-right">
                 <!-- Виджет живой погоды Красноуфимска -->
                 <div class="weather-pill-wrapper">
-                    <div class="weather-pill" id="weather-pill" title="Прогноз погоды Красноуфимска на 7 дней" onclick="openWeatherModal()">
+                    <div class="weather-pill" id="weather-pill" title="Прогноз погоды Красноуфимска на 7 дней"
+                        onclick="openWeatherModal()">
                         <span class="weather-status-dot"></span>
                         <span id="weather-icon">🌤️</span>
                         <span id="weather-temp">--°C</span>
@@ -7342,7 +7620,8 @@
                 </div>
 
                 <!-- Кнопка «Паспорт исследователя» -->
-                <button class="achieve-btn" id="achieve-btn" title="Паспорт исследователя и достижения" aria-label="Паспорт исследователя" onclick="openPassportModal()">
+                <button class="achieve-btn" id="achieve-btn" title="Паспорт исследователя и достижения"
+                    aria-label="Паспорт исследователя" onclick="openPassportModal()">
                     <span class="achieve-icon">🎖️</span>
                     <span class="achieve-badge" id="achieve-count-badge">0</span>
                 </button>
@@ -7351,7 +7630,8 @@
                 <button class="theme-switch-btn" id="theme-switch-btn" aria-label="Toggle Dark Mode">
                     <span id="theme-icon">🌙</span>
                 </button>
-                <button class="lang-switch-btn" id="lang-switch-btn" aria-label="Switch Language / Переключить язык" title="Switch Language / Переключить язык">
+                <button class="lang-switch-btn" id="lang-switch-btn" aria-label="Switch Language / Переключить язык"
+                    title="Switch Language / Переключить язык">
                     <span>🌐</span>
                     <span id="lang-label">EN</span>
                 </button>
@@ -7434,7 +7714,8 @@
                         <span class="mobile-nav-icon">🎯</span>
                         <span data-i18n="navQuiz">Викторина</span>
                     </a>
-                    <a href="#passport-modal" class="mobile-nav-link" onclick="openPassportModal(); closeMobileMenu(); return false;">
+                    <a href="#passport-modal" class="mobile-nav-link"
+                        onclick="openPassportModal(); closeMobileMenu(); return false;">
                         <span class="mobile-nav-icon">🎖️</span>
                         <span data-i18n="passportNav">Паспорт исследователя</span>
                         <span class="mobile-achieve-badge" id="mobile-achieve-count-badge">0/12</span>
@@ -7505,7 +7786,8 @@
             <div class="season-switch-box">
                 <span class="season-switch-label" data-i18n="seasonSwitchLabel">🎨 Режим визуализации темы сайта:</span>
                 <div class="season-buttons">
-                    <button class="season-btn active" data-season="auto" id="btn-season-auto" data-i18n="btnAuto">🔄 Авто</button>
+                    <button class="season-btn active" data-season="auto" id="btn-season-auto" data-i18n="btnAuto">🔄
+                        Авто</button>
                     <button class="season-btn" data-season="autumn" data-i18n="btnAutumn">🍂 Осень</button>
                     <button class="season-btn" data-season="winter" data-i18n="btnWinter">❄️ Зима</button>
                     <button class="season-btn" data-season="spring" data-i18n="btnSpring">🌿 Весна</button>
@@ -7522,14 +7804,22 @@
         style="position: relative; height: 1px; margin-top: -1px; visibility: hidden; pointer-events: none;"></div>
     <nav class="timeline-section" id="timeline">
         <div class="timeline-wrapper">
-            <button type="button" class="timeline-arrow prev" id="timeline-prev-btn" onclick="scrollTimelineTrack(-1)" aria-label="Прокрутить ленту влево" title="Прокрутить ленту влево">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <button type="button" class="timeline-arrow prev" id="timeline-prev-btn" onclick="scrollTimelineTrack(-1)"
+                aria-label="Прокрутить ленту влево" title="Прокрутить ленту влево">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m15 18-6-6 6-6" />
+                </svg>
             </button>
             <div class="timeline-scroll-container" id="timeline-scroll-container">
                 <!-- Кнопки генерируются JS функцией buildTimelineNav() -->
             </div>
-            <button type="button" class="timeline-arrow next" id="timeline-next-btn" onclick="scrollTimelineTrack(1)" aria-label="Прокрутить ленту вправо" title="Прокрутить ленту вправо">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            <button type="button" class="timeline-arrow next" id="timeline-next-btn" onclick="scrollTimelineTrack(1)"
+                aria-label="Прокрутить ленту вправо" title="Прокрутить ленту вправо">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m9 18 6-6-6-6" />
+                </svg>
             </button>
         </div>
     </nav>
@@ -7560,16 +7850,19 @@
             <button type="button" class="sights-cat-tab active" data-cat="all" onclick="filterSightsCategory('all')">
                 <span data-i18n="mapFilterAll">🌟 Все (30)</span>
             </button>
-            <button type="button" class="sights-cat-tab" data-cat="architecture" onclick="filterSightsCategory('architecture')">
+            <button type="button" class="sights-cat-tab" data-cat="architecture"
+                onclick="filterSightsCategory('architecture')">
                 <span data-i18n="mapFilterArch">🏛️ Архитектура (13)</span>
             </button>
-            <button type="button" class="sights-cat-tab" data-cat="monuments" onclick="filterSightsCategory('monuments')">
+            <button type="button" class="sights-cat-tab" data-cat="monuments"
+                onclick="filterSightsCategory('monuments')">
                 <span data-i18n="mapFilterMonuments">🚩 Памятники (11)</span>
             </button>
             <button type="button" class="sights-cat-tab" data-cat="nature" onclick="filterSightsCategory('nature')">
                 <span data-i18n="mapFilterNature">🌿 Природа (4)</span>
             </button>
-            <button type="button" class="sights-cat-tab" data-cat="engineering" onclick="filterSightsCategory('engineering')">
+            <button type="button" class="sights-cat-tab" data-cat="engineering"
+                onclick="filterSightsCategory('engineering')">
                 <span data-i18n="mapFilterEng">🌉 Виадуки и Ж/Д (2)</span>
             </button>
         </div>
@@ -7586,11 +7879,14 @@
                 <button type="button" class="sights-nav-btn" onclick="stepSight(-1)" title="Предыдущий объект"
                     aria-label="Предыдущий объект">◀</button>
                 <div class="sights-select-box" id="sights-custom-wrap">
-                    <button type="button" class="sights-custom-trigger" id="sights-custom-trigger" onclick="toggleSightsCustomMenu(event)" aria-haspopup="listbox" aria-expanded="false" title="Открыть список достопримечательностей">
+                    <button type="button" class="sights-custom-trigger" id="sights-custom-trigger"
+                        onclick="toggleSightsCustomMenu(event)" aria-haspopup="listbox" aria-expanded="false"
+                        title="Открыть список достопримечательностей">
                         <span class="sights-trigger-inner" id="sights-trigger-content">
                             <span class="sights-trigger-num" id="sights-trigger-num">1.</span>
                             <span class="sights-trigger-icon" id="sights-trigger-icon">🏡</span>
-                            <span class="sights-trigger-title" id="sights-trigger-title">Казачья изба: колыбель крепости</span>
+                            <span class="sights-trigger-title" id="sights-trigger-title">Казачья изба: колыбель
+                                крепости</span>
                             <span class="sights-trigger-year" id="sights-trigger-year">(XVIII в.)</span>
                         </span>
                         <span class="sights-trigger-arrow" id="sights-trigger-arrow">▾</span>
@@ -7598,8 +7894,11 @@
                     <div class="sights-custom-menu" id="sights-custom-menu" role="listbox">
                         <div class="sights-menu-search-box">
                             <span class="sights-search-icon">🔍</span>
-                            <input type="text" id="sights-search-input" class="sights-search-input" placeholder="Поиск объекта..." oninput="onSightsSearchInput(this.value)" autocomplete="off">
-                            <button type="button" class="sights-search-clear-btn" id="sights-search-clear-btn" onclick="clearSightsSearch()" title="Очистить" style="display:none;">✕</button>
+                            <input type="text" id="sights-search-input" class="sights-search-input"
+                                placeholder="Поиск объекта..." oninput="onSightsSearchInput(this.value)"
+                                autocomplete="off">
+                            <button type="button" class="sights-search-clear-btn" id="sights-search-clear-btn"
+                                onclick="clearSightsSearch()" title="Очистить" style="display:none;">✕</button>
                         </div>
                         <div class="sights-custom-options-list" id="sights-custom-options-list">
                             <!-- Заполняется динамически -->
@@ -7627,11 +7926,14 @@
             <div class="sights-map-header">
                 <div class="sights-map-title-wrap">
                     <span class="sights-map-badge" data-i18n="sightsMapBadge">📍 Интерактивная карта</span>
-                    <h3 class="sights-map-title" data-i18n="sightsMapTitle">30 памятников и исторических мест на карте Красноуфимска</h3>
-                    <p class="sights-map-desc" data-i18n="sightsMapDesc">Нажмите на любую метку, чтобы открыть краткую справку и перейти к подробному изучению объекта в каталоге.</p>
+                    <h3 class="sights-map-title" data-i18n="sightsMapTitle">30 памятников и исторических мест на карте
+                        Красноуфимска</h3>
+                    <p class="sights-map-desc" data-i18n="sightsMapDesc">Нажмите на любую метку, чтобы открыть краткую
+                        справку и перейти к подробному изучению объекта в каталоге.</p>
                 </div>
                 <div class="sights-map-controls">
-                    <button type="button" class="sights-map-btn-reset" onclick="resetSightsMapView()" title="Сбросить масштаб и показать весь город" data-i18n="sightsMapReset">
+                    <button type="button" class="sights-map-btn-reset" onclick="resetSightsMapView()"
+                        title="Сбросить масштаб и показать весь город" data-i18n="sightsMapReset">
                         🎯 Показать все объекты
                     </button>
                 </div>
@@ -7639,19 +7941,24 @@
 
             <!-- Фильтры категорий на карте -->
             <div class="sights-map-filter-bar" id="sights-map-filter-bar">
-                <button type="button" class="map-filter-btn active" data-cat="all" onclick="filterSightsMap('all')" data-i18n="mapFilterAll">
+                <button type="button" class="map-filter-btn active" data-cat="all" onclick="filterSightsMap('all')"
+                    data-i18n="mapFilterAll">
                     🌟 Все (30)
                 </button>
-                <button type="button" class="map-filter-btn" data-cat="architecture" onclick="filterSightsMap('architecture')" data-i18n="mapFilterArch">
+                <button type="button" class="map-filter-btn" data-cat="architecture"
+                    onclick="filterSightsMap('architecture')" data-i18n="mapFilterArch">
                     🏛️ Архитектура (13)
                 </button>
-                <button type="button" class="map-filter-btn" data-cat="monuments" onclick="filterSightsMap('monuments')" data-i18n="mapFilterMonuments">
+                <button type="button" class="map-filter-btn" data-cat="monuments" onclick="filterSightsMap('monuments')"
+                    data-i18n="mapFilterMonuments">
                     🚩 Памятники (11)
                 </button>
-                <button type="button" class="map-filter-btn" data-cat="nature" onclick="filterSightsMap('nature')" data-i18n="mapFilterNature">
+                <button type="button" class="map-filter-btn" data-cat="nature" onclick="filterSightsMap('nature')"
+                    data-i18n="mapFilterNature">
                     🌿 Природа (4)
                 </button>
-                <button type="button" class="map-filter-btn" data-cat="engineering" onclick="filterSightsMap('engineering')" data-i18n="mapFilterEng">
+                <button type="button" class="map-filter-btn" data-cat="engineering"
+                    onclick="filterSightsMap('engineering')" data-i18n="mapFilterEng">
                     🌉 Виадуки и Ж/Д (2)
                 </button>
             </div>
@@ -7660,9 +7967,10 @@
             <div class="sights-leaflet-frame">
                 <div id="sights-leaflet-map"></div>
             </div>
-            
+
             <div class="sights-map-footer">
-                <span class="sights-map-hint" data-i18n="sightsMapHint">💡 Нажатие на карточку в каталоге выше автоматически центрирует карту на выбранном памятнике</span>
+                <span class="sights-map-hint" data-i18n="sightsMapHint">💡 Нажатие на карточку в каталоге выше
+                    автоматически центрирует карту на выбранном памятнике</span>
             </div>
         </div>
 
@@ -7779,7 +8087,8 @@
                     role="button" tabindex="0">
                     <span class="guide-item-icon">🚆</span>
                     <h4 data-i18n="g1Title">Как добраться</h4>
-                    <p data-i18n="g1Desc">Скоростные электропоезда «Ласточка» / «Финист» Екатеринбург — Красноуфимск (~3 ч 20 мин) и
+                    <p data-i18n="g1Desc">Скоростные электропоезда «Ласточка» / «Финист» Екатеринбург — Красноуфимск (~3
+                        ч 20 мин) и
                         поезда дальнего следования. На автомобиле — по федеральной трассе Р-242 (Пермский тракт) и
                         скоростной трассе М-12 «Восток» до примыкания Дюртюли—Ачит, далее по Р-242 до Красноуфимска.</p>
                     <button type="button" class="guide-item-action-btn" data-i18n="g1Btn"
@@ -7793,7 +8102,8 @@
                     <span class="guide-item-icon">🏛️</span>
                     <h4 data-i18n="g2Title">Что посмотреть</h4>
                     <p data-i18n="g2Desc">Краеведческий музей с макетом крепости 1736 года, панорама с Дивьей горы
-                        на реку Уфу, обновлённая набережная «Красный Яр», исторический вокзал (архитектурная мастерская А. В. Щусева) и
+                        на реку Уфу, обновлённая набережная «Красный Яр», исторический вокзал (архитектурная мастерская
+                        А. В. Щусева) и
                         вековые виадуки.</p>
                     <button type="button" class="guide-item-action-btn" data-i18n="g2Btn"
                         onclick="event.stopPropagation(); scrollToSection('sights', 85);">📜 Смотреть объекты в ленте
@@ -7802,7 +8112,8 @@
 
                 <!-- 3. ГДЕ ОТДОХНУТЬ И ПОЕСТЬ -->
                 <div class="guide-item reveal-on-scroll reveal-delay-3"
-                    onclick="window.open('https://yandex.ru/maps/20691/krasnoufimsk/category/cafe/184106390/', '_blank', 'noopener,noreferrer')" role="button" tabindex="0">
+                    onclick="window.open('https://yandex.ru/maps/20691/krasnoufimsk/category/cafe/184106390/', '_blank', 'noopener,noreferrer')"
+                    role="button" tabindex="0">
                     <span class="guide-item-icon">☕</span>
                     <h4 data-i18n="g3Title">Где отдохнуть и поесть</h4>
                     <p data-i18n="g3Desc">Уютные городские кафе и кофейни на исторической улице Советской и смотровые
@@ -7861,10 +8172,12 @@
                     <h4 data-i18n="g2TitlePrint">История в датах</h4>
                     <ul class="guide-history-list">
                         <li><strong>1736</strong> — Основание крепости Красный Яр полковником А. И. Тевкелевым</li>
-                        <li><strong>1781 / 1783</strong> — Статус уездного города (1781 г.), высочайшее утверждение герба с соколом (1783 г.)</li>
+                        <li><strong>1781 / 1783</strong> — Статус уездного города (1781 г.), высочайшее утверждение
+                            герба с соколом (1783 г.)</li>
                         <li><strong>1875</strong> — Реальное училище в Красноуфимске</li>
                         <li><strong>1880–1886</strong> — Работа М. И. Мизерова и строительство земской больницы</li>
-                        <li><strong>1915–1924</strong> — Постройка вокзала (мастерская А. В. Щусева, 1915 г.) и открытие движения поездов (1924 г.)</li>
+                        <li><strong>1915–1924</strong> — Постройка вокзала (мастерская А. В. Щусева, 1915 г.) и открытие
+                            движения поездов (1924 г.)</li>
                         <li><strong>1941–1945</strong> — Красноуфимцы на фронте и в тылу</li>
                         <li><strong>2026</strong> — 290-летие города</li>
                     </ul>
@@ -7917,9 +8230,13 @@
             <div class="planner-cta-content">
                 <span class="planner-cta-badge" data-i18n="plannerCtaBadge">🧭 Планирование поездки • 2026</span>
                 <h3 class="planner-cta-title" data-i18n="plannerCtaTitle">Планируете поездку в Красноуфимск?</h3>
-                <p class="planner-cta-desc" data-i18n="plannerCtaDesc">Рассчитайте удобный маршрут из вашего города (скоростные электропоезда «Ласточка» / «Финист», прямой поезд, автобус или автомобиль по М-12 «Восток» и Р-242), узнайте время в пути, примерную стоимость билетов, отелей и получите готовую программу путешествия в нашем умном планировщике.</p>
+                <p class="planner-cta-desc" data-i18n="plannerCtaDesc">Рассчитайте удобный маршрут из вашего города
+                    (скоростные электропоезда «Ласточка» / «Финист», прямой поезд, автобус или автомобиль по М-12
+                    «Восток» и Р-242), узнайте время в пути, примерную стоимость билетов, отелей и получите готовую
+                    программу путешествия в нашем умном планировщике.</p>
             </div>
-            <a href="planner.html" class="planner-cta-btn" onclick="if (typeof trackPlannerOpen === 'function') trackPlannerOpen();">
+            <a href="planner.html" class="planner-cta-btn"
+                onclick="if (typeof trackPlannerOpen === 'function') trackPlannerOpen();">
                 <span>🧭</span> <span data-i18n="plannerCtaBtn">Открыть планировщик поездки →</span>
             </a>
         </div>
@@ -7934,7 +8251,8 @@
             <div class="quiz-header">
                 <span class="quiz-badge" data-i18n="quizBadge">💡 Проверь свои знания</span>
                 <h2 data-i18n="quizHeading">Викторина: «Знаток Красноуфимска»</h2>
-                <p data-i18n="quizSub">Ответьте на вопросы 3 уровней сложности по истории города и получите именной диплом!</p>
+                <p data-i18n="quizSub">Ответьте на вопросы 3 уровней сложности по истории города и получите именной
+                    диплом!</p>
                 <button class="btn-toggle-quiz" id="btn-toggle-quiz" onclick="toggleQuiz()">
                     🎯 <span id="quiz-toggle-text" data-i18n="btnStartQuiz">Начать викторину</span>
                 </button>
@@ -7957,23 +8275,22 @@
                     </div>
 
                     <h3 class="quiz-results-title" id="quiz-score-text">Правильных ответов: 20 из 20</h3>
-                    <p class="quiz-results-desc" id="quiz-desc-text">Отлично! Вы настоящий знаток истории Красноуфимска!</p>
+                    <p class="quiz-results-desc" id="quiz-desc-text">Отлично! Вы настоящий знаток истории Красноуфимска!
+                    </p>
 
                     <!-- Блок именного диплома формата А4 -->
                     <div class="quiz-cert-claim-box" id="cert-box">
                         <div class="cert-claim-header">
                             <span class="cert-claim-icon">📜</span>
-                            <span class="cert-claim-label" data-i18n="certClaimLabel">Именной диплом знатока (формат А4 для печати)</span>
+                            <span class="cert-claim-label" data-i18n="certClaimLabel">Именной диплом знатока (формат А4
+                                для печати)</span>
                         </div>
 
                         <div class="cert-input-wrapper">
                             <span class="cert-input-pen">✍️</span>
-                            <input type="text" id="cert-name-input" 
-                                   class="cert-name-input" 
-                                   placeholder="Введите ваше имя и фамилию" 
-                                   maxlength="50"
-                                   data-i18n-placeholder="certNamePlaceholder"
-                                   autocomplete="name">
+                            <input type="text" id="cert-name-input" class="cert-name-input"
+                                placeholder="Введите ваше имя и фамилию" maxlength="50"
+                                data-i18n-placeholder="certNamePlaceholder" autocomplete="name">
                         </div>
 
                         <div class="cert-action-row">
@@ -7999,13 +8316,15 @@
         <div class="pwa-install-card">
             <div class="pwa-card-header">
                 <div class="pwa-icon-glow">
-                    <img src="images/apple-touch-icon.png?v=7" alt="Логотип Красноуфимск" class="pwa-app-logo" loading="lazy" decoding="async" width="64" height="64">
+                    <img src="images/apple-touch-icon.png?v=7" alt="Логотип Красноуфимск" class="pwa-app-logo"
+                        loading="lazy" decoding="async" width="64" height="64">
                 </div>
                 <div class="pwa-text-header">
                     <span class="pwa-badge" data-i18n="pwaBadge">📲 Мобильное приложение PWA</span>
                     <h2 class="pwa-title" data-i18n="pwaTitle">Установите путеводитель на смартфон или ПК</h2>
                     <p class="pwa-subtitle" data-i18n="pwaSubtitle">
-                        Быстрый доступ ко всем 30 достопримечательностям, истории и викторине даже без интернета (офлайн). Без App Store и Google Play — в 1 клик!
+                        Быстрый доступ ко всем 30 достопримечательностям, истории и викторине даже без интернета
+                        (офлайн). Без App Store и Google Play — в 1 клик!
                     </p>
                 </div>
             </div>
@@ -8069,7 +8388,8 @@
                 Красноуфимск • 2026 год. Разработано с гордостью за родной край.
             </div>
             <div class="footer-legal">
-                <a href="#privacy-modal" onclick="openPrivacyModal(); return false;" class="footer-legal-link" data-i18n="footerPrivacyLink">🔒 Политика конфиденциальности и 152-ФЗ</a>
+                <a href="#privacy-modal" onclick="openPrivacyModal(); return false;" class="footer-legal-link"
+                    data-i18n="footerPrivacyLink">🔒 Политика конфиденциальности и 152-ФЗ</a>
                 <span class="footer-legal-sep">•</span>
                 <span data-i18n="footerTerms">Некоммерческий образовательный краеведческий проект</span>
             </div>
@@ -8082,20 +8402,24 @@
     <!-- ==========================================================================
        МОДАЛЬНОЕ ОКНО ПОГОДЫ И ПРОГНОЗА НА 7 ДНЕЙ (CENTERED GLASSMORPHISM MODAL)
        ========================================================================== -->
-    <div class="weather-modal-backdrop" id="weather-modal-backdrop" aria-hidden="true" onclick="handleWeatherBackdropClick(event)">
-        <div class="weather-modal-window" id="weather-details-card" role="dialog" aria-modal="true" aria-labelledby="weather-card-desc">
+    <div class="weather-modal-backdrop" id="weather-modal-backdrop" aria-hidden="true"
+        onclick="handleWeatherBackdropClick(event)">
+        <div class="weather-modal-window" id="weather-details-card" role="dialog" aria-modal="true"
+            aria-labelledby="weather-card-desc">
             <!-- Шапка окна погоды -->
             <div class="weather-modal-header">
                 <div class="weather-title-wrap">
                     <span class="weather-modal-icon" id="weather-modal-main-icon">⛅</span>
                     <div>
                         <h3 id="weather-card-desc" data-i18n="weatherTitle">Погода в Красноуфимске</h3>
-                        <span class="weather-modal-coords" data-i18n="weatherCoords">Свердловская область • 56.6° с.ш., 57.8° в.д.</span>
+                        <span class="weather-modal-coords" data-i18n="weatherCoords">Свердловская область • 56.6° с.ш.,
+                            57.8° в.д.</span>
                     </div>
                 </div>
                 <div class="weather-modal-actions">
                     <span id="weather-card-badge" class="weather-status-badge" data-i18n="weatherLive">● Онлайн</span>
-                    <button type="button" id="btn-close-weather" class="weather-modal-close" onclick="closeWeatherModal()" title="Закрыть" aria-label="Закрыть окно погоды">✕</button>
+                    <button type="button" id="btn-close-weather" class="weather-modal-close"
+                        onclick="closeWeatherModal()" title="Закрыть" aria-label="Закрыть окно погоды">✕</button>
                 </div>
             </div>
 
@@ -8108,7 +8432,8 @@
                         <div class="weather-hero-text">
                             <div class="weather-hero-desc" id="weather-hero-summary">Загрузка данных...</div>
                             <div class="weather-hero-feels">
-                                <span data-i18n="weatherFeels">Ощущается как</span> <strong id="weather-feels">--°C</strong>
+                                <span data-i18n="weatherFeels">Ощущается как</span> <strong
+                                    id="weather-feels">--°C</strong>
                             </div>
                         </div>
                     </div>
@@ -8140,7 +8465,8 @@
                 <!-- Блок прогноза на 7 дней -->
                 <div class="weather-forecast-section">
                     <div class="weather-forecast-header">
-                        <span class="forecast-section-title" data-i18n="weatherForecastTitle">📅 ПРОГНОЗ НА 7 ДНЕЙ</span>
+                        <span class="forecast-section-title" data-i18n="weatherForecastTitle">📅 ПРОГНОЗ НА 7
+                            ДНЕЙ</span>
                         <span class="forecast-service-tag">met.no</span>
                     </div>
                     <div class="weather-forecast-track" id="weather-forecast-days">
@@ -8152,7 +8478,8 @@
             <!-- Футер окна -->
             <div class="weather-modal-footer">
                 <span id="weather-time" data-i18n="weatherUpdated">Ожидание данных...</span>
-                <button type="button" class="btn-refresh-weather" id="btn-refresh-weather" onclick="refreshWeatherWithAnimation()">
+                <button type="button" class="btn-refresh-weather" id="btn-refresh-weather"
+                    onclick="refreshWeatherWithAnimation()">
                     <span class="weather-refresh-icon" id="weather-refresh-icon">🔄</span>
                     <span id="weather-refresh-text" data-i18n="weatherRefresh">Обновить</span>
                 </button>
@@ -8163,7 +8490,8 @@
     <!-- ==========================================================================
        МОДАЛЬНОЕ ОКНО «ПАСПОРТ ИССЛЕДОВАТЕЛЯ КРАСНОУФИМСКА»
        ========================================================================== -->
-    <div class="passport-modal-backdrop" id="passport-modal" aria-hidden="true" onclick="handlePassportBackdropClick(event)">
+    <div class="passport-modal-backdrop" id="passport-modal" aria-hidden="true"
+        onclick="handlePassportBackdropClick(event)">
         <div class="passport-modal-window" role="dialog" aria-modal="true" aria-labelledby="passport-modal-title">
             <div class="passport-modal-header">
                 <div class="passport-title-wrap">
@@ -8173,25 +8501,34 @@
                         <span class="passport-subtitle" data-i18n="passportModalSub">Красноуфимск • Сквозь эпохи</span>
                     </div>
                 </div>
-                <button type="button" class="passport-close-btn" onclick="closePassportModal()" aria-label="Закрыть">✕</button>
+                <button type="button" class="passport-close-btn" onclick="closePassportModal()"
+                    aria-label="Закрыть">✕</button>
             </div>
 
             <div class="passport-modal-body">
                 <!-- Профиль путешественника -->
                 <div class="passport-profile-card">
                     <div class="passport-avatar-picker">
-                        <button type="button" class="passport-avatar-btn" id="passport-avatar-current" onclick="toggleAvatarDropdown(event)" title="Сменить аватар">🧭</button>
+                        <button type="button" class="passport-avatar-btn" id="passport-avatar-current"
+                            onclick="toggleAvatarDropdown(event)" title="Сменить аватар">🧭</button>
                         <div class="passport-avatar-dropdown" id="passport-avatar-dropdown" style="display: none;">
-                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🧭')" aria-label="Аватар: Компас" title="Компас">🧭</button>
-                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🏛️')" aria-label="Аватар: Музей" title="Музей">🏛️</button>
-                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🚂')" aria-label="Аватар: Паровоз" title="Паровоз">🚂</button>
-                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🦈')" aria-label="Аватар: Акула Геликоприон" title="Акула Геликоприон">🦈</button>
-                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🦅')" aria-label="Аватар: Сокол" title="Сокол">🦅</button>
+                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🧭')"
+                                aria-label="Аватар: Компас" title="Компас">🧭</button>
+                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🏛️')"
+                                aria-label="Аватар: Музей" title="Музей">🏛️</button>
+                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🚂')"
+                                aria-label="Аватар: Паровоз" title="Паровоз">🚂</button>
+                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🦈')"
+                                aria-label="Аватар: Акула Геликоприон" title="Акула Геликоприон">🦈</button>
+                            <button type="button" class="avatar-opt" onclick="setPassportAvatar('🦅')"
+                                aria-label="Аватар: Сокол" title="Сокол">🦅</button>
                         </div>
                     </div>
                     <div class="passport-user-info">
                         <div class="passport-name-row">
-                            <input type="text" id="passport-user-name" class="passport-name-input" value="Исследователь" maxlength="25" oninput="savePassportName(this.value)" placeholder="Ваше имя" title="Нажмите для смены имени">
+                            <input type="text" id="passport-user-name" class="passport-name-input" value="Исследователь"
+                                maxlength="25" oninput="savePassportName(this.value)" placeholder="Ваше имя"
+                                title="Нажмите для смены имени">
                             <span class="passport-edit-hint">✏️</span>
                         </div>
                         <div class="passport-rank-row">
@@ -8217,8 +8554,10 @@
             </div>
 
             <div class="passport-modal-footer">
-                <button type="button" class="passport-reset-btn" onclick="resetPassportProgress()" data-i18n="passportReset">🔄 Сбросить прогресс</button>
-                <button type="button" class="passport-done-btn" onclick="closePassportModal()" data-i18n="passportDone" aria-label="Закрыть паспорт исследователя">Готово</button>
+                <button type="button" class="passport-reset-btn" onclick="resetPassportProgress()"
+                    data-i18n="passportReset">🔄 Сбросить прогресс</button>
+                <button type="button" class="passport-done-btn" onclick="closePassportModal()" data-i18n="passportDone"
+                    aria-label="Закрыть паспорт исследователя">Готово</button>
             </div>
         </div>
     </div>
@@ -8231,33 +8570,51 @@
             <strong class="achieve-toast-title" id="achieve-toast-title">Название</strong>
             <span class="achieve-toast-desc" id="achieve-toast-desc">Описание</span>
         </div>
-        <button type="button" class="achieve-toast-btn" onclick="openPassportModal(); hideAchieveToast();" data-i18n="achieveToastBtn">Паспорт</button>
+        <button type="button" class="achieve-toast-btn" onclick="openPassportModal(); hideAchieveToast();"
+            data-i18n="achieveToastBtn">Паспорт</button>
     </div>
 
     <!-- ==========================================================================
        МОДАЛЬНОЕ ОКНО «ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ И 152-ФЗ / GDPR»
        ========================================================================== -->
-    <div class="passport-modal-backdrop" id="privacy-modal" aria-hidden="true" onclick="if(event.target===this) closePrivacyModal()">
+    <div class="passport-modal-backdrop" id="privacy-modal" aria-hidden="true"
+        onclick="if(event.target===this) closePrivacyModal()">
         <div class="passport-modal-window" role="dialog" aria-modal="true" style="max-width: 620px;">
             <div class="passport-modal-header">
                 <div class="passport-title-wrap">
                     <span class="passport-emblem">🔒</span>
                     <div>
                         <h3 data-i18n="privacyModalTitle">Политика конфиденциальности и 152-ФЗ</h3>
-                        <span class="passport-subtitle" data-i18n="privacyModalSub">Красноуфимск: Сквозь эпохи • 2026</span>
+                        <span class="passport-subtitle" data-i18n="privacyModalSub">Красноуфимск: Сквозь эпохи •
+                            2026</span>
                     </div>
                 </div>
-                <button type="button" class="passport-close-btn" onclick="closePrivacyModal()" aria-label="Закрыть">✕</button>
+                <button type="button" class="passport-close-btn" onclick="closePrivacyModal()"
+                    aria-label="Закрыть">✕</button>
             </div>
             <div class="passport-modal-body" style="font-size:0.88rem; line-height:1.6; color:var(--text-main);">
-                <p data-i18n="privacyP1"><strong>1. Статус проекта и оператор:</strong> Интерактивный путеводитель «Красноуфимск: Сквозь эпохи» является некоммерческим исследовательским образовательно-краеведческим веб-ресурсом, созданным в рамках индивидуального школьного проекта.</p>
-                <p data-i18n="privacyP2"><strong>2. Локальное хранилище (localStorage) и cookie:</strong> Проект не использует сторонние трекеры персональных данных. Данные о выбранной теме оформления (сезоне), языке (RU/EN), настройках калькулятора поездки и прогрессе викторины сохраняются <em>исключительно на вашем устройстве</em> в локальной памяти браузера.</p>
-                <p data-i18n="privacyP3"><strong>3. Персональные данные (152-ФЗ и GDPR):</strong> Сайт не собирает, не запрашивает и не передаёт третьим лицам паспортные данные, номера телефонов, платёжные реквизиты или реальные геолокационные треки. Имя для сертификата исследователя генерируется на клиенте и не покидает ваш браузер.</p>
-                <p data-i18n="privacyP4"><strong>4. Внешние сервисы и API:</strong> Прогноз погоды и геокодирование городов запрашиваются напрямую через защищённые открытые протоколы HTTPS у служб Open-Meteo и Met.no без передачи идентифицирующих сведений.</p>
-                <p data-i18n="privacyP5"><strong>5. Авторские права и лицензии:</strong> Исторические материалы и фотохроника получены из открытых фондов Красноуфимского краеведческого музея, Государственного архива Свердловской области и находятся в общественном достоянии либо используются в учебно-просветительских целях со ссылкой на первоисточники.</p>
+                <p data-i18n="privacyP1"><strong>1. Статус проекта и оператор:</strong> Интерактивный путеводитель
+                    «Красноуфимск: Сквозь эпохи» является некоммерческим исследовательским образовательно-краеведческим
+                    веб-ресурсом, созданным в рамках индивидуального школьного проекта.</p>
+                <p data-i18n="privacyP2"><strong>2. Локальное хранилище (localStorage) и cookie:</strong> Проект не
+                    использует сторонние трекеры персональных данных. Данные о выбранной теме оформления (сезоне), языке
+                    (RU/EN), настройках калькулятора поездки и прогрессе викторины сохраняются <em>исключительно на
+                        вашем устройстве</em> в локальной памяти браузера.</p>
+                <p data-i18n="privacyP3"><strong>3. Персональные данные (152-ФЗ и GDPR):</strong> Сайт не собирает, не
+                    запрашивает и не передаёт третьим лицам паспортные данные, номера телефонов, платёжные реквизиты или
+                    реальные геолокационные треки. Имя для сертификата исследователя генерируется на клиенте и не
+                    покидает ваш браузер.</p>
+                <p data-i18n="privacyP4"><strong>4. Внешние сервисы и API:</strong> Прогноз погоды и геокодирование
+                    городов запрашиваются напрямую через защищённые открытые протоколы HTTPS у служб Open-Meteo и Met.no
+                    без передачи идентифицирующих сведений.</p>
+                <p data-i18n="privacyP5"><strong>5. Авторские права и лицензии:</strong> Исторические материалы и
+                    фотохроника получены из открытых фондов Красноуфимского краеведческого музея, Государственного
+                    архива Свердловской области и находятся в общественном достоянии либо используются в
+                    учебно-просветительских целях со ссылкой на первоисточники.</p>
             </div>
             <div class="passport-modal-footer">
-                <button type="button" class="passport-done-btn" onclick="closePrivacyModal()" data-i18n="privacyDoneBtn">Понятно</button>
+                <button type="button" class="passport-done-btn" onclick="closePrivacyModal()"
+                    data-i18n="privacyDoneBtn">Понятно</button>
             </div>
         </div>
     </div>
@@ -8267,12 +8624,16 @@
         <div class="cookie-banner-content">
             <span class="cookie-banner-icon">🍪</span>
             <div class="cookie-banner-text">
-                <span data-i18n="cookieNotice">Этот сайт использует cookie и localStorage для сохранения настроек темы, языка и прогресса викторины (в соответствии с 152-ФЗ и GDPR). Персональные данные не собираются.</span>
+                <span data-i18n="cookieNotice">Этот сайт использует cookie и localStorage для сохранения настроек темы,
+                    языка и прогресса викторины (в соответствии с 152-ФЗ и GDPR). Персональные данные не
+                    собираются.</span>
             </div>
         </div>
         <div class="cookie-banner-actions">
-            <button type="button" class="cookie-btn-accept" onclick="acceptCookies()" data-i18n="cookieAccept">Принять</button>
-            <button type="button" class="cookie-btn-info" onclick="openPrivacyModal()" data-i18n="cookieInfo">Подробнее</button>
+            <button type="button" class="cookie-btn-accept" onclick="acceptCookies()"
+                data-i18n="cookieAccept">Принять</button>
+            <button type="button" class="cookie-btn-info" onclick="openPrivacyModal()"
+                data-i18n="cookieInfo">Подробнее</button>
         </div>
     </div>
 
@@ -8290,10 +8651,10 @@
         }
 
         // Глобальный мониторинг стабильности и ошибок скриптов
-        window.addEventListener('error', function(e) {
+        window.addEventListener('error', function (e) {
             console.warn('[Global Handler] Non-fatal runtime notice:', e.message || e);
         });
-        window.addEventListener('unhandledrejection', function(e) {
+        window.addEventListener('unhandledrejection', function (e) {
             console.warn('[Global Handler] Unhandled promise rejection notice:', e.reason);
         });
 
@@ -8755,7 +9116,7 @@
            ========================================================================== */
         window.fallbackImages = {};
 
-        
+
 
         /* ==========================================================================
            МОБИЛЬНОЕ МЕНЮ (АДАПТИВНАЯ НАВИГАЦИЯ ДЛЯ СМАРТФОНОВ)
@@ -9620,12 +9981,12 @@
            из текущего года (в 2026 году = 290 лет, в 2027 = 291 год и т.д.).
            Правила склонения (лет / год / года) полностью соблюдены для RU и EN.
            ========================================================================== */
-        
+
 
         /* ==========================================================================
    [1]: СМЕНА ЯЗЫКА (RU / EN)
    ========================================================================== */
-        
+
 
         function updateCityAge() {
             const currentYear = new Date().getFullYear();
@@ -10089,7 +10450,7 @@
         let cachedWeatherState = null;
 
         // Открытие и закрытие центрального модального окна погоды
-        window.openWeatherModal = function() {
+        window.openWeatherModal = function () {
             const modal = document.getElementById('weather-modal-backdrop');
             if (!modal) return;
             modal.classList.add('active');
@@ -10097,7 +10458,7 @@
             document.body.classList.add('modal-open');
         };
 
-        window.closeWeatherModal = function() {
+        window.closeWeatherModal = function () {
             const modal = document.getElementById('weather-modal-backdrop');
             if (!modal) return;
             modal.classList.remove('active');
@@ -10110,7 +10471,7 @@
             }
         };
 
-        window.handleWeatherBackdropClick = function(e) {
+        window.handleWeatherBackdropClick = function (e) {
             if (e.target && e.target.id === 'weather-modal-backdrop') {
                 closeWeatherModal();
             }
@@ -10335,9 +10696,9 @@
 
                     let chosen = points.find(p => p.time.includes('T12:00:00Z') || p.time.includes('T11:00:00Z') || p.time.includes('T13:00:00Z')) || points[0];
                     let code = (chosen.data.next_1_hours && chosen.data.next_1_hours.summary.symbol_code) ||
-                               (chosen.data.next_6_hours && chosen.data.next_6_hours.summary.symbol_code) ||
-                               (chosen.data.next_12_hours && chosen.data.next_12_hours.summary.symbol_code) ||
-                               'partlycloudy_day';
+                        (chosen.data.next_6_hours && chosen.data.next_6_hours.summary.symbol_code) ||
+                        (chosen.data.next_12_hours && chosen.data.next_12_hours.summary.symbol_code) ||
+                        'partlycloudy_day';
                     const wmo = getMetInfo(code);
                     const dateObj = new Date(dStr + 'T12:00:00');
                     return { dateStr: dStr, dateObj, high, low, wmo, symCode: code };
@@ -10474,7 +10835,7 @@
                         updateWeatherDisplay(typeof currentLang !== 'undefined' ? currentLang : 'ru');
                         return;
                     }
-                } catch (err) {}
+                } catch (err) { }
 
                 // Сезонная базовая погода Красноуфимска при отсутствии сети и кэша
                 const season = typeof getNaturalSeason === 'function' ? getNaturalSeason() : 'autumn';
@@ -11158,7 +11519,7 @@
             if (directUrl && typeof directUrl === 'string' && directUrl.startsWith('https://')) {
                 return directUrl;
             }
-            
+
             const hasCoords = lat && lon && !isNaN(parseFloat(lat)) && !isNaN(parseFloat(lon));
 
             // 2. Самый надёжный и безотказный режим Яндекс.Карт — точная координатная метка whatshere[point]
@@ -11534,7 +11895,7 @@
                 address: { ru: 'ул. Пролетарская, 50', en: '50 Proletarskaya St.' },
                 queryRu: 'Здание, в котором в 1919 году размещался штаб 28 дивизии под командованием В. М. Азина, Красноуфимск, Пролетарская 50', queryEn: 'Krasnoufimsk Azin 28th division headquarters'
             }
-        ,
+            ,
             {
                 id: 'girl_airplane', lat: '56.622400', lon: '57.775550', hasMapMark: true, cat: 'monuments', icon: '✈️', year: '2020-е гг.',
                 style: { ru: 'Современная городская скульптура', en: 'Modern Urban Sculpture' },
@@ -11546,7 +11907,7 @@
                 directUrl: 'https://yandex.ru/maps/org/devochka_s_samolyotikom/173709599756/',
                 queryRu: 'Скульптура Девочка с самолетиком Красноуфимск', queryEn: 'Krasnoufimsk Girl with an Airplane sculpture'
             }
-        ,
+            ,
             {
                 id: 'watchtower', lat: '56.622410', lon: '57.771979', hasMapMark: true, cat: 'monuments', icon: '🗼', year: 'XVIII в.',
                 style: { ru: 'Деревянное крепостное зодчество (утрачено)', en: 'Wooden Fortress Architecture (lost)' },
@@ -11813,7 +12174,7 @@
             updateSightsDropdownMenu();
         }
 
-        
+
         /* ==========================================================================
            ИНТЕРАКТИВНАЯ КАРТА ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ (LEAFLET + КАРТОГРАФИЯ)
            ========================================================================== */
@@ -11847,8 +12208,8 @@
                 }).addTo(sightsMap);
 
                 // Включаем колесо мыши при клике по карте и отключаем при уходе курсора
-                sightsMap.on('focus', function() { sightsMap.scrollWheelZoom.enable(); });
-                mapEl.addEventListener('mouseleave', function() { sightsMap.scrollWheelZoom.disable(); });
+                sightsMap.on('focus', function () { sightsMap.scrollWheelZoom.enable(); });
+                mapEl.addEventListener('mouseleave', function () { sightsMap.scrollWheelZoom.disable(); });
 
                 sightsMarkersLayer = L.layerGroup().addTo(sightsMap);
                 renderSightsMapMarkers('all');
@@ -11866,7 +12227,7 @@
             const dict = (typeof i18n !== 'undefined' && i18n[currentLang]) ? i18n[currentLang] : {};
             const popupBtnLabel = dict.mapPopupMore || ((currentLang === 'ru') ? 'Подробнее в каталоге' : 'View in Catalog');
 
-            sightsData.forEach(function(s) {
+            sightsData.forEach(function (s) {
                 if (!s.lat || !s.lon) return;
 
                 // Фильтрация
@@ -11894,20 +12255,20 @@
                 const catLabel = s.style ? s.style[currentLang] : (s.cat || '');
                 const popupHtml = '<div class="map-popup-card">' +
                     '<div class="map-popup-header">' +
-                        '<span class="map-popup-icon">' + (s.icon || '🏛️') + '</span>' +
-                        '<div class="map-popup-header-content">' +
-                            '<div class="map-popup-badge">' + (s.year ? s.year + ' • ' : '') + catLabel + '</div>' +
-                            '<div class="map-popup-title">' + (s.title[currentLang] || '') + '</div>' +
-                        '</div>' +
+                    '<span class="map-popup-icon">' + (s.icon || '🏛️') + '</span>' +
+                    '<div class="map-popup-header-content">' +
+                    '<div class="map-popup-badge">' + (s.year ? s.year + ' • ' : '') + catLabel + '</div>' +
+                    '<div class="map-popup-title">' + (s.title[currentLang] || '') + '</div>' +
+                    '</div>' +
                     '</div>' +
                     '<div class="map-popup-desc">' + (s.desc[currentLang] || '') + '</div>' +
                     '<button type="button" class="map-popup-btn" onclick="focusSightFromMap(\'' + s.id + '\')">' +
-                        '<span>' + popupBtnLabel + '</span>' +
+                    '<span>' + popupBtnLabel + '</span>' +
                     '</button>' +
-                '</div>';
+                    '</div>';
 
                 marker.bindPopup(popupHtml, { maxWidth: 330, minWidth: 260 });
-                marker.on('click', function() {
+                marker.on('click', function () {
                     if (typeof trackMapExplore === 'function') trackMapExplore(s.id);
                 });
                 sightsMarkersLayer.addLayer(marker);
@@ -11915,10 +12276,10 @@
             });
         }
 
-        window.filterSightsMap = function(category) {
+        window.filterSightsMap = function (category) {
             currentMapFilter = category;
             const buttons = document.querySelectorAll('.map-filter-btn');
-            buttons.forEach(function(btn) {
+            buttons.forEach(function (btn) {
                 if (btn.getAttribute('data-cat') === category) {
                     btn.classList.add('active');
                 } else {
@@ -11928,13 +12289,13 @@
             renderSightsMapMarkers(category);
         };
 
-        window.resetSightsMapView = function() {
+        window.resetSightsMapView = function () {
             if (!sightsMap) return;
             filterSightsMap('all');
             sightsMap.flyTo([56.6160, 57.7660], 13, { animate: true, duration: 1.0 });
         };
 
-        window.focusSightFromMap = function(id) {
+        window.focusSightFromMap = function (id) {
             if (typeof selectSight === 'function') {
                 selectSight(id, false);
             }
@@ -12087,11 +12448,11 @@
 
             // Автоматическое открытие модального окна политики 152-ФЗ по прямой ссылке с хэшем
             if (window.location.hash === '#privacy-modal' || window.location.hash === '#privacy') {
-                setTimeout(function() {
+                setTimeout(function () {
                     if (typeof openPrivacyModal === 'function') openPrivacyModal();
                 }, 150);
             }
-            window.addEventListener('hashchange', function() {
+            window.addEventListener('hashchange', function () {
                 if (window.location.hash === '#privacy-modal' || window.location.hash === '#privacy') {
                     if (typeof openPrivacyModal === 'function') openPrivacyModal();
                 }
@@ -12099,7 +12460,7 @@
         });
 
 
-        
+
 
 
         function downloadCertificate() {
@@ -12715,7 +13076,7 @@
             // Верхний подзаголовок проекта
             ctx.font = '700 24px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#8a6d3b';
-            const topHeader = currentLang === 'en' 
+            const topHeader = currentLang === 'en'
                 ? '—  HISTORICAL & CULTURAL HERITAGE INITIATIVE  —'
                 : '—  НАУЧНО-ИСТОРИЧЕСКИЙ КРАЕВЕДЧЕСКИЙ ПРОЕКТ  —';
             ctx.fillText(topHeader, W / 2, 355);
@@ -13179,9 +13540,9 @@
         });
     </script>
 
-    
-    
-    
+
+
+
     <script>
         // ==========================================
         // ГЕНЕРАЦИЯ И СКАЧИВАНИЕ PDF ЧЕРЕЗ PDFMAKE
@@ -13195,7 +13556,7 @@
             if (typeof pdfMake === 'undefined') {
                 const script1 = document.createElement('script');
                 script1.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js';
-                
+
                 const script2 = document.createElement('script');
                 script2.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js';
 
@@ -13229,13 +13590,13 @@
 
                 const docDefinition = {
                     pageSize: 'A4',
-                    pageMargins: [ 36, 36, 36, 42 ],
-                    footer: function(currentPage, pageCount) {
+                    pageMargins: [36, 36, 36, 42],
+                    footer: function (currentPage, pageCount) {
                         return {
                             columns: [
                                 {
-                                    text: isRu 
-                                        ? 'Красноуфимск • Сквозь эпохи  |  Официальный иллюстрированный путеводитель 2026' 
+                                    text: isRu
+                                        ? 'Красноуфимск • Сквозь эпохи  |  Официальный иллюстрированный путеводитель 2026'
                                         : 'Krasnoufimsk • Through the Epochs  |  Official Explorer Travel Guide 2026',
                                     fontSize: 8,
                                     color: '#94a3b8',
@@ -13515,12 +13876,12 @@
                 if (btnText) btnText.innerText = originalText;
             }
         }
-    
+
         // Инициализация интерактивной карты памятников
-        window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('DOMContentLoaded', function () {
             setTimeout(initSightsMap, 300);
         });
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
             if (sightsMap) sightsMap.invalidateSize();
         });
 
@@ -13714,7 +14075,7 @@
             }
         }
 
-        window.trackTimelineEpoch = function(eventId) {
+        window.trackTimelineEpoch = function (eventId) {
             if (!isPassportLoaded) loadPassportState();
             if (!Array.isArray(passportState.progress.timeline_viewed)) {
                 passportState.progress.timeline_viewed = [];
@@ -13728,7 +14089,7 @@
             }
         };
 
-        window.trackSeasonExplored = function(season) {
+        window.trackSeasonExplored = function (season) {
             if (!isPassportLoaded) loadPassportState();
             if (!['winter', 'spring', 'summer', 'autumn'].includes(season)) return;
             if (!Array.isArray(passportState.progress.seasons_viewed)) {
@@ -13744,10 +14105,10 @@
             }
         };
 
-        window.trackPlannerOpen = function() {
+        window.trackPlannerOpen = function () {
             try {
                 safeStorageSet('kuf_planner_opened', 'true');
-            } catch (e) {}
+            } catch (e) { }
             unlockAchievement('route_planner_pro');
         };
 
@@ -13860,7 +14221,7 @@
                 const isUnlocked = !!passportState.unlocked[b.id];
                 const cardClass = isUnlocked ? 'badge-card unlocked' : 'badge-card locked';
                 const statusIcon = isUnlocked ? '✅' : '🔒';
-                
+
                 // Прогресс для подсказки
                 let progressText = isUnlocked ? `✨ ${unlockedTag}` : `🔒 ${lockedTag}`;
                 if (!isUnlocked) {
@@ -13914,7 +14275,7 @@
             grid.innerHTML = html;
         }
 
-        window.openPassportModal = function() {
+        window.openPassportModal = function () {
             loadPassportState();
             const modal = document.getElementById('passport-modal');
             if (!modal) return;
@@ -13925,7 +14286,7 @@
             document.body.classList.add('modal-open');
         };
 
-        window.closePassportModal = function() {
+        window.closePassportModal = function () {
             const modal = document.getElementById('passport-modal');
             if (!modal) return;
             modal.classList.remove('active');
@@ -13936,13 +14297,13 @@
             if (drop) drop.style.display = 'none';
         };
 
-        window.handlePassportBackdropClick = function(e) {
+        window.handlePassportBackdropClick = function (e) {
             if (e.target && e.target.id === 'passport-modal') {
                 closePassportModal();
             }
         };
 
-        window.toggleAvatarDropdown = function(e) {
+        window.toggleAvatarDropdown = function (e) {
             if (e && e.stopPropagation) e.stopPropagation();
             const drop = document.getElementById('passport-avatar-dropdown');
             if (drop) {
@@ -13950,7 +14311,7 @@
             }
         };
 
-        window.setPassportAvatar = function(emoji) {
+        window.setPassportAvatar = function (emoji) {
             passportState.avatar = emoji;
             savePassportState();
             const btn = document.getElementById('passport-avatar-current');
@@ -13959,7 +14320,7 @@
             if (drop) drop.style.display = 'none';
         };
 
-        window.savePassportName = function(name) {
+        window.savePassportName = function (name) {
             passportState.name = name.trim() || 'Исследователь';
             savePassportState();
             const certNameInput = document.getElementById('cert-name-input');
@@ -13968,10 +14329,10 @@
             }
         };
 
-        window.resetPassportProgress = function() {
+        window.resetPassportProgress = function () {
             const lang = (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'ru';
-            const msg = lang === 'en' 
-                ? 'Are you sure you want to reset all achievements and start the Hardcore challenge from scratch?' 
+            const msg = lang === 'en'
+                ? 'Are you sure you want to reset all achievements and start the Hardcore challenge from scratch?'
                 : 'Вы уверены, что хотите сбросить все достижения и начать испытание «Максимальный хардкор» с нуля?';
             if (confirm(msg)) {
                 passportState.unlocked = {};
@@ -13983,7 +14344,7 @@
                 };
                 try {
                     safeStorageRemove('kuf_planner_opened');
-                } catch(e) {}
+                } catch (e) { }
                 savePassportState();
                 renderPassportBadges();
                 if (typeof updatePassportBadgeCount === 'function') {
@@ -13992,7 +14353,7 @@
             }
         };
 
-        window.trackSightExplored = function(sightId, cat) {
+        window.trackSightExplored = function (sightId, cat) {
             if (!isPassportLoaded) loadPassportState();
             if (!Array.isArray(passportState.progress.sights_viewed)) {
                 passportState.progress.sights_viewed = [];
@@ -14034,7 +14395,7 @@
             }
         };
 
-        window.trackMapExplore = function(sightId) {
+        window.trackMapExplore = function (sightId) {
             if (!isPassportLoaded) loadPassportState();
             if (!Array.isArray(passportState.progress.map_markers_viewed)) {
                 passportState.progress.map_markers_viewed = [];
@@ -14071,7 +14432,7 @@
         window.addEventListener('focus', loadPassportState);
 
         // Закрытие по клавише Escape
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 if (typeof closePassportModal === 'function') closePassportModal();
                 if (typeof closeWeatherModal === 'function') closeWeatherModal();
@@ -14082,7 +14443,7 @@
         /* =========================================================================
            152-ФЗ / GDPR: ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ И COOKIE CONSENT
            ========================================================================= */
-        window.openPrivacyModal = function() {
+        window.openPrivacyModal = function () {
             const m = document.getElementById('privacy-modal');
             if (m) {
                 m.classList.add('active');
@@ -14091,7 +14452,7 @@
             }
         };
 
-        window.closePrivacyModal = function() {
+        window.closePrivacyModal = function () {
             const m = document.getElementById('privacy-modal');
             if (m) {
                 m.classList.remove('active');
@@ -14100,7 +14461,7 @@
             }
         };
 
-        window.acceptCookies = function() {
+        window.acceptCookies = function () {
             safeStorageSet('kuf_cookie_consent', 'accepted');
             const b = document.getElementById('cookie-banner');
             if (b) {
@@ -14159,7 +14520,7 @@
             }
         });
 
-        window.handlePwaInstallClick = function() {
+        window.handlePwaInstallClick = function () {
             if (pwaDeferredPrompt) {
                 pwaDeferredPrompt.prompt();
                 pwaDeferredPrompt.userChoice.then((choiceResult) => {
@@ -14224,7 +14585,7 @@
            ========================================================================= */
         if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
             const tiltSelectors = '.sight-showcase-card, .route-card, .event-card, .guide-card, .stat-item';
-            document.addEventListener('mousemove', function(e) {
+            document.addEventListener('mousemove', function (e) {
                 const target = e.target.closest(tiltSelectors);
                 if (!target) return;
                 const rect = target.getBoundingClientRect();
@@ -14234,7 +14595,7 @@
                 const rotY = ((x - rect.width / 2) / (rect.width / 2)) * 3.5;
                 target.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-3px)`;
             });
-            document.addEventListener('mouseout', function(e) {
+            document.addEventListener('mouseout', function (e) {
                 const target = e.target.closest(tiltSelectors);
                 if (target && (!e.relatedTarget || !target.contains(e.relatedTarget))) {
                     target.style.transform = '';
@@ -14269,7 +14630,7 @@
         window.addEventListener('load', headerFitGuard);
         window.addEventListener('resize', headerFitGuard);
         if (document.fonts && document.fonts.ready) document.fonts.ready.then(headerFitGuard);
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             var t = e.target;
             if (t && t.closest && t.closest('.lang-switch-btn')) setTimeout(headerFitGuard, 60);
         });
