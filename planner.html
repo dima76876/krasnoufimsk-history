@@ -30,7 +30,14 @@
         content="Узнайте, как добраться до Красноуфимска из любого города, сколько стоит поездка и что посмотреть.">
     <meta property="og:url" content="https://krasnoufimsk-history.site/planner.html">
     <meta property="og:image" content="https://krasnoufimsk-history.site/images/og_banner.jpg?v=2">
+    <meta property="og:image:secure_url" content="https://krasnoufimsk-history.site/images/og_banner.jpg?v=2">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    <meta property="og:image:alt" content="Планировщик поездки в Красноуфимск">
     <meta property="og:site_name" content="Красноуфимск: Сквозь эпохи">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:locale:alternate" content="en_US">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -58,13 +65,20 @@
         {
           "@type": "WebSite",
           "name": "Красноуфимск: Сквозь эпохи",
-          "url": "https://krasnoufimsk-history.site/"
+          "url": "https://krasnoufimsk-history.site/",
+          "inLanguage": [
+            "ru",
+            "en"
+          ]
         },
         {
-          "@type": "TravelAction",
+          "@type": "WebApplication",
           "name": "Калькулятор поездки и умный маршрут в Красноуфимск",
           "description": "Интерактивный расчёт маршрутов, стоимости билетов, отелей и программы пребывания в Красноуфимске.",
-          "url": "https://krasnoufimsk-history.site/planner.html"
+          "url": "https://krasnoufimsk-history.site/planner.html",
+          "applicationCategory": "TravelApplication",
+          "operatingSystem": "All",
+          "inLanguage": ["ru", "en"]
         }
       ]
     }
@@ -100,6 +114,7 @@
             --main-color: #d9651a;
             --main-hover: #b84f0e;
             --main-light: #faede1;
+            --accent-glow: rgba(217, 101, 26, 0.25);
             --bg-page: #fbf7f2;
             --bg-card: rgba(255, 255, 255, 0.94);
             --bg-accent: #f5ebe0;
@@ -113,11 +128,24 @@
             --radius-sm: 10px;
         }
 
+        /* Осень: тёплый терракот */
+        body.season-autumn {
+            --main-color: #d9651a;
+            --main-hover: #b84f0e;
+            --main-light: #faede1;
+            --accent-glow: rgba(217, 101, 26, 0.25);
+            --bg-page: #fbf7f2;
+            --bg-card: rgba(255, 255, 255, 0.94);
+            --bg-accent: #f5ebe0;
+            --border-card: rgba(217, 101, 26, 0.22);
+        }
+
         /* Зима: морозно-лазурный */
         body.season-winter {
             --main-color: #0284c7;
             --main-hover: #0369a1;
             --main-light: #e0f2fe;
+            --accent-glow: rgba(2, 132, 199, 0.25);
             --bg-page: #e6f2fd;
             --bg-card: rgba(244, 250, 255, 0.94);
             --bg-accent: #e1f0fe;
@@ -129,6 +157,7 @@
             --main-color: #16a34a;
             --main-hover: #15803d;
             --main-light: #dcfce7;
+            --accent-glow: rgba(22, 163, 74, 0.25);
             --bg-page: #eaf6ee;
             --bg-card: rgba(246, 254, 249, 0.94);
             --bg-accent: #e2f7e9;
@@ -140,6 +169,7 @@
             --main-color: #0d9488;
             --main-hover: #0f766e;
             --main-light: #ccfbf1;
+            --accent-glow: rgba(13, 148, 136, 0.25);
             --bg-page: #e6f6f5;
             --bg-card: rgba(244, 254, 253, 0.94);
             --bg-accent: #dcf4f2;
@@ -150,6 +180,7 @@
             --bg-page: #121517;
             --bg-card: rgba(26, 31, 36, 0.90);
             --bg-accent: #1e242a;
+            --accent-glow: rgba(249, 115, 22, 0.35);
             --text-main: #f0f2f5;
             --text-muted: #9ba3af;
             --border-card: rgba(255, 255, 255, 0.12);
@@ -311,6 +342,18 @@
             gap: 10px;
         }
 
+        @view-transition {
+            navigation: auto;
+        }
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+            animation-duration: 0.35s;
+            animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .logo-group {
+            view-transition-name: brand-falcon;
+        }
+
         .control-btn {
             background: var(--bg-accent);
             border: 1px solid var(--border-card);
@@ -331,6 +374,38 @@
             background: color-mix(in srgb, var(--main-color) 15%, var(--bg-accent));
             border-color: var(--main-color);
             transform: translateY(-1px);
+        }
+
+        /* Выделенная круглая кнопка смены темы оформления */
+        #btn-theme-toggle {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            min-height: 38px;
+            padding: 0;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-accent);
+            border: 1.5px solid var(--border-card);
+            color: var(--text-main);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
+            transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        #btn-theme-toggle:hover {
+            border-color: var(--main-color);
+            box-shadow: 0 0 14px var(--accent-glow);
+            transform: scale(1.06) rotate(12deg);
+        }
+
+        #theme-btn-icon {
+            font-size: 1.05rem;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Виджет погоды в шапке */
@@ -488,24 +563,27 @@
         }
 
         .weather-modal-header {
-            padding: 18px 24px;
+            padding: 16px 20px;
             border-bottom: 1px solid var(--border-card);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
+            gap: 10px;
             background: linear-gradient(to bottom, color-mix(in srgb, var(--main-color) 12%, transparent), transparent);
         }
 
         .weather-title-wrap {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            min-width: 0;
+            flex: 1;
         }
 
         .weather-modal-icon {
             font-size: 2rem;
             line-height: 1;
+            flex-shrink: 0;
         }
 
         .weather-title-wrap h3 {
@@ -513,6 +591,8 @@
             font-size: 1.15rem;
             font-weight: 800;
             color: var(--text-main);
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .weather-modal-coords {
@@ -520,12 +600,16 @@
             font-size: 11px;
             color: var(--text-muted);
             margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .weather-modal-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            flex-shrink: 0;
         }
 
         .weather-status-badge {
@@ -537,6 +621,8 @@
             border-radius: 20px;
             border: 1px solid rgba(34, 197, 94, 0.3);
             transition: all 0.25s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .weather-status-badge.badge-loading {
@@ -567,6 +653,9 @@
             color: var(--text-main);
             width: 32px;
             height: 32px;
+            min-width: 32px;
+            min-height: 32px;
+            flex-shrink: 0;
             border-radius: 50%;
             cursor: pointer;
             font-size: 14px;
@@ -1453,28 +1542,41 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 8px;
             margin-bottom: 10px;
         }
 
         .transport-mode-badge {
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
             color: var(--main-color);
             background: color-mix(in srgb, var(--main-color) 15%, transparent);
-            padding: 3px 10px;
+            padding: 3px 9px;
             border-radius: 12px;
+            line-height: 1.25;
+            flex: 1;
+            min-width: 0;
+            overflow-wrap: break-word;
         }
 
         .transport-check-icon {
-            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #16a34a;
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
             opacity: 0;
-            transition: opacity 0.2s;
+            transform: scale(0.7);
+            transition: opacity 0.2s ease, transform 0.2s ease;
         }
 
         .transport-card.active .transport-check-icon {
             opacity: 1;
+            transform: scale(1);
         }
 
         .transport-title {
@@ -2184,6 +2286,35 @@
                 padding: 0 6px;
                 font-size: 0.78rem;
             }
+            #btn-theme-toggle {
+                width: 34px !important;
+                height: 34px !important;
+                min-width: 34px !important;
+                min-height: 34px !important;
+            }
+            .weather-modal-window {
+                width: calc(100% - 20px) !important;
+                margin: 0 auto;
+                border-radius: 20px;
+            }
+            .weather-modal-header {
+                padding: 12px 14px;
+                gap: 8px;
+            }
+            .weather-title-wrap {
+                gap: 8px;
+            }
+            .weather-modal-icon {
+                font-size: 1.6rem;
+            }
+            .weather-title-wrap h3 {
+                font-size: 0.98rem;
+                line-height: 1.25;
+            }
+            .weather-status-badge {
+                font-size: 10px;
+                padding: 3px 8px;
+            }
             .mobile-menu-btn {
                 width: 34px;
                 height: 34px;
@@ -2265,6 +2396,14 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto !important;
+            }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
             .reveal-on-scroll {
                 opacity: 1 !important;
                 transform: none !important;
@@ -2427,18 +2566,18 @@
                         <button type="button" class="season-menu-item" data-lang="seasonOptAuto" onclick="applySeason('auto')">🔄 Авто</button>
                         <button type="button" class="season-menu-item" data-lang="seasonOptAutumn" onclick="applySeason('autumn')">🍂 Осень</button>
                         <button type="button" class="season-menu-item" data-lang="seasonOptWinter" onclick="applySeason('winter')">❄️ Зима</button>
-                        <button type="button" class="season-menu-item" data-lang="seasonOptSpring" onclick="applySeason('spring')">🌿 Весна</button>
+                        <button type="button" class="season-menu-item" data-lang="seasonOptSpring" onclick="applySeason('spring')">🌱 Весна</button>
                         <button type="button" class="season-menu-item" data-lang="seasonOptSummer" onclick="applySeason('summer')">☀️ Лето</button>
                     </div>
                 </div>
 
                 <!-- Переключение тёмной/светлой темы -->
-                <button type="button" class="control-btn" id="btn-theme-toggle" title="Сменить тему оформления">
+                <button type="button" class="control-btn" id="btn-theme-toggle" aria-label="Сменить тему оформления / Toggle Dark Mode" title="Сменить тему оформления">
                     <span id="theme-btn-icon">🌙</span>
                 </button>
 
                 <!-- Смена языка -->
-                <button type="button" class="control-btn" id="btn-lang-toggle" title="Switch Language / Сменить язык">
+                <button type="button" class="control-btn" id="btn-lang-toggle" aria-label="Switch Language / Переключить язык" title="Switch Language / Сменить язык">
                     <span>🌐</span>
                     <span id="lang-btn-label">EN</span>
                 </button>
@@ -2451,15 +2590,15 @@
         </header>
     </div>
 
-    <!-- Мобильная панель -->
-    <div class="mobile-panel" id="mobile-nav-panel">
+    <!-- Мобильная панель навигации -->
+    <nav class="mobile-panel" id="mobile-nav-panel" aria-label="Мобильная навигация">
         <!-- Кнопка на главную -->
         <a href="index.html" class="mobile-nav-item" onclick="closeMobilePanel()">
             <span>🏠</span> <span data-lang="navHomeFull">На главную страницу</span>
         </a>
 
         <!-- Погода в Красноуфимске (для мобилок) -->
-        <div class="mobile-weather-row" onclick="closeMobilePanel(); openWeatherModal();" role="button" tabindex="0" title="Открыть подробный прогноз на 7 дней">
+        <div class="mobile-weather-row" onclick="closeMobilePanel(); openWeatherModal();" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); closeMobilePanel(); openWeatherModal();}" role="button" tabindex="0" title="Открыть подробный прогноз на 7 дней">
             <span class="weather-status-dot"></span>
             <span id="mobile-weather-icon">🌤️</span>
             <span id="mobile-weather-temp" style="font-weight:700;">--°C</span>
@@ -2492,10 +2631,10 @@
             <button type="button" class="season-chip-btn" data-season="auto" data-lang="mobileSeasonAuto" onclick="applySeason('auto'); closeMobilePanel();">🔄 Авто</button>
             <button type="button" class="season-chip-btn" data-season="autumn" data-lang="mobileSeasonAutumn" onclick="applySeason('autumn'); closeMobilePanel();">🍂 Осень</button>
             <button type="button" class="season-chip-btn" data-season="winter" data-lang="mobileSeasonWinter" onclick="applySeason('winter'); closeMobilePanel();">❄️ Зима</button>
-            <button type="button" class="season-chip-btn" data-season="spring" data-lang="mobileSeasonSpring" onclick="applySeason('spring'); closeMobilePanel();">🌿 Весна</button>
+            <button type="button" class="season-chip-btn" data-season="spring" data-lang="mobileSeasonSpring" onclick="applySeason('spring'); closeMobilePanel();">🌱 Весна</button>
             <button type="button" class="season-chip-btn" data-season="summer" data-lang="mobileSeasonSummer" onclick="applySeason('summer'); closeMobilePanel();">☀️ Лето</button>
         </div>
-    </div>
+    </nav>
 
     <!-- Hero-блок -->
     <section class="planner-hero reveal-on-scroll">
@@ -2771,7 +2910,7 @@
     </main>
 
     <!-- Тост-уведомление -->
-    <div class="toast-notify" id="toast-notify">
+    <div class="toast-notify" id="toast-notify" role="status" aria-live="polite">
         <span>✅</span> <span id="toast-text">План поездки скопирован в буфер обмена!</span>
     </div>
 
@@ -2915,7 +3054,7 @@
         const CITIES_DATA = [
             {
                 id: 'ekb', name: { ru: 'Екатеринбург', en: 'Yekaterinburg' },
-                distKm: 200, lat: 56.8389, lon: 60.6057, isPopular: true,
+                distKm: 224, lat: 56.8389, lon: 60.6057, isPopular: true,
                 options: [
                     {
                         type: 'train_fast', icon: '🚆',
@@ -2923,7 +3062,7 @@
                         badge: { ru: 'Рекомендуем • Быстро и удобно', en: 'Recommended • Fast & Comfy' },
                         time: { ru: '~3 ч 20 мин', en: '~3 h 20 min' },
                         priceOneWay: 650,
-                        desc: { ru: 'Прямой комфортный рейс с ж/д вокзала Екатеринбург-Пасс. Прибытие на исторический вокзал Красноуфимска (мастерская А. В. Щусева).', en: 'Direct train from Yekaterinburg Main Station to Krasnoufimsk historic station (Shchusev workshop).' }
+                        desc: { ru: 'Прямой комфортный рейс с ж/д вокзала Екатеринбург-Пасс. (в 2026 году — отправление в 10:45 и 19:40, в пути ~3 ч 20 мин, 224 км). Прибытие на исторический вокзал Красноуфимска (мастерская А. В. Щусева). Стоимость уточняйте на rzd.ru.', en: 'Direct train from Yekaterinburg Main Station (in 2026 departing 10:45 and 19:40, ~3 h 20 min, 224 km) to Krasnoufimsk historic station (Shchusev workshop). Check current fares at rzd.ru.' }
                     },
                     {
                         type: 'bus', icon: '🚌',
@@ -3043,7 +3182,7 @@
             },
             {
                 id: 'ufa', name: { ru: 'Уфа', en: 'Ufa' },
-                distKm: 280, lat: 54.7388, lon: 55.9721, isPopular: true,
+                distKm: 345, lat: 54.7388, lon: 55.9721, isPopular: true,
                 options: [
                     {
                         type: 'car', icon: '🚗',
@@ -3358,7 +3497,7 @@
                         { ru: '12:00 — Историческая купеческая улица Советская: усадьбы купцов Шевелина, Серебренникова и Земская управа', en: '12:00 — Historic Sovetskaya Street: merchant estates and Zemstvo Board' },
                         { ru: '13:30 — Обед в кафе в историческом центре (традиционные уральские шаньги и травяной чай)', en: '13:30 — Lunch at a cafe in the historic downtown (traditional Ural pastries)' },
                         { ru: '14:45 — Свято-Троицкий собор 1804 года (величие русского классицизма)', en: '14:45 — Holy Trinity Cathedral (classicist stone architecture)' },
-                        { ru: '16:00 — Обновлённая набережная «Красный Яр», скульптура «Девочка с самолётиком» и панорама с Дивьей горы', en: '16:00 — Krasny Yar Embankment promenade and Divya Mountain viewpoint' },
+                        { ru: '16:00 — Набережная «Красный Яр», скульптура «Девочка с самолётиком» и панорама с Дивьей горы (внимание: нижний уровень набережной благоустраивается по проекту «Красный Яр» в 2025–2027 гг., возможны ограничения)', en: '16:00 — Krasny Yar Embankment, the «Girl with a Toy Plane» sculpture and the Divya Mountain viewpoint (note: the lower embankment level is being upgraded under the Krasny Yar project in 2025–2027, access may be limited)' },
                         { ru: '18:30 — Памятные сувениры с серебряным соколом и вечерний отъезд', en: '18:30 — Souvenir shopping and departure' }
                     ]
                 }
@@ -3372,7 +3511,7 @@
                         { ru: '12:30 — Экскурсия по купеческим особнякам улицы Советской и Рогозинниковых', en: '12:30 — Guided walking tour of merchant estates and architecture' },
                         { ru: '14:00 — Обед в историческом центре города', en: '14:00 — Lunch in the town center' },
                         { ru: '15:30 — Подъём на Дивью гору — грандиозный вид на излучину реки Уфы и сосновые боры', en: '15:30 — Climb Divya Mountain for panoramic river valley views' },
-                        { ru: '17:30 — Вечерний променад по набережной «Красный Яр», смотровой амфитеатр и закат', en: '17:30 — Sunset walk along Krasny Yar Embankment' },
+                        { ru: '17:30 — Вечерний променад по верхней террасе набережной «Красный Яр» и закат (нижний уровень в 2025–2027 гг. на реконструкции)', en: '17:30 — Sunset walk along the upper terrace of Krasny Yar Embankment (the lower level is under reconstruction in 2025–2027)' },
                         { ru: '19:30 — Заселение в гостиницу, отдых и ужин', en: '19:30 — Check-in at hotel, dinner & rest' }
                     ]
                 },
@@ -3382,7 +3521,7 @@
                     places: [
                         { ru: '10:00 — Завтрак в отеле', en: '10:00 — Breakfast at hotel' },
                         { ru: '11:00 — Исторический ж/д вокзал (архитектурная мастерская А. В. Щусева, петровское барокко 1915 г.) и паровоз-памятник «Лебедянка»', en: '11:00 — Historic railway station (A. Shchusev architectural workshop, Petrine Baroque 1915) and steam train monument' },
-                        { ru: '12:30 — Поездка к Рябиновскому виадуку (32-метровый арочный мост из монолитного бетона 1915 г.)', en: '12:30 — Excursion to Ryabinovka Concrete Arched Viaduct (32 m high)' },
+                        { ru: '12:30 — Поездка к Рябиновскому виадуку (железобетонный арочный мост 1915–1919 гг., длина 283 м; законсервирован с 2008 года, поезда идут по новому мосту рядом)', en: '12:30 — Excursion to the Ryabinovka viaduct (reinforced-concrete arch bridge, 1915–1919, 283 m long; mothballed since 2008, trains run over the new bridge nearby)' },
                         { ru: '15:00 — Музей Земской медицины доктора Мизерова (старейший больничный городок Урала)', en: '15:00 — Dr. Mizerov Zemstvo Medicine Museum' },
                         { ru: '17:00 — Покупка сувениров (уральский мёд, иван-чай) и отъезд', en: '17:00 — Souvenirs and departure' }
                     ]
@@ -3413,7 +3552,7 @@
                     title: { ru: 'День 3: Земское наследие, природа Уфы и релакс', en: 'Day 3: Zemstvo Heritage & Ural Nature' },
                     places: [
                         { ru: '10:30 — Музей Красноуфимской земской больницы (доктора М. И. Мизерова)', en: '10:30 — Zemstvo Hospital Museum' },
-                        { ru: '12:30 — Красноуфимское Реальное училище (неоготика 1875 г.)', en: '12:30 — Neo-Gothic Real College' },
+                        { ru: '12:30 — Красноуфимское Реальное училище (кирпичная эклектика, 1875 г.)', en: '12:30 — Real College (brick eclectics, 1875)' },
                         { ru: '14:30 — Пикник у реки Уфы или прогулка по Сосновому бору', en: '14:30 — Pine forest walk by the Ufa River' },
                         { ru: '17:00 — Завершение путешествия и отъезд', en: '17:00 — Trip wrap-up and departure' }
                     ]
@@ -3425,7 +3564,7 @@
                     title: { ru: 'День 1: Историческое купеческое ядро и казачья колыбель', en: 'Day 1: Historic Merchant Core & Cossack Cradle' },
                     places: [
                         { ru: '10:30 — Краеведческий музей (ул. Советская, 42, зубная спираль геликоприона Helicoprion bessonowi, макет крепости 1736 г.)', en: '10:30 — Museum of Local Lore (42 Sovetskaya St., Helicoprion shark whorl, 1736 fortress model)' },
-                        { ru: '12:30 — Историческая купеческая улица Советская: усадьбы Шевелина, Серебренникова и Земская управа 1912 г.', en: '12:30 — Historic Sovetskaya Street: merchant estates and 1912 Zemstvo Board' },
+                        { ru: '12:30 — Историческая купеческая улица Советская: усадьбы Шевелина, Серебренникова и здание Земской управы (1911–1912 гг., ныне Дворец творчества).', en: '12:30 — Historic Sovetskaya Street: merchant estates and the Zemstvo Board building (1911–1912, today the Youth Creative Centre).' },
                         { ru: '14:00 — Обед в историческом центре (уральские шаньги, жаркое по-уральски)', en: '14:00 — Lunch in historic town center (traditional Ural cuisine)' },
                         { ru: '15:30 — Свято-Троицкий собор 1804 г. и старейшая казачья изба XVIII века', en: '15:30 — Holy Trinity Cathedral (1804) & 18th-century Cossack Hut' },
                         { ru: '17:30 — Набережная «Красный Яр», смотровой амфитеатр и закат на Дивьей горе с видом на излучину Уфы', en: '17:30 — Krasny Yar Embankment & sunset panorama on Divya Mountain' },
@@ -3437,17 +3576,17 @@
                     title: { ru: 'День 2: Инженерный триумф мастерской Щусева и музей Земской медицины', en: 'Day 2: Shchusev Workshop Architecture & Zemstvo Medicine' },
                     places: [
                         { ru: '10:00 — Исторический ж/д вокзал (архитектурная мастерская А. В. Щусева, петровское барокко 1915 г.) и паровоз-памятник «Лебедянка»', en: '10:00 — Historic railway station (A. Shchusev workshop, Petrine Baroque 1915) and steam locomotive monument' },
-                        { ru: '12:00 — Красноуфимское Реальное училище (неоготика 1875 г., альма-матер маршала Б. М. Шапошникова)', en: '12:00 — Krasnoufimsk Real College (1875 Neo-Gothic)' },
+                        { ru: '12:00 — Красноуфимское Реальное училище (кирпичная эклектика, 1875 г.; с 1893 по 1899 год здесь учился маршал Б. М. Шапошников)', en: '12:00 — Krasnoufimsk Real College (brick eclectics, 1875; Marshal B. Shaposhnikov studied here in 1893–1899)' },
                         { ru: '13:30 — Обед в кафе старого города', en: '13:30 — Lunch in the historic district' },
-                        { ru: '15:00 — Единственный в России музей Земской больницы доктора М. И. Мизерова (парк и резные деревянные корпуса)', en: '15:00 — Dr. Mizerov Zemstvo Medicine Museum (unique wooden medical campus)' },
-                        { ru: '18:00 — Прогулка по сосновому бору и ужин в ресторане уральской кухни', en: '18:00 — Walk in the pine grove & dinner' }
+                        { ru: '15:00 — Музей «Красноуфимская земская больница» (ул. Свободы, 16): музеефицированный больничный комплекс земского времени, пять павильонов и парк «Целитель» с аптекарским садом', en: '15:00 — Krasnoufimsk Zemstvo Hospital Museum (16 Svobody St.): a museumised zemstvo-era hospital complex, five pavilions and the Tselitel Park with an apothecary garden' },
+                        { ru: '18:00 — Прогулка по старинному парку «Целитель» (липы, сосны, берёзы) и ужин в ресторане уральской кухни', en: '18:00 — Walk in the historic Tselitel Park (limes, pines, birches) & dinner' }
                     ]
                 },
                 {
                     dayNum: 3,
                     title: { ru: 'День 3: Монументальные виадуки Красноуфимска и посёлок Сарана', en: 'Day 3: Monumental Viaducts & Sarana Settlement' },
                     places: [
-                        { ru: '10:00 — Автоэкспедиция к Рябиновскому виадуку (32-метровый железнодорожный арочный мост из монолитного бетона 1915 г.)', en: '10:00 — Road trip to Ryabinovka Concrete Arched Viaduct (32 m high, 1915)' },
+                        { ru: '10:00 — Автоэкспедиция к Рябиновскому виадуку (железобетонный арочный мост 1915–1919 гг., длина 283 м; памятник инженерной архитектуры, законсервирован с 2008 года)', en: '10:00 — Road trip to the Ryabinovka viaduct (reinforced-concrete arch bridge, 1915–1919, 283 m long; an engineering monument, mothballed since 2008)' },
                         { ru: '12:30 — Пудлинговский (Саранинский) монументальный виадук — циклопическое инженерное чудо Транссибирского хода среди таёжных холмов', en: '12:30 — Pudlingovyi (Sarana) Monumental Viaduct nestled among taiga hills' },
                         { ru: '14:30 — Посёлок Сарана: Долговский виадук (Долгий Мост) и плотина исторического железоделательного завода', en: '14:30 — Sarana settlement: Dolgovsky viaduct and historic ironworks dam' },
                         { ru: '16:30 — Берег Саранинского водохранилища среди уральских скал, чай на таёжных травах', en: '16:30 — Shore of Sarana reservoir among Ural limestone cliffs, herbal tea' },
@@ -3498,12 +3637,12 @@
                 seasonOptAuto: '🔄 Авто',
                 seasonOptAutumn: '🍂 Осень',
                 seasonOptWinter: '❄️ Зима',
-                seasonOptSpring: '🌿 Весна',
+                seasonOptSpring: '🌱 Весна',
                 seasonOptSummer: '☀️ Лето',
                 mobileSeasonAuto: '🔄 Авто',
                 mobileSeasonAutumn: '🍂 Осень',
                 mobileSeasonWinter: '❄️ Зима',
-                mobileSeasonSpring: '🌿 Весна',
+                mobileSeasonSpring: '🌱 Весна',
                 mobileSeasonSummer: '☀️ Лето',
                 heroBadge: 'Умный калькулятор путешествия • 2026',
                 pageHeroTitle: 'Как добраться и <span class="highlight">спланировать поездку</span> в Красноуфимск',
@@ -3593,12 +3732,12 @@
                 seasonOptAuto: '🔄 Auto',
                 seasonOptAutumn: '🍂 Autumn',
                 seasonOptWinter: '❄️ Winter',
-                seasonOptSpring: '🌿 Spring',
+                seasonOptSpring: '🌱 Spring',
                 seasonOptSummer: '☀️ Summer',
                 mobileSeasonAuto: '🔄 Auto',
                 mobileSeasonAutumn: '🍂 Autumn',
                 mobileSeasonWinter: '❄️ Winter',
-                mobileSeasonSpring: '🌿 Spring',
+                mobileSeasonSpring: '🌱 Spring',
                 mobileSeasonSummer: '☀️ Summer',
                 heroBadge: 'Smart Travel Calculator • 2026',
                 pageHeroTitle: 'How to get to & <span class="highlight">plan your trip</span> to Krasnoufimsk',
@@ -3692,6 +3831,10 @@
             // Кнопка переключения языка
             const langBtnLabel = document.getElementById('lang-btn-label');
             if (langBtnLabel) langBtnLabel.textContent = (currentLang === 'ru') ? 'EN' : 'RU';
+            const langBtn = document.getElementById('btn-lang-toggle');
+            if (langBtn) {
+                langBtn.setAttribute('aria-label', (currentLang === 'ru') ? 'Switch to English' : 'Переключить на русский');
+            }
 
             // Переводим все элементы с data-lang
             document.querySelectorAll('[data-lang]').forEach(el => {
@@ -3932,7 +4075,7 @@
             const seasonLabels = {
                 autumn: { ru: 'Осень', en: 'Autumn', icon: '🍂' },
                 winter: { ru: 'Зима', en: 'Winter', icon: '❄️' },
-                spring: { ru: 'Весна', en: 'Spring', icon: '🌿' },
+                spring: { ru: 'Весна', en: 'Spring', icon: '🌱' },
                 summer: { ru: 'Лето', en: 'Summer', icon: '☀️' }
             };
             const currentInfo = seasonLabels[actualSeason] || seasonLabels.autumn;
@@ -4539,7 +4682,7 @@
 
             if (geoAbortController) geoAbortController.abort();
             geoAbortController = new AbortController();
-            const currentQuery = query.trim();
+            const currentQuery = query.trim().slice(0, 80);
 
             try {
                 const langParam = (currentLang === 'en') ? 'en' : 'ru';
@@ -4881,12 +5024,17 @@
                         <div>
                             <div class="transport-top">
                                 <span class="transport-mode-badge">${badge}</span>
-                                <span class="transport-check-icon">✅</span>
+                                <span class="transport-check-icon" aria-hidden="true" title="${isActive ? (currentLang === 'en' ? 'Selected' : 'Выбрано') : ''}">
+                                    <svg viewBox="0 0 20 20" width="18" height="18" fill="none">
+                                        <circle cx="10" cy="10" r="10" fill="#22c55e"/>
+                                        <path d="M6 10.2L8.7 13L14.2 7.5" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
                             </div>
                             <h4 class="transport-title">${opt.icon} ${title}</h4>
                             <div class="transport-meta-row">
                                 <span class="transport-meta-item">⏱️ ${time}</span>
-                                <span class="transport-meta-item">🎫 от ${opt.priceOneWay.toLocaleString('ru-RU')} ₽</span>
+                                <span class="transport-meta-item">🎫 ${(currentLang === 'en' ? 'from ' : 'от ')}${opt.priceOneWay.toLocaleString(currentLang === 'en' ? 'en-US' : 'ru-RU')} ₽</span>
                             </div>
                         </div>
                         <div class="transport-route-desc">${desc}</div>
@@ -5098,6 +5246,12 @@
             chooseFood(val);
         }
 
+        function fmtMoney(v) {
+            return (typeof currentLang !== 'undefined' && currentLang === 'en')
+                ? v.toLocaleString('en-US') + ' RUB'
+                : v.toLocaleString('ru-RU') + ' ₽';
+        }
+
         function recalculateBudget() {
             const city = CITIES_DATA.find(c => c.id === currentCityId) || CITIES_DATA[0];
             const transportOpt = city.options[selectedTransportIndex] || city.options[0];
@@ -5132,16 +5286,16 @@
             let perPerson = Math.round(grandTotal / tripPersons);
 
             // Обновляем плашки
-            document.getElementById('budget-total-val').textContent = `~${grandTotal.toLocaleString('ru-RU')} ₽`;
+            document.getElementById('budget-total-val').textContent = `~${fmtMoney(grandTotal)}`;
             document.getElementById('budget-per-person-val').textContent = (currentLang === 'ru')
-                ? `~${perPerson.toLocaleString('ru-RU')} ₽ на 1 человека`
-                : `~${perPerson.toLocaleString('ru-RU')} ₽ per person`;
+                ? `~${fmtMoney(perPerson)} на 1 человека`
+                : `~${fmtMoney(perPerson)} per person`;
 
-            document.getElementById('row-transport-val').textContent = `~${transportTotal.toLocaleString('ru-RU')} ₽`;
-            document.getElementById('row-hotel-val').textContent = nights > 0 ? `~${hotelTotal.toLocaleString('ru-RU')} ₽` : `0 ₽ (${currentLang === 'ru' ? 'без ночёвки' : 'day trip'})`;
-            document.getElementById('row-food-val').textContent = `~${foodTotal.toLocaleString('ru-RU')} ₽`;
-            document.getElementById('row-museums-val').textContent = `~${museumsTotal.toLocaleString('ru-RU')} ₽`;
-            document.getElementById('row-souvenirs-val').textContent = `~${souvenirsTotal.toLocaleString('ru-RU')} ₽`;
+            document.getElementById('row-transport-val').textContent = `~${fmtMoney(transportTotal)}`;
+            document.getElementById('row-hotel-val').textContent = nights > 0 ? `~${fmtMoney(hotelTotal)}` : (currentLang === 'ru' ? '0 ₽ (без ночёвки)' : '0 RUB (day trip)');
+            document.getElementById('row-food-val').textContent = `~${fmtMoney(foodTotal)}`;
+            document.getElementById('row-museums-val').textContent = `~${fmtMoney(museumsTotal)}`;
+            document.getElementById('row-souvenirs-val').textContent = `~${fmtMoney(souvenirsTotal)}`;
         }
 
         /* =========================================================================
@@ -5198,13 +5352,13 @@
             const rttMap = {
                 'car': 'auto',
                 'carpool': 'auto',
-                'train_fast': 'auto',
-                'train_direct': 'auto',
-                'train_transfer': 'auto',
-                'bus': 'auto',
-                'bus_train': 'auto',
-                'plane_train': 'auto',
-                'plane_bus': 'auto'
+                'train_fast': 'mt',
+                'train_direct': 'mt',
+                'train_transfer': 'mt',
+                'bus': 'mt',
+                'bus_train': 'mt',
+                'plane_train': 'mt',
+                'plane_bus': 'mt'
             };
             const rtt = (transportOpt && rttMap[transportOpt.type]) ? rttMap[transportOpt.type] : 'auto';
             // Прямая ссылка в Яндекс.Карты / Навигатор от города до Красноуфимска

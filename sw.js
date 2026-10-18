@@ -3,7 +3,7 @@
    Обеспечивает кэширование страниц и офлайн-доступ к путеводителю и планировщику.
    ========================================================================== */
 
-const CACHE_NAME = 'kuf-history-v15';
+const CACHE_NAME = 'kuf-history-v18';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -19,9 +19,13 @@ const STATIC_ASSETS = [
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(STATIC_ASSETS).catch(err => {
-        console.warn('SW pre-cache warning:', err);
-      });
+      // Кэшируем каждый ассет отдельно: если одного файла нет на сервере (404),
+      // остальные всё равно попадут в кэш и офлайн-режим будет работать.
+      return Promise.all(STATIC_ASSETS.map(asset =>
+        cache.add(asset).catch(err => {
+          console.warn('SW: не удалось закэшировать', asset, err);
+        })
+      ));
     })
   );
   self.skipWaiting();
@@ -58,7 +62,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
       .then(networkResponse => {
-        if (networkResponse && networkResponse.status === 200) {
+        if (networkResponse && networkResponse.status === 200 && url.origin === self.location.origin) {
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then(cache => {
             cache.put(event.request, responseToCache);
