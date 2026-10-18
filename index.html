@@ -7204,6 +7204,40 @@
             .timeline-track > *, .timeline-scroll-container > * { scroll-snap-align: center; }
         }
 
+        /* --- 3.5. Нормализация кнопки языка на смартфонах ---
+           pointer:coarse даёт всем <button> min 44px, из-за чего EN/RU
+           выглядел квадратом-переростком рядом с круглыми кнопками 29-31px.
+           Явно приравниваем его к остальным контролам шапки. */
+        @media (max-width: 600px) {
+            .lang-switch-btn {
+                height: 34px;
+                min-height: 34px;
+                min-width: 0;
+                padding: 0 10px;
+                font-size: 11px;
+                gap: 4px;
+                border-radius: 12px;
+                line-height: 1;
+            }
+            .lang-switch-btn span:first-child { font-size: 14px; line-height: 1; }
+        }
+        @media (max-width: 440px) {
+            .lang-switch-btn {
+                height: 31px;
+                min-height: 31px;
+                padding: 0 8px;
+                font-size: 10.5px;
+                gap: 3px;
+                border-radius: 10px;
+            }
+            .lang-switch-btn span:first-child { font-size: 13px; }
+        }
+        /* Совсем узкие экраны (320px): жертвуем погодной плашкой, чтобы шапка не переполнялась */
+        @media (max-width: 374px) {
+            .weather-pill { display: none; }
+            .logo-text span:first-child { font-size: 11px; }
+        }
+
         /* --- 4. hover: hover — отмена «залипшего» ховера на таче --- */
         @media (hover: none) and (pointer: coarse) {
             .sight-card:hover, .route-card:hover, .quiz-card:hover,
