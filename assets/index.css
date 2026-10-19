@@ -7181,3 +7181,17 @@ body.dark-theme .sources-modal-list a{color:#7dd3fc}
 
 /* Кнопка «Пройти заново» под результатами викторины — всегда видна */
 .quiz-restart-row{margin-top:16px;display:flex;justify-content:center}
+
+/* Mobile header fit: 44px coarse-pointer targets squeezed the <=560px header until the nowrap logo title spilled under the weather pill (owner phone report, 2026-10-19) */
+@media (max-width:560px){
+    .header-left{min-width:0}
+    .logo-group{min-width:0}
+    .logo-text{min-width:0;overflow:hidden}
+    .logo-text span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .header-right{min-width:0}
+}
+@media (pointer:coarse) and (max-width:560px){
+    .achieve-btn,.theme-switch-btn,.lang-switch-btn,.mobile-menu-btn,.sights-nav-btn{min-width:38px;min-height:38px}
+    .theme-switch-btn{width:38px!important;height:38px!important}
+    .logo-group{min-height:38px}
+}
