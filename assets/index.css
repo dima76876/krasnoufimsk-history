@@ -7182,3 +7182,16 @@ body.dark-theme .sources-modal-list a{color:#7dd3fc}
 
 /* Кнопка «Пройти заново» под результатами викторины — всегда видна */
 .quiz-restart-row{margin-top:16px;display:flex;justify-content:center}
+
+/* Header controls height normalization: the generic coarse-pointer button rule (min-height:44px) hit the weather pill too — it is a <button> without a class-set height, so it towered 44px over the 29-34px header controls (owner report, 2026-10-19) */
+@media (pointer:coarse) and (max-width:600px){
+    .weather-pill{height:34px;min-height:34px}
+    .achieve-btn{height:34px;min-height:34px;min-width:34px}
+    .theme-switch-btn{width:34px;height:34px;min-width:34px;min-height:34px}
+    .mobile-menu-btn{width:36px;height:36px;min-width:36px;min-height:36px}
+}
+@media (pointer:coarse) and (max-width:440px){
+    .weather-pill{height:29px;min-height:29px;min-width:0}
+    .achieve-btn{width:29px;height:29px;min-width:29px;min-height:29px}
+    .mobile-menu-btn{width:31px;height:31px;min-width:31px;min-height:31px}
+}
