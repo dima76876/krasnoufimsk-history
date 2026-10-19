@@ -109,11 +109,48 @@
         <div class="error-code">404</div>
         <h1 class="error-title">Страница не найдена</h1>
         <p class="error-desc">Похоже, эта тропа истории ещё не исследована или адрес был введён с опечаткой. Вернитесь к интерактивному путеводителю по Красноуфимску.</p>
-        <a href="index.html" class="btn-home">
+        <a href="index.html" class="btn-home" data-root-link="index.html">
             <span>🏛️</span>
             <span>Вернуться в путеводитель</span>
         </a>
+        <p style="margin-top:18px"><a href="index.html#map" data-root-link="index.html#map" style="color:#7dd3fc">Смотреть карту достопримечательностей</a></p>
+        <p style="margin-top:10px"><a href="planner.html" data-root-link="planner.html" style="color:#7dd3fc">Открыть планировщик поездки</a></p>
+        <p style="margin-top:22px;color:#64748b;font-size:.9rem">Автоматический возврат на главную через <span id="countdown">15</span> с…</p>
     </main>
+    <script>
+        // Ссылки относительные: работают и из распакованного архива (file://), и на GitHub Pages
+        // в подпапке репозитория. Если ошибочный URL вложенный (site/repo/foo/bar), скрипт
+        // поднимается по каталогам, пока не найдёт корень сайта, и подставляет префикс ../
+        (function () {
+            var prefix = '';
+            var links = document.querySelectorAll('[data-root-link]');
+            function applyPrefix() {
+                links.forEach(function (el) {
+                    el.setAttribute('href', prefix + el.getAttribute('data-root-link'));
+                });
+            }
+            function goHome() { window.location.replace(prefix + 'index.html'); }
+            var cd = document.getElementById('countdown');
+            var left = 15;
+            var timer = setInterval(function () {
+                left -= 1;
+                if (cd) cd.textContent = String(Math.max(left, 0));
+                if (left <= 0) { clearInterval(timer); goHome(); }
+            }, 1000);
+            document.addEventListener('pointerdown', function () { clearInterval(timer); }, { once: true });
+            if (window.location.protocol === 'file:') { applyPrefix(); return; }
+            var depth = window.location.pathname.split('/').filter(Boolean).length;
+            if (depth <= 1) { applyPrefix(); return; }
+            var step = 0;
+            (function probe() {
+                if (step > 4) { applyPrefix(); return; }
+                fetch(prefix + 'index.html', { method: 'HEAD' }).then(function (r) {
+                    if (r.ok) { applyPrefix(); return; }
+                    prefix += '../'; step += 1; probe();
+                }).catch(function () { prefix += '../'; step += 1; probe(); });
+            })();
+        })();
+    </script>
 </body>
 
 </html>
