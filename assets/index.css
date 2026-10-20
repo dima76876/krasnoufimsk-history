@@ -7132,7 +7132,7 @@
         body.season-winter{--main-color:#0369a1;--main-hover:#075985}
         body.season-spring{--main-color:#15803d;--main-hover:#166534}
         body.season-summer{--main-color:#0f766e;--main-hover:#115e59}
-        button.weather-pill{font:inherit;text-align:left}
+        button.weather-pill{font-family:inherit;text-align:left}
         .sights-custom-opt-item:focus-visible{outline:3px solid #38bdf8;outline-offset:3px}
         @media (prefers-reduced-motion: reduce){#particle-canvas{display:none!important}}
         @media (max-width:380px){
