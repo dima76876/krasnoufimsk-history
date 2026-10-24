@@ -242,11 +242,13 @@
 
         header {
             pointer-events: auto;
-            max-width: 1300px;
+            width: 100%;
+            max-width: 1440px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 18px;
             padding: 10px 24px;
             border-radius: 50px;
             background: rgba(15, 23, 42, 0.84);
@@ -263,6 +265,7 @@
             display: flex;
             align-items: center;
             gap: 16px;
+            min-width: 0;
         }
 
         .logo-group {
@@ -869,7 +872,7 @@
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
         }
 
         .nav-link {
@@ -877,7 +880,7 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 12.5px;
-            padding: 5px 8px;
+            padding: 5px 9px;
             border-radius: 16px;
             transition: var(--transition);
             white-space: nowrap;
@@ -1011,6 +1014,7 @@
             align-items: center;
             gap: 12px;
             flex-shrink: 0;
+            min-width: 0;
         }
 
         /* Кнопка открытия мобильного меню (скрыта на ПК) */
@@ -3609,6 +3613,11 @@
             .planner-cta-btn {
                 width: 100%;
                 justify-content: center;
+                white-space: normal;
+                text-align: center;
+                line-height: 1.35;
+                padding: 11px 14px;
+                font-size: 0.9rem;
             }
         }
 
@@ -3904,6 +3913,15 @@
                 padding: 6px 12px;
                 border-radius: 28px;
                 position: relative;
+                gap: 12px;
+            }
+
+            .header-left {
+                gap: 10px;
+            }
+
+            .header-right {
+                gap: 8px;
             }
 
             .logo-sub {
@@ -3938,11 +3956,11 @@
 
             .nav-links {
                 display: flex;
-                gap: 2px;
+                gap: 3px;
             }
 
             .nav-link {
-                padding: 4px 6px;
+                padding: 4px 7px;
                 font-size: 11.5px;
             }
 
@@ -3951,16 +3969,81 @@
             }
         }
 
+        /* Промежуточный режим для широких ноутбуков и 16:9/16:10 мониторов
+           (1600x900, 1680x1050, а также 1920x1080 при масштабе 125%):
+           подписи логотипа и города остаются видимыми, но элементы чуть компактнее,
+           поэтому шапка не выглядит прижатой к краям капсулы. */
+        @media (max-width: 1750px) and (min-width: 1521px) {
+            .header-wrapper {
+                top: 10px;
+                padding: 0 14px;
+            }
+
+            header {
+                padding: 7px 16px;
+                border-radius: 36px;
+                position: relative;
+                gap: 14px;
+            }
+
+            .header-left {
+                gap: 12px;
+            }
+
+            .header-right {
+                gap: 8px;
+            }
+
+            .logo-text {
+                font-size: 16px;
+            }
+
+            .weather-pill {
+                padding: 5px 10px;
+                gap: 6px;
+                font-size: 12px;
+            }
+
+            .lang-switch-btn {
+                padding: 5px 9px;
+                font-size: 11.5px;
+                gap: 4px;
+            }
+
+            .theme-switch-btn {
+                width: 34px;
+                height: 34px;
+            }
+
+            .achieve-btn {
+                width: 34px;
+                height: 34px;
+                padding: 0;
+            }
+
+            .nav-links {
+                gap: 4px;
+            }
+
+            .nav-link {
+                padding: 4px 7px;
+                font-size: 12px;
+            }
+        }
+
         /* Фит-гард (JS): если шапка всё равно переполняется на любой ширине —
            сначала принудительно компактный режим, затем — бургер-меню */
         body.nav-compact-force .header-wrapper { top: 8px; padding: 0 10px; }
-        body.nav-compact-force header { padding: 6px 12px; border-radius: 28px; }
+        body.nav-compact-force header { padding: 6px 12px; border-radius: 28px; gap: 12px; }
+        body.nav-compact-force .header-left { gap: 10px; }
+        body.nav-compact-force .header-right { gap: 8px; }
+        body.nav-compact-force .logo-text { font-size: 16px; }
         body.nav-compact-force .logo-sub { display: none; }
         body.nav-compact-force .weather-city-label { display: none; }
         body.nav-compact-force .weather-pill { padding: 5px 8px; gap: 5px; font-size: 11.5px; }
         body.nav-compact-force .lang-switch-btn { padding: 5px 8px; font-size: 11.5px; gap: 4px; }
         body.nav-compact-force .theme-switch-btn { width: 32px; height: 32px; }
-        body.nav-compact-force .achieve-btn { height: 32px; padding: 0 8px; }
+        body.nav-compact-force .achieve-btn { width: 32px; height: 32px; padding: 0; }
         body.nav-compact-force .nav-links { display: flex; gap: 2px; }
         body.nav-compact-force .nav-link { padding: 4px 6px; font-size: 11.5px; }
         body.nav-burger-force .nav-links { display: none !important; }
@@ -3977,6 +4060,7 @@
                 padding: 8px 14px;
                 border-radius: 28px;
                 position: relative;
+                gap: 12px;
             }
 
             .logo-sub {
@@ -7198,7 +7282,7 @@ body.dark-theme .sources-modal-list a{color:#7dd3fc}
 
 /* Header fit trim: body font is self-hosted Inter (wider than the original system Roboto/Segoe stack), so the owner's compact phone header overflowed by a few px and the weather pill touched the logo title. Trim paddings/gaps/title by ~16px total at <=440px to restore the original fit with margin (owner screenshots, 2026-10-20) */
 @media (max-width:600px){
-    header{padding:5px 8px}
+    header{padding:5px 8px;gap:6px}
     .header-left{gap:6px}
     .logo-group{gap:5px}
     .header-right{gap:5px}
@@ -7206,7 +7290,7 @@ body.dark-theme .sources-modal-list a{color:#7dd3fc}
     .lang-switch-btn{padding:0 8px}
 }
 @media (max-width:440px){
-    header{padding:4px 5px}
+    header{padding:4px 5px;gap:4px}
     .header-left{gap:4px}
     .logo-group{gap:3px}
     .logo-icon{font-size:14px}
@@ -7215,3 +7299,13 @@ body.dark-theme .sources-modal-list a{color:#7dd3fc}
     .weather-pill{padding:3px 5px;gap:2px}
     .lang-switch-btn{padding:0 6px}
 }
+
+/* v19: заголовок окна погоды на телефоне переносится полностью,
+   а не обрезается многоточием. */
+@media (max-width:480px){
+ .weather-modal-header{align-items:flex-start}
+ .weather-title-wrap h3,.weather-modal-coords{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:break-word}
+ .weather-hero-text{min-width:0;flex:1}
+ .weather-hero-desc{overflow-wrap:break-word}
+}
+@media (max-width:400px){.weather-status-badge{display:none}}

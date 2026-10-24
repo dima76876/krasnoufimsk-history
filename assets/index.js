@@ -6399,20 +6399,56 @@
         });
 
         /* ===== Фит-гард шапки: если навигация не помещается по ширине —
-           сначала компактный режим, затем бургер-меню (любая ширина экрана) ===== */
+           сначала компактный режим, затем бургер-меню (любая ширина экрана).
+           Проверяется не только фактический выход за край, но и минимальный
+           свободный зазор между логотипом и правой группой: так шапка не
+           остаётся «впритык» при другом шрифте, масштабе или поздней
+           загрузке температуры/языка. ===== */
+        var headerFitGuardTimers = [];
+        var headerFitGuardRunning = false;
+        function scheduleHeaderFitGuard(delay) {
+            var baseDelay = typeof delay === 'number' ? delay : 80;
+            headerFitGuardTimers.forEach(clearTimeout);
+            headerFitGuardTimers = [];
+            // Вторая проверка нужна после CSS-переходов пунктов меню (~0,3 с):
+            // первое измерение может увидеть ещё промежуточную ширину.
+            [baseDelay, baseDelay + 380].forEach(function(ms) {
+                headerFitGuardTimers.push(setTimeout(headerFitGuard, ms));
+            });
+        }
         function headerFitGuard() {
+            if (headerFitGuardRunning) return;
+            headerFitGuardRunning = true;
             try {
                 var body = document.body;
                 var hdr = document.querySelector('header');
                 var links = hdr ? hdr.querySelector('.nav-links') : null;
+                var left = hdr ? hdr.querySelector('.header-left') : null;
+                var right = hdr ? hdr.querySelector('.header-right') : null;
                 body.classList.remove('nav-compact-force', 'nav-burger-force');
                 if (!hdr || window.innerWidth <= 1100) return;
+                function visible(el) {
+                    return !!(el && el.getClientRects && el.getClientRects().length &&
+                        window.getComputedStyle(el).display !== 'none');
+                }
                 function overflows() {
                     if (hdr.scrollWidth > hdr.clientWidth + 1) return true;
-                    if (links && links.offsetParent !== null) {
-                        var hr = hdr.getBoundingClientRect();
+                    var hr = hdr.getBoundingClientRect();
+                    var cs = window.getComputedStyle(hdr);
+                    var padL = parseFloat(cs.paddingLeft) || 0;
+                    var padR = parseFloat(cs.paddingRight) || 0;
+                    if (visible(left) && visible(right)) {
+                        var leftRect = left.getBoundingClientRect();
+                        var rightRect = right.getBoundingClientRect();
+                        if (rightRect.left - leftRect.right < 16) return true;
+                        if (leftRect.left < hr.left + padL - 1 ||
+                            rightRect.right > hr.right - padR + 1) return true;
+                    }
+                    if (visible(links)) {
+                        if (links.scrollWidth > links.clientWidth + 1) return true;
                         var lr = links.getBoundingClientRect();
-                        if (lr.right > hr.right - 2) return true;
+                        if (lr.left < hr.left + padL - 1 ||
+                            lr.right > hr.right - padR + 1) return true;
                     }
                     return false;
                 }
@@ -6421,11 +6457,20 @@
                     if (overflows()) body.classList.add('nav-burger-force');
                 }
             } catch (e) { /* защитный код — не ломаем страницу */ }
+            finally { headerFitGuardRunning = false; }
         }
-        window.addEventListener('load', headerFitGuard);
-        window.addEventListener('resize', headerFitGuard);
-        if (document.fonts && document.fonts.ready) document.fonts.ready.then(headerFitGuard);
+        window.addEventListener('load', function() { scheduleHeaderFitGuard(0); });
+        window.addEventListener('resize', function() { scheduleHeaderFitGuard(80); });
+        window.addEventListener('orientationchange', function() { scheduleHeaderFitGuard(120); });
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(function() { scheduleHeaderFitGuard(0); });
         document.addEventListener('click', function(e) {
             var t = e.target;
-            if (t && t.closest && t.closest('.lang-switch-btn')) setTimeout(headerFitGuard, 60);
+            if (t && t.closest && t.closest('.lang-switch-btn')) scheduleHeaderFitGuard(80);
         });
+        if (window.MutationObserver) {
+            var headerForObserver = document.querySelector('header');
+            if (headerForObserver) {
+                new MutationObserver(function() { scheduleHeaderFitGuard(120); })
+                    .observe(headerForObserver, { subtree: true, childList: true, characterData: true });
+            }
+        }

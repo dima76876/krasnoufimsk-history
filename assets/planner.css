@@ -1990,7 +1990,15 @@
            ========================================================================== */
         @media (max-width: 1024px) {
             .bottom-layout {
-                grid-template-columns: 1fr;
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .bottom-layout > *,
+            .budget-card,
+            .program-card,
+            .itinerary-details-container {
+                min-width: 0;
+                max-width: 100%;
+                box-sizing: border-box;
             }
             .budget-card {
                 position: static;
@@ -2580,3 +2588,48 @@ body.dark-mode .settings-grid--v3 .custom-select-menu{
     outline: 3px solid #38bdf8;
     outline-offset: 3px;
 }
+
+/* v19: узкие телефоны 320–380 px — шапка планировщика не должна
+   накладывать круглую кнопку темы на название города. */
+@media (max-width: 380px) {
+    header { padding: 5px 6px; gap: 4px; }
+    .logo-group { gap: 4px; min-height: 32px; }
+    .logo-icon { font-size: 1.25rem; }
+    .logo-title { font-size: 0.92rem; letter-spacing: 0; }
+    .header-right { gap: 3px; }
+    .control-btn { height: 32px; min-height: 32px; padding: 0 5px; gap: 3px; font-size: 0.74rem; }
+    #btn-theme-toggle { width: 32px !important; height: 32px !important; min-width: 32px !important; min-height: 32px !important; }
+    #theme-btn-icon { font-size: 0.92rem; }
+    .mobile-menu-btn { width: 32px; height: 32px; min-width: 32px; min-height: 32px; font-size: 1rem; }
+}
+
+/* v19: календарь не должен распираться тач-правилом min-width:44px.
+   Сетка из семи колонок обязана сжиматься, а на телефоне карточка
+   центрируется по полю даты и не выходит за края экрана. */
+.trip-cal-week,.trip-cal-grid{grid-template-columns:repeat(7,minmax(0,1fr))}
+.trip-cal-nav{min-width:36px}
+.trip-cal-day{min-width:0}
+@media (max-width:480px){
+ .trip-calendar{left:50%;transform:translateX(-50%);width:min(320px,calc(100vw - 24px));max-width:calc(100vw - 24px)}
+}
+
+/* v19: окно погоды на узких телефонах. Раньше описание погоды
+   обрезалось («Переменна»), а текст кнопки обновления выходил
+   за её рамку. Даём окну всю доступную ширину и разрешаем перенос. */
+#btn-back-to-top{z-index:90}
+@media (max-width:480px){
+ .weather-modal-backdrop{padding:10px}
+ .weather-modal-window{width:100%!important;max-height:94vh}
+ .weather-modal-header{align-items:flex-start;padding:12px 14px}
+ .weather-title-wrap h3,.weather-modal-coords{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:break-word}
+ .weather-modal-body{padding:14px;gap:14px}
+ .weather-hero-block{padding:14px;gap:10px}
+ .weather-hero-temp-row{gap:10px;min-width:0}
+ .weather-hero-text{min-width:0;flex:1}
+ .weather-hero-big-temp{font-size:2.15rem;flex-shrink:0}
+ .weather-hero-desc{font-size:.92rem;overflow-wrap:break-word}
+ .weather-modal-footer{padding:12px 14px;gap:10px;flex-wrap:wrap}
+ .weather-modal-footer>span{flex:1 1 120px;min-width:0}
+ .btn-refresh-weather{flex:0 0 auto;white-space:nowrap;min-width:max-content;justify-content:center}
+}
+@media (max-width:400px){.weather-status-badge{display:none}}

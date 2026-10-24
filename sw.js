@@ -1,5 +1,5 @@
 /* Красноуфимск: Сквозь эпохи — Service Worker (полный офлайн-пакет, 2026-10-19) */
-const CACHE = 'kuf-history-v37-offline-20261019';
+const CACHE = 'kuf-history-v39-offline-20261024';
 const PMTILES_PATH = '/assets/maps/krasnoufimsk.pmtiles';
 const FONT_FILES = [
   'inter-cyrillic-ext-wght-normal.woff2',
