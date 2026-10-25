@@ -96,6 +96,7 @@
                 navIntro: 'О городе',
                 navTimeline: 'Лента',
                 navRoutes: 'Маршруты',
+                navPlanner: 'Планировщик',
                 navGuide: 'Памятка',
                 navQuiz: 'Викторина',
                 navMenuTitle: 'Разделы путеводителя',
@@ -322,6 +323,7 @@
                 navIntro: 'About',
                 navTimeline: 'Timeline',
                 navRoutes: 'Routes',
+                navPlanner: 'Trip Planner',
                 plannerCtaBadge: '🧭 Trip Planning • 2026',
                 plannerCtaTitle: 'Planning a trip to Krasnoufimsk?',
                 plannerCtaDesc: 'Compare train, bus and car options from your city; a fast electric train is available from Yekaterinburg. The planner shows an estimated journey time, an approximate budget and a recommended itinerary, while timetables and fares must be checked for your travel date.',
@@ -4318,6 +4320,33 @@
 
 
         function downloadCertificate() {
+            const coatImgEl = document.getElementById('cert-coat-of-arms');
+            if (coatImgEl && !coatImgEl.complete) {
+                if (!coatImgEl.dataset.certWait) {
+                    coatImgEl.dataset.certWait = '1';
+                    const retryCertificate = () => {
+                        delete coatImgEl.dataset.certWait;
+                        downloadCertificate();
+                    };
+                    coatImgEl.addEventListener('load', retryCertificate, { once: true });
+                    coatImgEl.addEventListener('error', retryCertificate, { once: true });
+                }
+                return;
+            }
+            let coatImg = coatImgEl && coatImgEl.naturalWidth ? coatImgEl : null;
+            if (coatImg) {
+                try {
+                    const coatTestCanvas = document.createElement('canvas');
+                    coatTestCanvas.width = 1;
+                    coatTestCanvas.height = 1;
+                    coatTestCanvas.getContext('2d').drawImage(coatImg, 0, 0, 1, 1);
+                    coatTestCanvas.toDataURL();
+                } catch (e) {
+                    // Если браузер запретил экспорт canvas из-за внешней картинки,
+                    // диплом всё равно должен скачаться, просто без растрового герба.
+                    coatImg = null;
+                }
+            }
             const rawNameInput = document.getElementById('cert-name-input');
             const rawName = rawNameInput ? rawNameInput.value.trim() : '';
             const fallbackName = currentLang === 'ru' ? 'Знаток истории Красноуфимска' : 'Explorer of Krasnoufimsk';
@@ -4335,6 +4364,30 @@
             canvas.width = W;
             canvas.height = H;
             const ctx = canvas.getContext('2d');
+
+            // Герб рисуется из присланного владельцем изображения герба,
+            // а не приблизительными canvas-линиями: так сокол и ветвь совпадают с оригиналом.
+            function drawCoatOfArmsImage(centerX, topY, width, alpha) {
+                if (!coatImg) return false;
+                const height = width * (coatImg.naturalHeight / coatImg.naturalWidth);
+                const left = centerX - width / 2;
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                // Лёгкая обрезка по силуэту щита убирает возможную светлую кайму исходника.
+                ctx.beginPath();
+                ctx.moveTo(left, topY);
+                ctx.lineTo(left + width, topY);
+                ctx.lineTo(left + width, topY + height * 0.84);
+                ctx.quadraticCurveTo(left + width * 0.965, topY + height * 0.955, centerX, topY + height);
+                ctx.quadraticCurveTo(left + width * 0.035, topY + height * 0.955, left, topY + height * 0.84);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(coatImg, left, topY, width, height);
+                ctx.restore();
+                return true;
+            }
 
             // Безопасный полифилл roundRect для старых браузеров
             if (!ctx.roundRect) {
@@ -4398,166 +4451,9 @@
                 ctx.stroke();
             }
 
-            // Истинный геральдический герб Красноуфимска в центре водяного знака
-            // (По фото: серебряный сокол с опущенными крыльями на золотой волнообразной
-            //  перевязи в зелёном поле, под золотой башенной короной о пяти зубцах)
-            ctx.save();
-            ctx.strokeStyle = 'rgba(180, 134, 40, 0.22)';
-            ctx.fillStyle = 'rgba(180, 134, 40, 0.045)';
-            ctx.lineWidth = 2.4;
+            // В центре водяного знака — тот же присланный герб, только сильно приглушённый.
+            drawCoatOfArmsImage(0, -208, 332, 0.075);
 
-            // 1. Геральдический щит
-            ctx.beginPath();
-            ctx.moveTo(-160, -170);
-            ctx.lineTo(160, -170);
-            ctx.lineTo(160, 25);
-            ctx.quadraticCurveTo(150, 160, 0, 225);
-            ctx.quadraticCurveTo(-150, 160, -160, 25);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
-
-            // Внутренняя двойная геральдическая кайма
-            ctx.beginPath();
-            ctx.moveTo(-148, -158);
-            ctx.lineTo(148, -158);
-            ctx.lineTo(148, 20);
-            ctx.quadraticCurveTo(138, 148, 0, 210);
-            ctx.quadraticCurveTo(-138, 148, -148, 20);
-            ctx.closePath();
-            ctx.stroke();
-
-            // 2. Золотая волнообразная перевязь внизу щита (как на фото герба)
-            ctx.beginPath();
-            ctx.moveTo(-140, 120);
-            for (let wx = -140; wx < 140; wx += 20) {
-                ctx.quadraticCurveTo(wx + 10, 120 + (((wx + 140) / 20) % 2 === 0 ? -12 : 12), wx + 20, 120);
-            }
-            ctx.lineTo(140, 165);
-            for (let wx = 140; wx > -140; wx -= 20) {
-                ctx.quadraticCurveTo(wx - 10, 165 + (((wx + 140) / 20) % 2 === 0 ? -12 : 12), wx - 20, 165);
-            }
-            ctx.closePath();
-            ctx.fillStyle = 'rgba(180, 134, 40, 0.08)';
-            ctx.fill();
-            ctx.stroke();
-
-            // 3. Золотая башенная корона о пяти зубцах над щитом
-            ctx.beginPath();
-            ctx.moveTo(-110, -172);
-            ctx.lineTo(-110, -225); // левый край
-            ctx.lineTo(-75, -225);  // башня 1
-            ctx.lineTo(-75, -195);
-            ctx.lineTo(-45, -195);
-            ctx.lineTo(-45, -235);  // башня 2
-            ctx.lineTo(-15, -235);
-            ctx.lineTo(-15, -195);
-            ctx.lineTo(15, -195);
-            ctx.lineTo(15, -245);   // центральная главная башня (3)
-            ctx.lineTo(45, -245);
-            ctx.lineTo(45, -195);
-            ctx.lineTo(75, -195);
-            ctx.lineTo(75, -225);   // башня 4
-            ctx.lineTo(110, -225);  // башня 5
-            ctx.lineTo(110, -172);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
-            // Каменная кладка короны
-            ctx.beginPath();
-            ctx.moveTo(-105, -185); ctx.lineTo(105, -185);
-            ctx.moveTo(-75, -185); ctx.lineTo(-75, -172);
-            ctx.moveTo(-30, -185); ctx.lineTo(-30, -172);
-            ctx.moveTo(30, -185); ctx.lineTo(30, -172);
-            ctx.moveTo(75, -185); ctx.lineTo(75, -172);
-            ctx.stroke();
-
-            // 4. Геральдический сокол (символ Красноуфимска)
-            // Голова с острым хищным клювом влево
-            ctx.beginPath();
-            ctx.arc(0, -62, 22, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            // Загнутый золотой клюв
-            ctx.beginPath();
-            ctx.moveTo(-12, -67);
-            ctx.quadraticCurveTo(-34, -62, -28, -48);
-            ctx.quadraticCurveTo(-18, -50, -10, -56);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
-            // Лазоревое око
-            ctx.beginPath();
-            ctx.arc(-5, -64, 4.5, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(180, 134, 40, 0.35)';
-            ctx.fill();
-
-            // Могучее оперенное тело
-            ctx.beginPath();
-            ctx.moveTo(-16, -42);
-            ctx.quadraticCurveTo(-36, 0, -28, 48);
-            ctx.lineTo(28, 48);
-            ctx.quadraticCurveTo(36, 0, 16, -42);
-            ctx.closePath();
-            ctx.fillStyle = 'rgba(180, 134, 40, 0.06)';
-            ctx.fill();
-            ctx.stroke();
-
-            // Хвостовые перья до волнообразной перевязи
-            for (let tx of [-14, 0, 14]) {
-                ctx.beginPath();
-                ctx.moveTo(tx - 6, 48);
-                ctx.lineTo(tx, 126);
-                ctx.lineTo(tx + 6, 48);
-                ctx.stroke();
-            }
-
-            // Лапы с когтями на волнообразной перевязи
-            for (let footX of [-20, 20]) {
-                ctx.beginPath();
-                ctx.moveTo(footX, 48);
-                ctx.lineTo(footX - 10, 112);
-                ctx.moveTo(footX, 48);
-                ctx.lineTo(footX, 118);
-                ctx.moveTo(footX, 48);
-                ctx.lineTo(footX + 10, 112);
-                ctx.stroke();
-            }
-
-            // Распростёртые крылья с выразительными маховыми перьями
-            function drawWatermarkWing(isLeft) {
-                const s = isLeft ? -1 : 1;
-                // Верхняя кромка крыла
-                ctx.beginPath();
-                ctx.moveTo(s * 15, -42);
-                ctx.quadraticCurveTo(s * 75, -30, s * 118, 55);
-                // 5 веерных маховых перьев, опущенных вниз (как на фото)
-                ctx.lineTo(s * 104, 62);
-                ctx.lineTo(s * 98, 40);
-                ctx.lineTo(s * 84, 50);
-                ctx.lineTo(s * 78, 28);
-                ctx.lineTo(s * 64, 38);
-                ctx.lineTo(s * 58, 16);
-                ctx.lineTo(s * 44, 26);
-                ctx.lineTo(s * 40, 4);
-                ctx.lineTo(s * 28, 12);
-                ctx.quadraticCurveTo(s * 22, -14, s * 14, -30);
-                ctx.closePath();
-                ctx.fill();
-                ctx.stroke();
-
-                // Продольные перьевые линии внутри крыла
-                for (let p = 1; p <= 4; p++) {
-                    ctx.beginPath();
-                    ctx.moveTo(s * (30 + p * 8), -30 + p * 6);
-                    ctx.quadraticCurveTo(s * (60 + p * 10), -10 + p * 10, s * (85 + p * 7), 20 + p * 10);
-                    ctx.stroke();
-                }
-            }
-            drawWatermarkWing(true);
-            drawWatermarkWing(false);
-
-            ctx.restore();
             ctx.restore();
 
             // 2.1. Боковые декоративные гравюрные виньетки (заполняют пустоту по левому и правому краям)
@@ -4669,249 +4565,16 @@
             drawCornerOrnament(96, H - 96, 1, -1);
             drawCornerOrnament(W - 96, H - 96, -1, -1);
 
-            // 4. Парадный официальный герб Красноуфимска
-            // По фото официального герба (ГГР № 1027): в зелёном поле серебряный сокол
-            // с распростёртыми и опущенными крыльями, стоящий на золотой волнообразной
-            // перевязи; щит увенчан золотой башенной короной о пяти зубцах
+            // 4. Герб Красноуфимска — присланное владельцем изображение
+            // (серебряный сокол в профиль на золотой ветви в зелёном поле).
             const crestX = W / 2;
-            const crestY = 208;
+            drawCoatOfArmsImage(crestX, 98, 154, 1);
 
-            // (Лавровый венок убран: на официальном гербе по фото венка нет)
-
-            // Золотая башенная корона о пяти зубцах (статус уездного / городского округа)
-            ctx.save();
-            const crownBaseY = crestY - 58;
-            ctx.fillStyle = '#ca8a04';
-            ctx.strokeStyle = '#fef08a';
-            ctx.lineWidth = 2.2;
-            ctx.beginPath();
-            ctx.moveTo(crestX - 52, crownBaseY);
-            ctx.lineTo(crestX - 52, crownBaseY - 32); // башня 1
-            ctx.lineTo(crestX - 35, crownBaseY - 32);
-            ctx.lineTo(crestX - 35, crownBaseY - 18);
-            ctx.lineTo(crestX - 22, crownBaseY - 18);
-            ctx.lineTo(crestX - 22, crownBaseY - 38); // башня 2
-            ctx.lineTo(crestX - 8, crownBaseY - 38);
-            ctx.lineTo(crestX - 8, crownBaseY - 18);
-            ctx.lineTo(crestX + 8, crownBaseY - 18);
-            ctx.lineTo(crestX + 8, crownBaseY - 44);  // центральная башня 3
-            ctx.lineTo(crestX + 22, crownBaseY - 44);
-            ctx.lineTo(crestX + 22, crownBaseY - 18);
-            ctx.lineTo(crestX + 35, crownBaseY - 18);
-            ctx.lineTo(crestX + 35, crownBaseY - 32); // башня 4
-            ctx.lineTo(crestX + 52, crownBaseY - 32); // башня 5
-            ctx.lineTo(crestX + 52, crownBaseY);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
-
-            // Каменные швы и бойницы короны
-            ctx.strokeStyle = '#854d0e';
-            ctx.lineWidth = 1.4;
-            ctx.beginPath();
-            ctx.moveTo(crestX - 50, crownBaseY - 12); ctx.lineTo(crestX + 50, crownBaseY - 12);
-            ctx.moveTo(crestX - 35, crownBaseY - 12); ctx.lineTo(crestX - 35, crownBaseY);
-            ctx.moveTo(crestX - 15, crownBaseY - 12); ctx.lineTo(crestX - 15, crownBaseY);
-            ctx.moveTo(crestX + 15, crownBaseY - 12); ctx.lineTo(crestX + 15, crownBaseY);
-            ctx.moveTo(crestX + 35, crownBaseY - 12); ctx.lineTo(crestX + 35, crownBaseY);
-            ctx.stroke();
-
-            // (Драгоценный пояс убран: корона на фото — гладкая золотая кладка)
-            ctx.restore();
-
-            // Геральдический щит
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(crestX - 58, crestY - 56);
-            ctx.lineTo(crestX + 58, crestY - 56);
-            ctx.lineTo(crestX + 58, crestY + 22);
-            ctx.quadraticCurveTo(crestX + 52, crestY + 68, crestX, crestY + 86);
-            ctx.quadraticCurveTo(crestX - 52, crestY + 68, crestX - 58, crestY + 22);
-            ctx.closePath();
-
-            // Изумрудно-зелёное поле герба
-            const shieldGrad = ctx.createLinearGradient(crestX - 58, crestY - 56, crestX + 58, crestY + 86);
-            shieldGrad.addColorStop(0, '#15803d');
-            shieldGrad.addColorStop(0.45, '#166534');
-            shieldGrad.addColorStop(1, '#052e16');
-            ctx.fillStyle = shieldGrad;
-            ctx.fill();
-
-            // Внутренний золотой кант щита
-            ctx.strokeStyle = goldGrad;
-            ctx.lineWidth = 6;
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.moveTo(crestX - 52, crestY - 50);
-            ctx.lineTo(crestX + 52, crestY - 50);
-            ctx.lineTo(crestX + 52, crestY + 20);
-            ctx.quadraticCurveTo(crestX + 46, crestY + 62, crestX, crestY + 78);
-            ctx.quadraticCurveTo(crestX - 46, crestY + 62, crestX - 52, crestY + 20);
-            ctx.closePath();
-            ctx.strokeStyle = 'rgba(254, 240, 138, 0.75)';
-            ctx.lineWidth = 1.6;
-            ctx.stroke();
-
-            // Золотая волнообразная перевязь внизу щита (как на фото герба),
-            // обрезается по контуру щита через clip
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(crestX - 58, crestY - 56);
-            ctx.lineTo(crestX + 58, crestY - 56);
-            ctx.lineTo(crestX + 58, crestY + 22);
-            ctx.quadraticCurveTo(crestX + 52, crestY + 68, crestX, crestY + 86);
-            ctx.quadraticCurveTo(crestX - 52, crestY + 68, crestX - 58, crestY + 22);
-            ctx.closePath();
-            ctx.clip();
-            const bendTop = crestY + 40;
-            ctx.beginPath();
-            ctx.moveTo(crestX - 62, bendTop);
-            for (let wx = -62; wx < 62; wx += 10) {
-                ctx.quadraticCurveTo(crestX + wx + 5, bendTop + (((wx + 62) / 10) % 2 === 0 ? -7 : 7), crestX + wx + 10, bendTop);
-            }
-            ctx.lineTo(crestX + 62, crestY + 92);
-            ctx.lineTo(crestX - 62, crestY + 92);
-            ctx.closePath();
-            const bendGrad = ctx.createLinearGradient(crestX, bendTop - 8, crestX, crestY + 86);
-            bendGrad.addColorStop(0, '#fde047');
-            bendGrad.addColorStop(1, '#ca8a04');
-            ctx.fillStyle = bendGrad;
-            ctx.fill();
-            ctx.strokeStyle = '#854d0e';
-            ctx.lineWidth = 1.4;
-            ctx.stroke();
-            ctx.restore();
-
-            // Серебряный сокол с распростёртыми крыльями
-            // Хвостовые перья
-            ctx.fillStyle = '#f1f5f9';
-            ctx.strokeStyle = '#cbd5e1';
-            ctx.lineWidth = 1.5;
-            for (let t of [-7, 0, 7]) {
-                ctx.beginPath();
-                ctx.moveTo(crestX + t - 4, crestY + 24);
-                ctx.lineTo(crestX + t, crestY + 42);
-                ctx.lineTo(crestX + t + 4, crestY + 24);
-                ctx.closePath();
-                ctx.fill();
-                ctx.stroke();
-            }
-
-            // Золотые лапы с когтями, стоящие на земле
-            ctx.strokeStyle = '#eab308';
-            ctx.fillStyle = '#eab308';
-            ctx.lineWidth = 2.4;
-            for (let footX of [-12, 12]) {
-                ctx.beginPath();
-                ctx.moveTo(crestX + footX, crestY + 22);
-                ctx.lineTo(crestX + footX - 5, crestY + 39);
-                ctx.moveTo(crestX + footX, crestY + 22);
-                ctx.lineTo(crestX + footX, crestY + 41);
-                ctx.moveTo(crestX + footX, crestY + 22);
-                ctx.lineTo(crestX + footX + 5, crestY + 39);
-                ctx.stroke();
-            }
-
-            // Серебряные крылья, распростёртые и ОПУЩЕННЫЕ вниз (как на фото герба)
-            function drawCrestWing(isLeft) {
-                const s = isLeft ? -1 : 1;
-                ctx.beginPath();
-                ctx.moveTo(crestX + s * 8, crestY - 16);
-                ctx.quadraticCurveTo(crestX + s * 34, crestY - 12, crestX + s * 48, crestY + 24);
-                // 4 веерных пера, опущенных вниз
-                ctx.lineTo(crestX + s * 40, crestY + 28);
-                ctx.lineTo(crestX + s * 38, crestY + 16);
-                ctx.lineTo(crestX + s * 30, crestY + 22);
-                ctx.lineTo(crestX + s * 28, crestY + 8);
-                ctx.lineTo(crestX + s * 20, crestY + 14);
-                ctx.lineTo(crestX + s * 18, crestY + 0);
-                ctx.lineTo(crestX + s * 11, crestY + 6);
-                ctx.quadraticCurveTo(crestX + s * 9, crestY - 8, crestX + s * 7, crestY - 13);
-                ctx.closePath();
-
-                const wingGrad = ctx.createLinearGradient(crestX, crestY - 16, crestX + s * 50, crestY + 28);
-                wingGrad.addColorStop(0, '#ffffff');
-                wingGrad.addColorStop(1, '#e2e8f0');
-                ctx.fillStyle = wingGrad;
-                ctx.fill();
-                ctx.strokeStyle = '#94a3b8';
-                ctx.lineWidth = 1.4;
-                ctx.stroke();
-
-                // Прорисовка стволов перьев
-                ctx.strokeStyle = 'rgba(212, 175, 55, 0.7)';
-                ctx.lineWidth = 1.1;
-                ctx.beginPath();
-                ctx.moveTo(crestX + s * 14, crestY - 8);
-                ctx.lineTo(crestX + s * 40, crestY + 16);
-                ctx.moveTo(crestX + s * 12, crestY - 2);
-                ctx.lineTo(crestX + s * 32, crestY + 12);
-                ctx.stroke();
-            }
-            drawCrestWing(true);
-            drawCrestWing(false);
-
-            // Серебряное тело сокола
-            ctx.beginPath();
-            ctx.moveTo(crestX - 9, crestY - 18);
-            ctx.quadraticCurveTo(crestX - 16, crestY + 2, crestX - 11, crestY + 22);
-            ctx.lineTo(crestX + 11, crestY + 22);
-            ctx.quadraticCurveTo(crestX + 16, crestY + 2, crestX + 9, crestY - 18);
-            ctx.closePath();
-            ctx.fillStyle = '#ffffff';
-            ctx.fill();
-            ctx.strokeStyle = '#cbd5e1';
-            ctx.lineWidth = 1.4;
-            ctx.stroke();
-
-            // Оперение груди (тонкие геральдические штрихи)
-            ctx.strokeStyle = '#94a3b8';
-            ctx.lineWidth = 1;
-            for (let py of [-8, -1, 6, 13]) {
-                ctx.beginPath();
-                ctx.arc(crestX, crestY + py, 4.5, 0.2 * Math.PI, 0.8 * Math.PI);
-                ctx.stroke();
-            }
-
-            // Голова сокола с хохолком
-            ctx.beginPath();
-            ctx.arc(crestX, crestY - 24, 10.5, 0, Math.PI * 2);
-            ctx.fillStyle = '#ffffff';
-            ctx.fill();
-            ctx.strokeStyle = '#cbd5e1';
-            ctx.lineWidth = 1.4;
-            ctx.stroke();
-
-            // Острый загнутый золотой клюв влево
-            ctx.beginPath();
-            ctx.moveTo(crestX - 7, crestY - 27);
-            ctx.quadraticCurveTo(crestX - 18, crestY - 25, crestX - 15, crestY - 18);
-            ctx.quadraticCurveTo(crestX - 10, crestY - 20, crestX - 6, crestY - 22);
-            ctx.closePath();
-            ctx.fillStyle = '#eab308';
-            ctx.fill();
-            ctx.strokeStyle = '#854d0e';
-            ctx.lineWidth = 1.2;
-            ctx.stroke();
-
-            // Лазоревое око сокола
-            ctx.beginPath();
-            ctx.arc(crestX - 3, crestY - 25, 2.5, 0, Math.PI * 2);
-            ctx.fillStyle = '#0284c7'; // лазоревый
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(crestX - 3.8, crestY - 25.8, 0.8, 0, Math.PI * 2);
-            ctx.fillStyle = '#ffffff'; // блик
-            ctx.fill();
-
-            ctx.restore();
-
-            // Лента основания под щитом
+            // Лента основания под гербом
             ctx.save();
             ctx.fillStyle = '#78350f';
             ctx.beginPath();
-            ctx.roundRect(crestX - 110, crestY + 92, 220, 28, 7);
+            ctx.roundRect(crestX - 110, 298, 220, 28, 7);
             ctx.fill();
             ctx.strokeStyle = '#d4af37';
             ctx.lineWidth = 2;
@@ -4921,7 +4584,7 @@
             ctx.fillStyle = '#fef08a';
             ctx.textAlign = 'center';
             const ribbonText = currentLang === 'en' ? '★ 1736 • KRASNOUFIMSK ★' : '★ 1736 • КРАСНОУФИМСК ★';
-            ctx.fillText(ribbonText, crestX, crestY + 111);
+            ctx.fillText(ribbonText, crestX, 317);
             ctx.restore();
 
             // 5. Текстовые блоки диплома
@@ -5250,18 +4913,48 @@
                 : 'Красноуфимск • Свердловская область • Научно-образовательный портал 2026 • Формат листа А4 (297 × 210 мм)',
                 W / 2, H - 70);
 
-            // Инициируем скачивание диплома
+            // Подготавливаем файл диплома для скачивания по кнопке
             const translit = {а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya',А:'A',Б:'B',В:'V',Г:'G',Д:'D',Е:'E',Ё:'E',Ж:'Zh',З:'Z',И:'I',Й:'Y',К:'K',Л:'L',М:'M',Н:'N',О:'O',П:'P',Р:'R',С:'S',Т:'T',У:'U',Ф:'F',Х:'Kh',Ц:'Ts',Ч:'Ch',Ш:'Sh',Щ:'Shch',Ъ:'',Ы:'Y',Ь:'',Э:'E',Ю:'Yu',Я:'Ya'};
             const safeName = (finalName.split('').map(ch => translit[ch] ?? ch).join('').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9_-]/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, '') || 'Explorer').slice(0, 60);
             const safeDiff = diff.toUpperCase();
-            const link = document.createElement('a');
-            link.download = `Diplom_Krasnoufimsk_${safeDiff}_${safeName}.jpg`;
-            link.href = canvas.toDataURL('image/jpeg', 0.92);
-            link.click();
+            const diplomaFileName = `Diplom_Krasnoufimsk_${safeDiff}_${safeName}.jpg`;
+            const triggerDiplomaDownload = (href, isObjectUrl) => {
+                const link = document.createElement('a');
+                link.href = href;
+                link.download = diplomaFileName;
+                link.rel = 'noopener';
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                if (typeof launchConfetti === 'function') {
+                    launchConfetti({ count: 95 });
+                }
+                setTimeout(() => {
+                    link.remove();
+                    if (isObjectUrl) URL.revokeObjectURL(href);
+                }, 4000);
+            };
 
-            if (typeof launchConfetti === 'function') {
-                launchConfetti({ count: 95 });
+            // Короткий Blob-URL надёжнее гигантской data-ссылки: последняя молча
+            // игнорируется частью мобильных браузеров и установленных PWA.
+            // Скачивание происходит только по явному нажатию кнопки диплома:
+            // без этого нажатия файл на устройство не загружается.
+            const diplomaDataUrl = canvas.toDataURL('image/jpeg', 0.92);
+            let diplomaHref = diplomaDataUrl;
+            let revokeDiplomaUrl = false;
+            try {
+                const commaPos = diplomaDataUrl.indexOf(',');
+                const mime = diplomaDataUrl.slice(5, commaPos).split(';')[0] || 'image/jpeg';
+                const binary = atob(diplomaDataUrl.slice(commaPos + 1));
+                const bytes = new Uint8Array(binary.length);
+                for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+                diplomaHref = URL.createObjectURL(new Blob([bytes], { type: mime }));
+                revokeDiplomaUrl = true;
+            } catch (e) {
+                diplomaHref = diplomaDataUrl;
+                revokeDiplomaUrl = false;
             }
+            triggerDiplomaDownload(diplomaHref, revokeDiplomaUrl);
         }
 
         /* ==========================================================================
@@ -5608,26 +5301,31 @@
                             margin: [0, 0, 0, 10]
                         },
 
-                        // Нижняя плашка с вечной ссылкой
+                        // Нижняя плашка с вечной ссылкой: светлый вариант для ч/б печати
                         {
                             table: {
                                 widths: ['*'],
                                 body: [
                                     [
                                         {
-                                            fillColor: '#0f172a',
-                                            margin: [6, 6, 6, 6],
+                                            fillColor: '#ffffff',
+                                            margin: [6, 7, 6, 7],
                                             alignment: 'center',
                                             stack: [
-                                                { text: isRu ? '► ИССЛЕДУЙТЕ КРАСНОУФИМСК ОНЛАЙН' : '► EXPLORE KRASNOUFIMSK ONLINE', bold: true, fontSize: 9, color: '#f59e0b' },
-                                                { text: isRu ? 'Интерактивная лента времени, викторина, паспорт исследователя и погода:' : 'Interactive timeline, quiz, explorer passport, and live 7-day weather:', fontSize: 7.5, color: '#94a3b8', margin: [0, 2, 0, 2] },
-                                                { text: 'https://krasnoufimsk-history.site/', fontSize: 8.5, bold: true, color: '#38bdf8' }
+                                                { text: isRu ? '► ИССЛЕДУЙТЕ КРАСНОУФИМСК ОНЛАЙН' : '► EXPLORE KRASNOUFIMSK ONLINE', bold: true, fontSize: 9, color: '#0f172a' },
+                                                { text: isRu ? 'Интерактивная лента времени, викторина, паспорт исследователя и погода:' : 'Interactive timeline, quiz, explorer passport, and live 7-day weather:', fontSize: 7.5, color: '#334155', margin: [0, 2, 0, 2] },
+                                                { text: 'https://krasnoufimsk-history.site/', link: 'https://krasnoufimsk-history.site/', fontSize: 8.5, bold: true, color: '#0f172a' }
                                             ]
                                         }
                                     ]
                                 ]
                             },
-                            layout: 'noBorders'
+                            layout: {
+                                hLineWidth: () => 1,
+                                vLineWidth: () => 1,
+                                hLineColor: () => '#334155',
+                                vLineColor: () => '#334155'
+                            }
                         }
                     ],
                     styles: {

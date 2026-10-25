@@ -1,5 +1,5 @@
 /* Красноуфимск: Сквозь эпохи — Service Worker (полный офлайн-пакет, 2026-10-19) */
-const CACHE = 'kuf-history-v39-offline-20261024';
+const CACHE = 'kuf-history-v46-offline-20261025';
 const PMTILES_PATH = '/assets/maps/krasnoufimsk.pmtiles';
 const FONT_FILES = [
   'inter-cyrillic-ext-wght-normal.woff2',
@@ -24,7 +24,7 @@ const CORE = [
   ...FONT_FILES.map(file => `/assets/fonts/${file}`),
   '/assets/index.css', '/assets/index.js', '/assets/planner.css', '/assets/planner.js',
   PMTILES_PATH,
-  '/images/og_banner.jpg', '/images/unsplash.webp', '/images/bg_winter.webp', '/images/bg_spring.webp', '/images/bg_summer.webp',
+  '/images/og_banner.jpg', '/images/coat-of-arms.png', '/images/unsplash.webp', '/images/bg_winter.webp', '/images/bg_spring.webp', '/images/bg_summer.webp',
   '/vendor/leaflet.css', '/vendor/leaflet.js', '/vendor/protomaps-leaflet.js',
   '/vendor/pdfmake.min.js', '/vendor/vfs_fonts.js'
 ];
