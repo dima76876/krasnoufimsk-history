@@ -844,14 +844,17 @@
             }
         };
 
-        function applyLanguage(lang) {
+        function applyLanguage(lang, options = {}) {
             currentLang = (lang === 'en') ? 'en' : 'ru';
             document.documentElement.lang = currentLang;
             document.title = (currentLang === 'en')
                 ? 'Trip Planner — Krasnoufimsk: Through the Ages'
                 : 'Планировщик поездки — Красноуфимск: Сквозь эпохи';
             safeStorageSet('krasnoufimsk_lang', currentLang);
-            try { const u = new URL(window.location.href); u.searchParams.set('lang', currentLang); history.replaceState(null, '', u); } catch (e) {}
+            // SEO: не превращаем чистый /planner.html в /planner.html?lang=... при загрузке.
+            if (options && options.updateUrl) {
+                try { const u = new URL(window.location.href); u.searchParams.set('lang', currentLang); history.replaceState(null, '', u); } catch (e) {}
+            }
             const localizedMeta = currentLang === 'en'
                 ? { title: 'Trip Planner — Krasnoufimsk: Through the Ages', description: 'Trip planner for Krasnoufimsk: estimated car, train and bus routes, budget, hotels, meals and a day-by-day programme. Check timetables and fares for your travel date.', ogDescription: 'Estimate the journey to Krasnoufimsk, the budget and a tour programme; verify timetables and fares for your date.', locale: 'en_US', url: 'https://krasnoufimsk-history.site/planner.html' }
                 : { title: 'Планировщик поездки — Красноуфимск: Сквозь эпохи', description: 'Планировщик поездки в Красноуфимск: ориентировочные маршруты на авто, поезде и автобусе, оценка бюджета, гостиниц, питания и программа тура. Расписания и тарифы проверяйте на дату поездки.', ogDescription: 'Оцените дорогу до Красноуфимска, бюджет и программу поездки; расписания и тарифы проверяйте на дату.', locale: 'ru_RU', url: 'https://krasnoufimsk-history.site/planner.html' };
@@ -1094,7 +1097,7 @@
         function toggleLanguage() {
             currentLang = (currentLang === 'ru') ? 'en' : 'ru';
             safeStorageSet('krasnoufimsk_lang', currentLang);
-            applyLanguage(currentLang);
+            applyLanguage(currentLang, { updateUrl: true });
             fetchKrasnoufimskWeather();
         }
 

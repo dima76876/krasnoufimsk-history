@@ -1436,7 +1436,7 @@
                    ФУНКЦИЯ [1]: ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА (RU / EN)
                    Обновляет весь интерфейс, карточки и викторину.
                    ========================================================================== */
-        function setLanguage(lang) {
+        function setLanguage(lang, options = {}) {
             const prevScrollY = window.scrollY;
             currentLang = lang;
             document.documentElement.lang = lang;
@@ -1444,7 +1444,12 @@
                 ? 'Krasnoufimsk: Through the Ages — Interactive Guide'
                 : 'Красноуфимск: Сквозь эпохи — Интерактивный путеводитель';
             safeStorageSet('krasnoufimsk_lang', lang);
-            try { const u = new URL(window.location.href); u.searchParams.set('lang', lang); history.replaceState(null, '', u); } catch (e) {}
+            // SEO: при первой загрузке не дописываем ?lang= к чистому canonical URL,
+            // иначе Google видит главную как переадресацию на ?lang=ru|en.
+            // Параметр добавляем только при явном переключении языка пользователем.
+            if (options && options.updateUrl) {
+                try { const u = new URL(window.location.href); u.searchParams.set('lang', lang); history.replaceState(null, '', u); } catch (e) {}
+            }
             const localizedMeta = lang === 'en'
                 ? { title: 'Krasnoufimsk: Through the Ages — Interactive Guide', description: 'Krasnoufimsk: Through the Ages is an interactive guide to a Ural town: 21 epochs from the 1736 fortress, routes, viaducts, a map and a local-history quiz.', ogDescription: 'An interactive local-history journey from the Cossack fortress of 1736 to the present day: 21 epochs, curated routes, historic viaducts and a quiz.', locale: 'en_US', url: 'https://krasnoufimsk-history.site/' }
                 : { title: 'Красноуфимск: Сквозь эпохи — Интерактивный путеводитель', description: 'Красноуфимск: Сквозь эпохи — интерактивный путеводитель по городу Урала: 21 эпоха от крепости 1736 г., маршруты, виадуки, карта и краеведческая игра.', ogDescription: 'Интерактивное краеведческое путешествие сквозь века: от казачьей крепости 1736 года до современности. 21 эпоха, готовые маршруты, вековые виадуки и викторина знатока.', locale: 'ru_RU', url: 'https://krasnoufimsk-history.site/' };
@@ -1578,7 +1583,7 @@
 
         // Обработчик кнопки смены языка
         document.getElementById('lang-switch-btn').addEventListener('click', function () {
-            setLanguage(currentLang === 'ru' ? 'en' : 'ru');
+            setLanguage(currentLang === 'ru' ? 'en' : 'ru', { updateUrl: true });
         });
 
         /* ==========================================================================
