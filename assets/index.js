@@ -668,6 +668,7 @@
             },
             {
                 lat: '56.606363', lon: '57.739570',
+                directUrl: 'https://yandex.ru/maps/org/salavat_yulayev/174865061813/',
                 year: '1774',
                 tag: { ru: '• Пугачёв', en: '• Pugachev' },
                 badge: { ru: '🐎 Крестьянская война • Восстание', en: '🐎 Peasant War • Uprising' },
@@ -925,7 +926,7 @@
                 mapQuery: 'Красноуфимск Куйбышева 3 Аллея Памяти Вечный огонь'
             },
             {
-                lat: '56.628500', lon: '57.789100',
+                lat: '56.638961', lon: '57.732145',
                 year: '1960-е',
                 tag: { ru: '• Наука', en: '• Science' },
                 badge: { ru: '🌾 Аграрная наука • Селекция Урала', en: '🌾 Agrarian Science • Ural Breeding' },
@@ -941,7 +942,6 @@
                 icon: '🌾',
                 mapTitle: { ru: 'Красноуфимская селекционная станция', en: 'Krasnoufimsk Breeding Station' },
                 address: { ru: 'ул. Селекционная, д. 8', en: '8 Selektsionnaya St.' },
-                directUrl: 'https://yandex.ru/maps/org/krasnoufimskaya_selektsionnaya_stantsiya/1036067332/',
                 mapQuery: 'Красноуфимск Селекционная станция'
             },
             {
@@ -3491,8 +3491,8 @@
                 title: { ru: 'Штаб 28-й дивизии В.М. Азина', en: 'Headquarters of Azin\'s 28th Division' },
                 desc: { ru: 'Здание, в котором в 1919 году, в переломный момент Гражданской войны, размещался штаб 28-й стрелковой дивизии Второй армии Восточного фронта. Дивизией командовал легендарный Владимир Мартинович Азин — один из самых известных красных командиров Восточного фронта. Дом бывший Алексеева; памятная доска на фасаде.', en: 'The building where, in 1919, during a turning point of the Civil War, the headquarters of the 28th Rifle Division of the Second Army of the Eastern Front was located. The division was commanded by the legendary Vladimir Azin, a famous Red commander. Former Alekseev house, with a memorial plaque on the facade.' },
                 fact: { ru: 'В. М. Азин (настоящее имя Вольдемар Азиньш) прославился личной храбростью в боях за Урал. Здание штаба — объект культурного наследия областного значения (включено в Госсписок решением исполкома Свердловского облсовета от 18.02.1991 № 75). Его имя носит улица в Красноуфимске — бывшая Криулинская.', en: 'V. M. Azin (real name Voldemar Azinsh) was famous for his personal bravery in the battles for the Urals. The headquarters building is a regional cultural heritage site (state list decision of 18 Feb 1991 No. 75); a street in Krasnoufimsk, former Kriulinskaya, bears his name.' },
-                address: { ru: 'ул. Пролетарская, 50', en: '50 Proletarskaya St.' },
-                queryRu: 'Здание, в котором в 1919 году размещался штаб 28 дивизии под командованием В. М. Азина, Красноуфимск, Пролетарская 50', queryEn: 'Krasnoufimsk Azin 28th division headquarters'
+                address: { ru: 'ул. Свердлова, 9/50 (угол ул. Пролетарской, 50)', en: '9/50 Sverdlova St. (corner of 50 Proletarskaya St.)' },
+                queryRu: 'Здание, в котором в 1919 году размещался штаб 28 дивизии под командованием В. М. Азина, Красноуфимск, ул. Свердлова, 9/50, ул. Пролетарская, 50', queryEn: 'Krasnoufimsk Azin 28th division headquarters Sverdlova 9/50 Proletarskaya 50'
             }
         ,
             {
