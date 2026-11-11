@@ -1864,12 +1864,6 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
-        .event-card-index {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-light);
-        }
-
         .event-card h3 {
             font-size: clamp(24px, 3.5vw, 32px);
             font-weight: 900;

@@ -184,8 +184,6 @@
                 timelineKicker: 'ИСТОРИЯ ГОРОДА',
                 timelineHeading: 'Лента времени',
                 timelineHint: 'Выберите дату или листайте ленту, чтобы узнать историю города',
-                epochWord: 'Эпоха',
-                fromWord: 'из 21',
                 factTitle: 'Исторический факт:',
 
                 // Навигация
@@ -418,8 +416,6 @@
                 timelineKicker: 'THE CITY THROUGH TIME',
                 timelineHeading: 'Timeline',
                 timelineHint: 'Choose a date or scroll to explore the city’s history',
-                epochWord: 'Epoch',
-                fromWord: 'of 21',
                 factTitle: 'Historical fact:',
 
                 // Navigation
@@ -1617,7 +1613,6 @@
                     <div class="event-card-watermark" aria-hidden="true">${localizeSightYear(ev.year)}</div>
                     <div class="card-header-bar">
                         <span class="epoch-badge">${ev.badge[currentLang]}</span>
-                        <span class="event-card-index">${dict.epochWord} ${idx + 1} ${dict.fromWord}</span>
                     </div>
                     <h3>${ev.title[currentLang]}</h3>
                     <p class="event-desc">${ev.desc[currentLang]}</p>
