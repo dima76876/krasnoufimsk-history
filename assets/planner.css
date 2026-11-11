@@ -2633,3 +2633,36 @@ body.dark-mode .settings-grid--v3 .custom-select-menu{
  .btn-refresh-weather{flex:0 0 auto;white-space:nowrap;min-width:max-content;justify-content:center}
 }
 @media (max-width:400px){.weather-status-badge{display:none}}
+
+/* Компактный выбор дизайна и уведомления поверх окна погоды */
+.mobile-seasons-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.mobile-seasons-grid .season-chip-btn { min-width: 0; min-height: 40px; text-align: center; }
+.mobile-seasons-grid .season-chip-btn:first-child { grid-column: 1 / -1; }
+.toast-notify { z-index: 10001; max-width: min(420px, calc(100vw - 32px)); box-sizing: border-box; }
+@media (max-width: 600px) { .toast-notify { right: 16px; bottom: 16px; } }
+
+/* Светлые акценты текста на тёмных карточках; фон кнопок и палитра карты не меняются. */
+body.dark-mode.season-autumn { --dark-accent-text: #ffb279; }
+body.dark-mode.season-winter { --dark-accent-text: #86d5ff; }
+body.dark-mode.season-spring { --dark-accent-text: #86e8a6; }
+body.dark-mode.season-summer { --dark-accent-text: #72e4d6; }
+body.dark-mode :is(.logo-sub, .hero-badge, .weather-hero-big-temp,
+    .city-summary-pill, .city-chip.active, .city-search-footer-icon,
+    .city-search-footer-title, .city-search-divider, .transport-mode-badge,
+    .setting-btn.active, .custom-select-option.selected .opt-title,
+    .custom-select-trigger.active .custom-select-arrow, .budget-total-label,
+    .day-badge, .day-place-bullet, .trip-cal-foot-btn,
+    .season-menu-item.active, .season-menu-item:hover,
+    .mobile-nav-item:hover, .mobile-nav-item.active,
+    .btn-refresh-weather:hover, .btn-budget-secondary:hover,
+    .trip-cal-nav:hover:not(:disabled), .footer-link:hover) {
+    color: var(--dark-accent-text);
+}
+body.dark-mode .forecast-service-tag { color: #86d5ff; }
+/* Цветная подсветка поля поиска вместо общей голубой обводки. */
+.city-search-input:focus-visible {
+    outline: 2px solid var(--main-color); outline-offset: 1px; box-shadow: none;
+}
+body.dark-mode .city-search-input:focus-visible {
+    outline-color: var(--dark-accent-text, #ffb279);
+}

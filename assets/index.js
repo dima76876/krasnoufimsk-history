@@ -181,6 +181,9 @@
                 btnPrev: '← Предыдущая эпоха',
                 btnNext: 'Следующая эпоха →',
                 btnFinal: 'Финал ленты времени ✓',
+                timelineKicker: 'ИСТОРИЯ ГОРОДА',
+                timelineHeading: 'Лента времени',
+                timelineHint: 'Выберите дату или листайте ленту, чтобы узнать историю города',
                 epochWord: 'Эпоха',
                 fromWord: 'из 21',
                 factTitle: 'Исторический факт:',
@@ -412,6 +415,9 @@
                 btnPrev: '← Previous epoch',
                 btnNext: 'Next epoch →',
                 btnFinal: 'Timeline Complete ✓',
+                timelineKicker: 'THE CITY THROUGH TIME',
+                timelineHeading: 'Timeline',
+                timelineHint: 'Choose a date or scroll to explore the city’s history',
                 epochWord: 'Epoch',
                 fromWord: 'of 21',
                 factTitle: 'Historical fact:',
@@ -1497,6 +1503,7 @@
             });
             setAria('#weather-pill', 'Открыть прогноз погоды в Красноуфимске на 7 дней', 'Open the 7-day weather forecast for Krasnoufimsk');
             setAria('#achieve-btn', 'Паспорт исследователя', 'Explorer Passport');
+            setAria('#timeline', 'Лента времени', 'Timeline');
             setAria('#mobile-menu-btn', 'Меню навигации', 'Navigation menu');
             setAria('.mobile-close-btn', 'Закрыть меню', 'Close menu');
             setAria('#timeline-prev-btn', 'Прокрутить ленту влево', 'Scroll timeline left');
@@ -1724,6 +1731,7 @@
                             onclick="openEvent(${i}, 'event${i + 1}', true)"
                             data-index="${i}"
                             type="button"
+                            aria-pressed="${isActive}"
                             title="${localizeSightYear(ev.year)} — ${cleanTag}"
                             aria-label="${localizeSightYear(ev.year)} — ${cleanTag}">
                         <div class="time-btn-pill">
@@ -1762,9 +1770,14 @@
 
         function openEvent(index, eventId, autoScroll = false) {
             currentEventIndex = index;
+            const progress = document.getElementById('timeline-progress');
+            if (progress) progress.textContent = currentLang === 'en'
+                ? `Epoch ${index + 1} of ${eventsData.length}`
+                : `Эпоха ${index + 1} из ${eventsData.length}`;
 
             const timeBtns = document.querySelectorAll('.time-btn');
             timeBtns.forEach((btn, i) => {
+                btn.setAttribute('aria-pressed', i === index ? 'true' : 'false');
                 if (i === index) {
                     btn.classList.add('active');
                     const scrollContainer = document.querySelector('.timeline-scroll-container');
@@ -2233,6 +2246,23 @@
             if (timeEl) timeEl.textContent = formatWeatherUpdatedLabel(data, isEn);
         }
 
+        let weatherToastTimer;
+        function showWeatherToast(message) {
+            let toast = document.getElementById('weather-refresh-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'weather-refresh-toast';
+                toast.className = 'weather-refresh-toast';
+                toast.setAttribute('role', 'status');
+                toast.setAttribute('aria-live', 'polite');
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(weatherToastTimer);
+            weatherToastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
         // Интерактивное обновление погоды с плавной 360° анимацией
         async function refreshWeatherWithAnimation() {
             const icon = document.getElementById('weather-refresh-icon');
@@ -2256,8 +2286,16 @@
 
             try {
                 await Promise.all([fetchKrasnoufimskWeather(), minDelay]);
+                if (cachedWeatherState && !cachedWeatherState.isOffline) {
+                    showWeatherToast(lang === 'en' ? '✅ Weather forecast updated!' : '✅ Прогноз погоды успешно обновлён!');
+                } else if (cachedWeatherState && cachedWeatherState.isCached) {
+                    showWeatherToast(lang === 'en' ? '⚠️ Offline: showing the last saved forecast' : '⚠️ Нет связи с сервером. Показан последний сохранённый прогноз');
+                } else {
+                    showWeatherToast(lang === 'en' ? '⚠️ Offline: baseline seasonal forecast shown' : '⚠️ Нет связи с сервером. Показан базовый сезонный прогноз');
+                }
             } catch (err) {
                 console.error('Weather refresh error:', err);
+                showWeatherToast(lang === 'en' ? '⚠️ Failed to update weather' : '⚠️ Не удалось обновить погоду');
             } finally {
                 if (icon) icon.classList.remove('spinning');
                 if (btn) {
@@ -2928,15 +2966,21 @@
            ФУНКЦИЯ [7]: АНИМИРОВАННЫЕ СЕЗОННЫЕ ЧАСТИЦЫ НА ХОЛСТЕ (CANVAS)
            ========================================================================== */
         let particleAnimId = null;
+        const particleMotionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 
         function initParticleCanvas(season) {
             const canvas = document.getElementById('particle-canvas');
             if (!canvas) return;
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { canvas.style.display = 'none'; return; }
-            canvas.style.display = '';
-            const ctx = canvas.getContext('2d');
-
             if (particleAnimId) cancelAnimationFrame(particleAnimId);
+            particleAnimId = null;
+            if (particleMotionPreference.matches) {
+                canvas.style.display = 'none';
+                return;
+            }
+            canvas.style.display = '';
+            if (document.hidden) return;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
 
             function resize() {
                 const hero = document.getElementById('hero');
@@ -2948,67 +2992,98 @@
             window.__particleResizeHandler = resize;
             window.addEventListener('resize', resize);
 
-            const count = window.innerWidth < 768 ? 20 : 50;
-            const particles = [];
+            const count = window.innerWidth < 768 ? 17 : 38;
+            const particles = Array.from({ length: count }, (_, i) => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: 1.5 + Math.random() * 2.4,
+                speedY: 0.25 + Math.random() * 0.45,
+                speedX: (Math.random() - 0.5) * 0.34,
+                opacity: 0.3 + Math.random() * 0.4,
+                rotation: Math.random() * Math.PI * 2,
+                rotSpeed: (Math.random() - 0.5) * 0.012,
+                phase: Math.random() * Math.PI * 2,
+                detail: i % 4 === 0
+            }));
+            let lastTime = null;
 
-            for (let i = 0; i < count; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    radius: Math.random() * 3 + 1.5,
-                    speedY: Math.random() * 1.2 + 0.5,
-                    speedX: (Math.random() - 0.5) * 0.8,
-                    opacity: Math.random() * 0.6 + 0.2,
-                    rotation: Math.random() * Math.PI * 2,
-                    rotSpeed: (Math.random() - 0.5) * 0.03
-                });
-            }
-
-            function draw() {
+            function draw(time) {
+                const step = lastTime === null ? 1 : Math.min((time - lastTime) / 16.67, 3);
+                lastTime = time;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-
                 particles.forEach(p => {
                     ctx.save();
                     ctx.translate(p.x, p.y);
                     ctx.rotate(p.rotation);
-
                     if (season === 'winter') {
-                        ctx.fillStyle = `rgba(224, 242, 254, ${p.opacity})`;
-                        ctx.beginPath();
-                        ctx.arc(0, 0, p.radius, 0, Math.PI * 2);
-                        ctx.fill();
+                        if (p.detail) {
+                            // Несколько узорных снежинок среди маленьких снежных точек.
+                            const r = p.radius * 2.2 + 2;
+                            ctx.strokeStyle = `rgba(230, 247, 255, ${p.opacity})`;
+                            ctx.lineWidth = 1.1;
+                            ctx.lineCap = 'round';
+                            ctx.beginPath();
+                            for (let arm = 0; arm < 6; arm++) {
+                                const angle = arm * Math.PI / 3;
+                                const x = Math.cos(angle), y = Math.sin(angle);
+                                ctx.moveTo(0, 0); ctx.lineTo(x * r, y * r);
+                                const branch = angle + Math.PI;
+                                ctx.moveTo(x * r * .65, y * r * .65);
+                                ctx.lineTo(x * r + Math.cos(branch + .6) * r * .32, y * r + Math.sin(branch + .6) * r * .32);
+                                ctx.moveTo(x * r * .65, y * r * .65);
+                                ctx.lineTo(x * r + Math.cos(branch - .6) * r * .32, y * r + Math.sin(branch - .6) * r * .32);
+                            }
+                            ctx.stroke();
+                        } else {
+                            ctx.fillStyle = `rgba(230, 247, 255, ${p.opacity})`;
+                            ctx.beginPath(); ctx.arc(0, 0, p.radius * .75, 0, Math.PI * 2); ctx.fill();
+                        }
                     } else if (season === 'autumn') {
-                        ctx.fillStyle = `rgba(251, 146, 60, ${p.opacity})`;
-                        ctx.beginPath();
-                        ctx.ellipse(0, 0, p.radius * 2.5, p.radius * 1.2, 0, 0, Math.PI * 2);
-                        ctx.fill();
+                        const r = p.radius;
+                        ctx.fillStyle = `rgba(251, 154, 77, ${p.opacity})`;
+                        ctx.beginPath(); ctx.moveTo(-r * 2, 0);
+                        ctx.bezierCurveTo(-r, -r * 1.8, r, -r * 1.8, r * 2, 0);
+                        ctx.bezierCurveTo(r, r * 1.8, -r, r * 1.8, -r * 2, 0); ctx.fill();
+                        ctx.strokeStyle = `rgba(255, 221, 178, ${p.opacity * .7})`;
+                        ctx.lineWidth = .6; ctx.beginPath(); ctx.moveTo(-r * 1.8, 0); ctx.lineTo(r * 1.8, 0); ctx.stroke();
                     } else if (season === 'spring') {
-                        ctx.fillStyle = `rgba(187, 247, 208, ${p.opacity})`;
-                        ctx.beginPath();
-                        ctx.ellipse(0, 0, p.radius * 2, p.radius, Math.PI / 4, 0, Math.PI * 2);
-                        ctx.fill();
+                        const r = p.radius;
+                        ctx.fillStyle = `rgba(255, 221, 231, ${p.opacity})`;
+                        ctx.beginPath(); ctx.moveTo(0, -r * 1.8);
+                        ctx.bezierCurveTo(r * 2, -r, r * 1.5, r * 1.5, 0, r * 2);
+                        ctx.bezierCurveTo(-r * 1.5, r * 1.5, -r * 2, -r, 0, -r * 1.8); ctx.fill();
                     } else {
-                        ctx.fillStyle = `rgba(153, 246, 228, ${p.opacity})`;
-                        ctx.beginPath();
-                        ctx.arc(0, 0, p.radius * 1.3, 0, Math.PI * 2);
-                        ctx.fill();
+                        const r = p.radius * 1.5;
+                        ctx.fillStyle = `rgba(255, 220, 142, ${p.opacity * .18})`;
+                        ctx.beginPath(); ctx.arc(0, 0, r * 2.2, 0, Math.PI * 2); ctx.fill();
+                        ctx.fillStyle = `rgba(255, 235, 177, ${p.opacity * .75})`;
+                        ctx.beginPath(); ctx.arc(0, 0, r * .55, 0, Math.PI * 2); ctx.fill();
                     }
-
                     ctx.restore();
-
-                    p.y += p.speedY;
-                    p.x += p.speedX;
-                    p.rotation += p.rotSpeed;
-
-                    if (p.y > canvas.height) { p.y = -10; p.x = Math.random() * canvas.width; }
-                    if (p.x > canvas.width) p.x = 0;
-                    if (p.x < 0) p.x = canvas.width;
+                    p.phase += .012 * step;
+                    p.y += p.speedY * step;
+                    p.x += (p.speedX + Math.sin(p.phase) * .22) * step;
+                    p.rotation += p.rotSpeed * step;
+                    if (p.y > canvas.height + 15) { p.y = -15; p.x = Math.random() * canvas.width; }
+                    if (p.x > canvas.width + 15) p.x = -15;
+                    if (p.x < -15) p.x = canvas.width + 15;
                 });
-
                 particleAnimId = requestAnimationFrame(draw);
             }
+            particleAnimId = requestAnimationFrame(draw);
+        }
 
-            draw();
+        function updateParticlesForMotionPreference() {
+            let season = 'autumn';
+            for (const name of ['winter', 'spring', 'summer']) {
+                if (document.body.classList.contains('season-' + name)) season = name;
+            }
+            initParticleCanvas(season);
+        }
+        if (particleMotionPreference.addEventListener) {
+            particleMotionPreference.addEventListener('change', updateParticlesForMotionPreference);
+        } else if (particleMotionPreference.addListener) {
+            particleMotionPreference.addListener(updateParticlesForMotionPreference);
         }
 
         // При скрытии вкладки приостанавливаем анимацию для экономии батареи и ресурсов процессора
@@ -5848,6 +5923,7 @@
                 if (typeof updatePassportBadgeCount === 'function') {
                     updatePassportBadgeCount();
                 }
+                showWeatherToast(lang === 'en' ? '✅ Achievement progress has been reset' : '✅ Прогресс достижений сброшен');
             }
         };
 

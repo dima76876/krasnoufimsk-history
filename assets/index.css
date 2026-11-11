@@ -7323,3 +7323,139 @@ body.dark-theme .sources-modal-list a{color:#7dd3fc}
  .weather-hero-desc{overflow-wrap:break-word}
 }
 @media (max-width:400px){.weather-status-badge{display:none}}
+
+/* Кнопка и сообщение об обновлении прогноза */
+.btn-refresh-weather {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    background: transparent; border: 1px solid var(--border-card); color: var(--text-main);
+    padding: 4px 12px; border-radius: var(--radius-sm); font-size: 0.8rem;
+    font-weight: 600; box-shadow: none; transition: border-color 0.2s, color 0.2s, opacity 0.2s;
+}
+.btn-refresh-weather:hover { border-color: var(--main-color); color: var(--main-color); filter: none; transform: none; }
+.weather-refresh-toast {
+    position: fixed; bottom: 30px; right: 30px; z-index: 10001;
+    max-width: min(420px, calc(100vw - 32px)); box-sizing: border-box;
+    background: #1e293b; color: #fff; padding: 12px 22px; border-radius: var(--radius-sm);
+    box-shadow: 0 10px 30px rgba(0,0,0,.3); font-size: .92rem; font-weight: 600;
+    opacity: 0; transform: translateY(30px); pointer-events: none;
+    transition: opacity .3s ease, transform .3s ease;
+}
+.weather-refresh-toast.show { opacity: 1; transform: translateY(0); }
+@media (max-width: 640px) {
+    .weather-modal-footer { flex-direction: row; flex-wrap: wrap; gap: 10px; text-align: left; }
+    .weather-modal-footer > span { flex: 1 1 120px; min-width: 0; }
+    .btn-refresh-weather { width: auto; flex: 0 0 auto; white-space: nowrap; }
+    .weather-refresh-toast { right: 16px; bottom: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .weather-refresh-toast { transition: none; } }
+
+/* Лента истории и каталог: удобная навигация на любом экране */
+.timeline-section { padding: 24px 0 20px; }
+.timeline-heading {
+    max-width: 1264px; margin: 0 auto 14px; padding: 0 20px;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 18px;
+}
+.timeline-heading-copy { min-width: 0; }
+.timeline-heading-kicker {
+    display: block; color: var(--main-color); font-size: .7rem; font-weight: 800;
+    letter-spacing: .11em; line-height: 1.4; margin-bottom: 3px;
+}
+.timeline-heading h2 { margin: 0; color: var(--text-main); font-size: clamp(1.35rem, 2.2vw, 1.8rem); line-height: 1.18; }
+.timeline-heading p { margin: 5px 0 0; color: var(--text-muted); font-size: .87rem; line-height: 1.4; }
+.timeline-progress {
+    flex: 0 0 auto; padding: 8px 13px; border-radius: 999px;
+    background: var(--bg-accent); border: 1px solid var(--border-card);
+    color: var(--text-main); font-size: .8rem; font-weight: 700; white-space: nowrap;
+}
+.timeline-scroll-container { mask-image: none; -webkit-mask-image: none; gap: 10px; padding-top: 10px; }
+.time-btn-pill { min-width: 132px; padding: 10px 13px; border-radius: 15px; }
+.time-year-text { font-size: 16px; }
+.time-topic-text { font-size: 11px; max-width: 160px; }
+.time-btn:focus-visible .time-btn-pill { outline: 3px solid #38bdf8; outline-offset: 3px; }
+body.dark-theme .timeline-heading-kicker { color: #fbbf77; }
+body.dark-theme .timeline-progress { background: #1e293b; color: #f8fafc; }
+.sights-menu-selector-bar {
+    border-radius: 20px; padding: 18px 20px; gap: 18px;
+    border: 1px solid color-mix(in srgb, var(--main-color) 25%, var(--border-card));
+    box-shadow: 0 12px 30px rgba(15,23,42,.08);
+}
+.sights-menu-label { white-space: normal; line-height: 1.3; }
+.sights-custom-trigger { min-height: 52px; border-radius: 14px; }
+.sights-nav-btn { width: 48px; height: 48px; border-radius: 14px; }
+.sights-custom-menu { background: #fff; border-radius: 16px; }
+body.dark-theme .sights-custom-menu { background: #111c2f; }
+.sights-menu-search-box { background: transparent; padding: 12px; }
+.sights-search-input { height: 44px; }
+.sights-custom-options-list { max-height: min(390px, 52vh); padding: 8px; gap: 5px; }
+.sights-custom-opt-item { padding: 10px; border: 1px solid transparent; align-items: flex-start; }
+.sights-custom-opt-item.selected { border-color: color-mix(in srgb, var(--main-color) 35%, transparent); }
+.sights-opt-item-title { display: block; overflow: visible; -webkit-line-clamp: unset; line-height: 1.3; }
+.sights-opt-item-sub { white-space: normal; overflow: visible; line-height: 1.3; }
+.sights-opt-right { padding-top: 2px; }
+body.dark-theme .sights-custom-opt-item.selected .sights-opt-item-title,
+body.dark-theme .sights-custom-opt-item.selected .sights-opt-num-badge,
+body.dark-theme .sights-custom-opt-item.selected .sights-opt-pill-year,
+body.dark-theme .sights-opt-check-mark { color: #fbc68f; }
+@media (max-width: 768px) {
+    .timeline-heading { padding: 0 16px; }
+    .sights-menu-selector-bar { padding: 16px; }
+}
+@media (max-width: 560px) {
+    .timeline-section { padding: 20px 0 14px; }
+    .timeline-heading { align-items: flex-start; gap: 10px; }
+    .timeline-heading p { font-size: .78rem; }
+    .timeline-progress { font-size: .72rem; padding: 7px 9px; }
+    .timeline-wrapper { padding: 0 36px; }
+    .time-btn-pill { min-width: 118px; padding: 9px 10px; }
+    .time-year-text { font-size: 15px; }
+    .time-topic-text { max-width: 140px; font-size: 10px; }
+    .sights-menu-controls { gap: 8px; }
+    .sights-custom-opt-item { gap: 5px; }
+    .sights-opt-left { gap: 7px; }
+    .sights-opt-right { gap: 3px; }
+    .sights-opt-check-mark { width: 12px; }
+}
+/* Контрастный оттенок каждой сезонной темы на тёмном фоне. */
+body.dark-theme.season-autumn { --timeline-dark-accent: #ffb279; }
+body.dark-theme.season-winter { --timeline-dark-accent: #86d5ff; }
+body.dark-theme.season-spring { --timeline-dark-accent: #86e8a6; }
+body.dark-theme.season-summer { --timeline-dark-accent: #72e4d6; }
+body.dark-theme .timeline-heading-kicker,
+body.dark-theme .sights-custom-opt-item.selected .sights-opt-item-title,
+body.dark-theme .sights-custom-opt-item.selected .sights-opt-num-badge,
+body.dark-theme .sights-custom-opt-item.selected .sights-opt-pill-year,
+body.dark-theme .sights-opt-check-mark { color: var(--timeline-dark-accent, #ffb279); }
+
+/* Ясный контраст названия на всех сезонных фотографиях. */
+.hero h1 span.season-title {
+    background: none;
+    -webkit-text-fill-color: #fff;
+    color: #fff;
+    text-shadow: 0 3px 16px rgba(0, 0, 0, .75), 0 1px 3px rgba(0, 0, 0, .8);
+}
+
+/* Компактная лента: название и счётчик остаются, пояснение скрыто. */
+.timeline-section { padding: 12px 0 10px; }
+.timeline-heading { margin-bottom: 3px; align-items: center; }
+.timeline-heading-kicker, .timeline-heading p { display: none; }
+.timeline-heading h2 { font-size: clamp(1.15rem, 1.8vw, 1.45rem); }
+.timeline-progress { padding: 5px 11px; }
+.timeline-scroll-container { padding-top: 8px; }
+.time-btn-pill { padding: 7px 12px; }
+@media (max-width: 560px) {
+    .timeline-section { padding: 10px 0 8px; }
+    .timeline-heading { align-items: center; }
+    .timeline-heading h2 { font-size: 1.15rem; }
+    .time-btn-pill { padding: 7px 10px; }
+}
+/* Прежнее полупрозрачное стекло меню; полные названия сохранены. */
+.sights-custom-menu { background: var(--bg-card); }
+body.dark-theme .sights-custom-menu { background: rgba(15, 23, 42, 0.97); }
+/* Вместо двойной синей рамки — заметный фокус в сезонном цвете. */
+.sights-search-input:focus-visible {
+    outline: 2px solid var(--main-color); outline-offset: 1px; box-shadow: none;
+}
+body.dark-theme .sights-search-input:focus-visible {
+    outline-color: var(--timeline-dark-accent, #ffb279);
+}
+.sights-search-input { transition: border-color .2s, background-color .2s, box-shadow .2s; }
