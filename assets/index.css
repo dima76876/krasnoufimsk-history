@@ -7572,3 +7572,38 @@ body.dark-theme .weather-modal-window .weather-day-card.is-today .weather-day-we
     .timeline-wrapper::before { left: 36px; right: 36px; }
     .time-btn-pill { min-width: 118px; }
 }
+
+/* Компактная лента: общая шапка сверху и крупные стрелки по краям. */
+.timeline-section { display: block; padding: 12px 0 10px; }
+.timeline-heading {
+    box-sizing: border-box; width: calc(100% - 32px); max-width: 1264px;
+    margin: 0 auto 5px; padding: 2px 0 2px 12px;
+    display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 12px;
+    border-left: 3px solid var(--main-color);
+}
+.timeline-heading h2 { font-size: clamp(1rem, 1.6vw, 1.2rem); line-height: 1.2; }
+.timeline-progress {
+    padding: 5px 11px; font-size: .73rem; line-height: 1.2;
+    background: color-mix(in srgb, var(--main-color) 10%, var(--bg-card));
+    border-color: color-mix(in srgb, var(--main-color) 28%, transparent);
+}
+.timeline-wrapper { max-width: 1360px; min-width: 0; margin: 0 auto; padding: 0 52px; }
+.timeline-wrapper::before { left: 52px; right: 52px; }
+.timeline-scroll-container { padding: 8px 4px 12px; }
+.timeline-arrow { width: 42px; height: 42px; }
+.timeline-arrow.prev { left: 5px; }
+.timeline-arrow.next { right: 5px; }
+.timeline-arrow:disabled { opacity: .4; }
+.timeline-arrow:focus-visible { outline: 2px solid var(--main-color); outline-offset: 2px; }
+body.dark-theme .timeline-arrow:focus-visible { outline-color: var(--timeline-dark-accent, #ffb279); }
+@media (max-width: 768px) {
+    .timeline-section { padding: 10px 0 8px; }
+    .timeline-heading { width: calc(100% - 28px); margin: 0 auto 5px; padding-left: 10px; }
+    .timeline-heading h2 { font-size: 1rem; }
+    .timeline-wrapper { padding: 0 52px; }
+    .timeline-wrapper::before { left: 52px; right: 52px; }
+    .timeline-arrow { width: 44px; height: 44px; }
+    .timeline-arrow.prev { left: 4px; }
+    .timeline-arrow.next { right: 4px; }
+    .timeline-arrow svg { width: 18px; height: 18px; }
+}
