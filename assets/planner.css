@@ -2666,3 +2666,17 @@ body.dark-mode .forecast-service-tag { color: #86d5ff; }
 body.dark-mode .city-search-input:focus-visible {
     outline-color: var(--dark-accent-text, #ffb279);
 }
+
+/* Источник прогноза показывается один раз; цвета следуют выбранному сезону. */
+.weather-modal-window { --weather-accent-text: var(--main-color); }
+body.dark-mode .weather-modal-window { --weather-accent-text: var(--dark-accent-text, #ffb279); }
+.weather-modal-window .weather-status-badge { display: none; }
+.weather-modal-window .forecast-service-tag {
+    background: color-mix(in srgb, var(--main-color) 12%, transparent);
+    color: var(--weather-accent-text);
+    border: 1px solid color-mix(in srgb, var(--main-color) 28%, transparent);
+    border-radius: 10px;
+    padding: 3px 8px;
+}
+.weather-modal-window .weather-day-card.is-today .weather-day-weekday { color: var(--weather-accent-text); }
+.weather-modal-window :focus-visible { outline: 2px solid var(--weather-accent-text); outline-offset: 2px; }

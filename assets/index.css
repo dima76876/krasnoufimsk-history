@@ -7459,3 +7459,116 @@ body.dark-theme .sights-search-input:focus-visible {
     outline-color: var(--timeline-dark-accent, #ffb279);
 }
 .sights-search-input { transition: border-color .2s, background-color .2s, box-shadow .2s; }
+
+/* Паспорт: сезонные акценты и аккуратная компоновка профиля. */
+.passport-modal-window { --passport-ink: var(--main-color); }
+body.dark-theme .passport-modal-window { --passport-ink: var(--timeline-dark-accent, #ffb279); }
+.passport-profile-card {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--main-color) 10%, transparent), color-mix(in srgb, var(--main-color) 3%, transparent));
+    border-color: color-mix(in srgb, var(--main-color) 35%, transparent);
+}
+.passport-avatar-picker { flex: 0 0 auto; }
+.passport-avatar-btn {
+    border-color: var(--passport-ink);
+    box-shadow: 0 4px 12px var(--accent-glow);
+}
+.passport-name-row { min-width: 0; }
+.passport-name-input {
+    display: block; flex: 1 1 auto; width: 100%; min-width: 0; max-width: 230px;
+    padding: 5px 8px; border: 1px solid var(--border-card); border-radius: 8px;
+    background: color-mix(in srgb, var(--bg-accent) 70%, transparent);
+    transition: border-color .2s, background-color .2s, box-shadow .2s;
+}
+.passport-edit-hint { display: none; }
+.passport-rank-badge {
+    background: color-mix(in srgb, var(--main-color) 14%, transparent);
+    color: var(--passport-ink);
+    border-color: color-mix(in srgb, var(--main-color) 30%, transparent);
+}
+body.dark-theme .passport-rank-badge { color: var(--passport-ink); }
+.passport-stats-num { color: var(--passport-ink); }
+.passport-bar-fill { background: linear-gradient(90deg, var(--main-color), color-mix(in srgb, var(--main-color) 65%, #fff)); }
+.passport-reset-btn {
+    background: color-mix(in srgb, var(--main-color) 9%, transparent);
+    border: 1px solid var(--passport-ink);
+    color: var(--passport-ink);
+    font-weight: 700;
+    line-height: 1.25;
+}
+.passport-reset-btn:hover {
+    color: var(--passport-ink);
+    border-color: var(--passport-ink);
+    background: color-mix(in srgb, var(--main-color) 17%, transparent);
+}
+.passport-modal-window :focus-visible {
+    outline: 2px solid var(--passport-ink); outline-offset: 2px;
+}
+.passport-name-input:focus { border-color: var(--passport-ink); }
+@media (max-width: 600px) {
+    .passport-profile-card {
+        display: grid; grid-template-columns: 52px minmax(0, 1fr);
+        align-items: center; column-gap: 12px; row-gap: 8px; padding: 14px;
+    }
+    .passport-user-info { min-width: 0; }
+    .passport-name-input { max-width: none; }
+    .passport-stats-mini {
+        grid-column: 2; display: flex; align-items: baseline; gap: 6px; text-align: left;
+    }
+    .passport-stats-num { font-size: 1.1rem; }
+    .passport-modal-footer { gap: 8px; }
+    .passport-reset-btn { min-width: 0; font-size: .8rem; padding: 9px 12px; }
+}
+
+/* Единые сезонные акценты прогноза; источник указан один раз над списком дней. */
+.weather-modal-window { --weather-accent-text: var(--main-color); }
+body.dark-theme .weather-modal-window { --weather-accent-text: var(--timeline-dark-accent, #ffb279); }
+.weather-modal-header { background: linear-gradient(to bottom, color-mix(in srgb, var(--main-color) 9%, transparent), transparent); }
+.weather-modal-window .weather-status-badge { display: none; }
+.weather-modal-window .forecast-service-tag,
+.weather-modal-window .weather-hero-season-badge span {
+    background: color-mix(in srgb, var(--main-color) 12%, transparent);
+    color: var(--weather-accent-text);
+    border: 1px solid color-mix(in srgb, var(--main-color) 28%, transparent);
+    border-radius: 10px;
+    opacity: 1;
+}
+.weather-modal-window .forecast-service-tag { padding: 3px 8px; }
+.weather-modal-window .weather-day-card.is-today {
+    background: color-mix(in srgb, var(--main-color) 12%, var(--bg-accent));
+    border-color: color-mix(in srgb, var(--main-color) 55%, transparent);
+}
+.weather-modal-window .weather-day-card.is-today .weather-day-weekday { color: var(--weather-accent-text); }
+body.dark-theme .weather-modal-window .weather-hero-season-badge span,
+body.dark-theme .weather-modal-window .weather-day-card.is-today .weather-day-weekday { color: var(--weather-accent-text); }
+.weather-modal-window :focus-visible { outline: 2px solid var(--weather-accent-text); outline-offset: 2px; }
+
+/* Название и счётчик встроены в компактную панель ленты. */
+.timeline-section {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px max(12px, calc((100vw - 1340px) / 2));
+}
+.timeline-heading {
+    flex: 0 0 155px; max-width: none; margin: 0; padding: 0 0 0 12px;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 5px;
+    border-left: 3px solid var(--main-color);
+}
+.timeline-heading h2 { font-size: 1.05rem; line-height: 1.2; }
+.timeline-progress {
+    font-size: .72rem; padding: 4px 9px; line-height: 1.2;
+}
+.timeline-wrapper { flex: 1 1 0; min-width: 0; max-width: none; margin: 0; padding: 0 44px; }
+.timeline-wrapper::before { left: 44px; right: 44px; }
+.timeline-scroll-container { padding: 8px 4px 12px; }
+.time-btn-pill { min-width: 124px; }
+@media (max-width: 768px) {
+    .timeline-section { display: block; padding: 10px 0 8px; }
+    .timeline-heading {
+        margin: 0 16px 4px; padding: 0 0 0 10px;
+        flex-direction: row; align-items: center; justify-content: space-between; gap: 8px;
+    }
+    .timeline-heading h2 { font-size: 1rem; }
+    .timeline-progress { padding: 4px 8px; font-size: .7rem; }
+    .timeline-wrapper { padding: 0 36px; }
+    .timeline-wrapper::before { left: 36px; right: 36px; }
+    .time-btn-pill { min-width: 118px; }
+}
