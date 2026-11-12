@@ -4991,7 +4991,7 @@
             ctx.fillText(currentLang === 'en'
                 ? 'Krasnoufimsk • Sverdlovsk Region • Educational Heritage Portal 2026 • A4 sheet format (297 × 210 mm)'
                 : 'Красноуфимск • Свердловская область • Научно-образовательный портал 2026 • Формат листа А4 (297 × 210 мм)',
-                W / 2, H - 70);
+                W / 2, H - 125);
 
             // Подготавливаем файл диплома для скачивания по кнопке
             const translit = {а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya',А:'A',Б:'B',В:'V',Г:'G',Д:'D',Е:'E',Ё:'E',Ж:'Zh',З:'Z',И:'I',Й:'Y',К:'K',Л:'L',М:'M',Н:'N',О:'O',П:'P',Р:'R',С:'S',Т:'T',У:'U',Ф:'F',Х:'Kh',Ц:'Ts',Ч:'Ch',Ш:'Sh',Щ:'Shch',Ъ:'',Ы:'Y',Ь:'',Э:'E',Ю:'Yu',Я:'Ya'};
@@ -5227,7 +5227,7 @@
                     stack: [
                         { text: `${n}. ${dict['r' + n + 'Title']}`, bold: true, fontSize: 9.5, color: '#0f172a' },
                         { text: `${dict.rTime} ${dict['r' + n + 'TimeVal']}   |   ${dict.rDist} ${dict['r' + n + 'DistVal']}`, fontSize: 8, color: n === 1 ? '#b45309' : (n === 2 ? '#0284c7' : '#059669'), bold: true, margin: [0, 1, 0, 1] },
-                        { text: `► ${dict.rPoints} ${dict['r' + n + 'PointsVal']}`, fontSize: 8, color: '#334155' },
+                        { text: `${dict.rPoints} ${dict['r' + n + 'PointsVal'].replace(/ → /g, ' — ')}`, fontSize: 8, color: '#334155' },
                         { text: dict['r' + n + 'Desc'], fontSize: 7.5, color: '#64748b', italics: true, margin: [0, 1, 0, 0] }
                     ]
                 }]));
@@ -5288,7 +5288,7 @@
                                     stack: [
                                         { qr: 'https://krasnoufimsk-history.site/', fit: 68, alignment: 'right' },
                                         { text: 'krasnoufimsk-history.site', fontSize: 6.5, color: '#475569', alignment: 'right', margin: [0, 3, 0, 0] },
-                                        { text: isRu ? 'Наведите камеру ↗' : 'Scan with camera ↗', fontSize: 6.5, color: '#b45309', bold: true, alignment: 'right' }
+                                        { text: isRu ? 'Наведите камеру' : 'Scan with camera', fontSize: 6.5, color: '#b45309', bold: true, alignment: 'right' }
                                     ]
                                 }
                             ],
@@ -5306,7 +5306,7 @@
                         },
 
                         // Блок 1: Хроника и вехи истории
-                        { text: isRu ? '■ ХРОНИКА И ВЕХИ ГОРОДА' : '■ CHRONICLE & HISTORICAL MILESTONES', style: 'sectionTitle' },
+                        { text: isRu ? 'ХРОНИКА И ВЕХИ ГОРОДА' : 'CHRONICLE & HISTORICAL MILESTONES', style: 'sectionTitle' },
                         {
                             table: {
                                 widths: ['18%', '82%'],
@@ -5323,7 +5323,7 @@
                         },
 
                         // Блок 2: 3 Официальных пешеходных маршрута с сайта
-                        { text: isRu ? '■ 3 ТУРИСТИЧЕСКИХ МАРШРУТА' : '■ 3 SIGHTSEEING ROUTES', style: 'sectionTitle' },
+                        { text: isRu ? '3 ТУРИСТИЧЕСКИХ МАРШРУТА' : '3 SIGHTSEEING ROUTES', style: 'sectionTitle' },
                         {
                             table: {
                                 widths: ['*'],
@@ -5344,7 +5344,7 @@
                                 {
                                     width: '52%',
                                     stack: [
-                                        { text: isRu ? '■ АДРЕСА ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ' : '■ SIGHTS DIRECTORY', style: 'sectionSubTitle' },
+                                        { text: isRu ? 'АДРЕСА ДОСТОПРИМЕЧАТЕЛЬНОСТЕЙ' : 'SIGHTS DIRECTORY', style: 'sectionSubTitle' },
                                         {
                                             ul: pdfSightDirectory,
                                             fontSize: 7.5,
@@ -5356,7 +5356,7 @@
                                 {
                                     width: '48%',
                                     stack: [
-                                        { text: isRu ? '■ ПАМЯТКА И ЭКСТРЕННАЯ СВЯЗЬ' : '■ TRAVEL MEMO & CONTACTS', style: 'sectionSubTitle' },
+                                        { text: isRu ? 'ПАМЯТКА И ЭКСТРЕННАЯ СВЯЗЬ' : 'TRAVEL MEMO & CONTACTS', style: 'sectionSubTitle' },
                                         {
                                             ul: isRu ? [
                                                 'Единая служба спасения: 112 (бесплатно)',
@@ -5392,7 +5392,7 @@
                                             margin: [6, 7, 6, 7],
                                             alignment: 'center',
                                             stack: [
-                                                { text: isRu ? '► ИССЛЕДУЙТЕ КРАСНОУФИМСК ОНЛАЙН' : '► EXPLORE KRASNOUFIMSK ONLINE', bold: true, fontSize: 9, color: '#0f172a' },
+                                                { text: isRu ? 'ИССЛЕДУЙТЕ КРАСНОУФИМСК ОНЛАЙН' : 'EXPLORE KRASNOUFIMSK ONLINE', bold: true, fontSize: 9, color: '#0f172a' },
                                                 { text: isRu ? 'Интерактивная лента времени, викторина, паспорт исследователя и погода:' : 'Interactive timeline, quiz, explorer passport, and live 7-day weather:', fontSize: 7.5, color: '#334155', margin: [0, 2, 0, 2] },
                                                 { text: 'https://krasnoufimsk-history.site/', link: 'https://krasnoufimsk-history.site/', fontSize: 8.5, bold: true, color: '#0f172a' }
                                             ]
