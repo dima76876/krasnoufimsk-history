@@ -7601,3 +7601,53 @@ body.dark-theme .timeline-arrow:focus-visible { outline-color: var(--timeline-da
     .timeline-arrow.next { right: 4px; }
     .timeline-arrow svg { width: 18px; height: 18px; }
 }
+
+/* Поле диплома подсвечивается цветом сезона, в том числе в тёмной теме. */
+.cert-name-input { transition: border-color .2s, background-color .2s, box-shadow .2s; }
+.cert-name-input:focus {
+    outline: 2px solid var(--main-color); outline-offset: 2px;
+    border-color: var(--main-color); box-shadow: none;
+}
+body.dark-theme .cert-name-input:focus {
+    outline-color: var(--timeline-dark-accent, #ffb279);
+    border-color: var(--timeline-dark-accent, #ffb279);
+}
+/* Карточка метки помещается в узкую карту, не перекрываясь её кнопками. */
+@media (max-width: 600px) {
+    #sights-leaflet-map.sight-popup-open .leaflet-control-zoom { visibility: hidden; }
+    #sights-leaflet-map .map-popup-card { width: min(310px, calc(100vw - 116px)); padding: 12px 14px; }
+    #sights-leaflet-map .map-popup-header { padding-right: 18px; }
+    #sights-leaflet-map .leaflet-popup-close-button { width: 36px; height: 36px; line-height: 36px; font-size: 20px; }
+}
+
+/* Навигация каталога: та же сезонная подсветка, что у кнопок эпох. */
+.sights-nav-btn, .sights-custom-trigger {
+    background: color-mix(in srgb, var(--main-color) 8%, var(--bg-card)) !important;
+    border: 1.5px solid color-mix(in srgb, var(--main-color) 32%, rgba(0, 0, 0, .15)) !important;
+    box-shadow: 0 3px 10px var(--accent-glow) !important;
+}
+body.dark-theme .sights-nav-btn, body.dark-theme .sights-custom-trigger {
+    background: color-mix(in srgb, var(--main-color) 12%, rgba(30, 41, 59, .75)) !important;
+    border-color: color-mix(in srgb, var(--main-color) 40%, rgba(255, 255, 255, .25)) !important;
+    box-shadow: 0 3px 12px var(--accent-glow) !important;
+}
+@media (hover: hover) {
+    .sights-nav-btn:hover, body.dark-theme .sights-nav-btn:hover {
+        background: var(--main-color) !important; border-color: var(--main-color) !important;
+        box-shadow: 0 4px 12px var(--accent-glow) !important;
+    }
+    .sights-custom-trigger:hover, body.dark-theme .sights-custom-trigger:hover {
+        border-color: var(--main-color) !important;
+        box-shadow: 0 4px 14px var(--accent-glow) !important;
+    }
+}
+.sights-nav-btn:focus-visible, .sights-custom-trigger:focus-visible {
+    outline: 2px solid var(--main-color); outline-offset: 2px;
+}
+body.dark-theme .sights-nav-btn:focus-visible, body.dark-theme .sights-custom-trigger:focus-visible {
+    outline-color: var(--timeline-dark-accent, #ffb279);
+}
+.sights-custom-trigger.active, body.dark-theme .sights-custom-trigger.active {
+    border-color: var(--main-color) !important;
+    box-shadow: 0 0 0 3px var(--accent-glow) !important;
+}

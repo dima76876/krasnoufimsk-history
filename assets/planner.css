@@ -2680,3 +2680,13 @@ body.dark-mode .weather-modal-window { --weather-accent-text: var(--dark-accent-
 }
 .weather-modal-window .weather-day-card.is-today .weather-day-weekday { color: var(--weather-accent-text); }
 .weather-modal-window :focus-visible { outline: 2px solid var(--weather-accent-text); outline-offset: 2px; }
+
+/* Видимый сезонный фокус для обоих полей точного количества. */
+.exact-input:focus {
+    outline: 2px solid var(--main-color); outline-offset: 2px;
+    border-color: var(--main-color); box-shadow: none;
+}
+body.dark-mode .exact-input:focus {
+    outline-color: var(--dark-accent-text, #ffb279);
+    border-color: var(--dark-accent-text, #ffb279);
+}

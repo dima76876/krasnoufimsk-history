@@ -179,6 +179,7 @@
                 addressLabel: 'Адрес объекта',
                 btnMap: 'Показать на Яндекс.Картах',
                 btnPrev: '← Предыдущая эпоха',
+                btnStart: 'Начало ленты времени',
                 btnNext: 'Следующая эпоха →',
                 btnFinal: 'Финал ленты времени ✓',
                 timelineKicker: 'ИСТОРИЯ ГОРОДА',
@@ -411,6 +412,7 @@
                 addressLabel: 'Location Address',
                 btnMap: 'Show on Yandex Maps',
                 btnPrev: '← Previous epoch',
+                btnStart: 'Start of timeline',
                 btnNext: 'Next epoch →',
                 btnFinal: 'Timeline Complete ✓',
                 timelineKicker: 'THE CITY THROUGH TIME',
@@ -1640,7 +1642,7 @@
                     </div>
 
                     <div class="card-nav-footer">
-                        <button type="button" class="btn-step-nav" onclick="stepEvent(-1)" ${isFirst ? 'disabled' : ''}>${dict.btnPrev}</button>
+                        <button type="button" class="btn-step-nav" onclick="stepEvent(-1)" ${isFirst ? 'disabled' : ''}>${isFirst ? dict.btnStart : dict.btnPrev}</button>
                         <button type="button" class="btn-step-nav" onclick="stepEvent(1)" ${isLast ? 'disabled' : ''}>${isLast ? dict.btnFinal : dict.btnNext}</button>
                     </div>
                 </article>
@@ -4100,6 +4102,9 @@
                     attributionControl: true
                 });
                 sightsMap.attributionControl.setPrefix(false);
+                // На узких экранах кнопки масштаба не должны перекрывать открытую карточку.
+                sightsMap.on('popupopen', () => mapEl.classList.add('sight-popup-open'));
+                sightsMap.on('popupclose', () => mapEl.classList.remove('sight-popup-open'));
 
                 // Полностью локальный векторный PMTiles-пакет территории всех 27 объектов.
                 // Данные до zoom 15; Leaflet/Protomaps масштабирует их при приближении до 18.
@@ -4172,7 +4177,7 @@
                     '</button>' +
                 '</div>';
 
-                marker.bindPopup(popupHtml, { maxWidth: 330, minWidth: 260 });
+                marker.bindPopup(popupHtml, { maxWidth: 330, minWidth: 0, autoPanPadding: [12, 12] });
                 marker.on('click', function() {
                     if (typeof trackMapExplore === 'function') trackMapExplore(s.id);
                 });
