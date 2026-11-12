@@ -4503,7 +4503,7 @@
             // 2. Фоновый защитный водяной знак и гравюрные виньетки (Гознак-стиль, повышенная четкость)
             ctx.save();
             ctx.translate(W / 2, H / 2 - 20);
-            ctx.strokeStyle = 'rgba(180, 134, 40, 0.13)';
+            ctx.strokeStyle = 'rgba(180, 134, 40, 0.18)';
             ctx.fillStyle = 'rgba(180, 134, 40, 0.055)';
             ctx.lineWidth = 2.5;
 
@@ -4540,8 +4540,8 @@
             function drawSideFlourish(baseX, isLeft) {
                 ctx.save();
                 ctx.translate(baseX, H / 2);
-                ctx.strokeStyle = 'rgba(180, 134, 40, 0.22)';
-                ctx.fillStyle = 'rgba(180, 134, 40, 0.12)';
+                ctx.strokeStyle = 'rgba(160, 112, 28, 0.38)';
+                ctx.fillStyle = 'rgba(160, 112, 28, 0.18)';
                 ctx.lineWidth = 2.2;
 
                 const dir = isLeft ? 1 : -1;
@@ -4583,8 +4583,8 @@
                 ctx.restore();
             }
 
-            drawSideFlourish(200, true);
-            drawSideFlourish(W - 200, false);
+            drawSideFlourish(160, true);
+            drawSideFlourish(W - 160, false);
 
             // 3. Многослойная императорская золотая рамка (Imperial Gold Border)
             const goldGrad = ctx.createLinearGradient(0, 0, W, H);
@@ -4690,7 +4690,7 @@
 
             // Название проекта
             ctx.font = '600 27px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#475569';
+            ctx.fillStyle = '#334155';
             ctx.fillText(currentLang === 'en' ? '«KRASNOUFIMSK: THROUGH THE AGES»' : '«КРАСНОУФИМСК: СКВОЗЬ ЭПОХИ»', W / 2, 500);
 
             // Декоративная разделительная черта с ромбом
@@ -4839,22 +4839,22 @@
                 day: 'numeric'
             });
 
-            ctx.font = 'bold 22px "Segoe UI", Arial, monospace';
+            ctx.font = 'bold 25px "Segoe UI", Arial, monospace';
             ctx.fillStyle = '#0f172a';
             ctx.fillText(currentLang === 'en' ? `COMMEMORATIVE NO. ${serialNum}` : `НОМЕР ПАМЯТНОГО ДИПЛОМА ${serialNum}`, 220, baseLineY - 45);
 
-            ctx.font = '500 20px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#475569';
+            ctx.font = '500 25px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#334155';
             ctx.fillText(currentLang === 'en' ? `Issue Date: ${dateStr}` : `Дата выдачи: ${dateStr}`, 220, baseLineY - 12);
-            ctx.fillText(currentLang === 'en' ? 'Status: Commemorative project diploma' : 'Статус: Памятный диплом проекта', 220, baseLineY + 20);
-            ctx.fillText(currentLang === 'en' ? 'Format: Print-ready A4 image (ISO 216)' : 'Формат: Печатное изображение А4 (ISO 216)', 220, baseLineY + 52);
+            ctx.fillText(currentLang === 'en' ? 'Status: Commemorative project diploma' : 'Статус: Памятный диплом проекта', 220, baseLineY + 26);
+            ctx.fillText(currentLang === 'en' ? 'Format: Print-ready A4 image (ISO 216)' : 'Формат: Печатное изображение А4 (ISO 216)', 220, baseLineY + 64);
 
             // Защитные микро-штрихи подлинности
             ctx.fillStyle = '#94a3b8';
             let bx = 220;
             const barHeights = [24, 18, 24, 24, 14, 24, 20, 24, 16, 24, 18, 24, 24, 14, 24, 20, 24, 18, 24, 24, 14, 24];
             for (let b = 0; b < barHeights.length; b++) {
-                ctx.fillRect(bx, baseLineY + 82, (b % 3 === 0 ? 4 : 2), 22);
+                ctx.fillRect(bx, baseLineY + 100, (b % 3 === 0 ? 4 : 2), 22);
                 bx += (b % 3 === 0 ? 8 : 6);
             }
             ctx.restore();
@@ -4965,33 +4965,33 @@
             ctx.save();
             ctx.textAlign = 'right';
 
-            ctx.font = 'bold 22px "Segoe UI", Arial, sans-serif';
+            ctx.font = 'bold 25px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#0f172a';
             ctx.fillText(currentLang === 'en' ? 'Heritage Project «Krasnoufimsk 2026»' : 'Краеведческий проект «Красноуфимск 2026»', W - 220, baseLineY - 45);
 
-            ctx.font = '500 20px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#475569';
+            ctx.font = '500 25px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#334155';
             ctx.fillText('krasnoufimsk-history.site', W - 220, baseLineY - 12);
-            ctx.fillText(currentLang === 'en' ? 'Generated locally in your browser' : 'Сформировано локально в браузере', W - 220, baseLineY + 20);
-            ctx.fillText(currentLang === 'en' ? 'Commemorative named diploma' : 'Памятный именной диплом знатока', W - 220, baseLineY + 52);
+            ctx.fillText(currentLang === 'en' ? 'Generated locally in your browser' : 'Сформировано локально в браузере', W - 220, baseLineY + 26);
+            ctx.fillText(currentLang === 'en' ? 'Commemorative named diploma' : 'Памятный именной диплом знатока', W - 220, baseLineY + 64);
 
             // Защитные микро-штрихи справа
             ctx.fillStyle = '#94a3b8';
             let rx = W - 220;
             for (let b = 0; b < barHeights.length; b++) {
-                ctx.fillRect(rx - (b % 3 === 0 ? 8 : 6), baseLineY + 82, (b % 3 === 0 ? 4 : 2), 22);
+                ctx.fillRect(rx - (b % 3 === 0 ? 8 : 6), baseLineY + 100, (b % 3 === 0 ? 4 : 2), 22);
                 rx -= (b % 3 === 0 ? 8 : 6);
             }
             ctx.restore();
 
-            // 8. Нижний микропринт (Microprint Footer)
+            // 8. Нижняя подпись — читаемая и внутри рамки на всех уровнях.
             ctx.textAlign = 'center';
-            ctx.font = '400 17px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#94a3b8';
+            ctx.font = '600 26px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#334155';
             ctx.fillText(currentLang === 'en'
                 ? 'Krasnoufimsk • Sverdlovsk Region • Educational Heritage Portal 2026 • A4 sheet format (297 × 210 mm)'
                 : 'Красноуфимск • Свердловская область • Научно-образовательный портал 2026 • Формат листа А4 (297 × 210 мм)',
-                W / 2, H - 125);
+                W / 2, H - 145);
 
             // Подготавливаем файл диплома для скачивания по кнопке
             const translit = {а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya',А:'A',Б:'B',В:'V',Г:'G',Д:'D',Е:'E',Ё:'E',Ж:'Zh',З:'Z',И:'I',Й:'Y',К:'K',Л:'L',М:'M',Н:'N',О:'O',П:'P',Р:'R',С:'S',Т:'T',У:'U',Ф:'F',Х:'Kh',Ц:'Ts',Ч:'Ch',Ш:'Sh',Щ:'Shch',Ъ:'',Ы:'Y',Ь:'',Э:'E',Ю:'Yu',Я:'Ya'};
