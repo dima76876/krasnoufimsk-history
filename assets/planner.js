@@ -1949,8 +1949,8 @@
                     time: { ru: carTimeRu, en: carTimeEn },
                     priceOneWay: carPrice, priceMin: carPriceMin, priceMax: carPriceMax,
                     desc: {
-                        ru: `Расстояние по прямой ${straightKm} км × коэффициент дорожной сети 1,3. Топливо ≈${fuelLiters.toFixed(0)} л при 8,5 л/100 км; платные участки, пробки и остановки не учтены. Постройте фактический маршрут в навигаторе.`,
-                        en: `Straight-line distance ${straightKm} km × a 1.3 road-network factor. Fuel ≈${fuelLiters.toFixed(0)} L at 8.5 L/100 km; tolls, traffic and stops are excluded. Build the actual route in a navigator.`
+                        ru: `Расчётная базовая дистанция ${straightKm} км × коэффициент 1,3. Базовая дистанция получена из расстояния по прямой с коэффициентом 1,25 и минимумом 15 км. Топливо ≈${fuelLiters.toFixed(0)} л при 8,5 л/100 км; платные участки, пробки и остановки не учтены. Постройте фактический маршрут в навигаторе.`,
+                        en: `Estimated base distance ${straightKm} km × a factor of 1.3. The base distance is calculated from the straight-line distance using a factor of 1.25 and a minimum of 15 km. Fuel ≈${fuelLiters.toFixed(0)} L at 8.5 L/100 km; tolls, traffic and stops are excluded. Build the actual route in a navigator.`
                     }
                 },
                 {
