@@ -1481,6 +1481,8 @@
             const canonical = document.getElementById('canonical-url'); if (canonical) canonical.href = localizedMeta.url;
 
             const dict = i18n[lang] || i18n.ru;
+            const notice = document.getElementById('cookie-banner');
+            if (notice) notice.setAttribute('aria-label', lang === 'en' ? 'Data and external services notice' : 'Уведомление о данных и внешних сервисах');
 
             // Обновляем доступность кнопки языка
             const langSwitchBtn = document.getElementById('lang-switch-btn');

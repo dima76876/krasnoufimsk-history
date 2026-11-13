@@ -3686,7 +3686,7 @@
 
         .footer-copy {
             font-size: 13px;
-            color: var(--text-muted);
+            color: #a8b6c9;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
             width: 100%;
             padding-top: 20px;
@@ -4727,10 +4727,11 @@
 
         .sights-trigger-year {
             font-size: 0.82rem;
-            color: var(--text-muted);
+            color: #485c75;
             font-weight: 500;
             flex-shrink: 0;
         }
+        body.dark-theme .sights-trigger-year { color: #c2d0e1; }
 
         .sights-trigger-arrow {
             font-size: 0.85rem;
