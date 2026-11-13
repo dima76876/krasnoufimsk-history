@@ -509,12 +509,79 @@
             }
         ];
 
-        /* Программы тура в городе под количество дней */
+        // Аэропорты — справка, не обещание наличия рейса на выбранную дату.
+        const AIRPORTS = {
+            ekb: ['Кольцово', 'Koltsovo'], moscow: ['Шереметьево, Домодедово, Внуково', 'Sheremetyevo, Domodedovo, Vnukovo'],
+            spb: ['Пулково', 'Pulkovo'], perm: ['Большое Савино', 'Bolshoye Savino'],
+            ufa: ['Уфа', 'Ufa'], kazan: ['Казань', 'Kazan'], chelyabinsk: ['Челябинск (Баландино)', 'Chelyabinsk (Balandino)'],
+            samara: ['Курумоч', 'Kurumoch'], novosibirsk: ['Толмачёво', 'Tolmachevo'],
+            nizhny: ['Стригино', 'Strigino'], omsk: ['Омск-Центральный', 'Omsk Tsentralny'],
+            krasnoyarsk: ['Красноярск (Емельяново)', 'Krasnoyarsk (Yemelyanovo)'],
+            rostov: ['Платов', 'Platov'], krasnodar: ['Пашковский', 'Pashkovsky'],
+            voronezh: ['Воронеж', 'Voronezh'], volgograd: ['Гумрак', 'Gumrak']
+        };
+
+        // Карточка показывает возможную схему, а не гарантированный рейс или стыковку.
+        function makeFlightOption(city) {
+            const airport = city && AIRPORTS[city.id];
+            const restricted = city && (city.id === 'rostov' || city.id === 'voronezh');
+            let ru, en;
+            if (restricted) {
+                const otherRu = city.id === 'rostov' ? 'Краснодара' : 'Москвы';
+                const otherEn = city.id === 'rostov' ? 'Krasnodar' : 'Moscow';
+                ru = `В аэропорту «${airport[0]}» действовали длительные ограничения. Проверьте его текущий статус или наземную дорогу до аэропорта ${otherRu} и возможный перелёт в Кольцово. Далее — трансфер до вокзала Екатеринбурга и поезд до Красноуфимска. Все этапы и стоимость проверяйте на дату.`;
+                en = `${airport[1]} has faced long-term restrictions. Check its current status or ground transport to ${otherEn} airport and possible flights to Koltsovo. Then transfer to Yekaterinburg station and check a train to Krasnoufimsk. Verify each leg and fare for your date.`;
+            } else {
+                const fromRu = airport ? `Аэропорт отправления: ${airport[0]}. ` : 'Если рядом есть аэропорт, ';
+                const fromEn = airport ? `Departure airport: ${airport[1]}. ` : 'If an airport is available nearby, ';
+                ru = fromRu + (airport ? 'Проверьте' : 'проверьте') + ' рейсы до Екатеринбурга, при необходимости с пересадкой. Из Кольцово доберитесь до вокзала Екатеринбург-Пассажирский, затем проверьте поезд «Ласточка» / «Финист» или другой поезд до Красноуфимска. Перелёт, трансфер и поезд оплачиваются отдельно; наличие и стыковки уточняйте на дату.';
+                en = fromEn + (airport ? 'Check' : 'check') + ' flights to Yekaterinburg, with a connection if needed. From Koltsovo, transfer to Yekaterinburg-Passazhirsky railway station, then check a Lastochka / Finist or another train to Krasnoufimsk. Flight, local transfer and train are separate; verify availability and connections for your date.';
+            }
+            return {
+                type: 'plane_train', icon: '✈️+🚆',
+                title: { ru: restricted ? 'Возможный перелёт из другого аэропорта + поезд' : 'Возможный перелёт до Кольцово + поезд', en: restricted ? 'Possible flight from another airport + train' : 'Possible flight to Koltsovo + train' },
+                badge: { ru: 'Возможность нужно проверить', en: 'Availability must be checked' },
+                time: { ru: 'зависит от рейсов и пересадок', en: 'depends on flights and connections' },
+                priceOneWay: null, priceMin: null, priceMax: null,
+                desc: { ru, en }, priceUnit: 'perPerson'
+            };
+        }
+
+        function makeEstimatedCarOption(city) {
+            const km = city.distKm;
+            const fuel = km * 0.085;
+            const cost = Math.round(fuel * 62 / 50) * 50;
+            return {
+                type: 'car', icon: '🚗',
+                title: { ru: 'На автомобиле', en: 'By car' },
+                badge: { ru: 'Предварительная оценка', en: 'Preliminary estimate' },
+                time: { ru: 'проверьте маршрут в навигаторе', en: 'check the route in a navigator' },
+                priceOneWay: cost, priceMin: Math.round(cost * .8 / 50) * 50, priceMax: Math.round(cost * 1.25 / 50) * 50,
+                priceUnit: 'perVehicle', vehicleCapacity: 5,
+                desc: {
+                    ru: `Примерное расстояние по дороге: ${km} км. Топливо рассчитано для одного автомобиля из 8,5 л на 100 км и 62 ₽ за литр; платные дороги, ночёвки и остановки не учтены. Фактический путь и расходы проверьте перед поездкой.`,
+                    en: `Approximate road distance: ${km} km. Fuel estimate for one car uses 8.5 L per 100 km and 62 RUB per litre; tolls, overnight stays and stops are excluded. Check the actual route and expenses before travelling.`
+                }
+            };
+        }
+
         CITIES_DATA.forEach(city => {
+            if (city.id === 'rostov' || city.id === 'voronezh') city.options = city.options.filter(opt => !opt.type.startsWith('plane'));
+            if (!city.options.some(opt => opt.type === 'car')) city.options.push(makeEstimatedCarOption(city));
+            if (city.id !== 'ekb' && !city.options.some(opt => opt.type === 'plane_train')) city.options.push(makeFlightOption(city));
             city.checkedAt = '2026-10-18';
             city.distanceSource = 'OSRM road-route estimate between city centres; checked 2026-10-18';
-            (city.options || []).forEach(opt => {
+            city.options.forEach(opt => {
                 opt.checkedAt = '2026-10-18';
+                if (opt.type === 'plane_train') {
+                    const candidate = makeFlightOption(city);
+                    Object.assign(opt, candidate);
+                } else if (opt.type === 'plane_bus') {
+                    opt.priceOneWay = null; opt.priceMin = null; opt.priceMax = null;
+                    opt.badge = { ru: 'Проверьте рейсы и пересадки', en: 'Check flights and connections' };
+                    opt.time = { ru: 'уточняйте на дату', en: 'check your travel date' };
+                    opt.desc = { ru: 'Проверьте перелёт до Кольцово, трансфер до автовокзала Екатеринбурга и автобус до Красноуфимска. Наличие и стоимость уточняйте на дату.', en: 'Check flights to Koltsovo, the transfer to Yekaterinburg bus terminal and the bus to Krasnoufimsk. Verify availability and fares for your date.' };
+                }
                 opt.priceUnit = opt.priceUnit || (opt.type === 'car' ? 'perVehicle' : 'perPerson');
                 if (opt.type === 'car' && !opt.vehicleCapacity) opt.vehicleCapacity = 5;
                 opt.source = opt.type === 'car' ? 'OSRM road estimate; fuel/tolls vary' : 'Carrier or schedule aggregator — verify exact travel date';
@@ -733,6 +800,9 @@
                 btnShareTrip: 'Поделиться сметой поездки',
                 transportDisclaimer: '⚠️ Время в пути и цены — предварительные оценки. Перед покупкой проверяйте тариф и расписание на вашу дату у перевозчика.',
                 ariaOpenMobileMenu: 'Открыть мобильное меню',
+                cookieNotice: 'Сайт сохраняет настройки и достижения в памяти браузера и обращается к внешним сервисам. Кнопка «Понятно» только скрывает уведомление. Подробнее — в политике конфиденциальности.',
+                cookieAccept: 'Понятно',
+                cookieInfo: 'Подробнее',
                 checklistTitle: 'Чек-лист сборов в дорогу:',
                 checklistSubtitle: 'Список необходимых вещей с учётом сезона и транспорта в Красноуфимск:',
                 geoSearchDivider: '🌍 Найденные города и населённые пункты:',
@@ -826,6 +896,9 @@
                 btnShareTrip: 'Share Budget & Itinerary',
                 transportDisclaimer: '⚠️ Travel times and prices are preliminary estimates. Before buying, verify the fare and timetable for your date with the carrier.',
                 ariaOpenMobileMenu: 'Open mobile menu',
+                cookieNotice: 'This site stores settings and achievements in your browser and uses external services. The button only dismisses this notice. See the privacy policy for details.',
+                cookieAccept: 'Got it',
+                cookieInfo: 'Learn more',
                 checklistTitle: 'Travel Packing Checklist:',
                 checklistSubtitle: 'Essential packing list tailored to season & travel mode:',
                 geoSearchDivider: '🌍 Found cities & locations:',
@@ -995,6 +1068,21 @@
         /* =========================================================================
            3. ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ
            ========================================================================= */
+        function acceptPlannerNotice() {
+            safeStorageSet('kuf_cookie_consent', 'accepted');
+            const banner = document.getElementById('cookie-banner');
+            if (banner) banner.style.display = 'none';
+            document.body.classList.remove('planner-notice-visible');
+        }
+
+        function initPlannerNotice() {
+            const banner = document.getElementById('cookie-banner');
+            if (banner && !safeStorageGet('kuf_cookie_consent', null)) {
+                banner.style.display = 'flex';
+                document.body.classList.add('planner-notice-visible');
+            }
+        }
+
         function initApp() {
             // Тема (светлая / тёмная)
             const savedTheme = safeStorageGet('kuf_theme') || safeStorageGet('krasnoufimsk_theme');
@@ -1013,6 +1101,7 @@
             const savedLang = (queryLang === 'ru' || queryLang === 'en') ? queryLang : safeStorageGet('krasnoufimsk_lang', 'ru');
             currentLang = (savedLang === 'en') ? 'en' : 'ru';
             applyLanguage(currentLang);
+            initPlannerNotice();
 
             // Загрузка живой погоды для Красноуфимска
             fetchKrasnoufimskWeather();
@@ -1876,6 +1965,7 @@
                     }
                 }
             ];
+            options.push(makeFlightOption(null));
             return { id: 'geo_' + geoItem.id, name: { ru: cityName, en: cityName }, region: regionName, distKm: roadKm, straightKm: straightKm, distanceKind: 'road-estimate', lat: lat, lon: lon, isPopular: false, isDynamic: true, options: options };
         }
 
@@ -2210,7 +2300,7 @@
                     : `${cityName} → ${kufName}: ~${city.distKm} ${kmUnit}`;
             }
 
-            // Рендерим карточки транспорта
+            // Рендерим карточки транспорта.
             renderTransportCards(city);
 
             // Пересчитываем смету
@@ -2239,8 +2329,8 @@
                 dynWarn.style.display = city.isDynamic ? 'block' : 'none';
                 dynWarn.textContent = city.isDynamic
                     ? (currentLang === 'en'
-                        ? '⚠️ This city was found by geocoding: only a road-distance estimate is shown. Trains, buses and fares are not invented — verify them for your date with the carrier before travelling.'
-                        : '⚠️ Этот город найден через геокодирование: показана только оценка расстояния по дороге. Поезда, автобусы и тарифы не выдумываются — перед поездкой проверьте их на вашу дату у перевозчика.')
+                        ? '⚠️ For a city found through search, driving distance, time and cost are rough formula-based estimates — road availability is not checked. Before travelling, check the route in a navigator and verify services, connections and fares with carriers for your date.'
+                        : '⚠️ Для найденного города расстояние, время и стоимость поездки на автомобиле рассчитаны приблизительно по формуле — наличие дороги не проверяется. Перед поездкой проверьте маршрут в навигаторе, а рейсы, пересадки и тарифы — у перевозчиков на вашу дату.')
                     : '';
             }
 
@@ -2298,7 +2388,8 @@
            7. ПАРАМЕТРЫ ПОЕЗДКИ И РАСЧЕТ СМЕТЫ
            ========================================================================= */
         function setSetting(type, val) {
-            const numVal = parseInt(val, 10) || 1;
+            const limit = type === 'days' ? 14 : 20;
+            const numVal = Math.max(1, Math.min(limit, Math.trunc(Number(val)) || 1));
             if (type === 'days') tripDays = numVal;
             if (type === 'persons' || type === 'people') tripPersons = numVal;
 
@@ -2320,7 +2411,10 @@
         }
 
         function setExactDays(val) {
-            const n = Math.max(1, Math.min(14, parseInt(val, 10) || 1));
+            if (val === '') return;
+            const n = Math.max(1, Math.min(14, Math.trunc(Number(val)) || 1));
+            const input = document.getElementById('days-exact-input');
+            if (input) input.value = String(n);
             tripDays = n;
             document.querySelectorAll('.setting-btn[data-type="days"]').forEach(btn => btn.classList.toggle('active', parseInt(btn.getAttribute('data-val'), 10) === n));
             recalculateBudget();
@@ -2329,7 +2423,10 @@
         }
 
         function setExactPersons(val) {
-            const n = Math.max(1, Math.min(20, parseInt(val, 10) || 1));
+            if (val === '') return;
+            const n = Math.max(1, Math.min(20, Math.trunc(Number(val)) || 1));
+            const input = document.getElementById('persons-exact-input');
+            if (input) input.value = String(n);
             tripPersons = n;
             document.querySelectorAll('.setting-btn[data-type="persons"]').forEach(btn => btn.classList.toggle('active', parseInt(btn.getAttribute('data-val'), 10) === n));
             recalculateBudget();

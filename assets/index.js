@@ -4,9 +4,6 @@
             history.scrollRestoration = 'manual';
         }
         window.scrollTo(0, 0);
-        if (window.location.hash && window.location.hash !== '#privacy' && window.location.hash !== '#privacy-modal' && window.location.hash !== '#sources-modal' && window.location.hash !== '#sources') {
-            history.replaceState(null, null, window.location.pathname + window.location.search);
-        }
 
         // Глобальный мониторинг стабильности и ошибок скриптов
         window.addEventListener('error', function(e) {
@@ -248,7 +245,7 @@
                 footerSourcesLink: '📚 Источники и кредиты',
                 sourcesModalTitle: 'Источники и кредиты',
                 sourcesModalSub: 'Красноуфимск: Сквозь эпохи • 2026',
-                sourcesModalIntro: 'Ключевые даты, адреса и координаты сверены 19 октября 2026 года по открытым источникам ниже. Юридические статусы объектов перед официальным использованием следует подтверждать актуальной записью ЕГРОКН.',
+                sourcesModalIntro: 'Для проекта использованы открытые источники, в том числе перечисленные ниже. Даты, адреса и юридический статус объектов следует уточнять по актуальным официальным сведениям.',
                 sourceOfficial: 'Официальная историческая справка городского округа Красноуфимск',
                 sourceMuseumHelicoprion: 'Красноуфимский краеведческий музей: геликоприон',
                 sourceMuseumViaducts: 'виадуки',
@@ -259,6 +256,12 @@
                 sourceWeatherStation: 'станция Красноуфимск 28434 с 1 июня 1924 года',
                 sourceKrasnyYar: 'KSK66: ход благоустройства «Красного Яра» на 16 октября 2026 года',
                 sourceMapCredits: 'локальный PMTiles-пакет Protomaps на данных OpenStreetMap',
+                sourceMemory: 'KSK66: военно-мемориальное наследие Красноуфимска',
+                sourceSalavat: 'Емельян.ру: памятный знак Салавату Юлаеву',
+                sourceUraloved: 'Ураловед: история и достопримечательности Красноуфимска',
+                sourceViaductMore: 'BSK-портал: виадуки Красноуфимска',
+                sourceTech: 'Библиотеки карты и PDF, шрифты и погодные сервисы:',
+                sourceAi: 'Фотографические изображения, используемые в оформлении, сгенерированы с помощью ИИ и не являются документальными фотографиями.',
                 sourcesDoneBtn: 'Понятно',
                 footerTerms: 'Школьный образовательный краеведческий проект',
                 printHist1: '<strong>1736</strong> — Основание крепости Красный Яр полковником А. И. Тевкелевым',
@@ -281,16 +284,18 @@
                 printPrac6: '🚕 <strong>Транспорт:</strong> Местные службы такси и автобусы',
                 skipLink: 'Перейти к основному содержанию',
                 mapAltText: 'Текстовая альтернатива карте: тот же каталог из 27 объектов находится выше — выбирайте объект кнопками, поиском или списком. Маркеры карты доступны с клавиатуры клавишей Tab.',
-                privacyModalTitle: 'Политика конфиденциальности и 152-ФЗ',
-                privacyModalSub: 'Красноуфимск: Сквозь эпохи • 2026',
-                privacyP1: '<strong>1. Статус проекта и оператор:</strong> Интерактивный путеводитель «Красноуфимск: Сквозь эпохи» является некоммерческим исследовательским образовательно-краеведческим веб-ресурсом, созданным в ходе индивидуального проекта.',
-                privacyP2: '<strong>2. Локальное хранилище (localStorage) и cookie:</strong> Проект не использует сторонние трекеры персональных данных. Данные о выбранной теме оформления (сезоне), языке (RU/EN), настройках калькулятора поездки и прогрессе викторины сохраняются <em>исключительно на вашем устройстве</em> в локальной памяти браузера.',
-                privacyP3: '<strong>3. Персональные данные (152-ФЗ и GDPR):</strong> Сайт не собирает, не запрашивает и не передаёт третьим лицам паспортные данные, номера телефонов, платёжные реквизиты или реальные геолокационные треки. Имя для сертификата исследователя генерируется на клиенте и не покидает ваш браузер.',
-                privacyP4: '<strong>4. Внешние сервисы и API:</strong> Прогноз погоды и геокодирование городов запрашиваются через защищённые протоколы HTTPS у служб Open-Meteo и Met.no. Сайт сам не отправляет им ваше имя или геолокацию, но, как при любом сетевом запросе, эти службы технически получают IP-адрес и User-Agent браузера по своим политикам.',
-                privacyP5: '<strong>5. Материалы проекта:</strong> В оформлении используются сезонные фоновые изображения из исходной версии проекта, системные эмодзи и элементы интерфейса. Фотографии в карточках достопримечательностей не размещаются, а графика не выдаётся за архивную фотохронику.',
+                privacyModalTitle: "Политика конфиденциальности",
+                privacyModalSub: "Красноуфимск: Сквозь эпохи • 2026",
+                privacyP1: "<strong>1. О проекте.</strong> «Красноуфимск: Сквозь эпохи» — некоммерческий образовательный сайт, созданный в ходе индивидуального проекта. По вопросам работы сайта и обработки данных: <a href=\"mailto:krasnoufimsk.history.contact@mail.ru\">krasnoufimsk.history.contact@mail.ru</a>.",
+                privacyP2: "<strong>2. Данные в браузере.</strong> Локальное хранилище сохраняет настройки языка, темы и сезона, данные паспорта исследователя и достижения, отметки чек-листа, выбор о закрытии уведомления и некоторые временные данные, например погоду и результаты поиска. Для офлайн-доступа браузер может сохранять файлы сайта и карты. Удалить данные можно в настройках браузера, очистив данные сайта; настройки и достижения при этом могут быть потеряны. Срок хранения временных данных зависит от функции и настроек браузера.",
+                privacyP3: "<strong>3. Имя для диплома.</strong> Имя обрабатывается в браузере для отображения и создания диплома. Имя в паспорте исследователя может сохраняться в локальном хранилище на устройстве. На общем устройстве не вводите сведения, которые не хотите оставлять другим пользователям.",
+                privacyP4: "<strong>4. Внешние сервисы.</strong> Сайт размещён на GitHub Pages; GitHub сообщает, что записывает IP-адреса посетителей в целях безопасности. Для погоды используются Open-Meteo или Met.no с координатами Красноуфимска. При поиске населённого пункта введённый запрос отправляется в Open-Meteo; не вводите туда конфиденциальные сведения. Если локальная библиотека PDF недоступна, она может загружаться через Cloudflare CDN. Сторонние сервисы могут получать IP-адрес и другие технические сведения; сроки хранения и условия определяются соответствующими сервисами. При переходе на внешние сайты, в том числе Яндекс Карты и Яндекс Расписания, действуют их правила.",
+                privacyP5: "<strong>5. Уведомление.</strong> Кнопка «Понятно» только закрывает уведомление и сохраняет этот выбор в браузере. Она не отключает обращения к внешним сервисам.",
+                privacyP6: "<strong>6. Обращения.</strong> Если вы напишете на указанную почту, адрес и содержание письма будут использованы для рассмотрения обращения и ответа. Данные также обрабатываются почтовым сервисом по его правилам. Пожалуйста, не присылайте паспортные данные, платёжные реквизиты и другие сведения, не необходимые для ответа.",
+                privacyP7: "<strong>7. Изменения.</strong> Политика может обновляться при изменении функций или сервисов. Актуальная версия доступна на сайте.",
                 privacyDoneBtn: 'Понятно',
-                cookieNotice: 'Уведомление: сайт сохраняет локальные настройки темы, языка и прогресса в localStorage вашего браузера; кнопка ниже лишь скрывает это уведомление. Аналитические cookie не используются.',
-                cookieAccept: 'Принять',
+                cookieNotice: 'Сайт сохраняет настройки и достижения в памяти браузера и обращается к внешним сервисам. Кнопка «Понятно» только скрывает уведомление. Подробнее — в политике конфиденциальности.',
+                cookieAccept: 'Понятно',
                 cookieInfo: 'Подробнее',
 
                 // PWA: Установка веб-приложения
@@ -477,7 +482,7 @@
                 footerSourcesLink: '📚 Sources & Credits',
                 sourcesModalTitle: 'Sources & Credits',
                 sourcesModalSub: 'Krasnoufimsk: Through the Ages • 2026',
-                sourcesModalIntro: 'Key dates, addresses and coordinates were checked on 19 October 2026 against the open sources below. Legal heritage statuses should be confirmed with a current state-register record before official use.',
+                sourcesModalIntro: 'The project uses open sources, including those listed below. Dates, addresses and legal heritage statuses should be confirmed against current official records.',
                 sourceOfficial: 'Official historical note of the Krasnoufimsk urban district',
                 sourceMuseumHelicoprion: 'Krasnoufimsk Local History Museum: Helicoprion',
                 sourceMuseumViaducts: 'viaducts',
@@ -488,6 +493,12 @@
                 sourceWeatherStation: 'Krasnoufimsk station 28434, operating since 1 June 1924',
                 sourceKrasnyYar: 'KSK66: Krasny Yar improvement progress as of 16 October 2026',
                 sourceMapCredits: 'local Protomaps PMTiles package built from OpenStreetMap data',
+                sourceMemory: 'KSK66: Krasnoufimsk war memorial heritage',
+                sourceSalavat: 'Emelyan.ru: Salavat Yulayev memorial',
+                sourceUraloved: 'Uraloved: Krasnoufimsk history and sights',
+                sourceViaductMore: 'BSK Portal: Krasnoufimsk viaducts',
+                sourceTech: 'Map and PDF libraries, fonts and weather services:',
+                sourceAi: 'The photo-style images used in the design were generated with AI and are not documentary photographs.',
                 sourcesDoneBtn: 'Got it',
                 footerTerms: 'School educational local history project',
                 printHist1: '<strong>1736</strong> — Krasny Yar fortress founded by Colonel A. I. Tevkelev',
@@ -510,16 +521,18 @@
                 printPrac6: '🚕 <strong>Transport:</strong> Local taxi services and buses',
                 skipLink: 'Skip to main content',
                 mapAltText: 'Text alternative to the map: the same catalogue of 27 sights is above — choose a sight with the buttons, search or list. Map markers can be reached with the Tab key.',
-                privacyModalTitle: 'Privacy Policy & 152-FZ / GDPR',
-                privacyModalSub: 'Krasnoufimsk: Through the Ages • 2026',
-                privacyP1: '<strong>1. Project Status & Operator:</strong> The interactive guide "Krasnoufimsk: Through the Ages" is a non-commercial educational local history web resource created as part of an individual project.',
-                privacyP2: '<strong>2. Local Storage (localStorage) & Cookies:</strong> The project does not use third-party user tracking. Preferences for design theme (season), language (RU/EN), travel planner settings, and quiz progress are stored <em>solely on your device</em> in local browser storage.',
-                privacyP3: '<strong>3. Personal Data (152-FZ & GDPR):</strong> The site does not collect, request, or share passport data, phone numbers, payment details, or geolocation traces with third parties. Explorer certificate names are generated client-side and never leave your browser.',
-                privacyP4: '<strong>4. External Services & APIs:</strong> Weather forecasts and city geocoding are requested over secure HTTPS from Open-Meteo and Met.no. The site itself does not send them your name or geolocation, but, as with any network request, those services technically receive your browser IP address and User-Agent under their own policies.',
-                privacyP5: '<strong>5. Project Materials:</strong> The design uses the seasonal background images from the original project version, system emoji and interface graphics. Attraction cards do not contain photographs, and graphics are not presented as archival photography.',
+                privacyModalTitle: "Privacy Policy",
+                privacyModalSub: "Krasnoufimsk: Through the Ages • 2026",
+                privacyP1: "<strong>1. About the project.</strong> “Krasnoufimsk: Through the Ages” is a non-commercial educational website created as part of an individual project. Questions about the website and data processing: <a href=\"mailto:krasnoufimsk.history.contact@mail.ru\">krasnoufimsk.history.contact@mail.ru</a>.",
+                privacyP2: "<strong>2. Data stored in your browser.</strong> Local storage saves language, theme and season preferences, explorer passport data and achievements, checklist items, notice dismissal, and some temporary data such as weather and city search results. Your browser may cache site and map files for offline use. You can clear site data in your browser settings; this may remove preferences and achievements. Temporary data retention depends on the feature and browser settings.",
+                privacyP3: "<strong>3. Certificate name.</strong> The name is processed in your browser to display and create a certificate. The explorer passport name may be saved in local storage on your device. On a shared device, avoid entering information you do not want other users to see.",
+                privacyP4: "<strong>4. External services.</strong> The site is hosted on GitHub Pages; GitHub states that it logs visitor IP addresses for security. Weather uses Open-Meteo or Met.no with Krasnoufimsk coordinates. City searches are sent to Open-Meteo; do not enter confidential information. If the local PDF library is unavailable, it may load from Cloudflare CDN. External services may receive your IP address and other technical information; their terms and retention periods apply. External sites, including Yandex Maps and Yandex Schedules, have their own rules.",
+                privacyP5: "<strong>5. Notice.</strong> The “Got it” button only dismisses the notice and saves that choice in your browser. It does not disable requests to external services.",
+                privacyP6: "<strong>6. Contact.</strong> If you email the address above, your email address and message will be used to review and answer your inquiry. The email provider also processes them under its own rules. Please do not send passport details, payment information or other information not needed for a response.",
+                privacyP7: "<strong>7. Changes.</strong> This policy may be updated when features or services change. The current version is available on the website.",
                 privacyDoneBtn: 'Got it',
-                cookieNotice: 'Notice: this site stores local theme, language and progress settings in your browser localStorage; the button below simply dismisses this notice. No analytics cookies are used.',
-                cookieAccept: 'Accept',
+                cookieNotice: 'This site stores settings and achievements in your browser and uses external services. The button only dismisses this notice. See the privacy policy for details.',
+                cookieAccept: 'Got it',
                 cookieInfo: 'Details',
 
                 // PWA Installation
@@ -4392,6 +4405,19 @@
                 }
             };
             setTimeout(openHashModal, 150);
+            // Ссылки из планировщика ведут к соответствующему разделу, а не к началу страницы.
+            const targetHash = window.location.hash.slice(1);
+            if (['intro', 'timeline', 'sights', 'routes', 'guide', 'quiz'].includes(targetHash)) {
+                const goToInitialSection = () => {
+                    const target = document.getElementById(targetHash === 'timeline' ? 'timeline-top-marker' : targetHash);
+                    if (!target || window.location.hash.slice(1) !== targetHash) return;
+                    const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - 85);
+                    window.scrollTo({ top, behavior: 'instant' });
+                };
+                // Шрифты могут изменить высоту блоков; дождаться их перед переходом.
+                if (document.fonts && document.fonts.ready) document.fonts.ready.then(goToInitialSection);
+                else setTimeout(goToInitialSection, 100);
+            }
             window.addEventListener('hashchange', openHashModal);
         });
 

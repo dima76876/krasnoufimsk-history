@@ -7651,3 +7651,22 @@ body.dark-theme .sights-nav-btn:focus-visible, body.dark-theme .sights-custom-tr
     border-color: var(--main-color) !important;
     box-shadow: 0 0 0 3px var(--accent-glow) !important;
 }
+
+/* Полученные достижения сохраняют сезонную подсветку в обеих темах. */
+.passport-modal-window .badge-card.unlocked {
+    border-color: color-mix(in srgb, var(--main-color) 55%, transparent);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--main-color) 11%, transparent), color-mix(in srgb, var(--main-color) 4%, transparent));
+    box-shadow: 0 4px 14px var(--accent-glow);
+}
+.passport-modal-window .badge-card.unlocked .badge-icon-box {
+    border-color: var(--passport-ink);
+    box-shadow: 0 2px 10px var(--accent-glow);
+}
+.passport-modal-window .badge-card.unlocked .badge-prog-tag {
+    background: color-mix(in srgb, var(--main-color) 16%, transparent);
+    color: var(--passport-ink);
+}
+.passport-modal-window .badge-card { transition: transform .25s ease; }
+
+/* Адрес для обращений и ссылки должны помещаться в окне на узких экранах. */
+#privacy-modal .passport-modal-body, #sources-modal .passport-modal-body { overflow-wrap: anywhere; }

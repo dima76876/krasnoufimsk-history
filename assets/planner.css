@@ -851,6 +851,17 @@
             margin-bottom: 12px;
         }
 
+        .hero-badge-mobile-icon { display: none; flex: 0 0 16px; width: 16px; height: 16px; }
+        @media (max-width: 600px) {
+            .hero-badge { max-width: 100%; padding: 6px 12px; gap: 6px; font-size: 0.72rem; letter-spacing: 0.3px; }
+            .hero-badge-desktop-icons { display: none; }
+            .hero-badge-mobile-icon { display: block; }
+        }
+
+        @media (max-width: 360px) {
+            .hero-badge { font-size: 0.63rem; letter-spacing: 0; padding-inline: 9px; gap: 4px; }
+        }
+
         .hero-title {
             font-family: 'Playfair Display', Georgia, serif;
             font-size: clamp(2rem, 4vw, 3.1rem);
@@ -1194,11 +1205,18 @@
 
 
         /* Интерактивный чек-лист сборов в поездку */
+        .checklist-card { container-type: inline-size; }
+
         .checklist-items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
             gap: 10px;
             will-change: transform;
+        }
+
+        /* При двух колонках нечётная карточка занимает всю последнюю строку. */
+        @container (min-width: 570px) and (max-width: 859px) {
+            .checklist-item-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
         }
 
         .checklist-item-card {
@@ -2689,4 +2707,25 @@ body.dark-mode .weather-modal-window { --weather-accent-text: var(--dark-accent-
 body.dark-mode .exact-input:focus {
     outline-color: var(--dark-accent-text, #ffb279);
     border-color: var(--dark-accent-text, #ffb279);
+}
+
+
+/* Уведомление при первом входе через планировщик: общий ключ с главной. */
+.planner-notice {
+    position: fixed; right: 20px; bottom: 20px; width: min(420px, calc(100vw - 24px));
+    box-sizing: border-box; z-index: 9999; display: flex; flex-direction: column; gap: 12px;
+    padding: 16px 18px; border: 1.5px solid rgba(255,255,255,.2); border-radius: 16px;
+    background: rgba(15, 23, 42, .96); color: #f8fafc; box-shadow: 0 20px 48px rgba(0,0,0,.5);
+}
+.planner-notice-content { display:flex; align-items:flex-start; gap:10px; font-size:.83rem; line-height:1.45; color:#e2e8f0; }
+.planner-notice-content > span:first-child { font-size:1.5rem; flex-shrink:0; }
+.planner-notice-actions { display:flex; justify-content:flex-end; gap:8px; }
+.planner-notice-accept, .planner-notice-info { font: inherit; font-size:.84rem; font-weight:700; border-radius:10px; padding:8px 16px; cursor:pointer; text-align:center; text-decoration:none; }
+.planner-notice-accept { border:0; color:white; background:var(--main-color, #055240); }
+.planner-notice-info { color:#e2e8f0; background:transparent; border:1px solid rgba(255,255,255,.25); }
+.planner-notice-accept:focus-visible, .planner-notice-info:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+body.planner-notice-visible #btn-back-to-top { visibility:hidden; }
+@media (max-width:600px) {
+    .planner-notice { left:12px; right:12px; bottom:12px; width:auto; padding:14px 16px; }
+    .planner-notice-actions { display:grid; grid-template-columns:1fr 1fr; }
 }

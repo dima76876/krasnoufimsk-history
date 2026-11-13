@@ -252,7 +252,7 @@
     <!-- Hero-блок -->
     <section class="planner-hero reveal-on-scroll">
         <div class="hero-badge">
-            <span>🚆 🚗 🚌</span> <span data-lang="heroBadge">Умный калькулятор путешествия • 2026</span>
+            <span class="hero-badge-desktop-icons" aria-hidden="true">🚆 🚗 🚌</span><svg class="hero-badge-mobile-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.6 8.4-2.2 5-5 2.2 2.2-5 5-2.2Z"/></svg> <span data-lang="heroBadge">Умный калькулятор путешествия • 2026</span>
         </div>
         <h1 class="hero-title" id="page-hero-title" data-lang="pageHeroTitle">
             Как добраться и <span class="highlight">спланировать поездку</span> в Красноуфимск
@@ -342,7 +342,7 @@
                 </div>
                 <div class="exact-control">
                     <label class="exact-label" for="days-exact-input" data-lang="labelDaysExact">Точное количество (1–14):</label>
-                    <input class="planner-field exact-input" type="number" id="days-exact-input" min="1" max="14" step="1" value="2" inputmode="numeric" oninput="setExactDays(this.value)">
+                    <input class="planner-field exact-input" type="number" id="days-exact-input" min="1" max="14" step="1" value="2" inputmode="numeric" oninput="setExactDays(this.value)" onblur="if (!this.value) this.value = tripDays">
                 </div>
             </div>
 
@@ -357,7 +357,7 @@
                 </div>
                 <div class="exact-control">
                     <label class="exact-label" for="persons-exact-input" data-lang="labelPersonsExact">Точное количество (1–20):</label>
-                    <input class="planner-field exact-input" type="number" id="persons-exact-input" min="1" max="20" step="1" value="2" inputmode="numeric" oninput="setExactPersons(this.value)">
+                    <input class="planner-field exact-input" type="number" id="persons-exact-input" min="1" max="20" step="1" value="2" inputmode="numeric" oninput="setExactPersons(this.value)" onblur="if (!this.value) this.value = tripPersons">
                 </div>
             </div>
 
@@ -517,7 +517,7 @@
             </div>
 
             <!-- Чек-лист сборов в дорогу -->
-            <div class="program-card reveal-on-scroll" style="margin-top:20px;">
+            <div class="program-card checklist-card reveal-on-scroll" style="margin-top:20px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
                     <h3 class="program-title" style="margin-bottom:0;">
                         <span>🎒</span> <span data-lang="checklistTitle">Чек-лист сборов в дорогу:</span>
@@ -640,9 +640,16 @@
     <!-- ==========================================================================
        СКРИПТЫ: БАЗА ГОРОДОВ, МУЛЬТИМОДАЛЬНЫЙ ТРАНСПОРТ, СМЕТА И НАВИГАЦИЯ
        ========================================================================== -->
+    <div id="cookie-banner" class="planner-notice" role="region" aria-live="polite" style="display:none;">
+        <div class="planner-notice-content"><span aria-hidden="true">🍪</span><span data-lang="cookieNotice">Сайт сохраняет настройки и достижения в памяти браузера и обращается к внешним сервисам. Кнопка «Понятно» только скрывает уведомление. Подробнее — в политике конфиденциальности.</span></div>
+        <div class="planner-notice-actions">
+            <button type="button" class="planner-notice-accept" onclick="acceptPlannerNotice()" data-lang="cookieAccept">Понятно</button>
+            <a class="planner-notice-info" href="index.html#privacy-modal" data-lang="cookieInfo">Подробнее</a>
+        </div>
+    </div>
     <script src="assets/planner.js"></script>
     <button type="button" id="btn-back-to-top" title="Вернуться к началу страницы" aria-label="Вернуться к началу страницы">↑</button>
     
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a59c9f484cd308f8',t:'MTc5NDU2MDgwNQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a59c9f484cd308f8',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 
 </html>
