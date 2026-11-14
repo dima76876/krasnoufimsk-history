@@ -5922,11 +5922,14 @@
         };
 
         window.savePassportName = function(name) {
+            const previousName = passportState.name;
+            const certNameInput = document.getElementById('cert-name-input');
+            // Продолжаем синхронизацию только пока имя диплома не изменено отдельно.
+            const followsPassport = certNameInput && (!certNameInput.value || certNameInput.value === previousName);
             passportState.name = name.trim() || 'Исследователь';
             savePassportState();
-            const certNameInput = document.getElementById('cert-name-input');
-            if (certNameInput && (!certNameInput.value || certNameInput.value === 'Исследователь')) {
-                certNameInput.value = passportState.name;
+            if (followsPassport) {
+                certNameInput.value = passportState.name === 'Исследователь' ? '' : passportState.name;
             }
         };
 

@@ -1862,17 +1862,18 @@
         }
 
         function normalizeGeoResult(item) {
-            if (!item || item.id === undefined || !item.name) return null;
+            if (!item || !/^[0-9]{1,15}$/.test(String(item.id)) || typeof item.name !== 'string' || !item.name.trim()) return null;
+            const id = Number(item.id);
             const latitude = Number(item.latitude);
             const longitude = Number(item.longitude);
-            if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
+            if (!Number.isSafeInteger(id) || id <= 0 || !Number.isFinite(latitude) || Math.abs(latitude) > 90 || !Number.isFinite(longitude) || Math.abs(longitude) > 180) return null;
             return {
-                id: item.id,
-                name: String(item.name),
+                id,
+                name: item.name.trim().slice(0, 160),
                 latitude,
                 longitude,
-                country: String(item.country || ''),
-                admin1: String(item.admin1 || '')
+                country: String(item.country || '').slice(0, 160),
+                admin1: String(item.admin1 || '').slice(0, 160)
             };
         }
 
@@ -2018,18 +2019,9 @@
                     );
 
                     externalGeoResults = data.results
-                        .filter(item => {
-                            const itemName = (item.name || '').toLowerCase();
-                            return !existingNames.has(itemName);
-                        })
-                        .map(item => ({
-                            id: item.id,
-                            name: item.name,
-                            latitude: item.latitude,
-                            longitude: item.longitude,
-                            country: item.country || '',
-                            admin1: item.admin1 || ''
-                        }));
+                        .map(normalizeGeoResult)
+                        .filter(item => item && !existingNames.has(item.name.toLowerCase()))
+                        .slice(0, 6);
                     saveGeoResults(currentQuery, langParam, externalGeoResults);
                 } else {
                     externalGeoResults = [];
@@ -2108,11 +2100,11 @@
                     count++;
                     const modesIcons = Array.from(new Set(city.options.map(o => o.icon.split('+')[0]))).join(' ');
                     html += `
-                        <div class="city-search-dropdown-item ${isSelected ? 'active' : ''}" onclick="selectCity('${city.id}')">
+                        <div class="city-search-dropdown-item ${isSelected ? 'active' : ''}" data-city-id="${escapeHtml(city.id)}" data-city-action="select">
                             <div class="city-search-item-left">
                                 <span>🏙️</span>
                                 <div>
-                                    <span>${displayName}</span>
+                                    <span>${escapeHtml(displayName)}</span>
                                     <span style="font-size:0.8rem; color:var(--text-muted); margin-left:6px;">(~${city.distKm} ${kmUnit})</span>
                                 </div>
                             </div>
@@ -2140,7 +2132,7 @@
                     const dist = calculateHaversineKm(item.latitude, item.longitude);
                     const regionLabel = item.admin1 ? `${item.admin1}, ${item.country}` : item.country;
                     html += `
-                        <div class="city-search-dropdown-item" onclick="selectDynamicCity('geo_${item.id}')">
+                        <div class="city-search-dropdown-item" data-city-id="geo_${item.id}" data-city-action="dynamic">
                             <div class="city-search-item-left">
                                 <span>🌍</span>
                                 <div>
@@ -2180,6 +2172,13 @@
             }
 
             dropdown.innerHTML = html;
+            dropdown.querySelectorAll('[data-city-action]').forEach(item => {
+                item.addEventListener('click', () => {
+                    const id = item.getAttribute('data-city-id');
+                    if (item.getAttribute('data-city-action') === 'dynamic') selectDynamicCity(id);
+                    else selectCity(id);
+                });
+            });
         }
 
         function renderCitySelectors(searchQuery = '') {
@@ -2209,14 +2208,17 @@
                 if (showInChips) {
                     matchCount++;
                     chipsHtml += `
-                        <button type="button" class="city-chip ${isSelected ? 'active' : ''}" data-city="${city.id}" onclick="selectCity('${city.id}')">
-                            <span>🏙️</span> <span>${displayName}</span>
+                        <button type="button" class="city-chip ${isSelected ? 'active' : ''}" data-city="${escapeHtml(city.id)}">
+                            <span>🏙️</span> <span>${escapeHtml(displayName)}</span>
                         </button>
                     `;
                 }
             });
 
             chipsBox.innerHTML = chipsHtml;
+            chipsBox.querySelectorAll('[data-city]').forEach(chip => {
+                chip.addEventListener('click', () => selectCity(chip.getAttribute('data-city')));
+            });
 
             if (notFoundEl) {
                 notFoundEl.style.display = (query && matchCount === 0 && externalGeoResults.length === 0 && !isGeoSearching) ? 'flex' : 'none';
@@ -2226,6 +2228,9 @@
         }
 
         function onCitySearchInput(val) {
+            val = String(val || '').slice(0, 80);
+            const input = document.getElementById('city-search-input');
+            if (input && input.value !== val) input.value = val;
             const clearBtn = document.getElementById('city-search-clear-btn');
             if (clearBtn) {
                 clearBtn.style.display = (val && val.trim().length > 0) ? 'inline-flex' : 'none';
