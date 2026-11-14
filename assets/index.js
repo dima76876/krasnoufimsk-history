@@ -4531,9 +4531,9 @@
             // 2. Фоновый защитный водяной знак и гравюрные виньетки (Гознак-стиль, повышенная четкость)
             ctx.save();
             ctx.translate(W / 2, H / 2 - 20);
-            ctx.strokeStyle = 'rgba(180, 134, 40, 0.18)';
+            ctx.strokeStyle = 'rgba(160, 112, 28, 0.27)';
             ctx.fillStyle = 'rgba(180, 134, 40, 0.055)';
-            ctx.lineWidth = 2.5;
+            ctx.lineWidth = 2.8;
 
             // Концентрические гильош-кольца
             for (let r of [160, 240, 320, 420, 520, 620]) {
@@ -4568,8 +4568,8 @@
             function drawSideFlourish(baseX, isLeft) {
                 ctx.save();
                 ctx.translate(baseX, H / 2);
-                ctx.strokeStyle = 'rgba(160, 112, 28, 0.38)';
-                ctx.fillStyle = 'rgba(160, 112, 28, 0.18)';
+                ctx.strokeStyle = 'rgba(140, 94, 20, 0.58)';
+                ctx.fillStyle = 'rgba(160, 112, 28, 0.28)';
                 ctx.lineWidth = 2.2;
 
                 const dir = isLeft ? 1 : -1;
@@ -4673,6 +4673,37 @@
             drawCornerOrnament(96, H - 96, 1, -1);
             drawCornerOrnament(W - 96, H - 96, -1, -1);
 
+            // Тонкие симметричные гравюрные ветви заполняют верхние поля,
+            // не затрагивая герб, заголовок и угловые украшения рамки.
+            function drawTopBranch(isLeft) {
+                ctx.save();
+                ctx.translate(W / 2, 225);
+                ctx.scale(isLeft ? -1 : 1, 1);
+                ctx.strokeStyle = 'rgba(142, 97, 24, 0.58)';
+                ctx.fillStyle = 'rgba(160, 112, 28, 0.30)';
+                ctx.lineWidth = 2.6;
+                ctx.beginPath();
+                ctx.moveTo(275, 0);
+                ctx.bezierCurveTo(390, -12, 570, -12, 760, 0);
+                ctx.stroke();
+                for (let i = 0; i < 8; i++) {
+                    const x = 330 + i * 52;
+                    const y = -5 - Math.sin(i / 7 * Math.PI) * 5;
+                    ctx.beginPath();
+                    ctx.ellipse(x, y - 13, 18, 6, -0.38, 0, Math.PI * 2);
+                    ctx.fill(); ctx.stroke();
+                    ctx.beginPath();
+                    ctx.ellipse(x + 23, y + 12, 18, 6, 0.38, 0, Math.PI * 2);
+                    ctx.fill(); ctx.stroke();
+                }
+                ctx.beginPath();
+                ctx.arc(780, 0, 4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+            drawTopBranch(true);
+            drawTopBranch(false);
+
             // 4. Герб Красноуфимска — присланное владельцем изображение
             // (серебряный сокол в профиль на золотой ветви в зелёном поле).
             const crestX = W / 2;
@@ -4682,17 +4713,17 @@
             ctx.save();
             ctx.fillStyle = '#78350f';
             ctx.beginPath();
-            ctx.roundRect(crestX - 110, 298, 220, 28, 7);
+            ctx.roundRect(crestX - 150, 298, 300, 30, 7);
             ctx.fill();
             ctx.strokeStyle = '#d4af37';
             ctx.lineWidth = 2;
             ctx.stroke();
 
-            ctx.font = 'bold 13px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#fef08a';
+            ctx.font = 'bold 17px "Segoe UI", Arial, sans-serif';
+            ctx.fillStyle = '#fff8d5';
             ctx.textAlign = 'center';
             const ribbonText = currentLang === 'en' ? '★ 1736 • KRASNOUFIMSK ★' : '★ 1736 • КРАСНОУФИМСК ★';
-            ctx.fillText(ribbonText, crestX, 317);
+            ctx.fillText(ribbonText, crestX, 319);
             ctx.restore();
 
             // 5. Текстовые блоки диплома
@@ -4704,7 +4735,7 @@
             const topHeader = currentLang === 'en' 
                 ? '—  HISTORICAL & CULTURAL HERITAGE INITIATIVE  —'
                 : '—  НАУЧНО-ИСТОРИЧЕСКИЙ КРАЕВЕДЧЕСКИЙ ПРОЕКТ  —';
-            ctx.fillText(topHeader, W / 2, 355);
+            ctx.fillText(topHeader, W / 2, 363);
 
             // Главный заголовок «ДИПЛОМ ЗНАТОКА»
             ctx.font = 'bold 82px "Playfair Display", Georgia, "Times New Roman", serif';
@@ -4714,12 +4745,12 @@
             titleGrad.addColorStop(0.65, '#d97706');
             titleGrad.addColorStop(1, '#78350f');
             ctx.fillStyle = titleGrad;
-            ctx.fillText(currentLang === 'en' ? 'DIPLOMA OF EXCELLENCE' : 'ДИПЛОМ ЗНАТОКА', W / 2, 445);
+            ctx.fillText(currentLang === 'en' ? 'DIPLOMA OF EXCELLENCE' : 'ДИПЛОМ ЗНАТОКА', W / 2, 455);
 
             // Название проекта
             ctx.font = '600 27px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#334155';
-            ctx.fillText(currentLang === 'en' ? '«KRASNOUFIMSK: THROUGH THE AGES»' : '«КРАСНОУФИМСК: СКВОЗЬ ЭПОХИ»', W / 2, 500);
+            ctx.fillText(currentLang === 'en' ? '«KRASNOUFIMSK: THROUGH THE AGES»' : '«КРАСНОУФИМСК: СКВОЗЬ ЭПОХИ»', W / 2, 507);
 
             // Декоративная разделительная черта с ромбом
             ctx.save();
@@ -4743,8 +4774,8 @@
             ctx.restore();
 
             // Преамбула вручения
-            ctx.font = 'italic 32px "Playfair Display", Georgia, serif';
-            ctx.fillStyle = '#5c5346';
+            ctx.font = 'italic 36px "Playfair Display", Georgia, serif';
+            ctx.fillStyle = '#303e49';
             ctx.fillText(currentLang === 'en' ? 'This diploma is proudly awarded to' : 'Настоящим дипломом награждается', W / 2, 598);
 
             // Имя награждаемого с каллиграфическими виньетками
@@ -4844,14 +4875,14 @@
                     : certFrac >= 0.5
                         ? (certDict.quizResult3 || '📖 Неплохо! Почитайте о достопримечательностях подробнее.')
                         : (certDict.quizResult2 || '🔍 Стоит изучить историю города! Пройдите ленту времени.');
-            ctx.font = 'italic 28px "Playfair Display", Georgia, serif';
-            ctx.fillStyle = '#1e293b';
+            ctx.font = 'italic 32px "Playfair Display", Georgia, serif';
+            ctx.fillStyle = '#172536';
             ctx.fillText(`«${appraisal}»`, W / 2, 1025);
 
             // 7. Сбалансированный нижний официальный блок:
             // Слева: Реестровый номер, дата, защита и формат А4
             // По центру: Торжественная 24-лучевая золотая печать с шелковыми лентами
-            // Справа: Официальный блок проекта «Красноуфимск 2026» и бессрочная валидация
+            // Справа: Официальный блок проекта
 
             const baseLineY = 1275;
 
@@ -4901,9 +4932,9 @@
                 ctx.fillStyle = ribGrad;
                 ctx.beginPath();
                 ctx.moveTo(startX - 24, startY);
-                ctx.quadraticCurveTo(ctrlX - 24, ctrlY, endX - 28, endY);
+                ctx.quadraticCurveTo(ctrlX - 24, ctrlY, endX - 33, endY);
                 ctx.lineTo(endX, endY - 20);
-                ctx.lineTo(endX + 28, endY);
+                ctx.lineTo(endX + 33, endY);
                 ctx.quadraticCurveTo(ctrlX + 24, ctrlY, startX + 24, startY);
                 ctx.closePath();
                 ctx.fill();
@@ -4911,13 +4942,15 @@
                 ctx.lineWidth = 1.8;
                 ctx.stroke();
             }
-            drawRibbonTail(sealX - 26, sealY + 42, sealX - 74, sealY + 195, sealX - 56, sealY + 115);
-            drawRibbonTail(sealX + 26, sealY + 42, sealX + 74, sealY + 195, sealX + 56, sealY + 115);
+            drawRibbonTail(sealX - 26, sealY + 42, sealX - 80, sealY + 210, sealX - 58, sealY + 122);
+            drawRibbonTail(sealX + 26, sealY + 42, sealX + 80, sealY + 210, sealX + 58, sealY + 122);
             ctx.restore();
 
             // 24-лучевая золотая печать
             ctx.save();
             ctx.translate(sealX, sealY);
+            // Увеличенная печать сохраняет пропорции, но лучше читается на А4.
+            ctx.scale(1.32, 1.32);
 
             ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
             ctx.shadowBlur = 20;
@@ -4974,28 +5007,43 @@
 
             // Текст внутри печати (двуязычный)
             ctx.textAlign = 'center';
-            ctx.font = 'bold 15px "Segoe UI", Arial, sans-serif';
+            const sealCity = currentLang === 'en' ? 'KRASNOUFIMSK' : 'КРАСНОУФИМСК';
+            let sealFontSize = 15;
+            ctx.font = `bold ${sealFontSize}px "Segoe UI", Arial, sans-serif`;
+            while (ctx.measureText(sealCity).width > 108 && sealFontSize > 8) {
+                sealFontSize -= 0.5;
+                ctx.font = `bold ${sealFontSize}px "Segoe UI", Arial, sans-serif`;
+            }
             ctx.fillStyle = '#451a03';
-            ctx.fillText(currentLang === 'en' ? 'KRASNOUFIMSK' : 'КРАСНОУФИМСК', 0, -24);
+            ctx.fillText(sealCity, 0, -24);
 
             ctx.font = 'bold 23px "Segoe UI", Arial, sans-serif';
-            ctx.fillStyle = '#78350f';
+            ctx.fillStyle = '#451a03';
             ctx.fillText('★ 1736 ★', 0, 4);
 
-            ctx.font = 'bold 12px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#451a03';
-            ctx.fillText(currentLang === 'en' ? 'PROJECT SEAL' : 'ПЕЧАТЬ ПРОЕКТА', 0, 24);
-            ctx.fillText(currentLang === 'en' ? 'MERIT AWARD' : 'ЗНАК КАЧЕСТВА', 0, 40);
+            function drawSealCaption(text, y, maxWidth) {
+                let size = 12;
+                ctx.font = `bold ${size}px "Segoe UI", Arial, sans-serif`;
+                while (ctx.measureText(text).width > maxWidth && size > 7) {
+                    size -= 0.5;
+                    ctx.font = `bold ${size}px "Segoe UI", Arial, sans-serif`;
+                }
+                ctx.fillText(text, 0, y);
+            }
+            drawSealCaption(currentLang === 'en' ? 'PROJECT SEAL' : 'ПЕЧАТЬ ПРОЕКТА', 24, 100);
+            drawSealCaption(currentLang === 'en' ? 'MERIT AWARD' : 'ЗНАК КАЧЕСТВА', 40, 86);
 
             ctx.restore();
 
-            // --- Правая колонка: Официальный блок проекта «Красноуфимск 2026» ---
+            // --- Правая колонка: Официальный блок проекта ---
             ctx.save();
             ctx.textAlign = 'right';
 
             ctx.font = 'bold 25px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#0f172a';
-            ctx.fillText(currentLang === 'en' ? 'Heritage Project «Krasnoufimsk 2026»' : 'Краеведческий проект «Красноуфимск 2026»', W - 220, baseLineY - 45);
+            ctx.fillText(currentLang === 'en' ? 'Heritage Project' : 'Краеведческий проект', W - 220, baseLineY - 76);
+            ctx.fillText(currentLang === 'en' ? '«Krasnoufimsk: Through the Ages»' : '«Красноуфимск: Сквозь эпохи»', W - 220, baseLineY - 45);
 
             ctx.font = '500 25px "Segoe UI", Arial, sans-serif';
             ctx.fillStyle = '#334155';
