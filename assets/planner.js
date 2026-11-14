@@ -3580,3 +3580,18 @@
 /* ---- next original script block ---- */
 
 (function(){function initBackToTop(){var b=document.getElementById('btn-back-to-top');if(!b)return;function t(){b.classList.toggle('show',window.scrollY>600);}window.addEventListener('scroll',t,{passive:true});t();b.addEventListener('click',function(){window.scrollTo({top:0,behavior:(window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth')});});}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',initBackToTop);}else{initBackToTop();}})();
+
+// Измеряем полную высоту сметы: у высокой карточки закрепляется нижний край,
+// а отдельная прокрутка внутри неё не создаётся.
+(function () {
+    function initBudgetStickyHeight() {
+        const card = document.querySelector('.budget-card');
+        if (!card) return;
+        const update = () => card.style.setProperty('--budget-card-height', card.offsetHeight + 'px');
+        update();
+        if ('ResizeObserver' in window) new ResizeObserver(update).observe(card);
+        window.addEventListener('resize', update, { passive: true });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initBudgetStickyHeight);
+    else initBudgetStickyHeight();
+})();

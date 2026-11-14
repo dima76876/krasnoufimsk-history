@@ -93,6 +93,7 @@
                 navIntro: 'О городе',
                 navTimeline: 'Лента',
                 navRoutes: 'Маршруты',
+                navMapShort: 'Карта',
                 navPlanner: 'Планировщик',
                 navGuide: 'Памятка',
                 navQuiz: 'Викторина',
@@ -343,6 +344,7 @@
                 navIntro: 'About',
                 navTimeline: 'Timeline',
                 navRoutes: 'Routes',
+                navMapShort: 'Map',
                 navPlanner: 'Trip Planner',
                 plannerCtaBadge: '🧭 Trip Planning • 2026',
                 plannerCtaTitle: 'Planning a trip to Krasnoufimsk?',
@@ -3932,6 +3934,7 @@
         let sightsBaseLayerKey = '';
         let sightsPmtilesArchive = null;
         const SIGHTS_MAP_BOUNDS = [[56.48, 57.66], [56.68, 57.83]];
+        const SIGHTS_TILE_BOUNDS = [[56.3, 57.1], [56.9, 58.4]];
         const SIGHTS_PMTILES_URL = new URL('assets/maps/krasnoufimsk.pmtiles', document.baseURI).href;
 
         /* Собственные палитры карты на базе Protomaps light/dark: светлее и теплее
@@ -4042,7 +4045,7 @@
                 url: getSightsPmtilesSource(),
                 lang,
                 attribution: '© OpenStreetMap contributors',
-                bounds: SIGHTS_MAP_BOUNDS,
+                bounds: SIGHTS_TILE_BOUNDS,
                 maxDataZoom: 15
             };
             if (typeof window.protomapsL.paintRules === 'function' && typeof window.protomapsL.labelRules === 'function') {
@@ -4243,7 +4246,12 @@
         window.resetSightsMapView = function() {
             if (!sightsMap) return;
             filterSightsMap('all');
-            sightsMap.flyTo([56.6160, 57.7660], 13, { animate: true, duration: 1.0 });
+            const points = Object.values(sightsMarkersMap).map(marker => marker.getLatLng());
+            if (points.length) {
+                sightsMap.closePopup();
+                sightsMap.invalidateSize();
+                sightsMap.fitBounds(L.latLngBounds(points), { padding: [36, 36], maxZoom: 15, animate: false });
+            }
         };
 
         window.focusSightFromMap = function(id) {
@@ -5287,7 +5295,7 @@
         function downloadGuidePDF() {
             const btnText = document.querySelector('.guide-download-btn span:last-child');
             const originalText = btnText ? btnText.innerText : 'Сохранить';
-            if (btnText) btnText.innerText = 'Генерация PDF...';
+            if (btnText) btnText.innerText = currentLang === 'en' ? 'Generating PDF...' : 'Генерация PDF...';
 
             // pdfMake: сначала локальная копия (работает офлайн после установки PWA), затем CDN с SRI как резерв.
             const loadScript = (src, integrity) => new Promise((resolve, reject) => {
@@ -5312,7 +5320,7 @@
                 alert((typeof currentLang !== 'undefined' && currentLang === 'en')
                     ? 'Failed to load the PDF library from local files or CDN. Please check your connection.'
                     : 'Ошибка загрузки библиотеки PDF из локальных файлов и CDN. Проверьте соединение.');
-                if (btnText) btnText.innerText = originalText;
+                if (btnText) btnText.innerText = (i18n[currentLang] || i18n.ru).btnPrint;
             });
         }
 
@@ -5529,13 +5537,13 @@
                 }
 
                 setTimeout(() => {
-                    if (btnText) btnText.innerText = originalText;
+                    if (btnText) btnText.innerText = (i18n[currentLang] || i18n.ru).btnPrint;
                 }, 1000);
 
             } catch (error) {
                 console.error(error);
                 alert(typeof currentLang !== 'undefined' && currentLang === 'en' ? 'Error generating PDF' : 'Произошла ошибка при создании PDF');
-                if (btnText) btnText.innerText = originalText;
+                if (btnText) btnText.innerText = (i18n[currentLang] || i18n.ru).btnPrint;
             }
         }
     
@@ -5870,7 +5878,13 @@
 
             // Обновляем шапку профиля
             const nameInput = document.getElementById('passport-user-name');
-            if (nameInput) nameInput.value = passportState.name;
+            if (nameInput) {
+                const isDefaultName = !passportState.name || passportState.name === 'Исследователь' || passportState.name === 'Explorer';
+                nameInput.value = isDefaultName ? (lang === 'en' ? 'Explorer' : 'Исследователь') : passportState.name;
+                nameInput.placeholder = lang === 'en' ? 'Your name' : 'Ваше имя';
+                nameInput.title = lang === 'en' ? 'Click to change your name' : 'Нажмите для смены имени';
+                nameInput.setAttribute('aria-label', lang === 'en' ? 'Your explorer passport name' : 'Ваше имя в паспорте исследователя');
+            }
 
             const avatarBtn = document.getElementById('passport-avatar-current');
             if (avatarBtn) avatarBtn.textContent = passportState.avatar;
@@ -6003,7 +6017,7 @@
             passportState.name = name.trim() || 'Исследователь';
             savePassportState();
             if (followsPassport) {
-                certNameInput.value = passportState.name === 'Исследователь' ? '' : passportState.name;
+                certNameInput.value = (passportState.name === 'Исследователь' || passportState.name === 'Explorer') ? '' : passportState.name;
             }
         };
 

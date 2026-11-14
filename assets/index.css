@@ -7681,3 +7681,7 @@ html.legal-dialog-open { overflow: hidden; overscroll-behavior: none; }
 }
 #privacy-modal .passport-modal-body a { color: #1d4ed8; text-decoration: underline; text-underline-offset: 2px; }
 body.dark-theme #privacy-modal .passport-modal-body a { color: #7dd3fc; }
+
+/* Компактное меню сохраняет удобный размер нажатия и помещает новый пункт карты. */
+.mobile-nav-list { gap: 2px; }
+.mobile-nav-link { min-height: 44px; box-sizing: border-box; padding: 8px 12px; }

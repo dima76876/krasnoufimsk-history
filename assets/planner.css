@@ -1737,11 +1737,10 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             position: sticky;
-            top: 76px;
-            max-height: calc(100vh - 90px);
-            overflow-y: auto;
-            overflow-x: hidden;
-            scrollbar-width: thin;
+            /* Если карточка выше экрана, её низ достигается прокруткой страницы. */
+            top: min(76px, calc(100vh - var(--budget-card-height, 0px) - 16px));
+            max-height: none;
+            overflow: visible;
         }
 
         .budget-card::before {

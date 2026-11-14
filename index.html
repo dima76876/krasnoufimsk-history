@@ -262,6 +262,10 @@
                         <span class="mobile-nav-icon">🏛️</span>
                         <span data-i18n="navSights">Достопримечательности</span>
                     </a>
+                    <a href="#sights-map-card" class="mobile-nav-link" onclick="handleMobileNavClick(event, 'sights-map-card')">
+                        <span class="mobile-nav-icon">🗺️</span>
+                        <span data-i18n="navMapShort">Карта</span>
+                    </a>
                     <a href="#routes" class="mobile-nav-link" onclick="handleMobileNavClick(event, 'routes')">
                         <span class="mobile-nav-icon">🚶</span>
                         <span data-i18n="navRoutes">Маршруты</span>
@@ -484,7 +488,7 @@
                     <p class="sights-map-desc" data-i18n="sightsMapDesc">Нажмите на любую метку, чтобы открыть краткую справку и перейти к подробному изучению объекта в каталоге.</p>
                 </div>
                 <div class="sights-map-controls">
-                    <button type="button" class="sights-map-btn-reset" onclick="resetSightsMapView()" title="Сбросить масштаб и показать весь город" data-i18n="sightsMapReset">
+                    <button type="button" class="sights-map-btn-reset" onclick="resetSightsMapView()" title="Показать все объекты карты" data-i18n="sightsMapReset">
                         🎯 Показать все объекты
                     </button>
                 </div>
@@ -1102,7 +1106,7 @@
                 <button type="button" class="passport-close-btn" onclick="closePrivacyModal()" aria-label="Закрыть">✕</button>
             </div>
             <div class="passport-modal-body" style="font-size:0.88rem; line-height:1.6; color:var(--text-main);">
-                <p data-i18n="privacyP1"><strong>1. О проекте.</strong> «Красноуфимск: Сквозь эпохи» — некоммерческий образовательный сайт, созданный в ходе индивидуального проекта. По вопросам работы сайта и обработки данных: <a href="/cdn-cgi/l/email-protection#0c677e6d7f6263796a65617f672264657f78637e75226f6362786d6f784c616d6560227e79"><span class="__cf_email__" data-cfemail="4f243d2e3c21203a2926223c246127263c3b203d36612c20213b2e2c3b0f222e2623613d3a">[email&#160;protected]</span></a>.</p>
+                <p data-i18n="privacyP1"><strong>1. О проекте.</strong> «Красноуфимск: Сквозь эпохи» — некоммерческий образовательный сайт, созданный в ходе индивидуального проекта. По вопросам работы сайта и обработки данных: <a href="/cdn-cgi/l/email-protection#9cf7eefdeff2f3e9faf5f1eff7b2f4f5efe8f3eee5b2fff3f2e8fdffe8dcf1fdf5f0b2eee9"><span class="__cf_email__" data-cfemail="bbd0c9dac8d5d4ceddd2d6c8d095d3d2c8cfd4c9c295d8d4d5cfdad8cffbd6dad2d795c9ce">[email&#160;protected]</span></a>.</p>
                 <p data-i18n="privacyP2"><strong>2. Данные в браузере.</strong> Локальное хранилище сохраняет настройки языка, темы и сезона, данные паспорта исследователя и достижения, отметки чек-листа, выбор о закрытии уведомления и некоторые временные данные, например погоду и результаты поиска. Для офлайн-доступа браузер может сохранять файлы сайта и карты. Удалить данные можно в настройках браузера, очистив данные сайта; настройки и достижения при этом могут быть потеряны. Срок хранения временных данных зависит от функции и настроек браузера.</p>
                 <p data-i18n="privacyP3"><strong>3. Имя для диплома.</strong> Имя обрабатывается в браузере для отображения и создания диплома. Имя в паспорте исследователя может сохраняться в локальном хранилище на устройстве. На общем устройстве не вводите сведения, которые не хотите оставлять другим пользователям.</p>
                 <p data-i18n="privacyP4"><strong>4. Внешние сервисы.</strong> Сайт размещён на GitHub Pages; GitHub сообщает, что записывает IP-адреса посетителей в целях безопасности. Для погоды используются Open-Meteo или Met.no с координатами Красноуфимска. При поиске населённого пункта введённый запрос отправляется в Open-Meteo; не вводите туда конфиденциальные сведения. Если локальная библиотека PDF недоступна, она может загружаться через Cloudflare CDN. Сторонние сервисы могут получать IP-адрес и другие технические сведения; сроки хранения и условия определяются соответствующими сервисами. При переходе на внешние сайты, в том числе Яндекс Карты и Яндекс Расписания, действуют их правила.</p>
@@ -1195,8 +1199,7 @@
     
     
     
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","spa":2}' crossorigin="anonymous"></script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5a598132dffd9c3',t:'MTc5NDY1NDg4MQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5a598132dffd9c3',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5a6916f7f60a2ec',t:'MTc5NDY2NTA5NQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5a6916f7f60a2ec',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 
 
 
