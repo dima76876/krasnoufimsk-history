@@ -1620,13 +1620,10 @@
                 renderSightsMapMarkers(typeof currentMapFilter !== 'undefined' ? currentMapFilter : 'all');
             }
             if (typeof renderPassportBadges === 'function') renderPassportBadges();
+            const mapNotice = document.querySelector('.map-load-notice');
+            if (mapNotice && typeof setSightsMapLoadState === 'function') setSightsMapLoadState(mapNotice.dataset.state);
             if (typeof updateWeatherDisplay === 'function') updateWeatherDisplay(lang);
 
-            // Фикс для мобильного Safari: принудительная перерисовка при смене языка
-            setTimeout(() => {
-                window.scrollBy(0, 1);
-                window.scrollBy(0, -1);
-            }, 50);
         }
 
         // Обработчик кнопки смены языка
@@ -1790,13 +1787,13 @@
                 `;
             }).join('');
 
-            // Горизонтальный скролл колёсиком мыши
+            // Обычное колесо прокручивает страницу. Shift + колесо — ленту.
             if (!container.dataset.wheelBound) {
                 container.dataset.wheelBound = 'true';
                 container.addEventListener('wheel', (e) => {
-                    if (e.deltaY !== 0 && !e.shiftKey) {
+                    if (e.shiftKey && Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
                         e.preventDefault();
-                        container.scrollBy({ left: e.deltaY * 1.6, behavior: getScrollBehavior() });
+                        container.scrollBy({ left: e.deltaY, behavior: 'instant' });
                     }
                 }, { passive: false });
                 container.addEventListener('scroll', updateTimelineArrows, { passive: true });
@@ -3006,6 +3003,7 @@
            ФУНКЦИЯ [7]: АНИМИРОВАННЫЕ СЕЗОННЫЕ ЧАСТИЦЫ НА ХОЛСТЕ (CANVAS)
            ========================================================================== */
         let particleAnimId = null;
+        let particleHeroVisible = true;
         const particleMotionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 
         function initParticleCanvas(season) {
@@ -3018,7 +3016,7 @@
                 return;
             }
             canvas.style.display = '';
-            if (document.hidden) return;
+            if (document.hidden || !particleHeroVisible) return;
             const ctx = canvas.getContext('2d');
             if (!ctx) return;
 
@@ -3143,6 +3141,25 @@
                 }
             }
         });
+
+        // Не рисуем сезонные частицы, пока первый экран находится вне окна.
+        if ('IntersectionObserver' in window) {
+            document.addEventListener('DOMContentLoaded', () => {
+                const hero = document.getElementById('hero');
+                if (!hero) return;
+                new IntersectionObserver(entries => {
+                    const visible = entries[0].isIntersecting;
+                    if (visible === particleHeroVisible) return;
+                    particleHeroVisible = visible;
+                    if (!visible && particleAnimId) {
+                        cancelAnimationFrame(particleAnimId);
+                        particleAnimId = null;
+                    } else if (visible && !particleAnimId && !document.hidden) {
+                        updateParticlesForMotionPreference();
+                    }
+                }).observe(hero);
+            });
+        }
 
         /* ==========================================================================
            ФУНКЦИЯ [8]: ИНДИКАТОР СКРОЛЛА И КНОПКА "НАВЕРХ"
@@ -3914,8 +3931,9 @@
             if (mapCard) {
                 mapCard.scrollIntoView({ behavior: getScrollBehavior(), block: 'center' });
             }
-            if (!sightsMap && typeof initSightsMap === 'function') initSightsMap();
-            setTimeout(() => { if (typeof syncSightsMapWithSight === 'function') syncSightsMapWithSight(id); }, 700);
+            Promise.resolve(initSightsMap()).then(() => {
+                if (sightsMap) syncSightsMapWithSight(id);
+            });
         }
 
         function renderSightsSelector(filterCat = 'all') {
@@ -3933,7 +3951,8 @@
         let sightsBaseLayer = null;
         let sightsBaseLayerKey = '';
         let sightsPmtilesArchive = null;
-        const SIGHTS_MAP_BOUNDS = [[56.48, 57.66], [56.68, 57.83]];
+        // Запас вокруг объектов нужен для автоперемещения всплывающих карточек.
+        const SIGHTS_MAP_BOUNDS = [[56.35, 57.2], [56.85, 58.3]];
         const SIGHTS_TILE_BOUNDS = [[56.3, 57.1], [56.9, 58.4]];
         const SIGHTS_PMTILES_URL = new URL('assets/maps/krasnoufimsk.pmtiles', document.baseURI).href;
 
@@ -4024,13 +4043,8 @@
         }
 
         function getSightsPmtilesSource() {
-            // Chrome/Edge запрещают fetch() к соседнему .pmtiles при открытии страницы через file://.
-            // Только в этом режиме лениво используем Base64-копию того же архива как FileSource;
-            // на HTTP/HTTPS всегда работает бинарный PMTiles + Range через Service Worker.
-            if (window.location.protocol === 'file:') {
-                return createEmbeddedSightsPmtilesArchive() || SIGHTS_PMTILES_URL;
-            }
-            return SIGHTS_PMTILES_URL;
+            // FileSource использует локальную копию: из fetch для сайта и Base64 для file://.
+            return sightsPmtilesArchive || SIGHTS_PMTILES_URL;
         }
 
         function getSightsBaseLayerKey() {
@@ -4087,14 +4101,13 @@
                 const script = document.createElement('script');
                 script.src = src;
                 script.onload = () => { script.dataset.loaded = 'true'; resolve(); };
-                script.onerror = () => reject(new Error(`${src} failed to load`));
+                script.onerror = () => { script.remove(); reject(new Error(`${src} failed to load`)); };
                 document.head.appendChild(script);
             });
         }
 
         function loadLeaflet() {
-            const needsFilePmtilesFallback = window.location.protocol === 'file:' && !sightsPmtilesArchive;
-            if (typeof L !== 'undefined' && window.protomapsL && !needsFilePmtilesFallback) return Promise.resolve();
+            if (typeof L !== 'undefined' && window.protomapsL && sightsPmtilesArchive) return Promise.resolve();
             if (leafletLoadPromise) return leafletLoadPromise;
             leafletLoadPromise = (async () => {
                 if (!document.querySelector('link[data-leaflet-css]')) {
@@ -4104,10 +4117,23 @@
                 }
                 if (typeof L === 'undefined') await loadLocalScript('vendor/leaflet.js');
                 if (!window.protomapsL) await loadLocalScript('vendor/protomaps-leaflet.js');
-                if (window.location.protocol === 'file:' && !sightsPmtilesArchive) {
-                    if (!window.pmtiles) await loadLocalScript('vendor/pmtiles.js');
-                    if (!window.KRASNOUFIMSK_PMTILES_BASE64) await loadLocalScript('assets/maps/krasnoufimsk.pmtiles.base64.js');
-                    createEmbeddedSightsPmtilesArchive();
+                if (!window.pmtiles) await loadLocalScript('vendor/pmtiles.js');
+                if (!sightsPmtilesArchive) {
+                    if (window.location.protocol === 'file:') {
+                        if (!window.KRASNOUFIMSK_PMTILES_BASE64) await loadLocalScript('assets/maps/krasnoufimsk.pmtiles.base64.js');
+                        createEmbeddedSightsPmtilesArchive();
+                    } else {
+                        // Один полный ответ исключает разрывы множества Range-запросов.
+                        // Service Worker сохраняет этот же файл для офлайн-режима.
+                        const response = await fetch(SIGHTS_PMTILES_URL);
+                        if (!response.ok || response.status !== 200) throw new Error('Map archive failed to load');
+                        const blob = await response.blob();
+                        if (blob.size < 127) throw new Error('Map archive is incomplete');
+                        const header = new Uint8Array(await blob.slice(0, 8).arrayBuffer());
+                        if (String.fromCharCode(...header.slice(0, 7)) !== 'PMTiles' || header[7] !== 3) throw new Error('Invalid map archive');
+                        sightsPmtilesArchive = new window.pmtiles.PMTiles(new window.pmtiles.FileSource(new File([blob], 'krasnoufimsk.pmtiles', { type: 'application/octet-stream' })));
+                    }
+                    if (!sightsPmtilesArchive) throw new Error('Map archive unavailable');
                 }
             })().catch(err => {
                 leafletLoadPromise = null;
@@ -4115,6 +4141,33 @@
             });
             return leafletLoadPromise;
         }
+        function setSightsMapLoadState(state) {
+            const frame = document.querySelector('.sights-leaflet-frame');
+            if (!frame) return;
+            let notice = frame.querySelector('.map-load-notice');
+            if (!state) { if (notice) notice.remove(); return; }
+            if (!notice) {
+                notice = document.createElement('div');
+                notice.className = 'map-load-notice';
+                notice.setAttribute('role', 'status');
+                frame.appendChild(notice);
+            }
+            notice.dataset.state = state;
+            notice.replaceChildren();
+            const message = document.createElement('span');
+            message.textContent = state === 'loading'
+                ? (currentLang === 'en' ? 'Loading map…' : 'Загрузка карты…')
+                : (currentLang === 'en' ? 'Could not load the map.' : 'Не удалось загрузить карту.');
+            notice.appendChild(message);
+            if (state === 'error') {
+                const retry = document.createElement('button');
+                retry.type = 'button';
+                retry.textContent = currentLang === 'en' ? 'Try again' : 'Попробовать снова';
+                retry.addEventListener('click', () => filterSightsMap(currentMapFilter));
+                notice.appendChild(retry);
+            }
+        }
+
         function lazyInitSightsMap() {
             const card = document.getElementById('sights-map-card') || document.getElementById('sights-leaflet-map');
             if (!card || !('IntersectionObserver' in window)) { initSightsMap(); return; }
@@ -4127,10 +4180,18 @@
         function initSightsMap() {
             const mapEl = document.getElementById('sights-leaflet-map');
             if (!mapEl) return;
-            if (typeof L === 'undefined' || !window.protomapsL) { loadLeaflet().then(() => initSightsMap()).catch(err => console.warn('Map load notice:', err)); return; }
+            if (typeof L === 'undefined' || !window.protomapsL || !sightsPmtilesArchive) {
+                setSightsMapLoadState('loading');
+                return loadLeaflet().then(() => initSightsMap()).catch(err => {
+                    console.warn('Map load notice:', err);
+                    setSightsMapLoadState('error');
+                    return null;
+                });
+            }
             if (sightsMap) {
                 sightsMap.invalidateSize();
-                return;
+                setSightsMapLoadState(null);
+                return Promise.resolve(sightsMap);
             }
 
             try {
@@ -4161,14 +4222,26 @@
                     console.warn('Local PMTiles layer is unavailable; markers remain usable.');
                 }
 
-                // Включаем колесо мыши при клике по карте и отключаем при уходе курсора
-                sightsMap.on('focus', function() { sightsMap.scrollWheelZoom.enable(); });
-                mapEl.addEventListener('mouseleave', function() { sightsMap.scrollWheelZoom.disable(); });
+                // Колесо продолжает прокручивать страницу; масштаб карты меняется
+                // кнопками +/−, клавиатурой или жестом на сенсорном экране.
 
                 sightsMarkersLayer = L.layerGroup().addTo(sightsMap);
-                renderSightsMapMarkers('all');
+                renderSightsMapMarkers(currentMapFilter);
+                setSightsMapLoadState(null);
+                // После изменения размера контейнера Leaflet пересчитывает размер и видимые тайлы.
+                if ('ResizeObserver' in window) {
+                    let lastSize = '';
+                    new ResizeObserver(() => {
+                        const size = mapEl.clientWidth + 'x' + mapEl.clientHeight;
+                        if (size !== lastSize) { lastSize = size; sightsMap.invalidateSize({ pan: false }); }
+                    }).observe(mapEl);
+                }
+                return Promise.resolve(sightsMap);
             } catch (err) {
                 console.warn('Map initialization notice:', err);
+                if (sightsMap) { sightsMap.remove(); sightsMap = null; }
+                setSightsMapLoadState('error');
+                return Promise.resolve(null);
             }
         }
 
@@ -4230,28 +4303,25 @@
             });
         }
 
-        window.filterSightsMap = function(category) {
+        window.filterSightsMap = async function(category) {
             currentMapFilter = category;
-            const buttons = document.querySelectorAll('.map-filter-btn');
-            buttons.forEach(function(btn) {
-                if (btn.getAttribute('data-cat') === category) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
+            document.querySelectorAll('.map-filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-cat') === category);
             });
+            if (!sightsMap) await initSightsMap();
+            // Последний выбранный фильтр имеет приоритет, даже при медленной загрузке.
+            if (!sightsMap || currentMapFilter !== category) return;
+            sightsMap.closePopup();
             renderSightsMapMarkers(category);
+            sightsMap.invalidateSize({ pan: false });
+            const points = Object.values(sightsMarkersMap).map(marker => marker.getLatLng());
+            if (points.length) {
+                sightsMap.fitBounds(L.latLngBounds(points), { padding: [36, 36], maxZoom: 15, animate: false });
+            }
         };
 
         window.resetSightsMapView = function() {
-            if (!sightsMap) return;
-            filterSightsMap('all');
-            const points = Object.values(sightsMarkersMap).map(marker => marker.getLatLng());
-            if (points.length) {
-                sightsMap.closePopup();
-                sightsMap.invalidateSize();
-                sightsMap.fitBounds(L.latLngBounds(points), { padding: [36, 36], maxZoom: 15, animate: false });
-            }
+            return filterSightsMap('all');
         };
 
         window.focusSightFromMap = function(id) {
@@ -4268,8 +4338,8 @@
             if (!sightsMap || !sightsMarkersMap[id]) return;
             const marker = sightsMarkersMap[id];
             const latLng = marker.getLatLng();
+            sightsMap.once('moveend', () => marker.openPopup());
             sightsMap.flyTo(latLng, 16, { animate: true, duration: 1.0 });
-            marker.openPopup();
         }
 
 
@@ -4403,9 +4473,6 @@
             selectSight('kazachya-izba');
 
 
-
-            // Закрепляем экран в самом верху страницы (Hero-секция)
-            window.scrollTo(0, 0);
 
             // Инициализация языка (автоматически рассчитывает возраст города)
             setLanguage(currentLang);
@@ -5257,10 +5324,6 @@
             animationId = requestAnimationFrame(frame);
         }
         window.launchConfetti = launchConfetti;
-
-        window.addEventListener('load', function () {
-            window.scrollTo(0, 0);
-        });
 
 /* ---- next original script block ---- */
 

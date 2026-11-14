@@ -3324,6 +3324,7 @@
         .reveal-on-scroll.is-visible {
             opacity: 1 !important;
             transform: translateY(0) scale(1) !important;
+            will-change: auto;
         }
 
         @media (max-width: 768px) {
@@ -7685,3 +7686,8 @@ body.dark-theme #privacy-modal .passport-modal-body a { color: #7dd3fc; }
 /* Компактное меню сохраняет удобный размер нажатия и помещает новый пункт карты. */
 .mobile-nav-list { gap: 2px; }
 .mobile-nav-link { min-height: 44px; box-sizing: border-box; padding: 8px 12px; }
+
+/* Состояние загрузки карты и повторная попытка без перезагрузки страницы. */
+.map-load-notice { position:absolute; inset:0; z-index:700; display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:center; background:var(--bg-card); color:var(--text-color, #263445); text-align:center; padding:20px; }
+.map-load-notice button { cursor:pointer; border:0; border-radius:10px; padding:10px 16px; background:var(--main-color); color:#fff; font:inherit; font-weight:700; }
+body.dark-theme .map-load-notice { color:#f8fafc; }
