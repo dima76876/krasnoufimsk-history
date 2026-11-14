@@ -101,10 +101,10 @@
                 heroMain: 'КРАСНОУФИМСК',
                 heroSeason: 'СКВОЗЬ ЭПОХИ',
                 heroDesc: 'Интерактивное путешествие сквозь века: от пограничной казачьей крепости на берегах реки Уфы до уютного современного города с уникальным архитектурным и природным наследием.',
-                statFounded: 'Год основания',
-                statEpochs: 'Ключевых эпох',
-                statYears: 'Истории города',
-                statMonuments: 'Объектов в каталоге',
+                statFounded: 'год основания',
+                statEpochs: 'ключевая эпоха',
+                statYears: 'истории города',
+                statMonuments: 'объектов в каталоге',
                 exploreHistory: 'Исследовать историю',
                 introHeading: 'Город на живописных берегах реки Уфы',
                 introText: 'Красноуфимск — исторический город на юго-западе Свердловской области. Заложенный как форпост для защиты уральских заводов, город вобрал в себя летопись пугачёвского восстания, купеческие традиции, триумф инженерной мысли в виде знаменитых виадуков и трудовой подвиг в годы Великой Отечественной войны. Ниже представлена интерактивная летопись из 21 этапа, определивших судьбу Красноуфимска.',
@@ -120,7 +120,7 @@
                 r1Title: '«Историческое ядро»',
                 r1Desc: 'Знакомство со старинными каменными особняками уездного купечества и духовными центрами города.',
                 r2Title: '«Панорама Уфы и Красный Яр»',
-                r2Desc: 'Прогулка по видовым холмам крепости с выходом к набережной реки Уфа и территории «Красный Яр»; доступность нижнего уровня уточняйте перед прогулкой.',
+                r2Desc: 'Прогулка по видовым холмам крепости с выходом к набережной реки Уфы и территории «Красный Яр»; доступность нижнего уровня уточняйте перед прогулкой.',
                 r3Title: '«Виадуки начала XX века»',
                 r3Desc: 'Автомобильно-велосипедный маршрут к арочным бетонным виадукам начала XX века.',
                 rTime: 'Время:',
@@ -260,6 +260,19 @@
                 sourceSalavat: 'Емельян.ру: памятный знак Салавату Юлаеву',
                 sourceUraloved: 'Ураловед: история и достопримечательности Красноуфимска',
                 sourceViaductMore: 'BSK-портал: виадуки Красноуфимска',
+                sourceSchoolHistory: 'Библиотека: история начального образования',
+                sourceCollegeHistory: 'Музей аграрного колледжа: история училища',
+                sourceSchoolBuilding: 'Краеведческий музей: здание промышленного училища',
+                sourceCathedralHistory: 'Наш Урал: история Свято-Троицкого собора',
+                sourceRailwayStation: 'Фотолинии: станция Красноуфимск',
+                sourceChapel: 'Администрация: часовня Иосифа Песнописца',
+                sourceBreeding: 'Краеведческий музей: история селекционной станции',
+                sourceShark2020: '2ГИС: скульптура «Акула Геликоприон»',
+                sourceEmbankment2020: 'Областная газета: скульптуры на набережной в июне 2020 года',
+                sourceFireHistory: 'КСК66: история пожарного депо',
+                sourceParkHistory: 'Государственный архив: парк «Целитель»',
+                sourceHospitalMuseum: 'Наш Урал: музей земской больницы',
+                sourceSharkTrial: 'КСК66: пробная установка скульптуры в 2019 году',
                 sourceTech: 'Библиотеки карты и PDF, шрифты и погодные сервисы:',
                 sourceAi: 'Фотографические изображения, используемые в оформлении, сгенерированы с помощью ИИ и не являются документальными фотографиями.',
                 sourcesDoneBtn: 'Понятно',
@@ -497,6 +510,19 @@
                 sourceSalavat: 'Emelyan.ru: Salavat Yulayev memorial',
                 sourceUraloved: 'Uraloved: Krasnoufimsk history and sights',
                 sourceViaductMore: 'BSK Portal: Krasnoufimsk viaducts',
+                sourceSchoolHistory: 'Library: history of elementary education',
+                sourceCollegeHistory: 'Agrarian College Museum: school history',
+                sourceSchoolBuilding: 'Local History Museum: industrial school building',
+                sourceCathedralHistory: 'Nash Ural: history of the Holy Trinity Cathedral',
+                sourceRailwayStation: 'Photolines: Krasnoufimsk station',
+                sourceChapel: 'Municipality: Chapel of St Joseph the Hymnographer',
+                sourceBreeding: 'Local History Museum: breeding station history',
+                sourceShark2020: '2GIS: Helicoprion Shark sculpture',
+                sourceEmbankment2020: 'Oblastnaya Gazeta: embankment sculptures in June 2020',
+                sourceFireHistory: 'KSK66: history of the fire station',
+                sourceParkHistory: 'State Archive: Tselitel Park',
+                sourceHospitalMuseum: 'Nash Ural: Zemstvo Hospital Museum',
+                sourceSharkTrial: 'KSK66: trial installation in 2019',
                 sourceTech: 'Map and PDF libraries, fonts and weather services:',
                 sourceAi: 'The photo-style images used in the design were generated with AI and are not documentary photographs.',
                 sourcesDoneBtn: 'Got it',
@@ -710,8 +736,8 @@
                 badge: { ru: '🦅 Императорский указ • Символика', en: '🦅 Imperial Decree • Heraldry' },
                 title: { ru: '1781 год — Статус уездного города и герб с соколом (1783)', en: '1781 — District Town Status \u0026 Falcon Emblem (1783)' },
                 desc: {
-                    ru: 'Указом императрицы Екатерины II в декабре 1781 года Красноуфимск стал уездным городом Пермского наместничества. 17 июля 1783 года городу был высочайше утверждён исторический герб: серебряный сокол на зелёном поле — символ обилия этих благородных птиц в окрестных лесах, зоркости и свободы.',
-                    en: 'By decree of Empress Catherine the Great in December 1781, Krasnoufimsk gained district town status in the Perm Viceroyalty. On July 17, 1783, its historic coat of arms was officially granted: a silver falcon on a green field, symbolizing vigilance, nobility and the abundance of these birds in local forests.'
+                    ru: 'Указом императрицы Екатерины II в январе 1781 года Красноуфимск стал уездным городом Пермского наместничества. 17 июля 1783 года городу был высочайше утверждён исторический герб: серебряный сокол на зелёном поле — символ обилия этих благородных птиц в окрестных лесах, зоркости и свободы.',
+                    en: 'By decree of Empress Catherine the Great in January 1781, Krasnoufimsk gained district town status in the Perm Viceroyalty. On July 17, 1783, its historic coat of arms was officially granted: a silver falcon on a green field, symbolizing vigilance, nobility and the abundance of these birds in local forests.'
                 },
                 fact: {
                     ru: 'Образ сокола остаётся главным символом города с момента высочайшего утверждения герба Екатериной II в 1783 году, олицетворяя зоркость, благородство и свободу уральского края.',
@@ -750,14 +776,14 @@
                 mapQuery: 'Красноуфимский краеведческий музей',
                 tag: { ru: '• Образование', en: '• Education' },
                 badge: { ru: '📚 Уездное училище • Просвещение', en: '📚 County School • Enlightenment' },
-                title: { ru: '1842 год — Первое уездное училище', en: '1842 — First County School' },
+                title: { ru: '1842 год — Городское мужское училище', en: '1842 — Town Boys’ School' },
                 desc: {
-                    ru: 'В Красноуфимске открылось трёхклассное уездное училище — первое учебное заведение, дававшее систематическое образование детям купцов, мещан и казаков. Вслед за ним появились приходские школы при церквях. Грамотность населения начала неуклонно расти.',
-                    en: 'A three-grade county school opened in Krasnoufimsk — the first institution providing systematic education to children of merchants, townspeople and Cossacks. Parish schools at local churches followed, and literacy began to rise steadily.'
+                    ru: 'В Красноуфимске открылось городское мужское двухклассное училище. По архивным сведениям, в 1867 году оно было преобразовано; в дальнейшем развивалась и сеть других учебных заведений.',
+                    en: 'A two-class town boys’ school opened in Krasnoufimsk. Archival accounts say it was reorganised in 1867; the network of other schools continued to develop.'
                 },
                 fact: {
-                    ru: 'В 1842 году Красноуфимск насчитывал около 2 000 жителей. Уездное училище стало первым светским учебным заведением города; грамотность росла вместе с сетью приходских, а позднее и земских школ.',
-                    en: 'In 1842 Krasnoufimsk had about 2,000 residents. The county school became the town’s first secular educational institution; literacy grew as parish and later zemstvo schools appeared.'
+                    ru: 'Краевед М. Н. Соколова отмечала, что точные сведения о самых ранних школах города ещё требуют изучения; открытие мужского двухклассного училища в 1842 году подтверждено архивными материалами.',
+                    en: 'Local historian M. N. Sokolova noted that the town’s earliest schools require further research; archival records document the opening of the two-class boys’ school in 1842.'
                 },
                 icon: '📚',
                 mapTitle: { ru: 'Красноуфимск, исторический центр', en: 'Krasnoufimsk, historic center' },
@@ -770,12 +796,12 @@
                 badge: { ru: '📖 Просвещение • Научные кадры', en: '📖 Enlightenment • Science \u0026 Education' },
                 title: { ru: '1875 год — Реальное училище: колыбель науки', en: '1875 — Real School: Cradle of Ural Science' },
                 desc: {
-                    ru: 'Открылось Красноуфимское шестиклассное Реальное училище с горнозаводским и сельскохозяйственным отделениями — одно из сильнейших учебных заведений Урала своего времени. Здесь готовили передовых агрономов и инженеров. Выпускники училища работали на уральских заводах и создавали основы российской агрономической науки.',
-                    en: 'The Krasnoufimsk six-grade Real School opened with mining and agricultural departments and became one of the leading schools of its time in the Urals. Graduates worked at Ural factories and helped lay the foundation of Russian agronomic science.'
+                    ru: 'Красноуфимское шестиклассное реальное училище открылось в 1875 году. Сначала в нём были общеобразовательные классы; преподавание сельскохозяйственных и технических наук началось в 1880 году, когда училище возглавил Н. А. Соковнин. В 1889 году училище преобразовали в промышленное.',
+                    en: 'Krasnoufimsk’s six-grade Real School opened in 1875 with general education classes. Agricultural and technical teaching began in 1880 under N. A. Sokovnin. In 1889 it was reorganised as an industrial school.'
                 },
                 fact: {
-                    ru: 'Основателем сельскохозяйственного отделения был первый учёный-агроном Урала Н. А. Соковнин, а его дело продолжили Н. Л. Скалозубов и выдающийся агроном В. Н. Варгин.',
-                    en: 'The agricultural department was founded by the Urals’ first scientific agronomist N. A. Sokovnin, with his pioneering work furthered by N. L. Skalozubov and prominent agronomist V. N. Vargin.'
+                    ru: 'При Соковнине развивались учебное хозяйство и практическая подготовка; с училищем также связаны имена агрономов Н. Л. Скалозубова и В. Н. Варгина.',
+                    en: 'Under Sokovnin, the school developed a training farm and practical education. Agronomists N. L. Skalozubov and V. N. Vargin were also associated with the school.'
                 },
                 icon: '📖',
                 mapTitle: { ru: 'Бывшее промышленное училище (ул. Ленина, 79)', en: 'Former Industrial School (79 Lenina St.)' },
@@ -880,7 +906,7 @@
                 mapTitle: { ru: 'Железнодорожный вокзал Красноуфимск', en: 'Krasnoufimsk Railway Station' },
                 address: { ru: 'ул. Станционная, 11', en: '11 Stantsionnaya St.' },
                 directUrl: 'https://yandex.ru/maps/org/zdaniye_zheleznodorozhnogo_vokzala_po_planu_arkhitektora_shchuseva_a_v/166739323389/',
-                mapQuery: 'Здание железнодорожного вокзала, по плану архитектора Щусева А. В, Красноуфимск'
+                mapQuery: 'Здание железнодорожного вокзала по плану архитектора А. В. Щусева, Красноуфимск'
             },
             {
                 lat: '56.614800', lon: '57.760200',
@@ -924,7 +950,7 @@
             },
             {
                 lat: '56.621350', lon: '57.773858',
-                year: '1941–45',
+                year: '1941–1945',
                 tag: { ru: '• Победа', en: '• Victory' },
                 badge: { ru: '🎖️ Великая Отечественная • Память', en: '🎖️ Great Patriotic War • Memory' },
                 title: { ru: '1941–1945 годы — Фронт, тыл, победа!', en: '1941–1945 — Front, Home Front, Victory!' },
@@ -949,12 +975,12 @@
                 badge: { ru: '🌾 Аграрная наука • Селекция Урала', en: '🌾 Agrarian Science • Ural Breeding' },
                 title: { ru: '1960-е годы — Красноуфимская селекционная станция', en: '1960s — Krasnoufimsk Agricultural Research Station' },
                 desc: {
-                    ru: 'Красноуфимская государственная сельскохозяйственная опытная станция (основана ещё в традициях Реального училища) вышла на всесоюзный уровень. Здесь выводили новые сорта зерновых, приспособленных к суровому уральскому климату. Разработки красноуфимских учёных применялись по всему Советскому Союзу.',
-                    en: 'The Krasnoufimsk State Agricultural Research Station (rooted in the Real School tradition) reached all-Union prominence. New grain varieties adapted to the harsh Ural climate were developed here and applied across the Soviet Union.'
+                    ru: 'Красноуфимская селекционная станция была создана в 1933 году на базе учебного хозяйства реального училища. С 1956 года она входила в состав Уральского НИИ сельского хозяйства. Здесь выводили сорта сельскохозяйственных культур для условий Урала.',
+                    en: 'Krasnoufimsk Breeding Station was established in 1933 on the Real School training farm. From 1956 it was part of the Ural agricultural research institute, developing crop varieties suited to the Urals.'
                 },
                 fact: {
-                    ru: 'Красноуфимские сорта озимой ржи «Красноуфимская» и пшеницы стали стандартом для земледелия на Урале и в Западной Сибири в 1960–80-е годы.',
-                    en: 'Krasnoufimsk rye and wheat varieties became the standard for Ural and West Siberian farming during the 1960s–80s.'
+                    ru: 'На станции работали с зерновыми, горохом и клевером. В 1968 году на испытания передали сорт яровой пшеницы «Красноуфимская 68».',
+                    en: 'The station worked with cereals, peas and clover. In 1968 the spring wheat variety Krasnoufimskaya 68 was submitted for testing.'
                 },
                 icon: '🌾',
                 mapTitle: { ru: 'Красноуфимская селекционная станция', en: 'Krasnoufimsk Breeding Station' },
@@ -987,7 +1013,7 @@
                 badge: { ru: '🆕 Постсоветское время • Возрождение', en: '🆕 Post-Soviet Era • Revival' },
                 title: { ru: '1990-е годы — Новая Россия: трудный путь', en: '1990s — New Russia: A Difficult Path' },
                 desc: {
-                    ru: 'Распад СССР ударил по Красноуфимску как и по всей стране. Многие предприятия закрылись, население сократилось. Но именно в это время возродилась духовная жизнь: церковь Александра Невского вернули Екатеринбургской епархии в конце 1990-х и повторно освятили 8 сентября 1999 года, а в 2001 году был вновь зарегистрирован приход Свято-Троицкого собора.',
+                    ru: 'Распад СССР ударил по Красноуфимску, как и по всей стране. Многие предприятия закрылись, население сократилось. Но именно в это время возродилась духовная жизнь: церковь Александра Невского вернули Екатеринбургской епархии в конце 1990-х и повторно освятили 8 сентября 1999 года, а в 2001 году был вновь зарегистрирован приход Свято-Троицкого собора.',
                     en: 'The collapse of the USSR hit Krasnoufimsk hard. Many enterprises closed and the population fell. But spiritual life saw revival: the Alexander Nevsky Church was restored and returned in the 1990s. The Holy Trinity Cathedral parish was officially registered again in 2001, beginning its restoration.'
                 },
                 fact: {
@@ -1070,7 +1096,7 @@
             { difficulty: 'easy', q: { ru: 'Какой статус имеет Красноуфимск сегодня?', en: 'What status does Krasnoufimsk hold today?' }, options: [{ t: { ru: 'Город областного подчинения', en: 'City of regional subordination' }, correct: true }, { t: { ru: 'Деревня в составе сельского поселения', en: 'A village within a rural settlement' }, correct: false }, { t: { ru: 'Поселок городского типа', en: 'Urban-type settlement' }, correct: false }, { t: { ru: 'Село в Красноуфимском районе', en: 'A village in Krasnoufimsk District' }, correct: false }], explainer: { ru: 'Это город областного подчинения в Свердловской области.', en: 'It is a city of regional subordination in the Sverdlovsk Region.' } },
             { difficulty: 'easy', q: { ru: 'В каком регионе России находится Красноуфимск?', en: 'In which region of Russia is Krasnoufimsk located?' }, options: [{ t: { ru: 'Свердловская область', en: 'Sverdlovsk Region' }, correct: true }, { t: { ru: 'Челябинская область', en: 'Chelyabinsk Region' }, correct: false }, { t: { ru: 'Пермский край', en: 'Perm Krai' }, correct: false }, { t: { ru: 'Республика Башкортостан', en: 'Republic of Bashkortostan' }, correct: false }], explainer: { ru: 'Город находится на юго-западе Свердловской области.', en: 'The city is in the south-west of the Sverdlovsk region.' } },
             { difficulty: 'easy', q: { ru: 'Чем знаменит Красноуфимский краеведческий музей?', en: 'What is the local museum famous for?' }, options: [{ t: { ru: 'Богатой палеонтологической коллекцией', en: 'Rich paleontological collection' }, correct: true }, { t: { ru: 'Коллекцией старинных автомобилей и мотоциклов', en: 'A collection of vintage cars and motorcycles' }, correct: false }, { t: { ru: 'Крупнейшей картинной галереей', en: 'Largest art gallery' }, correct: false }, { t: { ru: 'Космическими экспонатами', en: 'Space exhibits' }, correct: false }], explainer: { ru: 'Музей славится находками пермского периода, включая спирали геликоприона.', en: 'The museum is famous for its Permian period fossils.' } },
-            { difficulty: 'easy', q: { ru: 'Какой железной дорогой город соединен с остальным миром?', en: 'Which railway connects the city?' }, options: [{ t: { ru: 'Казанский ход Транссиба', en: 'Kazan route of the Trans-Siberian' }, correct: true }, { t: { ru: 'Байкало-Амурская магистраль', en: 'Baikal–Amur Mainline' }, correct: false }, { t: { ru: 'Китайско-Восточная железная дорога', en: 'Chinese Eastern Railway' }, correct: false }, { t: { ru: 'Северная железная дорога', en: 'Northern Railway of Russia' }, correct: false }], explainer: { ru: 'Станция Красноуфимск стоит на казанском (историческом) ходу Транссиба Москва — Казань — Екатеринбург, км 1432, и административно относится к Горьковской железной дороге (Ижевское отделение).', en: 'Krasnoufimsk station lies on the Kazan (historic) route of the Trans-Siberian Railway, Moscow — Kazan — Yekaterinburg, km 1432, and administratively belongs to the Gorky Railway.' } },
+            { difficulty: 'easy', q: { ru: 'Какой железной дорогой город соединен с остальным миром?', en: 'Which railway connects the city?' }, options: [{ t: { ru: 'Казанский ход Транссиба', en: 'Kazan route of the Trans-Siberian' }, correct: true }, { t: { ru: 'Байкало-Амурская магистраль', en: 'Baikal–Amur Mainline' }, correct: false }, { t: { ru: 'Китайско-Восточная железная дорога', en: 'Chinese Eastern Railway' }, correct: false }, { t: { ru: 'Северная железная дорога', en: 'Northern Railway of Russia' }, correct: false }], explainer: { ru: 'Станция Красноуфимск расположена на казанском (историческом) ходу Транссиба Москва — Казань — Екатеринбург и относится к Ижевскому региону Горьковской железной дороги.', en: 'Krasnoufimsk station lies on the Kazan route of the Trans-Siberian Railway, Moscow — Kazan — Yekaterinburg, in the Izhevsk region of the Gorky Railway.' } },
             { difficulty: 'easy', q: { ru: 'Какой главный памятник архитектуры встречает прибывающих на поездах?', en: 'Which main architectural monument greets train arrivals?' }, options: [{ t: { ru: 'Исторический вокзал Красноуфимска', en: 'Krasnoufimsk historic railway station' }, correct: true }, { t: { ru: 'Башня Сююмбике в Казанском кремле', en: 'Suyumbike Tower in the Kazan Kremlin' }, correct: false }, { t: { ru: 'Нереализованный проект Дворца Советов', en: 'Unbuilt Palace of the Soviets project' }, correct: false }, { t: { ru: 'Московский Кремль', en: 'Moscow Kremlin' }, correct: false }], explainer: { ru: 'Вокзал Красноуфимска — архитектурный шедевр начала XX века.', en: 'The station is an architectural masterpiece of the early 20th century.' } },
             { difficulty: 'easy', q: { ru: 'Какое восстание поддержали казаки Красноуфимска в 1774 году?', en: 'Which rebellion did the Krasnoufimsk Cossacks support in 1774?' }, options: [{ t: { ru: 'Восстание Емельяна Пугачева', en: 'Yemelyan Pugachev\'s rebellion' }, correct: true }, { t: { ru: 'Восстание Степана Тимофеевича Разина', en: 'Rebellion of Stepan Timofeyevich Razin' }, correct: false }, { t: { ru: 'Восстание декабристов', en: 'Decembrist revolt' }, correct: false }, { t: { ru: 'Медный бунт', en: 'Copper Riot' }, correct: false }], explainer: { ru: 'Красноуфимцы примкнули к армии Пугачева и участвовали в Крестьянской войне.', en: 'Krasnoufimsk people joined Pugachev\'s army.' } },
 
@@ -3293,9 +3319,9 @@
                 legalStatus: { ru: 'ОКН регионального значения; реестровый № 661710757820005 в открытом списке наследия — актуальность и границы проверяйте в ЕГРОКН', en: 'Regional cultural heritage site; registry no. 661710757820005 in the open heritage list — verify current details and boundaries in the state register' },
                 title: { ru: 'Вокзал Красноуфимска (мастерская А. В. Щусева)', en: 'Krasnoufimsk Station (Shchusev Workshop)' },
                 desc: { ru: 'Памятник архитектуры начала XX века, возведённый по проекту архитектурной мастерской академика А. В. Щусева — создателя Казанского вокзала в Москве. Построен в 1915 году для Казанбургской магистрали. Торжественные барочные фронтоны, арочные окна, высокие своды. Неподалёку, у локомотивного депо (ул. Угольная / Сухобского), установлен исторический паровоз-памятник «Лебедянка» (Л-1699).', en: 'An architectural landmark of the early 20th century designed by the workshop of academician Alexey Shchusev, built in 1915 for the Kazan–Yekaterinburg railway. Features Petrine Baroque pediments, grand arched windows, and nearby at the locomotive depot (Ugolnaya/Sukhobskogo St.), an authentic L-1699 steam locomotive monument.' },
-                fact: { ru: 'Мастерская Щусева разрабатывала ансамбль станций Казанбургской дороги, и Красноуфимский вокзал стал одним из красивейших на Урале. Первый паровоз пришёл в 1916 году, а станция открыта для движения в 1919-м. Сегодня станция относится к Горьковской железной дороге (Ижевское отделение) и стоит на казанском ходу Транссиба, км 1432.', en: 'Shchusev’s workshop designed station ensembles for the Kazanburg line, making Krasnoufimsk station a crown jewel of Ural architecture. The first locomotive arrived in 1916 and the station opened to traffic in 1919. Today it belongs to the Gorky Railway (Izhevsk division) on the Kazan route of the Trans-Siberian, km 1432.' },
+                fact: { ru: 'Мастерская Щусева разрабатывала ансамбль станций Казанбургской дороги, и Красноуфимский вокзал стал одним из красивейших на Урале. Первый паровоз пришёл в 1916 году, а станция открыта для движения в 1919-м. Сегодня станция относится к Ижевскому региону Горьковской железной дороги и расположена на казанском ходу Транссиба.', en: 'Shchusev’s workshop designed station ensembles for the Kazanburg line, making Krasnoufimsk station a crown jewel of Ural architecture. The first locomotive arrived in 1916 and the station opened to traffic in 1919. Today it belongs to the Izhevsk region of the Gorky Railway on the Kazan route of the Trans-Siberian.' },
                 address: { ru: 'ул. Станционная, 11', en: '11 Stantsionnaya St.' },
-                queryRu: 'Здание железнодорожного вокзала, по плану архитектора Щусева А. В, Красноуфимск', queryEn: 'Krasnoufimsk railway station Stantsionnaya 11'
+                queryRu: 'Здание железнодорожного вокзала по плану архитектора А. В. Щусева, Красноуфимск', queryEn: 'Krasnoufimsk railway station Stantsionnaya 11'
             },
             {
                 id: 'museum', hasMapMark: true, cat: 'architecture', icon: '🏛️', year: '1912 г.',
@@ -3310,14 +3336,14 @@
                 queryRu: 'Красноуфимский краеведческий музей Советская 42', queryEn: 'Krasnoufimsk Museum Sovetskaya 42'
             },
             {
-                id: 'uchilische', lat: '56.621708', lon: '57.769677', hasMapMark: true, cat: 'architecture', icon: '🎓', year: '1875 г.',
+                id: 'uchilische', lat: '56.621708', lon: '57.769677', hasMapMark: true, cat: 'architecture', icon: '🎓', year: 'кон. XIX в.',
                 directUrl: 'https://yandex.ru/maps/org/zdaniye_byvshego_krasnoufimskogo_promyshlennogo_uchilishcha_gde_rabotali_agronomy_n_a_sokovnin_n_l_skalozubov_v_n_vargin/60652112866/',
                 style: { ru: 'Кирпичная эклектика', en: 'Brick Eclectic style' },
                 siteLabel: { ru: 'Историческое учебное здание', en: 'Historic school building' },
                 registryId: '661710757840005',
                 legalStatus: { ru: 'ОКН регионального значения; реестровый № 661710757840005 в открытом списке наследия — актуальность и границы проверяйте в ЕГРОКН', en: 'Regional cultural heritage site; registry no. 661710757840005 in the open heritage list — verify current details and boundaries in the state register' },
                 title: { ru: 'Бывшее реальное (промышленное) училище', en: 'Former Real (Industrial) School' },
-                desc: { ru: 'Официально открыто земством 12 августа 1875 года как шестиклассное реальное училище с горнозаводским и сельскохозяйственным отделениями — одно из первых средних сельскохозяйственных учебных заведений Урала. 27 августа 1889 года первым в России преобразовано в Красноуфимское промышленное училище (директор Н. А. Соковнин). С 1893 по 1899 год здесь учился будущий Маршал Советского Союза Б. М. Шапошников. Краеведческий музей перечисляет установленные на здании доски о дате основания училища, П. А. Кашпурове и Б. М. Шапошникове, а также об эвакогоспитале и явочной квартире РСДРП(б).', en: 'Officially opened by the zemstvo on 12 August 1875 as a six-grade Real School with mining and agricultural departments — one of the first secondary agricultural schools of the Urals. On 27 August 1889 it became the first in Russia to be reorganized into an industrial school (principal N. A. Sokovnin). Future Marshal of the Soviet Union B. M. Shaposhnikov studied here from 1893 to 1899. The local museum lists plaques on the building to the school\'s founding date, P. A. Kashpurov and B. M. Shaposhnikov, as well as plaques about an evacuation hospital and an RSDLP(b) safe house.' },
+                desc: { ru: 'Реальное училище открылось в 1875 году; сначала занятия проходили во временном помещении. Здание на улице Ленина, 79 строили с 1875 года, а к 1881 году возвели часть запланированного корпуса. С 1880 года при директоре Н. А. Соковнине преподавали сельскохозяйственные и технические науки. В 1889 году училище преобразовали в промышленное, его директором стал И. И. Барсуков. В 1893–1899 годах здесь учился будущий маршал Б. М. Шапошников.', en: 'The Real School opened in temporary premises in 1875. Construction of the building at 79 Lenina Street began that year; part of the planned building was completed by 1881. Agricultural and technical subjects were taught from 1880 under N. A. Sokovnin. In 1889 it became an industrial school under I. I. Barsukov. Future marshal B. M. Shaposhnikov studied here in 1893–1899.' },
                 fact: { ru: 'Современная организация аграрного колледжа имеет адрес ул. Пролетарская, 62, но исторический корпус училища находится на ул. Ленина, 79 — при построении маршрута нужен именно этот адрес.', en: 'The modern Agrarian College organisation is addressed at 62 Proletarskaya St., but the historic school building is at 79 Lenina St.—use that address for directions.' },
                 address: { ru: 'ул. Ленина, д. 79', en: '79 Lenina St.' },
                 queryRu: 'Здание бывшего красноуфимского промышленного училища, где работали агрономы Н.А. Соковнин, Н.Л. Скалозубов, В.Н. Варгин, Красноуфимск', queryEn: 'Krasnoufimsk 79 Lenina former industrial school'
@@ -3329,7 +3355,7 @@
                 siteLabel: { ru: 'Памятник купеческого зодчества', en: 'Merchant Architectural Monument' },
                 registryId: '661710757950005',
                 legalStatus: { ru: 'ОКН регионального значения; реестровый № 661710757950005 в открытом списке наследия — актуальность и границы проверяйте в ЕГРОКН', en: 'Regional cultural heritage site; registry no. 661710757950005 in the open heritage list — verify current details and boundaries in the state register' },
-                title: { ru: 'Доходный дом К.А. Шевелина', en: 'K.A. Shevelin Revenue House' },
+                title: { ru: 'Доходный дом К. А. Шевелина', en: 'K. A. Shevelin Revenue House' },
                 desc: { ru: 'Двухэтажный кирпичный доходный дом К. А. Шевелина на ул. Рогозинниковых, 35 — образец жилой и коммерческой застройки уездного Красноуфимска конца XIX века.', en: 'The two-storey brick revenue house of K. A. Shevelin at 35 Rogozinnikovykh St. is an example of late-19th-century residential and commercial building in district-town Krasnoufimsk.' },
                 fact: { ru: 'На месте ориентируйтесь на адрес ул. Рогозинниковых, 35: в открытых источниках здание называют именно доходным домом К. А. Шевелина.', en: 'Use 35 Rogozinnikovykh St. for directions: open sources identify the building specifically as K. A. Shevelin\'s revenue house.' },
                 address: { ru: 'ул. Рогозинниковых, 35', en: '35 Rogozinnikovykh St.' },
@@ -3344,7 +3370,7 @@
                 siteLabel: { ru: 'Действующий собор', en: 'Active cathedral' },
                 legalStatus: { ru: 'Историческое культовое здание; актуальные охранные реквизиты уточняйте в ЕГРОКН', en: 'Historic religious building; verify current protection details in the state register' },
                 title: { ru: 'Свято-Троицкий собор', en: 'Holy Trinity Cathedral' },
-                desc: { ru: 'Главная архитектурная доминанта исторического центра Красноуфимска. Величественный собор с высокой ярусной колокольней типа «восьмерик на четверике» — памятник переходного от барокко к классицизму стиля. Каменный собор построен к 1804 году: Никольский престол освящён в 1804 году, а главный Троицкий — в 1837 году. Сегодня это действующий православный храм.', en: 'The premier spiritual landmark of Krasnoufimsk. A magnificent cathedral of the transitional Baroque-to-Classicism style with a soaring tiered bell tower (octagon-on-cube), built by 1804; the St Nicholas altar was consecrated in 1804 and the main Holy Trinity altar in 1837. Today it is an active Orthodox church.' },
+                desc: { ru: 'Исторический собор переходного от барокко к классицизму стиля был построен к 1804 году. В прошлом его силуэт дополняла высокая ярусная колокольня; в советское время храм перестроили, а колокольню и купол утратили. Никольский престол освящён в 1804 году, главный Троицкий — в 1837 году. Сегодня храм действует и восстанавливается.', en: 'The historic Baroque-to-Classicism cathedral was built by 1804. Its former appearance included a tall tiered bell tower; the building was altered in Soviet times and the historic bell tower and dome were lost. The St Nicholas altar was consecrated in 1804 and the main Holy Trinity altar in 1837. Today it is an active church undergoing restoration.' },
                 fact: { ru: 'В советские годы храм был закрыт и использовался как склад и цех; приход вновь зарегистрирован в 2001 году.', en: 'Closed in the Soviet years and used as a warehouse and workshop, the parish was re-registered in 2001.' },
                 address: { ru: 'ул. Куйбышева, д. 5', en: '5 Kuybysheva St.' },
                 queryRu: 'Свято-Троицкий собор Красноуфимск Куйбышева 5', queryEn: 'Krasnoufimsk Holy Trinity Cathedral Kuybysheva 5'
@@ -3371,7 +3397,7 @@
                 legalStatus: { ru: 'ОКН регионального значения; реестровый № 661710757880005 в открытом списке наследия — актуальность и границы проверяйте в ЕГРОКН', en: 'Regional cultural heritage site; registry no. 661710757880005 in the open heritage list — verify current details and boundaries in the state register' },
                 title: { ru: 'Здание Земской управы (ул. Советская, 17)', en: 'Zemstvo Board Building (17 Sovetskaya St.)' },
                 desc: { ru: 'Монументальное здание из фигурного красного кирпича в русском стиле, возведённое около 1911–1912 годов для Красноуфимской земской управы (по одним данным — по проекту инженера И. И. Зелязе и архитектора К. А. Бернацкого, по другим — архитектора Кавадерова, подрядчик Ф. Н. Мальков). В январе 1918 года здесь проходил I уездный съезд Советов рабочих, солдатских и крестьянских депутатов. Сегодня — Дворец творчества детей и молодёжи.', en: 'Monumental red-brick civic building erected around 1911–1912 for the Krasnoufimsk Zemstvo Board (attributed either to engineer I. I. Zelyaze and architect K. A. Bernatsky, or to architect Kavaderov with contractor F. N. Malkov). In January 1918, the 1st District Congress of Soviets was held here. Today it houses the Youth Creative Center.' },
-                fact: { ru: 'Красноуфимское земство признавалось одним из самых передовых на Урале: открывало бесплатные больницы, школы, библиотеки и развивало передовую агрономию.', en: 'The Krasnoufimsk Zemstvo was recognized as one of the most progressive in the Urals, pioneering rural hospitals, schools, and experimental agronomy.' },
+                fact: { ru: 'Красноуфимское земство признавалось одним из самых передовых на Урале: открывало бесплатные больницы, школы, библиотеки и развивало агрономию.', en: 'The Krasnoufimsk Zemstvo was recognized as one of the most progressive in the Urals, pioneering rural hospitals, schools, and experimental agronomy.' },
                 address: { ru: 'ул. Советская, д. 17', en: '17 Sovetskaya St.' },
                 directUrl: 'https://yandex.ru/maps/org/zdaniye_byvshey_zemskoy_upravy_gde_v_yanvare_1918_g_prokhodil_pervy_krasnoufimskiy_syezd_sovetov/2611628323/',
                 queryRu: 'Советская улица, 17, Красноуфимск, Свердловская область', queryEn: '17 Sovetskaya St., Krasnoufimsk'
@@ -3382,9 +3408,9 @@
                 siteLabel: { ru: 'Памятник промышленной архитектуры', en: 'Industrial Heritage Monument' },
                 registryId: '661710757940005',
                 legalStatus: { ru: 'ОКН регионального значения; реестровый № 661710757940005 в открытом списке наследия — актуальность и границы проверяйте в ЕГРОКН', en: 'Regional cultural heritage site; registry no. 661710757940005 in the open heritage list — verify current details and boundaries in the state register' },
-                title: { ru: 'Корпус винокуренного завода (казённый винный склад)', en: 'Distillery Building (State Wine Warehouse)' },
-                desc: { ru: 'Кирпичный производственный корпус начала XX века на ул. Мизерова, 66. Краеведческий музей уточняет, что исторически это казённый винный склад, построенный после введения винной монополии для ректификации продукции винокуренных заводов, её розлива и отпуска в продажу.', en: 'An early-20th-century brick production building at 66 Mizerova St. The local museum clarifies that historically it was a state wine warehouse, built after the introduction of the state wine monopoly to rectify distillery products, bottle them and release them for sale.' },
-                fact: { ru: 'В реестре объект назван «Корпус винокуренного завода», а в путеводителях встречаются и другие названия; надёжный ориентир — адрес ул. Мизерова, 66.', en: 'The registry calls it the “Distillery Building”, while guidebooks use other names; the reliable landmark is 66 Mizerova St.' },
+                title: { ru: 'Корпус винокуренного завода', en: 'Former Distillery Building' },
+                desc: { ru: 'Кирпичное здание начала XX века на ул. Мизерова, 66. В открытом списке наследия оно названо корпусом винокуренного завода; в краеведческих публикациях встречается и версия о винном погребе. Историческое назначение здания требует уточнения.', en: 'An early-20th-century brick building at 66 Mizerova St. An open heritage list calls it a distillery building; local histories also suggest it may have been a wine cellar. Its original purpose requires further research.' },
+                fact: { ru: 'В открытом списке наследия объект назван «Корпус винокуренного завода», а в путеводителях встречаются и другие названия; надёжный ориентир — адрес ул. Мизерова, 66.', en: 'An open heritage list calls it the “Distillery Building”, while guidebooks use other names; the reliable landmark is 66 Mizerova St.' },
                 address: { ru: 'ул. Мизерова, 66', en: '66 Mizerova St.' },
                 directUrl: 'https://yandex.ru/maps/org/korpus_byvshego_vinokurennogo_zavoda/233245918377/',
                 queryRu: 'ул. Мизерова, 66, Красноуфимск, Свердловская область', queryEn: '66 Mizerova St., Krasnoufimsk'
@@ -3399,7 +3425,7 @@
                 legalStatus: { ru: 'ОКН регионального значения; реестровый № 661710757870005 в открытом списке наследия — актуальность и границы проверяйте в ЕГРОКН', en: 'Regional cultural heritage site; registry no. 661710757870005 in the open heritage list — verify current details and boundaries in the state register' },
                 title: { ru: 'Музей «Красноуфимская земская больница»', en: 'Krasnoufimsk Zemstvo Hospital Museum' },
                 desc: { ru: 'Уникальный комплекс земской больницы, построенный в 1886 году по проекту земского врача Матвея Ивановича Мизерова (1854–1913) на склоне Дивьей горы. Бревенчатые корпуса с резными карнизами стоят в парке «Целитель», заложенном Мизеровым в 1884 году. Больница работала здесь до 1976 года, а с 1988 года это музей «Красноуфимская земская больница» — филиал Свердловского областного музея истории медицины. Сегодня комплекс объединяет пять павильонов: рождения (бывший роддом 1908 года), земской медицины, народной медицины, советского периода и современной сельской медицины.', en: 'A unique zemstvo hospital complex built in 1886 to the design of zemstvo doctor Matvey Ivanovich Mizerov (1854–1913) on the slope of Divya Mountain. The preserved log pavilions stand in the Tselitel Park laid out by Mizerov in 1884. The hospital operated here until 1976; since 1988 it has been the Krasnoufimsk Zemstvo Hospital Museum, a branch of the Sverdlovsk Regional Museum of the History of Medicine. The museum complex now brings together five pavilions: childbirth (the former 1908 maternity hospital), zemstvo medicine, folk medicine, the Soviet period and modern rural medicine.' },
-                fact: { ru: 'Павильоны стоят в парке «Целитель» площадью более 2 га; режим работы музея лучше уточнить перед визитом.', en: 'The pavilions stand in Tselitel Park, which covers more than 2 hectares; check the museum\'s opening hours before visiting.' },
+                fact: { ru: 'Павильоны стоят в парке «Целитель» площадью около 2 га; режим работы музея и доступность павильонов лучше уточнить перед визитом.', en: 'The pavilions stand in Tselitel Park, which covers about 2 hectares; check the museum\'s opening hours and pavilion availability before visiting.' },
                 address: { ru: 'ул. Свободы, д. 16 (Музей земской больницы)', en: '16 Svobody St. (Zemstvo Hospital Museum)' },
                 queryRu: 'Музей земская больница Мизерова Красноуфимск Свободы 16', queryEn: 'Krasnoufimsk Zemstvo Hospital Museum Svobody 16'
             },
@@ -3407,7 +3433,7 @@
                 id: 'perekrestok-vremen', lat: '56.617580', lon: '57.770255', hasMapMark: true, cat: 'monuments', icon: '⏳', year: 'XXI в.',
                 style: { ru: 'Городская скульптура', en: 'City Sculpture' },
                 siteLabel: { ru: 'Арт-объект', en: 'Art Object' },
-                title: { ru: 'Арт-объект «Перекрёсток времен»', en: 'Crossroads of Times Art Object' },
+                title: { ru: 'Арт-объект «Перекрёсток времён»', en: 'Crossroads of Times Art Object' },
                 desc: { ru: 'Городские часы на центральной площади, известные как «Красноуфимский Биг-Бен». По описанию городского туристического портала, часы на перекрёстке двух дорог символизируют переплетение времён в истории Красноуфимска; в тёмное время объект подсвечивается.', en: 'The city clock on the central square, known as the “Krasnoufimsk Big Ben”. According to the city tourism portal, the clock at the crossing of two roads symbolises the interweaving of eras in Krasnoufimsk\'s history; it is illuminated after dark.' },
                 fact: { ru: 'В картах объект также обозначен как «Перекрёсток времён» — по этому названию его удобно искать при построении маршрута.', en: 'Maps also label the object “Crossroads of Times”, a useful name when searching for directions.' },
                 address: { ru: 'ул. Советская, д. 22 (сквер с городскими часами)', en: '22 Sovetskaya St. (City Clock Square)' },
@@ -3415,13 +3441,13 @@
                 directUrl: 'https://yandex.ru/maps/org/perekryostok_vremen/126384792809/'
             },
             {
-                id: 'pozharnoye', lat: '56.619023', lon: '57.774537', hasMapMark: true, cat: 'architecture', icon: '🚒', year: '1949–1950-е гг.',
+                id: 'pozharnoye', lat: '56.619023', lon: '57.774537', hasMapMark: true, cat: 'architecture', icon: '🚒', year: '1953 г.',
                 directUrl: 'https://yandex.ru/maps/org/pozharnaya_chast_73/51586748889/',
-                style: { ru: 'Провинциальная краснокирпичная эклектика', en: 'Provincial Red-Brick Eclectic' },
-                siteLabel: { ru: 'Памятник пожарно-технической службы', en: 'Firefighting Heritage Monument' },
+                style: { ru: 'Послевоенное пожарное депо', en: 'Postwar Fire Station' },
+                siteLabel: { ru: 'Историческое пожарное депо', en: 'Historic Fire Station' },
                 title: { ru: 'Пожарная часть №73 (ул. Ленина, 100)', en: 'Fire Station No. 73 (100 Lenina St.)' },
-                desc: { ru: 'Участок под здание отведён 23 сентября 1949 года, постройка возведена в 1950-е годы. Здание увенчано деревянной смотровой каланчой. Дореволюционная каланча исторически находилась при Городской управе.', en: 'Land for this station was allocated on September 23, 1949, and built in the 1950s, topped with a wooden watchtower. The pre-revolutionary city watchtower was historically at the Town Board.' },
-                fact: { ru: 'Дореволюционная пожарная каланча исторически находилась при городской управе; современное здание части относится уже к послевоенному периоду.', en: 'The pre-revolutionary fire watchtower was historically at the Town Board; the present station building dates to the post-war period.' },
+                desc: { ru: 'Участок под здание отведён 23 сентября 1949 года, пожарное депо сдано в эксплуатацию в 1953 году. Здание увенчано деревянной смотровой каланчой.', en: 'Land for this station was allocated on September 23, 1949; the fire station opened in 1953. The building is topped with a wooden watchtower.' },
+                fact: { ru: 'На втором этаже депо было предусмотрено жильё для семей пожарных.', en: 'The upper floor of the station was designed to accommodate firefighters and their families.' },
                 address: { ru: 'ул. Ленина, д. 100 (историческое пожарное депо)', en: '100 Lenina St. (Historic Fire Station)' },
                 queryRu: 'Красноуфимск ул Ленина 100 Пожарная часть', queryEn: '100 Lenina St Krasnoufimsk Fire Station'
             },
@@ -3440,13 +3466,13 @@
                 queryRu: 'Гора Дивья, Красноуфимск', queryEn: 'Krasnoufimsk Divya Mountain'
             },
             {
-                id: 'ploschad', lat: '56.617826', lon: '57.771051', hasMapMark: true, cat: 'monuments', icon: '🚩', year: 'XVIII–XX вв.',
+                id: 'ploschad', lat: '56.617826', lon: '57.771051', hasMapMark: true, cat: 'monuments', icon: '🚩', year: 'XX в. – сегодня',
                 directUrl: 'https://yandex.ru/maps/org/v_i_lenin/156209444666/',
                 style: { ru: 'Городской ансамбль и советский монументализм', en: 'Town Ensemble & Monumental Classicism' },
                 siteLabel: { ru: 'Главная городская площадь', en: 'Central Municipal Square' },
                 title: { ru: 'Центральная площадь города', en: 'Central Town Square' },
-                desc: { ru: 'Сердце общественной жизни Красноуфимска на протяжении трёх столетий. Исторически здесь шумели уездные ярмарки (по данным краеведов — Богородицкая и Троицкая). В советский период оформилась парадными фасадами, скверами и памятником Ленину. Сегодня — главная площадка городских праздников.', en: 'The civic heart of Krasnoufimsk for nearly three centuries. Historically hosted bustling provincial trade fairs. Today it serves as the vibrant hub for municipal celebrations and festivals.' },
-                fact: { ru: 'На ярмарках XVIII–XIX веков продавали знаменитый уральский мёд, зерно, пушнину и строевой лес.', en: 'Historical Krasnoufimsk fairs traded Ural honey, grain, fur pelts, and high-grade construction timber.' },
+                desc: { ru: 'Центральная площадь Красноуфимска с памятником Ленину — место городских встреч и праздников. Историческая Торговая площадь находилась у Троицкого собора, отдельно от современной центральной площади.', en: 'The central square of Krasnoufimsk, with its Lenin monument, is a place for town gatherings and celebrations. The historic Trade Square was located separately, by Trinity Cathedral.' },
+                fact: { ru: 'Бывшая Торговая площадь находилась у Троицкого собора.', en: 'The former Trade Square was located by Trinity Cathedral.' },
                 address: { ru: 'Площадь Ленина / ул. Советская', en: 'Lenina Square / Sovetskaya St.' },
                 queryRu: 'В.И. Ленин Красноуфимск', queryEn: 'Krasnoufimsk Lenin monument'
             },
@@ -3479,23 +3505,23 @@
                 style: { ru: 'Памятник железнодорожной техники', en: 'Railway Engineering Monument' },
                 siteLabel: { ru: 'Памятник у локомотивного депо', en: 'Locomotive Depot Memorial' },
                 title: { ru: 'Паровоз-памятник серии «Л» («Лебедянка»)', en: 'L-Series Steam Locomotive "Lebedyanka" Monument' },
-                desc: { ru: 'У локомотивного депо станции Красноуфимск установлен подлинный магистральный паровоз серии «Л» (номер Л-1699). Построен на Коломенском заводе в 1951 году; по данным краеведов, установлен как памятник у локомотивного депо 20 апреля 1995 года, к 50-летию Великой Победы. Символ трудового и ратного подвига уральских железнодорожников.', en: 'An authentic L-series steam locomotive (L-1699) stands by the Krasnoufimsk locomotive depot. Built at Kolomna Plant in 1951 and, according to local historians, dedicated as a monument on 20 April 1995 for the 50th anniversary of Victory (symbolizing the railway workers’ wartime and labor achievements).' },
+                desc: { ru: 'У локомотивного депо станции Красноуфимск установлен подлинный магистральный паровоз серии «Л» (номер Л-1699). Построен на Коломенском заводе в 1951 году; по данным краеведов, установлен как памятник у локомотивного депо в 1995 году, к 50-летию Великой Победы. Символ трудового и ратного подвига уральских железнодорожников.', en: 'An authentic L-series steam locomotive (L-1699) stands by the Krasnoufimsk locomotive depot. Built at Kolomna Plant in 1951 and, according to local historians, dedicated as a monument in 1995 for the 50th anniversary of Victory (symbolizing the railway workers’ wartime and labor achievements).' },
                 fact: { ru: '«Лебедянку» прозвали так в честь главного конструктора Л. С. Лебедянского — создателя нескольких поколений советских паровозов.', en: 'The "Lebedyanka" nickname honors lead designer L. S. Lebedyansky, who created several generations of Soviet steam locomotives.' },
                 address: { ru: 'ул. Угольная / ул. Сухобского (у локомотивного депо)', en: 'Ugolnaya St. / Sukhobskogo St. (near locomotive depot)' },
                 queryRu: 'Паровоз-памятник Л-1699, Красноуфимск', queryEn: 'Krasnoufimsk locomotive monument L-1699'
             },
             {
-                id: 'dom-stasovoy', lat: '56.620189', lon: '57.777312', hasMapMark: true, cat: 'architecture', icon: '🏠', year: '1941–1945 гг.',
+                id: 'dom-stasovoy', lat: '56.620189', lon: '57.777312', hasMapMark: true, cat: 'architecture', icon: '🏠', year: '1940-е гг.',
                 directUrl: 'https://yandex.ru/maps/org/dom_v_kotorom_v_1941_1945_gody_zhila_ye_d_stasova_vidny_deyatel_kpss_s_1898_goda_soratnitsa_v_i_lenina/17082544989/',
                 style: { ru: 'Исторический жилой дом', en: 'Historical Residential House' },
                 siteLabel: { ru: 'Памятник истории', en: 'Historical Monument' },
                 registryId: '661710757890005',
                 legalStatus: { ru: 'ОКН регионального значения; реестровый № 661710757890005 в открытом списке наследия — актуальность и границы проверяйте в ЕГРОКН', en: 'Regional cultural heritage site; registry no. 661710757890005 in the open heritage list — verify current details and boundaries in the state register' },
-                title: { ru: 'Дом, где жила Е.Д. Стасова', en: 'House of E.D. Stasova' },
-                desc: { ru: 'Деревянное здание, в котором в годы Великой Отечественной войны находилась в эвакуации Елена Дмитриевна Стасова — видный деятель партии с 1898 года и соратница В.И. Ленина. Дом сохраняет память о жизни и работе известных личностей в уральском тылу.', en: 'A wooden building where Elena Stasova, a prominent party figure since 1898 and an associate of V.I. Lenin, lived in evacuation during the Great Patriotic War. The house preserves the memory of famous personalities in the Ural rear.' },
-                fact: { ru: 'Несмотря на преклонный возраст, в годы эвакуации Е.Д. Стасова вела активную общественную деятельность в городе.', en: 'Despite her advanced age, during the evacuation, E.D. Stasova actively participated in the city\'s public life.' },
+                title: { ru: 'Дом, где жила Е. Д. Стасова', en: 'House of E.D. Stasova' },
+                desc: { ru: 'Деревянное здание, в котором в годы Великой Отечественной войны находилась в эвакуации Елена Дмитриевна Стасова — видный деятель партии с 1898 года и соратница В. И. Ленина. Дом сохраняет память о жизни и работе известных личностей в уральском тылу.', en: 'A wooden building where Elena Stasova, a prominent party figure since 1898 and an associate of V.I. Lenin, lived in evacuation during the Great Patriotic War. The house preserves the memory of famous personalities in the Ural rear.' },
+                fact: { ru: 'Источники расходятся в датах пребывания Стасовой в Красноуфимске; известно, что она жила здесь в эвакуации в годы войны.', en: 'Sources differ on the dates of Stasova\'s stay in Krasnoufimsk; she lived here during her wartime evacuation.' },
                 address: { ru: 'Пролетарская ул., 101', en: '101 Proletarskaya St.' },
-                queryRu: 'Дом, в котором в 1941-1945 годы жила Е.Д. Стасова, видный деятель КПСС с 1898 года, соратница В.И. Ленина, Красноуфимск', queryEn: 'Krasnoufimsk E.D. Stasova House'
+                queryRu: 'Дом, в котором в 1941-1945 годы жила Е. Д. Стасова, видный деятель КПСС с 1898 года, соратница В. И. Ленина, Красноуфимск', queryEn: 'Krasnoufimsk E.D. Stasova House'
             },
 
             // ── 3. ИНЖЕНЕРИЯ И МОСТЫ ───────────────────────────────────────────
@@ -3507,8 +3533,8 @@
                 siteLabel: { ru: 'Шедевр мостостроения • Памятник техники', en: 'Monument of Engineering & Architecture' },
                 title: { ru: 'Рябиновский железнодорожный виадук', en: 'Ryabinovka Railway Viaduct' },
                 desc: { ru: 'Главный железнодорожный виадук Красноуфимского района, возведённый в 1915–1919 годах при прокладке магистрали Казань–Екатеринбург. Железобетонная многоарочная конструкция длиной 283,454 м. Строился в суровых условиях Первой мировой войны и стал триумфом инженерной мысли начала XX века.', en: 'The main railway viaduct of Krasnoufimsk district, built in 1915–1919 for the Kazan–Yekaterinburg railroad: a multi-arch reinforced concrete structure 283.454 m long. Erected under WWI conditions, it became a triumph of early 20th-century engineering.' },
-                fact: { ru: 'В Красноуфимском районе сохранилось пять исторических арочных виадуков — редкое по плотности собрание инженерных памятников начала XX века. С октября 2008 года Рябиновский виадук законсервирован: поезда идут по новому мосту рядом.', en: 'Krasnoufimsk district preserves five monumental historic viaducts — a remarkably dense group of early 20th-century engineering monuments. Since October 2008 the Ryabinovka viaduct has been mothballed: trains now run over the new bridge nearby.' },
-                address: { ru: 'Красноуфимский район, пос. Рябиновка', en: 'Krasnoufimsky District, Ryabinovka village' },
+                fact: { ru: 'В окрестностях Красноуфимска сохранились исторические арочные виадуки — памятники инженерного искусства начала XX века. С октября 2008 года Рябиновский виадук законсервирован: поезда идут по новому мосту рядом.', en: 'Historic arched viaducts survive in the Krasnoufimsk area as monuments of early 20th-century engineering. Since October 2008 the Ryabinovka viaduct has been mothballed: trains now run over the new bridge nearby.' },
+                address: { ru: 'Красноуфимский округ, д. Рябиновка', en: 'Krasnoufimsky District, Ryabinovka village' },
                 queryRu: 'Рябиновский виадук Красноуфимск', queryEn: 'Ryabinovsky viaduct Krasnoufimsk'
             },
 
@@ -3541,8 +3567,8 @@
                 style: { ru: 'Городская скульптура', en: 'City Sculpture' },
                 siteLabel: { ru: 'Памятник основателям', en: 'Founders Monument' },
                 title: { ru: 'Скульптура «Бравый казак»', en: 'Brave Cossack Sculpture' },
-                desc: { ru: 'Скульптурная композиция казака Красноуфимской крепости и инсталляция крепости на набережной. По описанию городского туристического портала, облик и облачение фигуры воссозданы по ранним описаниям казаков Красноуфимской крепости Оренбургского казачьего войска времён Пугачёвского восстания.', en: 'A sculptural composition of a Cossack of the Krasnoufimsk fortress, together with a fortress installation on the embankment. According to the city tourism portal, the figure\'s appearance and clothing were recreated from early descriptions of Krasnoufimsk fortress Cossacks of the Orenburg Cossack Host from the time of the Pugachev rebellion.' },
-                fact: { ru: 'Рядом, в той же крепостной инсталляции, находится копия чугунной пушки XVIII века.', en: 'A replica of an 18th-century cast-iron cannon stands nearby in the same fortress installation.' },
+                desc: { ru: 'Скульптурная композиция казака Красноуфимской крепости и инсталляция крепости на набережной. По описанию городского туристического портала, образ связан с историей казаков Красноуфимской крепости. Представитель изготовителя называл его собирательным: точных сведений об одежде и снаряжении недостаточно.', en: 'A sculptural composition of a Cossack of the Krasnoufimsk fortress, together with a fortress installation on the embankment. According to the city tourism portal, the figure refers to the Cossacks of Krasnoufimsk fortress. A representative of the maker described it as a composite image because precise details of their clothing and equipment are limited.' },
+                fact: { ru: 'Рядом со скульптурой находится пушка, изготовленная по историческим эскизам.', en: 'A cannon made from historical sketches stands near the sculpture.' },
                 address: { ru: 'Набережная реки Уфы (Красный Яр)', en: 'Ufa River Embankment (Krasny Yar)' },
                 queryRu: 'Бравый казак Красноуфимск', queryEn: 'Krasnoufimsk Brave Cossack'
             },
@@ -3553,17 +3579,17 @@
                 siteLabel: { ru: 'Парк при земской больнице', en: 'Park by the Zemstvo hospital' },
                 title: { ru: 'Парк «Целитель»', en: 'Tselitel Park' },
                 desc: { ru: 'Исторический парк при комплексе земской больницы на склоне Дивьей горы. Его заложил М. И. Мизеров в 1884 году как часть больничной среды; сегодня аллеи и старые деревья окружают музейные павильоны земской медицины.', en: 'The historic park of the zemstvo hospital complex on the slope of Divya Mountain. M. I. Mizerov laid it out in 1884 as part of the hospital environment; today its alleys and mature trees surround the zemstvo-medicine museum pavilions.' },
-                fact: { ru: 'Площадь парка — более 2 га; точка на карте относится именно к парку «Целитель», а не к отдельной охраняемой сосновой роще за городом.', en: 'The park covers more than 2 hectares; the map point refers specifically to Tselitel Park, not to a separate protected pine grove outside the town.' },
+                fact: { ru: 'Площадь парка — около 2 га; точка на карте относится именно к парку «Целитель», а не к отдельной охраняемой сосновой роще за городом.', en: 'The park covers about 2 hectares; the map point refers specifically to Tselitel Park, not to a separate protected pine grove outside the town.' },
                 address: { ru: 'Парк «Целитель», у ул. Свободы, 16', en: 'Tselitel Park, by 16 Svobody St.' },
                 queryRu: 'парк Целитель Красноуфимск', queryEn: 'Krasnoufimsk Tselitel park'
             },
             {
-                id: 'gelikoprion', lat: '56.622152', lon: '57.775134', hasMapMark: true, cat: 'monuments', icon: '🦈', year: '2019 г.',
+                id: 'gelikoprion', lat: '56.622152', lon: '57.775134', hasMapMark: true, cat: 'monuments', icon: '🦈', year: 'не позднее 2020 г.',
                 directUrl: 'https://yandex.ru/maps/org/akula_gelikoprion/218517186206/',
                 style: { ru: 'Арт-объект', en: 'Art Object' },
                 siteLabel: { ru: 'Современный арт-объект о палеонтологической находке', en: 'Modern art object about a paleontological discovery' },
                 title: { ru: 'Арт-объект «Акула Геликоприон»', en: 'Helicoprion Shark Art Object' },
-                desc: { ru: 'Оригинальная скульптура, посвящённая знаменитой ископаемой акуле Геликоприону. Зубные спирали Helicoprion bessonowi найдены краеведом А. Г. Бессоновым в карьере на склоне Дивьей горы, в 1898 году переданы академику А. П. Карпинскому и научно описаны им в 1899 году. Арт-объект напоминает, что 290 миллионов лет назад здесь плескалось тёплое Пермское море.', en: 'An original sculpture dedicated to the famous fossil shark Helicoprion. The Helicoprion bessonowi tooth whorls were found by local historian A. G. Bessonov in a quarry on the slope of Divya Mountain, passed to Academician A. P. Karpinsky in 1898 and scientifically described by him in 1899.' },
+                desc: { ru: 'Оригинальная скульптура, посвящённая знаменитой ископаемой акуле Геликоприону. О пробной установке сообщалось в 2019 году; скульптура уже стояла на набережной в июне 2020 года. Зубные спирали Helicoprion bessonowi найдены краеведом А. Г. Бессоновым в карьере на склоне Дивьей горы, в 1898 году переданы академику А. П. Карпинскому и научно описаны им в 1899 году. Арт-объект напоминает, что 290 миллионов лет назад здесь плескалось тёплое Пермское море.', en: 'An original sculpture dedicated to the famous fossil shark Helicoprion. A trial installation was reported in 2019; the sculpture was already on the embankment in June 2020. The Helicoprion bessonowi tooth whorls were found by local historian A. G. Bessonov in a quarry on the slope of Divya Mountain, passed to Academician A. P. Karpinsky in 1898 and scientifically described by him in 1899.' },
                 fact: { ru: 'Больше ста лет палеонтологи всего мира спорили, где именно у акулы находилась эта зубная спираль (на носу, плавнике или в пасти).', en: 'For over a century, paleontologists worldwide debated where exactly the shark\'s tooth whorl was located (on its snout, fin, or in its jaw).' },
                 address: { ru: 'Набережная реки Уфы', en: 'Ufa River Embankment' },
                 queryRu: 'Акула Геликоприон Красноуфимск', queryEn: 'Krasnoufimsk Helicoprion Shark'
@@ -3575,7 +3601,7 @@
                 siteLabel: { ru: 'Памятник истории Гражданской войны', en: 'Civil War Historical Monument' },
                 registryId: '661710757900005',
                 legalStatus: { ru: 'ОКН регионального значения; реестровый № 661710757900005 в открытом списке наследия — актуальность и границы проверяйте в ЕГРОКН', en: 'Regional cultural heritage site; registry no. 661710757900005 in the open heritage list — verify current details and boundaries in the state register' },
-                title: { ru: 'Штаб 28-й дивизии В.М. Азина', en: 'Headquarters of Azin\'s 28th Division' },
+                title: { ru: 'Штаб 28-й дивизии В. М. Азина', en: 'Headquarters of Azin\'s 28th Division' },
                 desc: { ru: 'Здание, в котором в 1919 году, в переломный момент Гражданской войны, размещался штаб 28-й стрелковой дивизии Второй армии Восточного фронта. Дивизией командовал легендарный Владимир Мартинович Азин — один из самых известных красных командиров Восточного фронта. Дом бывший Алексеева; памятная доска на фасаде.', en: 'The building where, in 1919, during a turning point of the Civil War, the headquarters of the 28th Rifle Division of the Second Army of the Eastern Front was located. The division was commanded by the legendary Vladimir Azin, a famous Red commander. Former Alekseev house, with a memorial plaque on the facade.' },
                 fact: { ru: 'В. М. Азин (настоящее имя Вольдемар Азиньш) прославился личной храбростью в боях за Урал. Здание штаба — объект культурного наследия областного значения (включено в Госсписок решением исполкома Свердловского облсовета от 18.02.1991 № 75). Его имя носит улица в Красноуфимске — бывшая Криулинская.', en: 'V. M. Azin (real name Voldemar Azinsh) was famous for his personal bravery in the battles for the Urals. The headquarters building is a regional cultural heritage site (state list decision of 18 Feb 1991 No. 75); a street in Krasnoufimsk, former Kriulinskaya, bears his name.' },
                 address: { ru: 'ул. Свердлова, 9/50 (угол ул. Пролетарской, 50)', en: '9/50 Sverdlova St. (corner of 50 Proletarskaya St.)' },
@@ -3595,13 +3621,13 @@
             }
         ,
             {
-                id: 'watchtower', lat: '56.622491', lon: '57.771738', hasMapMark: true, cat: 'monuments', icon: '🗼', year: 'XVIII в.',
-                style: { ru: 'Деревянное крепостное зодчество (утрачено)', en: 'Wooden Fortress Architecture (lost)' },
+                id: 'watchtower', lat: '56.622491', lon: '57.771738', hasMapMark: true, cat: 'monuments', icon: '🗼', year: 'XVIII в. / кон. XIX в.',
+                style: { ru: 'Место утраченной башни XVIII века и сохранившаяся часовня конца XIX века', en: 'Lost 18th-century watchtower site and surviving late 19th-century chapel' },
                 siteLabel: { ru: 'Историческое место', en: 'Historical Site' },
                 registryId: '661710817800005',
                 legalStatus: { ru: 'Часовня — ОКН регионального значения; реестровый № 661710817800005 в открытом списке наследия — актуальность и границы проверяйте в ЕГРОКН', en: 'The chapel is a regional cultural heritage site; registry no. 661710817800005 in the open heritage list — verify current details and boundaries in the state register' },
                 title: { ru: 'Камешек: часовня Иосифа Песнописца и место дозорной башни', en: 'Kameshek: Chapel of St Joseph the Hymnographer & Watchtower Site' },
-                desc: { ru: 'Возвышенный берег Уфы на Камешке, где сегодня стоит часовня Иосифа Песнописца. По краеведческим описаниям, прежде здесь находилась дозорная башня Красноуфимской крепости, с которой вели наблюдение за рекой и подступами к поселению. Связь места с Пугачёвым относится к местному преданию.', en: 'The high Ufa bank at Kameshek, where the Chapel of St Joseph the Hymnographer stands today. Local-history accounts place a watchtower of the Krasnoufimsk fortress here, overlooking the river and approaches to the settlement. The Pugachev connection is local tradition.' },
+                desc: { ru: 'Возвышенный берег Уфы на Камешке, где стоит кирпичная часовня Иосифа Песнописца, построенная после 1875 года и восстановленная в 2012–2015 годах. По краеведческим описаниям, прежде здесь находилась дозорная башня Красноуфимской крепости, с которой вели наблюдение за рекой и подступами к поселению. Связь места с Пугачёвым относится к местному преданию.', en: 'The high Ufa bank at Kameshek, where the brick Chapel of St Joseph the Hymnographer stands. Built after 1875, it was restored in 2012–2015. Local-history accounts place a watchtower of the Krasnoufimsk fortress here, overlooking the river and approaches to the settlement. The Pugachev connection is local tradition.' },
                 fact: { ru: 'По описаниям краеведов, крепость имела несколько деревянных башен, соединённых высоким тыном, и бастионы с пушками на каменном гребне Камешек. До наших дней дошли лишь единичные деревянные постройки крепостного времени, их датировка уточняется.', en: 'According to local historians, the fortress had several wooden towers linked by a high palisade, plus cannon-armed bastions on the Kameshek rocky ridge. Only a few timber buildings of the fortress era survive, and their dating is still being refined.' },
                 address: { ru: 'Пролетарская ул., 81а, Камешек', en: '81A Proletarskaya St., Kameshek' },
                 directUrl: 'https://yandex.ru/maps/org/mesto_gde_stoyala_storozhevaya_bashnya_na_reke_ufe/3251418776/',
@@ -3730,7 +3756,7 @@
         function localizeSightYear(year, lang = currentLang) {
             if (!year || lang !== 'en') return year || '';
             const exact = {
-                'XVIII в.': '18th century', 'XIX в.': '19th century', 'XVIII–XX вв.': '18th–20th centuries',
+                'не позднее 2020 г.': 'by 2020', 'XX в. – сегодня': '20th century – present', '1940-е гг.': '1940s', 'XVIII в.': '18th century', 'XVIII в. / кон. XIX в.': '18th / late 19th century', 'кон. XIX в.': 'late 19th century', 'XIX в.': '19th century', 'XVIII–XX вв.': '18th–20th centuries',
                 '2020-е гг.': '2020s', '1890-е гг.': '1890s', '1880-е гг.': '1880s', '1949–1950-е гг.': '1949–1950s',
                 '1774 г. / памятный знак': '1774 / memorial marker', '~290 млн лет': '~290 million years', 'Природа': 'Nature'
             };
@@ -5538,7 +5564,7 @@
                 id: 'chrono_master',
                 icon: '📜',
                 title: { ru: '«Повелитель всех эпох»', en: 'Master of All Epochs' },
-                desc: { ru: 'Изучить все 21 историческую эпоху на ленте времени от 1736 до 2026 года (21 из 21)', en: 'Explore all 21 historical epochs on timeline from 1736 to 2026 (21/21)' },
+                desc: { ru: 'Изучить 21 историческую эпоху на ленте времени от 1736 до 2026 года (21 из 21)', en: 'Explore all 21 historical epochs on timeline from 1736 to 2026 (21/21)' },
                 target: 21
             },
             {
@@ -5573,14 +5599,14 @@
                 id: 'cossack_fortress',
                 icon: '⚔️',
                 title: { ru: '«Казачья застава»', en: 'Cossack Fortress Guard' },
-                desc: { ru: 'Изучить все 3 казачьих памятника: Казачью избу 18 в., Сторожевую башню и Бравого казака (3 из 3)', en: 'Explore all 3 Cossack monuments: 18th-century hut, Watchtower & Brave Cossack (3/3)' },
+                desc: { ru: 'Изучить все 3 казачьих памятника: казачью избу XVIII в., место дозорной башни и скульптуру «Бравый казак» (3 из 3)', en: 'Explore all 3 Cossack monuments: 18th-century hut, Watchtower & Brave Cossack (3/3)' },
                 target: 3
             },
             {
                 id: 'nature_wonders',
                 icon: '🌲',
                 title: { ru: '«Заповедный Красноуфимск»', en: 'Wild Nature Wonders' },
-                desc: { ru: 'Изучить 4 памятника природы: набережную Уфы, Дивью гору, Соколий камень и сосновые боры (4 из 4)', en: 'Explore 4 nature wonders: Ufa embankment, Divya Mountain, Falcon Rock & pine forests (4/4)' },
+                desc: { ru: 'Изучить 4 природных места: набережную Уфы, Дивью гору, Соколиный камень и парк «Целитель» (4 из 4)', en: 'Explore 4 nature sites: Ufa embankment, Divya Mountain, Falcon Rock & Tselitel Park (4/4)' },
                 target: 4
             },
             {
@@ -5608,7 +5634,7 @@
                 id: 'honorary_citizen',
                 icon: '👑',
                 title: { ru: '«Почётный гражданин»', en: 'Honorary Citizen' },
-                desc: { ru: 'Завоевать все 11 хардкорных достижений Красноуфимска (11 из 11)', en: 'Complete all 11 hardcore achievements of Krasnoufimsk (11/11)' },
+                desc: { ru: 'Завоевать все 11 основных достижений Красноуфимска (11 из 11)', en: 'Complete all 11 core achievements of Krasnoufimsk (11/11)' },
                 target: 11
             }
         ];
@@ -6029,13 +6055,13 @@
                 unlockAchievement('railway_trio');
             }
 
-            // 3. Казачья застава (казачья изба, сторожевая башня, бравый казак)
+            // 3. Казачья застава (казачья изба, место дозорной башни, бравый казак)
             const cossackIds = ['kazachya-izba', 'watchtower', 'braviy-kazak'];
             if (cossackIds.every(id => sViewed.includes(id))) {
                 unlockAchievement('cossack_fortress');
             }
 
-            // 4. Заповедный Красноуфимск (набережная, дивизионная гора, соколий камень, сосновые боры)
+            // 4. Заповедный Красноуфимск (набережная, Дивья гора, Соколиный камень, парк «Целитель»)
             const natureIds = ['naberezhnaya', 'divizionnaya', 'sokoliy-kamen', 'sosnovye-bory'];
             if (natureIds.every(id => sViewed.includes(id))) {
                 unlockAchievement('nature_wonders');
@@ -6097,45 +6123,53 @@
         /* =========================================================================
            152-ФЗ / GDPR: ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ И COOKIE CONSENT
            ========================================================================= */
-        window.openPrivacyModal = function() {
-            const m = document.getElementById('privacy-modal');
-            if (m) {
-                m.classList.add('active');
-                m.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
-                focusDialog(m);
-            }
-        };
-
-        window.closePrivacyModal = function() {
-            const m = document.getElementById('privacy-modal');
-            if (m) {
-                m.classList.remove('active');
-                m.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
-                restoreDialogFocus();
-            }
-        };
-
-        window.openSourcesModal = function() {
-            const m = document.getElementById('sources-modal');
-            if (m) {
-                m.classList.add('active');
-                m.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
-                focusDialog(m);
-            }
-        };
-
-        window.closeSourcesModal = function() {
-            const m = document.getElementById('sources-modal');
-            if (m) {
-                m.classList.remove('active');
-                m.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
-                restoreDialogFocus();
-            }
-        };
+        // These long dialogs own the scroll: preserve the page position, including on iOS.
+        let legalScrollLock = null;
+        function lockLegalPageScroll() {
+            if (legalScrollLock) return;
+            const body = document.body;
+            legalScrollLock = {
+                y: window.scrollY,
+                position: body.style.position, top: body.style.top,
+                width: body.style.width, overflow: body.style.overflow
+            };
+            document.documentElement.classList.add('legal-dialog-open');
+            body.style.position = 'fixed';
+            body.style.top = `-${legalScrollLock.y}px`;
+            body.style.width = '100%';
+            body.style.overflow = 'hidden';
+        }
+        function unlockLegalPageScroll() {
+            if (!legalScrollLock || document.querySelector('#privacy-modal.active, #sources-modal.active')) return;
+            const saved = legalScrollLock;
+            legalScrollLock = null;
+            document.documentElement.classList.remove('legal-dialog-open');
+            Object.assign(document.body.style, {
+                position: saved.position, top: saved.top,
+                width: saved.width, overflow: saved.overflow
+            });
+            window.scrollTo({ top: saved.y, left: 0, behavior: 'instant' });
+        }
+        function openLegalDialog(id) {
+            const m = document.getElementById(id);
+            if (!m || m.classList.contains('active')) return;
+            lockLegalPageScroll();
+            m.classList.add('active');
+            m.setAttribute('aria-hidden', 'false');
+            focusDialog(m);
+        }
+        function closeLegalDialog(id) {
+            const m = document.getElementById(id);
+            if (!m || !m.classList.contains('active')) return;
+            m.classList.remove('active');
+            m.setAttribute('aria-hidden', 'true');
+            unlockLegalPageScroll();
+            restoreDialogFocus();
+        }
+        window.openPrivacyModal = function() { openLegalDialog('privacy-modal'); };
+        window.closePrivacyModal = function() { closeLegalDialog('privacy-modal'); };
+        window.openSourcesModal = function() { openLegalDialog('sources-modal'); };
+        window.closeSourcesModal = function() { closeLegalDialog('sources-modal'); };
 
         window.acceptCookies = function() {
             safeStorageSet('kuf_cookie_consent', 'accepted');

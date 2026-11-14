@@ -259,7 +259,7 @@
             Как добраться и <span class="highlight">спланировать поездку</span> в Красноуфимск
         </h1>
         <p class="hero-desc" id="page-hero-desc" data-lang="pageHeroDesc">
-            Выберите город отправления, транспортную связку и длительность поездки. Система покажет ориентировочное время в пути, примерную смету дороги, гостиницы и питания и составит рекомендуемую программу тура.
+            Выберите город отправления, транспортную связку и длительность поездки. Система покажет ориентировочное время в пути, примерную смету на дорогу, проживание и питание, а также составит рекомендуемую программу тура.
         </p>
     </section>
 
@@ -307,7 +307,7 @@
     <section id="transport-section" class="transport-section-card reveal-on-scroll">
         <div class="section-label-bar">
             <h2 class="section-heading-title">
-                <span>🔀</span> <span data-lang="transSectionTitle">Шаг 2. Выберите способ передвижения:</span>
+                <span>🔀</span> <span data-lang="transSectionTitle">Шаг 2. Выберите способ передвижения</span>
             </h2>
             <span style="font-size:0.85rem; color:var(--text-muted);" data-lang="transHint">💡 Нажмите на подходящий вариант, чтобы применить его к смете</span>
         </div>
@@ -327,7 +327,7 @@
     <section id="trip-settings-section" class="trip-settings-card trip-settings-card--v3 reveal-on-scroll">
         <div class="section-label-bar">
             <h2 class="section-heading-title">
-                <span>🗓️</span> <span data-lang="settingsSectionTitle">Шаг 3. Детали вашей поездки:</span>
+                <span>🗓️</span> <span data-lang="settingsSectionTitle">Шаг 3. Детали вашей поездки</span>
             </h2>
         </div>
 
@@ -414,6 +414,7 @@
                         <option value="4200">Комфорт</option>
                     </select>
                 </div>
+                <p class="trip-date-note" data-lang="hotelLocationNote">«Центральная» — ближе к центру (ул. Рогозинниковых, 14); «Ковчег» — на ул. Спартака, 10, дальше от центра. Проверьте условия и цену каждого варианта.</p>
             </div>
 
             <!-- Питание -->
@@ -510,7 +511,7 @@
             <!-- Программа по дням -->
             <div class="program-card reveal-on-scroll">
                 <h3 class="program-title">
-                    <span>📋</span> <span data-lang="programTitle">Рекомендуемая программа в Красноуфимске:</span>
+                    <span>📋</span> <span data-lang="programTitle">Рекомендуемая программа в Красноуфимске</span>
                 </h3>
                 <div id="program-days-list">
                     <!-- Заполняется динамически под количество дней -->
@@ -521,7 +522,7 @@
             <div class="program-card checklist-card reveal-on-scroll" style="margin-top:20px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
                     <h3 class="program-title" style="margin-bottom:0;">
-                        <span>🎒</span> <span data-lang="checklistTitle">Чек-лист сборов в дорогу:</span>
+                        <span>🎒</span> <span data-lang="checklistTitle">Чек-лист сборов в дорогу</span>
                     </h3>
                     <span id="checklist-progress-badge" class="city-summary-pill" style="font-size:0.8rem; padding:4px 12px;">0/7</span>
                 </div>
@@ -550,11 +551,11 @@
             <a href="index.html#routes" class="footer-link" data-lang="footerLinkRoutes">Пешие гиды</a>
             <a href="index.html#guide" class="footer-link" data-lang="footerLinkGuide">Памятка туриста</a>
             <a href="index.html#quiz" class="footer-link" data-lang="footerLinkQuiz">Викторина</a>
-            <a href="index.html#privacy-modal" class="footer-link" onclick="window.location.href='index.html#privacy-modal'; return false;" data-lang="footerLinkPrivacy">🔒 Политика 152-ФЗ</a>
+            <a href="index.html#privacy-modal" class="footer-link" onclick="window.location.href='index.html#privacy-modal'; return false;" data-lang="footerLinkPrivacy">🔒 Политика конфиденциальности и 152-ФЗ</a>
             <a href="index.html#sources-modal" class="footer-link" onclick="window.location.href='index.html#sources-modal'; return false;" data-lang="footerLinkSources">📚 Источники и кредиты</a>
         </div>
         <p data-lang="footerCopy">© 2026 «Красноуфимск: Сквозь эпохи». Выполнен в ходе индивидуального проекта.</p>
-        <p style="font-size:0.82rem; margin-top:4px; opacity:0.8;" data-lang="footerSchool">Некоммерческий образовательный проект о Красноуфимске</p>
+        <p style="font-size:0.82rem; margin-top:4px; opacity:0.8;" data-lang="footerSchool">Школьный образовательный краеведческий проект</p>
     </footer>
 
     <!-- ==========================================================================
@@ -651,7 +652,7 @@
     <script src="assets/planner.js"></script>
     <button type="button" id="btn-back-to-top" title="Вернуться к началу страницы" aria-label="Вернуться к началу страницы">↑</button>
     
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","spa":2}' crossorigin="anonymous"></script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5a460a86a736dac',t:'MTc5NDY0MjEyNg=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5a460a86a736dac',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5a598079c12d9c3',t:'MTc5NDY1NDg3OQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5a598079c12d9c3',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","spa":2}' crossorigin="anonymous"></script>
+</body>
 
 </html>

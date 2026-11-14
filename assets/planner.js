@@ -588,124 +588,337 @@
             });
         });
         const ITINERARY_PROGRAMS = {
-            1: [
+    "1": [
+        {
+            "dayNum": 1,
+            "title": {
+                "ru": "Знакомство с историческим центром",
+                "en": "Discover the historic centre"
+            },
+            "places": [
                 {
-                    dayNum: 1,
-                    title: { ru: 'День 1: Экспресс-знакомство с купеческим сердцем и рекой Уфой', en: 'Day 1: Highlights of Merchant Heritage & Ufa River' },
-                    places: [
-                        { ru: '10:00 — Краеведческий музей (ул. Советская, 42 — палеонтология, зубная спираль геликоприона)', en: '10:00 — Regional Museum (42 Sovetskaya St. — paleontology, Helicoprion shark whorl)' },
-                        { ru: '12:00 — Историческая купеческая улица Советская: усадьбы купцов Шевелина, Серебренникова и Земская управа', en: '12:00 — Historic Sovetskaya Street: merchant estates and Zemstvo Board' },
-                        { ru: '13:30 — Обед в кафе в историческом центре (традиционные уральские шаньги и травяной чай)', en: '13:30 — Lunch at a cafe in the historic downtown (traditional Ural pastries)' },
-                        { ru: '14:45 — Свято-Троицкий собор 1804 года (величие русского классицизма)', en: '14:45 — Holy Trinity Cathedral (classicist stone architecture)' },
-                        { ru: '16:00 — Набережная «Красный Яр», скульптура «Девочка с самолётиком» и панорама с Дивьей горы (внимание: на нижнем уровне продолжаются работы по проекту «Красный Яр»; перед визитом уточните открытые участки)', en: '16:00 — Krasny Yar Embankment, the «Girl with a Toy Plane» sculpture and the Divya Mountain viewpoint (note: work on the lower level under the Krasny Yar project is ongoing; check which sections are open before visiting)' },
-                        { ru: '18:30 — Памятные сувениры с серебряным соколом и вечерний отъезд', en: '18:30 — Souvenir shopping and departure' }
-                    ]
-                }
-            ],
-            2: [
-                {
-                    dayNum: 1,
-                    title: { ru: 'День 1: Историческое купеческое ядро и панорамы реки Уфы', en: 'Day 1: Historic Merchant Core & Scenic River Panoramas' },
-                    places: [
-                        { ru: '10:30 — Краеведческий музей (богатейшая палеонтология и макет казачьей крепости 1736 г.)', en: '10:30 — Museum of Local Lore (paleontology & 1736 fortress model)' },
-                        { ru: '12:30 — Экскурсия по купеческим особнякам улицы Советской и Рогозинниковых', en: '12:30 — Guided walking tour of merchant estates and architecture' },
-                        { ru: '14:00 — Обед в историческом центре города', en: '14:00 — Lunch in the town center' },
-                        { ru: '15:30 — Дивья гора и вид на излучину Уфы (крутой грунтовый подъём: нужна нескользящая обувь; в дождь и гололёд безопасная замена — верхняя терраса набережной)', en: '15:30 — Divya Mountain viewpoint (steep unpaved climb: wear non-slip shoes; in rain or ice use the upper embankment terrace instead)' },
-                        { ru: '17:30 — Вечерний променад по верхней террасе набережной «Красный Яр» и закат (на нижнем уровне продолжаются работы по проекту «Красный Яр»)', en: '17:30 — Sunset walk along the upper terrace of Krasny Yar Embankment (work on the lower level under the Krasny Yar project is ongoing)' },
-                        { ru: '19:30 — Заселение в гостиницу, отдых и ужин', en: '19:30 — Check-in at hotel, dinner & rest' }
-                    ]
+                    "ru": "10:00 — Краеведческий музей, ул. Советская, 42; часы работы и экскурсии уточните заранее.",
+                    "en": "10:00 — Local History Museum, 42 Sovetskaya St.; check hours and tours in advance."
                 },
                 {
-                    dayNum: 2,
-                    title: { ru: 'День 2: Наследие мастерской Щусева и триумф вековых виадуков', en: 'Day 2: Shchusev Workshop Heritage & Monumental Viaducts' },
-                    places: [
-                        { ru: '10:00 — Завтрак в отеле', en: '10:00 — Breakfast at hotel' },
-                        { ru: '11:00 — Исторический ж/д вокзал (архитектурная мастерская А. В. Щусева, петровское барокко 1915 г.) и паровоз-памятник «Лебедянка»', en: '11:00 — Historic railway station (A. Shchusev architectural workshop, Petrine Baroque 1915) and steam train monument' },
-                        { ru: '11:45 — Выезд на автомобиле или трансфере к Рябиновскому виадуку (около 30 км в одну сторону; осмотр только с безопасных смотровых точек, не выходить на пути и не подходить к опорам)', en: '11:45 — Drive/transfer to the Ryabinovka viaduct (about 30 km one way; view only from safe viewpoints, never enter the tracks or approach the piers)' },
-                        { ru: '16:30 — Возвращение в город; если останется время и музей открыт в этот день — Музей земской медицины доктора Мизерова', en: '16:30 — Return to town; if time remains and it is open that day, Dr Mizerov Zemstvo Medicine Museum' },
-                        { ru: '17:00 — Покупка сувениров (уральский мёд, иван-чай) и отъезд', en: '17:00 — Souvenirs and departure' }
-                    ]
-                }
-            ],
-            3: [
-                {
-                    dayNum: 1,
-                    title: { ru: 'День 1: Город купцов, соколов и первопроходцев', en: 'Day 1: Town of Merchants, Falcons and Pioneers' },
-                    places: [
-                        { ru: '11:00 — Первая казачья изба XVIII века (колыбель крепости)', en: '11:00 — 18th-century Cossack Log Hut' },
-                        { ru: '12:30 — Краеведческий музей (ул. Советская, 42) и палеонтология Урала', en: '12:30 — Regional Museum (42 Sovetskaya St.) and Ural paleontology' },
-                        { ru: '14:30 — Обед и пешая прогулка по купеческому кварталу', en: '14:30 — Lunch and historic quarter walk' },
-                        { ru: '16:30 — Набережная «Красный Яр» (доступность нижнего уровня уточните перед визитом) и смотровая площадка на Дивьей горе', en: '16:30 — Krasny Yar riverfront (check access to the lower level before visiting) & Divya Mountain' }
-                    ]
+                    "ru": "12:00 — Прогулка по Советской улице и осмотр здания земской управы, Советская, 17.",
+                    "en": "12:00 — Walk along Sovetskaya Street and view the former zemstvo board at 17 Sovetskaya St."
                 },
                 {
-                    dayNum: 2,
-                    title: { ru: 'День 2: Инженерные шедевры: Вокзал мастерской Щусева и Рябиновский виадук', en: 'Day 2: Engineering Wonders: Shchusev Workshop Station & Viaduct' },
-                    places: [
-                        { ru: '10:30 — Архитектурный ансамбль станции Красноуфимск', en: '10:30 — Krasnoufimsk Railway Station ensemble' },
-                        { ru: '12:00 — Выезд на автомобиле к Рябиновскому виадуку (≈30 км; только смотровые точки вне железнодорожных путей)', en: '12:00 — Drive to the Ryabinovka viaduct (about 30 km; viewpoints only, away from railway tracks)' },
-                        { ru: '15:30 — виадук Саранинский Лог издали со смотровой точки; затем возвращение в Красноуфимск. Не приближайтесь к действующим путям и опорам', en: '15:30 — Saraninsky Log viaduct from a distant viewpoint, then return to Krasnoufimsk. Keep away from active tracks and piers' }
-                    ]
+                    "ru": "13:30 — Перерыв на обед; заведение выберите самостоятельно.",
+                    "en": "13:30 — Lunch break; choose a café yourself."
                 },
                 {
-                    dayNum: 3,
-                    title: { ru: 'День 3: Земское наследие, природа Уфы и релакс', en: 'Day 3: Zemstvo Heritage & Ural Nature' },
-                    places: [
-                        { ru: '10:30 — Музей Красноуфимской земской больницы (доктора М. И. Мизерова)', en: '10:30 — Zemstvo Hospital Museum' },
-                        { ru: '12:30 — Красноуфимское Реальное училище (кирпичная эклектика, 1875 г.)', en: '12:30 — Real School (brick eclectic style, 1875)' },
-                        { ru: '14:30 — Пикник у реки Уфы или прогулка по Сосновому бору', en: '14:30 — Pine forest walk by the Ufa River' },
-                        { ru: '17:00 — Завершение путешествия и отъезд', en: '17:00 — Trip wrap-up and departure' }
-                    ]
-                }
-            ],
-            4: [
-                {
-                    dayNum: 1,
-                    title: { ru: 'День 1: Историческое купеческое ядро и казачья колыбель', en: 'Day 1: Historic Merchant Core & Cossack Cradle' },
-                    places: [
-                        { ru: '10:30 — Краеведческий музей (ул. Советская, 42, зубная спираль геликоприона Helicoprion bessonowi, макет крепости 1736 г.)', en: '10:30 — Museum of Local Lore (42 Sovetskaya St., Helicoprion shark whorl, 1736 fortress model)' },
-                        { ru: '12:30 — Историческая купеческая улица Советская: усадьбы Шевелина, Серебренникова и здание Земской управы (1911–1912 гг., ныне Дворец творчества).', en: '12:30 — Historic Sovetskaya Street: merchant estates and the Zemstvo Board building (1911–1912, today the Youth Creative Centre).' },
-                        { ru: '14:00 — Обед в историческом центре (уральские шаньги, жаркое по-уральски)', en: '14:00 — Lunch in historic town center (traditional Ural cuisine)' },
-                        { ru: '15:30 — Свято-Троицкий собор 1804 г. и казачья изба XVIII века', en: '15:30 — Holy Trinity Cathedral (1804) & 18th-century Cossack Hut' },
-                        { ru: '17:30 — Доступные участки набережной «Красный Яр» и закат на Дивьей горе с видом на излучину Уфы', en: '17:30 — Open sections of the Krasny Yar Embankment & sunset panorama on Divya Mountain' },
-                        { ru: '19:30 — Заселение в гостиницу, вечерний отдых', en: '19:30 — Hotel check-in & evening rest' }
-                    ]
+                    "ru": "14:45 — Свято-Троицкий собор и Аллея Памяти; соблюдайте правила посещения храма.",
+                    "en": "14:45 — Holy Trinity Cathedral and the Alley of Memory; observe the cathedral’s visitor rules."
                 },
                 {
-                    dayNum: 2,
-                    title: { ru: 'День 2: Инженерный триумф мастерской Щусева и музей Земской медицины', en: 'Day 2: Shchusev Workshop Architecture & Zemstvo Medicine' },
-                    places: [
-                        { ru: '10:00 — Исторический ж/д вокзал (архитектурная мастерская А. В. Щусева, петровское барокко 1915 г.) и паровоз-памятник «Лебедянка»', en: '10:00 — Historic railway station (A. Shchusev workshop, Petrine Baroque 1915) and steam locomotive monument' },
-                        { ru: '12:00 — Красноуфимское Реальное училище (кирпичная эклектика, 1875 г.; с 1893 по 1899 год здесь учился маршал Б. М. Шапошников)', en: '12:00 — Krasnoufimsk Real School (brick eclectic style, 1875; Marshal B. Shaposhnikov studied here in 1893–1899)' },
-                        { ru: '13:30 — Обед в кафе старого города', en: '13:30 — Lunch in the historic district' },
-                        { ru: '15:00 — Музей «Красноуфимская земская больница» (ул. Свободы, 16): музеефицированный больничный комплекс земского времени, пять павильонов и парк «Целитель» с аптекарским садом', en: '15:00 — Krasnoufimsk Zemstvo Hospital Museum (16 Svobody St.): a museumised zemstvo-era hospital complex, five pavilions and the Tselitel Park with an apothecary garden' },
-                        { ru: '18:00 — Прогулка по старинному парку «Целитель» (липы, сосны, берёзы) и ужин в ресторане уральской кухни', en: '18:00 — Walk in the historic Tselitel Park (limes, pines, birches) & dinner' }
-                    ]
+                    "ru": "16:00 — Доступные участки набережной Уфы и арт-объекты; открытие нижнего уровня уточните перед визитом.",
+                    "en": "16:00 — Accessible sections of the Ufa embankment and public art; check lower-level access before visiting."
                 },
                 {
-                    dayNum: 3,
-                    title: { ru: 'День 3: Монументальные виадуки Красноуфимска и посёлок Сарана', en: 'Day 3: Monumental Viaducts & Sarana Settlement' },
-                    places: [
-                        { ru: '10:00 — Автоэкспедиция к Рябиновскому виадуку (железобетонный арочный мост 1915–1919 гг., длина 283 м; памятник инженерной архитектуры, законсервирован с 2008 года)', en: '10:00 — Road trip to the Ryabinovka viaduct (reinforced-concrete arch bridge, 1915–1919, 283 m long; an engineering monument, mothballed since 2008)' },
-                        { ru: '12:30 — виадук Саранинский Лог среди таёжных холмов (осмотр только со смотровой точки, без выхода к путям)', en: '12:30 — Saraninsky Log Viaduct nestled among taiga hills' },
-                        { ru: '14:30 — Посёлок Сарана: Долговский виадук (Долгий Мост) и плотина исторического железоделательного завода', en: '14:30 — Sarana settlement: Dolgovsky viaduct and historic ironworks dam' },
-                        { ru: '16:30 — Берег Саранинского водохранилища среди уральских скал, чай на таёжных травах', en: '16:30 — Shore of Sarana reservoir among Ural limestone cliffs, herbal tea' },
-                        { ru: '19:00 — Возвращение в Красноуфимск, ужин', en: '19:00 — Return to Krasnoufimsk, dinner' }
-                    ]
-                },
-                {
-                    dayNum: 4,
-                    title: { ru: 'День 4: Скала Аликаев Камень (Марьин утёс) и природные тайны', en: 'Day 4: Alikaev Kamen (Maryin Cliff) & Ural Nature' },
-                    places: [
-                        { ru: '09:30 — Экспедиция к 50-метровому утесу Аликаев Камень (легендарный «Марьин утёс» из фильма «Тени исчезают в полдень»)', en: '09:30 — Excursion to 50m high Alikaev Kamen cliff (famed film setting)' },
-                        { ru: '11:30 — Подъём на вершину утёса: захватывающая круговая панорама первозданной уральской тайги и реки Сарана', en: '11:30 — Ascent to the cliff top: sweeping panorama of virgin taiga & river' },
-                        { ru: '13:30 — Обед на местном форелевом хозяйстве с дегустацией свежевыловленной рыбы и уральского мёда', en: '13:30 — Lunch at local trout farm: fresh fish & Ural honey tasting' },
-                        { ru: '15:30 — Эко-тропа вдоль скалистых берегов реки Уфа, осмотр геологических обнажений (окаменелости не собирать и породы не повреждать)', en: '15:30 — Eco-trail along the rocky Ufa riverbanks and geological outcrops (do not collect fossils or damage the rocks)' },
-                        { ru: '18:00 — Покупка аутентичных сувениров (соколиная символика, пряники, иван-чай) и памятный отъезд', en: '18:00 — Souvenir shopping and departure' }
-                    ]
+                    "ru": "18:00 — Свободное время; при однодневной поездке — отъезд.",
+                    "en": "18:00 — Free time; departure for a one-day trip."
                 }
             ]
-        };
+        }
+    ],
+    "2": [
+        {
+            "dayNum": 1,
+            "title": {
+                "ru": "Знакомство с историческим центром",
+                "en": "Discover the historic centre"
+            },
+            "places": [
+                {
+                    "ru": "10:00 — Краеведческий музей, ул. Советская, 42; часы работы и экскурсии уточните заранее.",
+                    "en": "10:00 — Local History Museum, 42 Sovetskaya St.; check hours and tours in advance."
+                },
+                {
+                    "ru": "12:00 — Прогулка по Советской улице и осмотр здания земской управы, Советская, 17.",
+                    "en": "12:00 — Walk along Sovetskaya Street and view the former zemstvo board at 17 Sovetskaya St."
+                },
+                {
+                    "ru": "13:30 — Перерыв на обед; заведение выберите самостоятельно.",
+                    "en": "13:30 — Lunch break; choose a café yourself."
+                },
+                {
+                    "ru": "14:45 — Свято-Троицкий собор и Аллея Памяти; соблюдайте правила посещения храма.",
+                    "en": "14:45 — Holy Trinity Cathedral and the Alley of Memory; observe the cathedral’s visitor rules."
+                },
+                {
+                    "ru": "16:00 — Доступные участки набережной Уфы и арт-объекты; открытие нижнего уровня уточните перед визитом.",
+                    "en": "16:00 — Accessible sections of the Ufa embankment and public art; check lower-level access before visiting."
+                },
+                {
+                    "ru": "18:00 — Свободное время; при однодневной поездке — отъезд.",
+                    "en": "18:00 — Free time; departure for a one-day trip."
+                }
+            ]
+        },
+        {
+            "dayNum": 2,
+            "title": {
+                "ru": "Железная дорога и старинные здания",
+                "en": "Railway heritage and historic buildings"
+            },
+            "places": [
+                {
+                    "ru": "10:00 — Завтрак и проверка времени работы объектов.",
+                    "en": "10:00 — Breakfast and a check of opening hours."
+                },
+                {
+                    "ru": "11:00 — Историческое здание железнодорожного вокзала; паровоз Л-1699 у локомотивного депо осматривайте только с доступной территории.",
+                    "en": "11:00 — Historic railway station; view locomotive L-1699 near the depot only from publicly accessible areas."
+                },
+                {
+                    "ru": "13:00 — Обед и переезд к центру города.",
+                    "en": "13:00 — Lunch and return to the town centre."
+                },
+                {
+                    "ru": "14:30 — Бывшее реальное и промышленное училище, ул. Ленина, 79: осмотр здания снаружи.",
+                    "en": "14:30 — Former real and industrial school, 79 Lenina St.: view the building from outside."
+                },
+                {
+                    "ru": "16:00 — Доходный дом К. А. Шевелина, ул. Рогозинниковых, 35, и прогулка по историческим улицам.",
+                    "en": "16:00 — K. A. Shevelin’s former apartment house, 35 Rogozinnikovykh St., and a walk along historic streets."
+                },
+                {
+                    "ru": "17:30 — Свободное время и отъезд либо отдых.",
+                    "en": "17:30 — Free time and departure or rest."
+                }
+            ]
+        }
+    ],
+    "3": [
+        {
+            "dayNum": 1,
+            "title": {
+                "ru": "Знакомство с историческим центром",
+                "en": "Discover the historic centre"
+            },
+            "places": [
+                {
+                    "ru": "10:00 — Краеведческий музей, ул. Советская, 42; часы работы и экскурсии уточните заранее.",
+                    "en": "10:00 — Local History Museum, 42 Sovetskaya St.; check hours and tours in advance."
+                },
+                {
+                    "ru": "12:00 — Прогулка по Советской улице и осмотр здания земской управы, Советская, 17.",
+                    "en": "12:00 — Walk along Sovetskaya Street and view the former zemstvo board at 17 Sovetskaya St."
+                },
+                {
+                    "ru": "13:30 — Перерыв на обед; заведение выберите самостоятельно.",
+                    "en": "13:30 — Lunch break; choose a café yourself."
+                },
+                {
+                    "ru": "14:45 — Свято-Троицкий собор и Аллея Памяти; соблюдайте правила посещения храма.",
+                    "en": "14:45 — Holy Trinity Cathedral and the Alley of Memory; observe the cathedral’s visitor rules."
+                },
+                {
+                    "ru": "16:00 — Доступные участки набережной Уфы и арт-объекты; открытие нижнего уровня уточните перед визитом.",
+                    "en": "16:00 — Accessible sections of the Ufa embankment and public art; check lower-level access before visiting."
+                },
+                {
+                    "ru": "18:00 — Свободное время; при однодневной поездке — отъезд.",
+                    "en": "18:00 — Free time; departure for a one-day trip."
+                }
+            ]
+        },
+        {
+            "dayNum": 2,
+            "title": {
+                "ru": "Железная дорога и старинные здания",
+                "en": "Railway heritage and historic buildings"
+            },
+            "places": [
+                {
+                    "ru": "10:00 — Завтрак и проверка времени работы объектов.",
+                    "en": "10:00 — Breakfast and a check of opening hours."
+                },
+                {
+                    "ru": "11:00 — Историческое здание железнодорожного вокзала; паровоз Л-1699 у локомотивного депо осматривайте только с доступной территории.",
+                    "en": "11:00 — Historic railway station; view locomotive L-1699 near the depot only from publicly accessible areas."
+                },
+                {
+                    "ru": "13:00 — Обед и переезд к центру города.",
+                    "en": "13:00 — Lunch and return to the town centre."
+                },
+                {
+                    "ru": "14:30 — Бывшее реальное и промышленное училище, ул. Ленина, 79: осмотр здания снаружи.",
+                    "en": "14:30 — Former real and industrial school, 79 Lenina St.: view the building from outside."
+                },
+                {
+                    "ru": "16:00 — Доходный дом К. А. Шевелина, ул. Рогозинниковых, 35, и прогулка по историческим улицам.",
+                    "en": "16:00 — K. A. Shevelin’s former apartment house, 35 Rogozinnikovykh St., and a walk along historic streets."
+                },
+                {
+                    "ru": "17:30 — Свободное время и отъезд либо отдых.",
+                    "en": "17:30 — Free time and departure or rest."
+                }
+            ]
+        },
+        {
+            "dayNum": 3,
+            "title": {
+                "ru": "Земская медицина и городская природа",
+                "en": "Zemstvo medicine and urban nature"
+            },
+            "places": [
+                {
+                    "ru": "10:30 — Музей «Красноуфимская земская больница», ул. Свободы, 16; режим работы и доступность павильонов уточните заранее.",
+                    "en": "10:30 — Zemstvo Hospital Museum, 16 Svobody St.; check opening hours and pavilion availability in advance."
+                },
+                {
+                    "ru": "12:30 — Прогулка по парку «Целитель» у больницы с соблюдением правил музея.",
+                    "en": "12:30 — Walk through Tselitel Park by the hospital, observing museum rules."
+                },
+                {
+                    "ru": "14:00 — Перерыв на обед.",
+                    "en": "14:00 — Lunch break."
+                },
+                {
+                    "ru": "15:30 — Дивья гора: подъём только по безопасному маршруту при подходящей погоде; при дожде или гололёде выберите набережную.",
+                    "en": "15:30 — Divya Mountain: use a safe path only in suitable weather; choose the embankment in rain or ice."
+                },
+                {
+                    "ru": "17:00 — Свободное время и отъезд либо отдых.",
+                    "en": "17:00 — Free time and departure or rest."
+                }
+            ]
+        }
+    ],
+    "4": [
+        {
+            "dayNum": 1,
+            "title": {
+                "ru": "Знакомство с историческим центром",
+                "en": "Discover the historic centre"
+            },
+            "places": [
+                {
+                    "ru": "10:00 — Краеведческий музей, ул. Советская, 42; часы работы и экскурсии уточните заранее.",
+                    "en": "10:00 — Local History Museum, 42 Sovetskaya St.; check hours and tours in advance."
+                },
+                {
+                    "ru": "12:00 — Прогулка по Советской улице и осмотр здания земской управы, Советская, 17.",
+                    "en": "12:00 — Walk along Sovetskaya Street and view the former zemstvo board at 17 Sovetskaya St."
+                },
+                {
+                    "ru": "13:30 — Перерыв на обед; заведение выберите самостоятельно.",
+                    "en": "13:30 — Lunch break; choose a café yourself."
+                },
+                {
+                    "ru": "14:45 — Свято-Троицкий собор и Аллея Памяти; соблюдайте правила посещения храма.",
+                    "en": "14:45 — Holy Trinity Cathedral and the Alley of Memory; observe the cathedral’s visitor rules."
+                },
+                {
+                    "ru": "16:00 — Доступные участки набережной Уфы и арт-объекты; открытие нижнего уровня уточните перед визитом.",
+                    "en": "16:00 — Accessible sections of the Ufa embankment and public art; check lower-level access before visiting."
+                },
+                {
+                    "ru": "18:00 — Свободное время; при однодневной поездке — отъезд.",
+                    "en": "18:00 — Free time; departure for a one-day trip."
+                }
+            ]
+        },
+        {
+            "dayNum": 2,
+            "title": {
+                "ru": "Железная дорога и старинные здания",
+                "en": "Railway heritage and historic buildings"
+            },
+            "places": [
+                {
+                    "ru": "10:00 — Завтрак и проверка времени работы объектов.",
+                    "en": "10:00 — Breakfast and a check of opening hours."
+                },
+                {
+                    "ru": "11:00 — Историческое здание железнодорожного вокзала; паровоз Л-1699 у локомотивного депо осматривайте только с доступной территории.",
+                    "en": "11:00 — Historic railway station; view locomotive L-1699 near the depot only from publicly accessible areas."
+                },
+                {
+                    "ru": "13:00 — Обед и переезд к центру города.",
+                    "en": "13:00 — Lunch and return to the town centre."
+                },
+                {
+                    "ru": "14:30 — Бывшее реальное и промышленное училище, ул. Ленина, 79: осмотр здания снаружи.",
+                    "en": "14:30 — Former real and industrial school, 79 Lenina St.: view the building from outside."
+                },
+                {
+                    "ru": "16:00 — Доходный дом К. А. Шевелина, ул. Рогозинниковых, 35, и прогулка по историческим улицам.",
+                    "en": "16:00 — K. A. Shevelin’s former apartment house, 35 Rogozinnikovykh St., and a walk along historic streets."
+                },
+                {
+                    "ru": "17:30 — Свободное время и отъезд либо отдых.",
+                    "en": "17:30 — Free time and departure or rest."
+                }
+            ]
+        },
+        {
+            "dayNum": 3,
+            "title": {
+                "ru": "Земская медицина и городская природа",
+                "en": "Zemstvo medicine and urban nature"
+            },
+            "places": [
+                {
+                    "ru": "10:30 — Музей «Красноуфимская земская больница», ул. Свободы, 16; режим работы и доступность павильонов уточните заранее.",
+                    "en": "10:30 — Zemstvo Hospital Museum, 16 Svobody St.; check opening hours and pavilion availability in advance."
+                },
+                {
+                    "ru": "12:30 — Прогулка по парку «Целитель» у больницы с соблюдением правил музея.",
+                    "en": "12:30 — Walk through Tselitel Park by the hospital, observing museum rules."
+                },
+                {
+                    "ru": "14:00 — Перерыв на обед.",
+                    "en": "14:00 — Lunch break."
+                },
+                {
+                    "ru": "15:30 — Дивья гора: подъём только по безопасному маршруту при подходящей погоде; при дожде или гололёде выберите набережную.",
+                    "en": "15:30 — Divya Mountain: use a safe path only in suitable weather; choose the embankment in rain or ice."
+                },
+                {
+                    "ru": "17:00 — Свободное время и отъезд либо отдых.",
+                    "en": "17:00 — Free time and departure or rest."
+                }
+            ]
+        },
+        {
+            "dayNum": 4,
+            "title": {
+                "ru": "Памятные места и свободная прогулка",
+                "en": "Memorials and a flexible town walk"
+            },
+            "places": [
+                {
+                    "ru": "10:30 — Памятный знак Салавату Юлаеву на улице Салавата Юлаева.",
+                    "en": "10:30 — Salavat Yulaev memorial marker on Salavat Yulaev Street."
+                },
+                {
+                    "ru": "12:00 — Казачья изба на ул. Риммы Горбуновой, 35: осмотр снаружи; доступ внутрь уточните заранее.",
+                    "en": "12:00 — Cossack hut at 35 Rimmy Gorbunovoy St.: view from outside; confirm interior access in advance."
+                },
+                {
+                    "ru": "13:30 — Обед и переезд в центр.",
+                    "en": "13:30 — Lunch and travel to the centre."
+                },
+                {
+                    "ru": "15:00 — Часовня Иосифа Песнописца на Камешке; режим посещения уточните у прихода.",
+                    "en": "15:00 — Chapel of St Joseph the Hymnographer at Kameshek; confirm visiting hours with the parish."
+                },
+                {
+                    "ru": "16:30 — Прогулка по открытым участкам набережной или повторное посещение выбранного музея, если он открыт.",
+                    "en": "16:30 — Walk along open parts of the embankment or revisit a museum if open."
+                },
+                {
+                    "ru": "18:00 — Свободное время; при четырёхдневной поездке — отъезд.",
+                    "en": "18:00 — Free time; departure for a four-day trip."
+                }
+            ]
+        }
+    ]
+};
 
         /* =========================================================================
            2. СОСТОЯНИЕ ПРИЛОЖЕНИЯ (STATE)
@@ -748,14 +961,15 @@
                 mobileSeasonSummer: '☀️ Лето',
                 heroBadge: 'Умный калькулятор путешествия • 2026',
                 pageHeroTitle: 'Как добраться и <span class="highlight">спланировать поездку</span> в Красноуфимск',
-                pageHeroDesc: 'Выберите город отправления, транспортную связку и длительность поездки. Система покажет ориентировочное время в пути, примерную смету дороги, гостиницы и питания и составит рекомендуемую программу тура.',
+                pageHeroDesc: 'Выберите город отправления, транспортную связку и длительность поездки. Система покажет ориентировочное время в пути, примерную смету на дорогу, проживание и питание, а также составит рекомендуемую программу тура.',
                 citySectionTitle: 'Шаг 1. Откуда вы отправляетесь?',
-                transSectionTitle: 'Шаг 2. Выберите способ передвижения:',
+                transSectionTitle: 'Шаг 2. Выберите способ передвижения',
                 transHint: '💡 Нажмите на подходящий вариант, чтобы применить его к смете',
-                settingsSectionTitle: 'Шаг 3. Детали вашей поездки:',
+                settingsSectionTitle: 'Шаг 3. Детали вашей поездки',
                 labelDays: '📅 На сколько дней едете?',
                 labelPersons: '👥 Количество человек?',
                 labelHotel: '🏨 Проживание (в сутки):',
+                hotelLocationNote: '«Центральная» — ближе к центру (ул. Рогозинниковых, 14); «Ковчег» — на ул. Спартака, 10, дальше от центра. Проверьте условия и цену каждого варианта.',
                 labelFood: '🍽️ Питание в день на человека:',
                 budgetTitle: 'Примерная смета поездки',
                 budgetTotalLabel: 'Итоговый бюджет:',
@@ -765,7 +979,7 @@
                 rowMuseums: 'Музеи и выставки:',
                 rowSouvenirs: 'Сувениры и гостинцы:',
                 btnNavigator: 'Построить маршрут в Яндекс.Картах',
-                programTitle: 'Рекомендуемая программа в Красноуфимске:',
+                programTitle: 'Рекомендуемая программа в Красноуфимске',
                 weatherModalTitle: 'Погода в Красноуфимске',
                 weatherCoords: 'Свердловская область • 56,6° с.ш., 57,8° в.д.',
                 weatherOnlineBadge: '● Онлайн',
@@ -778,8 +992,8 @@
                 footerLinkGuide: 'Памятка туриста',
                 footerLinkQuiz: 'Викторина',
                 footerCopy: '© 2026 «Красноуфимск: Сквозь эпохи». Выполнен в ходе индивидуального проекта.',
-                footerSchool: 'Некоммерческий образовательный проект о Красноуфимске',
-                footerLinkPrivacy: '🔒 Политика 152-ФЗ',
+                footerSchool: 'Школьный образовательный краеведческий проект',
+                footerLinkPrivacy: '🔒 Политика конфиденциальности и 152-ФЗ',
                 footerLinkSources: '📚 Источники и кредиты',
                 daysOpt1: '1 день',
                 daysOpt2: '2 дня',
@@ -803,7 +1017,7 @@
                 cookieNotice: 'Сайт сохраняет настройки и достижения в памяти браузера и обращается к внешним сервисам. Кнопка «Понятно» только скрывает уведомление. Подробнее — в политике конфиденциальности.',
                 cookieAccept: 'Понятно',
                 cookieInfo: 'Подробнее',
-                checklistTitle: 'Чек-лист сборов в дорогу:',
+                checklistTitle: 'Чек-лист сборов в дорогу',
                 checklistSubtitle: 'Список необходимых вещей с учётом сезона и транспорта в Красноуфимск:',
                 geoSearchDivider: '🌍 Найденные города и населённые пункты:',
                 searchingCities: 'Поиск по городам России и мира...',
@@ -846,12 +1060,13 @@
                 pageHeroTitle: 'How to get to & <span class="highlight">plan your trip</span> to Krasnoufimsk',
                 pageHeroDesc: 'Select your departure city, transport mode, and length of stay. The system instantly calculates travel time, transportation expenses, hotel stays, meal costs, and generates a personalized daily itinerary.',
                 citySectionTitle: 'Step 1. Where are you departing from?',
-                transSectionTitle: 'Step 2. Choose your transport mode:',
+                transSectionTitle: 'Step 2. Choose your transport mode',
                 transHint: '💡 Click any option below to apply it to your trip estimate',
-                settingsSectionTitle: 'Step 3. Your trip parameters:',
+                settingsSectionTitle: 'Step 3. Your trip parameters',
                 labelDays: '📅 Trip duration in days?',
                 labelPersons: '👥 Number of travelers?',
                 labelHotel: '🏨 Hotel stay (per night):',
+                hotelLocationNote: 'Tsentralnaya is closer to the centre (14 Rogozinnikovykh St.); Kovcheg is farther away (10 Spartaka St.). Check each hotel’s conditions and price.',
                 labelFood: '🍽️ Food & meals (day/pers):',
                 budgetTitle: 'Estimated trip budget',
                 budgetTotalLabel: 'Total estimated budget:',
@@ -861,7 +1076,7 @@
                 rowMuseums: 'Museums & exhibitions:',
                 rowSouvenirs: 'Souvenirs & treats:',
                 btnNavigator: 'Build route in Yandex Maps',
-                programTitle: 'Recommended itinerary in Krasnoufimsk:',
+                programTitle: 'Recommended itinerary in Krasnoufimsk',
                 weatherModalTitle: 'Weather in Krasnoufimsk',
                 weatherCoords: 'Sverdlovsk Oblast • 56.6° N, 57.8° E',
                 weatherOnlineBadge: '● Live',
@@ -874,8 +1089,8 @@
                 footerLinkGuide: 'Tourist memo',
                 footerLinkQuiz: 'Historical quiz',
                 footerCopy: '© 2026 "Krasnoufimsk: Through the Ages". Completed as part of an individual project.',
-                footerSchool: 'A non-commercial educational project about Krasnoufimsk',
-                footerLinkPrivacy: '🔒 Privacy Policy (152-FZ)',
+                footerSchool: 'School educational local history project',
+                footerLinkPrivacy: '🔒 Privacy Policy & 152-FZ',
                 footerLinkSources: '📚 Sources & Credits',
                 daysOpt1: '1 day',
                 daysOpt2: '2 days',
@@ -899,7 +1114,7 @@
                 cookieNotice: 'This site stores settings and achievements in your browser and uses external services. The button only dismisses this notice. See the privacy policy for details.',
                 cookieAccept: 'Got it',
                 cookieInfo: 'Learn more',
-                checklistTitle: 'Travel Packing Checklist:',
+                checklistTitle: 'Travel Packing Checklist',
                 checklistSubtitle: 'Essential packing list tailored to season & travel mode:',
                 geoSearchDivider: '🌍 Found cities & locations:',
                 searchingCities: 'Searching cities worldwide...',
@@ -2035,7 +2250,7 @@
                 const activeInput = document.getElementById('city-search-input');
                 if (!activeInput || activeInput.value.trim() === currentQuery) {
                     isGeoSearching = false;
-                    renderCitySearchDropdown(currentQuery);
+                    renderCitySelectors(currentQuery);
                 }
             }
         }
@@ -2238,11 +2453,14 @@
             const dropdown = document.getElementById('city-search-dropdown');
             if (dropdown) dropdown.classList.add('show');
 
+            // Не показываем сообщение об отсутствии города, пока идёт новый поиск.
+            const query = (val || '').trim();
+            externalGeoResults = [];
+            isGeoSearching = query.length >= 2;
             renderCitySelectors(val);
 
             // Обращение к геокодеру с задержкой 280мс
             clearTimeout(geoSearchTimer);
-            const query = (val || '').trim();
             if (query.length >= 2) {
                 currentGeoSearchQuery = query;
                 isGeoSearching = true;
@@ -2799,21 +3017,209 @@
             const program = [...(ITINERARY_PROGRAMS[daysKey] || ITINERARY_PROGRAMS[3])];
             if (tripDays > 4) {
                 const extraTemplates = [
-                    { title: { ru: 'Виадуки с трансфером и запасом времени', en: 'Viaducts with a transfer and time buffer' }, places: [
-                        { ru: '🚗 Заранее закажите трансфер к смотровым точкам виадуков; не рассчитывайте на пеший переход от города.', en: '🚗 Book a transfer to viaduct viewpoints in advance; do not plan to walk from town.' },
-                        { ru: '⚠️ Не выходите на действующие железнодорожные пути и конструкции: осмотр только с безопасных общественных точек.', en: '⚠️ Never enter active railway tracks or structures: view only from safe public points.' }
-                    ]},
-                    { title: { ru: 'Природа без спешки', en: 'Nature at an easy pace' }, places: [
-                        { ru: '🌲 Сосновые боры и набережная Уфы в светлое время; проверьте погоду и возьмите воду.', en: '🌲 Pine forests and the Ufa embankment in daylight; check the weather and carry water.' },
-                        { ru: '⚠️ Дивья гора — только подготовленным группам и по безопасному маршруту; детям без взрослых подъём не рекомендуется.', en: '⚠️ Divya Hill is only for prepared groups on a safe route; children should not climb unaccompanied.' }
-                    ]},
-                    { title: { ru: 'Музеи и свободная программа', en: 'Museums and free time' }, places: [
-                        { ru: '🏛️ Повторите понравившийся музей или объект из каталога главной страницы; часы работы уточните в день визита.', en: '🏛️ Revisit a favourite museum or sight from the main-page catalogue; confirm opening hours on the day.' },
-                        { ru: '🛍️ Оставьте резерв на сувениры, кафе и непредвиденные переносы транспорта.', en: '🛍️ Keep a buffer for souvenirs, cafés and unexpected transport changes.' }
-                    ]}
-                ];
+    {
+        "title": {
+            "ru": "Купеческий Красноуфимск",
+            "en": "Merchant-era Krasnoufimsk"
+        },
+        "places": [
+            {
+                "ru": "Прогулка по Советской улице: здание земской управы, Советская, 17, и исторические фасады.",
+                "en": "Walk along Sovetskaya Street: the former zemstvo board at No. 17 and historic façades."
+            },
+            {
+                "ru": "Доходный дом К. А. Шевелина на улице Рогозинниковых, 35 — осмотр снаружи.",
+                "en": "View K. A. Shevelin’s former apartment house at 35 Rogozinnikovykh St. from outside."
+            },
+            {
+                "ru": "Свободное время в центре; порядок точек и транспорт выберите по карте.",
+                "en": "Free time in the centre; choose the order of stops and transport using a map."
+            }
+        ]
+    },
+    {
+        "title": {
+            "ru": "Арт-объекты набережной",
+            "en": "Public art on the embankment"
+        },
+        "places": [
+            {
+                "ru": "Прогулка по открытым участкам набережной Уфы: скульптуры геликоприона и девочки с самолётиком.",
+                "en": "Walk along open parts of the Ufa embankment: the Helicoprion and Girl with a Toy Plane sculptures."
+            },
+            {
+                "ru": "Найдите композицию «Бравый казак» и сравните её с историей крепости в карточках сайта.",
+                "en": "Find the Brave Cossack composition and compare it with the fortress history in the site’s entries."
+            },
+            {
+                "ru": "Перед прогулкой уточните доступность участков набережной; не заходите за ограждения.",
+                "en": "Check which parts of the embankment are open; stay outside fenced areas."
+            }
+        ]
+    },
+    {
+        "title": {
+            "ru": "Земская медицина и парк",
+            "en": "Zemstvo medicine and the park"
+        },
+        "places": [
+            {
+                "ru": "При возможности посетите музей земской больницы на улице Свободы, 16; часы и доступность павильонов уточните заранее.",
+                "en": "If possible, visit the Zemstvo Hospital Museum at 16 Svobody St.; check hours and pavilion access in advance."
+            },
+            {
+                "ru": "Прогуляйтесь по парку «Целитель», соблюдая правила территории музея.",
+                "en": "Walk through Tselitel Park, observing the museum grounds rules."
+            },
+            {
+                "ru": "Если музей закрыт, перенесите посещение и оставьте время для самостоятельной прогулки.",
+                "en": "If the museum is closed, reschedule the visit and use the time for an independent walk."
+            }
+        ]
+    },
+    {
+        "title": {
+            "ru": "Образование и исторические здания",
+            "en": "Education and historic buildings"
+        },
+        "places": [
+            {
+                "ru": "Осмотрите снаружи бывшее реальное и промышленное училище на улице Ленина, 79.",
+                "en": "View the former real and industrial school at 79 Lenina St. from outside."
+            },
+            {
+                "ru": "Вернитесь к зданию бывшей земской управы на Советской, 17 и прочитайте его карточку на сайте.",
+                "en": "Return to the former zemstvo board at 17 Sovetskaya St. and read its entry on the site."
+            },
+            {
+                "ru": "Перерыв в центре и свободное время; вход в действующие здания не предполагается.",
+                "en": "Take a break in the centre; entry to occupied buildings is not assumed."
+            }
+        ]
+    },
+    {
+        "title": {
+            "ru": "Железнодорожная история",
+            "en": "Railway history"
+        },
+        "places": [
+            {
+                "ru": "Посмотрите на историческое здание станции Красноуфимск, Станционная, 11.",
+                "en": "View the historic Krasnoufimsk station building at 11 Stantsionnaya St."
+            },
+            {
+                "ru": "Паровоз Л-1699 у локомотивного депо осматривайте только с доступной общественной территории.",
+                "en": "View locomotive L-1699 near the depot only from publicly accessible areas."
+            },
+            {
+                "ru": "Не выходите на пути, не проходите за ограждения и заранее проверьте подходы.",
+                "en": "Do not enter railway tracks or fenced areas; check access in advance."
+            }
+        ]
+    },
+    {
+        "title": {
+            "ru": "Памятные места города",
+            "en": "Town memorials"
+        },
+        "places": [
+            {
+                "ru": "Побывайте у Аллеи Памяти рядом со Свято-Троицким собором.",
+                "en": "Visit the Alley of Memory near Holy Trinity Cathedral."
+            },
+            {
+                "ru": "Если удобно добраться, осмотрите памятный знак Салавату Юлаеву на одноимённой улице.",
+                "en": "If convenient, visit the Salavat Yulaev memorial marker on the street of the same name."
+            },
+            {
+                "ru": "Соблюдайте уважительное поведение; время на дорогу между точками планируйте самостоятельно.",
+                "en": "Act respectfully and allow time for travel between the stops."
+            }
+        ]
+    },
+    {
+        "title": {
+            "ru": "Крепость и Камешек",
+            "en": "Fortress history and Kameshek"
+        },
+        "places": [
+            {
+                "ru": "Казачья изба на улице Риммы Горбуновой, 35: осмотр снаружи; возможность входа уточните заранее.",
+                "en": "Cossack hut at 35 Rimmy Gorbunovoy St.: view from outside; check interior access in advance."
+            },
+            {
+                "ru": "Часовня Иосифа Песнописца на Камешке: режим посещения уточните у прихода.",
+                "en": "Chapel of St Joseph the Hymnographer at Kameshek: confirm visiting hours with the parish."
+            },
+            {
+                "ru": "Продолжите прогулку по открытой части набережной, учитывая погоду и состояние дорожек.",
+                "en": "Continue along an open part of the embankment, taking weather and path conditions into account."
+            }
+        ]
+    },
+    {
+        "title": {
+            "ru": "Городские улицы и площадь",
+            "en": "Town streets and central square"
+        },
+        "places": [
+            {
+                "ru": "Посмотрите городские часы «Перекрёсток времён» и центральную площадь.",
+                "en": "See the Crossroads of Times town clock and the central square."
+            },
+            {
+                "ru": "Пройдите по историческим улицам центра; интересные здания рассматривайте с общественных участков.",
+                "en": "Walk along the historic central streets and view buildings from public areas."
+            },
+            {
+                "ru": "Зайдите в выбранное кафе или оставьте время для отдыха; наличие мест уточните самостоятельно.",
+                "en": "Choose a café or take a break; check availability yourself."
+            }
+        ]
+    },
+    {
+        "title": {
+            "ru": "Дивья гора и спокойная прогулка",
+            "en": "Divya Mountain and an easy walk"
+        },
+        "places": [
+            {
+                "ru": "При подходящей погоде посетите Дивью гору по безопасному доступному маршруту.",
+                "en": "In suitable weather, visit Divya Mountain using a safe, accessible route."
+            },
+            {
+                "ru": "В дождь или гололёд замените подъём прогулкой по открытым участкам набережной.",
+                "en": "In rain or ice, replace the climb with a walk along open parts of the embankment."
+            },
+            {
+                "ru": "Оставьте время для фотографий и отдыха; не приближайтесь к опасным склонам.",
+                "en": "Allow time for photos and rest; keep away from dangerous slopes."
+            }
+        ]
+    },
+    {
+        "title": {
+            "ru": "Любимые места и завершение поездки",
+            "en": "Favourite places and departure"
+        },
+        "places": [
+            {
+                "ru": "Вернитесь к понравившемуся объекту в городской черте или повторно посетите открытый музей.",
+                "en": "Return to a favourite location within town or revisit an open museum."
+            },
+            {
+                "ru": "Оставьте время на обед, сбор вещей и проверку транспорта на обратную дорогу.",
+                "en": "Allow time for lunch, packing and checking return transport."
+            },
+            {
+                "ru": "Отъезд запланируйте с запасом; посещения и билеты уточняйте самостоятельно.",
+                "en": "Allow a buffer for departure; check visits and tickets independently."
+            }
+        ]
+    }
+];
                 for (let d = 5; d <= tripDays; d++) {
-                    const tpl = extraTemplates[(d - 5) % extraTemplates.length];
+                    const tpl = extraTemplates[d - 5];
                     program.push({ dayNum: d, title: tpl.title, places: tpl.places });
                 }
             }
@@ -2972,7 +3378,7 @@
                 {
                     id: 'power',
                     icon: '🔋',
-                    text: isEn ? 'Phone charger, high-capacity PowerBank & camera for viaducts' : 'Зарядное устройство, ёмкий PowerBank и камера для съёмки виадуков'
+                    text: isEn ? 'Phone charger, power bank & camera' : 'Зарядное устройство, ёмкий PowerBank и камера'
                 },
                 {
                     id: 'shoes',

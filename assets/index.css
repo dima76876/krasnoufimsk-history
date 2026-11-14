@@ -1326,7 +1326,7 @@
             font-size: 11.5px;
             font-weight: 700;
             color: #e2e8f0;
-            text-transform: uppercase;
+            text-transform: none;
             letter-spacing: 0.8px;
             opacity: 0.95;
         }
@@ -7671,3 +7671,13 @@ body.dark-theme .sights-nav-btn:focus-visible, body.dark-theme .sights-custom-tr
 
 /* Адрес для обращений и ссылки должны помещаться в окне на узких экранах. */
 #privacy-modal .passport-modal-body, #sources-modal .passport-modal-body { overflow-wrap: anywhere; }
+
+/* Прокрутка длинных юридических окон не передаётся странице под ними. */
+html.legal-dialog-open { overflow: hidden; overscroll-behavior: none; }
+#privacy-modal .passport-modal-body, #sources-modal .passport-modal-body {
+    min-height: 0;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+#privacy-modal .passport-modal-body a { color: #1d4ed8; text-decoration: underline; text-underline-offset: 2px; }
+body.dark-theme #privacy-modal .passport-modal-body a { color: #7dd3fc; }
