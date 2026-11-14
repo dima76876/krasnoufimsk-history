@@ -1,5 +1,5 @@
 /* Красноуфимск: Сквозь эпохи — Service Worker (полный офлайн-пакет, 2026-10-19) */
-const CACHE = 'kuf-history-v103-offline-20261018';
+const CACHE = 'kuf-history-v104-offline-20261018';
 const PMTILES_PATH = '/assets/maps/krasnoufimsk.pmtiles';
 const FONT_FILES = [
   'inter-cyrillic-ext-wght-normal.woff2',
@@ -23,7 +23,6 @@ const CORE = [
   '/assets/fonts.css',
   ...FONT_FILES.map(file => `/assets/fonts/${file}`),
   '/assets/index.css', '/assets/index.js', '/assets/planner.css', '/assets/planner.js',
-  PMTILES_PATH,
   '/images/og_banner.jpg', '/images/coat-of-arms.png', '/images/unsplash.webp', '/images/bg_winter.webp', '/images/bg_spring.webp', '/images/bg_summer.webp',
   '/vendor/leaflet.css', '/vendor/leaflet.js', '/vendor/protomaps-leaflet.js', '/vendor/pmtiles.js',
   '/vendor/pdfmake.min.js', '/vendor/vfs_fonts.js'
@@ -40,22 +39,45 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
+    // У уже установивших v103 сохраняем прежний офлайн-архив карты при обновлении.
+    const oldCacheName = 'kuf-history-v103-offline-20261018';
+    if (keys.includes(oldCacheName)) {
+      const oldCache = await caches.open(oldCacheName);
+      const previousMap = await oldCache.match(PMTILES_PATH, { ignoreSearch: true });
+      if (previousMap && previousMap.status === 200) {
+        const cache = await caches.open(CACHE);
+        await cache.put(PMTILES_PATH, previousMap);
+      }
+    }
     await Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)));
     await self.clients.claim();
   })());
 });
 
+let pendingPmtilesFetch = null;
 async function getFullPmtilesResponse(cache) {
   const cacheKey = new Request(new URL(PMTILES_PATH, self.location.origin).href, { method: 'GET' });
-  let response = await cache.match(cacheKey, { ignoreSearch: true, ignoreVary: true });
-  if (response && response.status === 200) return response;
-
-  response = await fetch(cacheKey);
-  if (response && response.ok && response.status === 200) {
-    await cache.put(cacheKey, response.clone());
+  const stored = await cache.match(cacheKey, { ignoreSearch: true, ignoreVary: true });
+  if (stored && stored.status === 200) return stored;
+  if (!pendingPmtilesFetch) {
+    pendingPmtilesFetch = (async () => {
+      const response = await fetch(cacheKey, { priority: 'low' });
+      if (response && response.ok && response.status === 200) {
+        try { await cache.put(cacheKey, response.clone()); }
+        catch (err) { console.warn('Map offline cache:', err); }
+      }
+      return response;
+    })().finally(() => { pendingPmtilesFetch = null; });
   }
-  return response;
+  const response = await pendingPmtilesFetch;
+  return response.clone();
 }
+
+// Страница просит сохранить карту лишь после своей загрузки, в фоне.
+self.addEventListener('message', event => {
+  if (!event.data || event.data.type !== 'PREFETCH_OFFLINE_MAP') return;
+  event.waitUntil(caches.open(CACHE).then(getFullPmtilesResponse).catch(() => {}));
+});
 
 async function handlePmtilesRequest(request) {
   const cache = await caches.open(CACHE);

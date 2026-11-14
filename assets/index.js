@@ -3168,13 +3168,20 @@
         const backToTopBtn = document.getElementById('btn-back-to-top');
 
         let scrollRafId = null;
+        let scrollPauseTimer = null;
+        const compactScreen = window.matchMedia('(max-width: 768px)');
         window.addEventListener('scroll', function () {
+            if (compactScreen.matches) {
+                if (!document.body.classList.contains('page-is-scrolling')) document.body.classList.add('page-is-scrolling');
+                clearTimeout(scrollPauseTimer);
+                scrollPauseTimer = setTimeout(() => document.body.classList.remove('page-is-scrolling'), 160);
+            }
             if (scrollRafId) return;
             scrollRafId = requestAnimationFrame(() => {
                 const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                 const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
-                if (progressBar) progressBar.style.width = scrolled + '%';
+                if (progressBar) progressBar.style.transform = `scaleX(${Math.max(0, Math.min(1, scrolled / 100))})`;
 
                 if (backToTopBtn) {
                     if (winScroll > 400) {
@@ -4083,6 +4090,7 @@
             if (sightsBaseLayer) sightsMap.removeLayer(sightsBaseLayer);
             sightsBaseLayer = nextLayer;
             sightsBaseLayerKey = nextKey;
+            if (document.querySelector('.map-load-notice')) watchSightsBaseLayer();
             sightsBaseLayer.addTo(sightsMap);
             const mapEl = document.getElementById('sights-leaflet-map');
             if (mapEl) mapEl.classList.remove('map-base-unavailable');
@@ -4110,6 +4118,15 @@
             if (typeof L !== 'undefined' && window.protomapsL && sightsPmtilesArchive) return Promise.resolve();
             if (leafletLoadPromise) return leafletLoadPromise;
             leafletLoadPromise = (async () => {
+                // При быстром переходе к карте даём основным ресурсам страницы загрузиться первыми.
+                if (document.readyState !== 'complete') {
+                    await new Promise(resolve => {
+                        let timer;
+                        const done = () => { clearTimeout(timer); window.removeEventListener('load', done); resolve(); };
+                        window.addEventListener('load', done, { once: true });
+                        timer = setTimeout(done, 8000); // зависший внешний ресурс не блокирует карту навсегда
+                    });
+                }
                 if (!document.querySelector('link[data-leaflet-css]')) {
                     const link = document.createElement('link');
                     link.rel = 'stylesheet'; link.href = 'vendor/leaflet.css'; link.dataset.leafletCss = 'true';
@@ -4125,7 +4142,7 @@
                     } else {
                         // Один полный ответ исключает разрывы множества Range-запросов.
                         // Service Worker сохраняет этот же файл для офлайн-режима.
-                        const response = await fetch(SIGHTS_PMTILES_URL);
+                        const response = await fetch(SIGHTS_PMTILES_URL, { priority: 'low' });
                         if (!response.ok || response.status !== 200) throw new Error('Map archive failed to load');
                         const blob = await response.blob();
                         if (blob.size < 127) throw new Error('Map archive is incomplete');
@@ -4154,18 +4171,62 @@
             }
             notice.dataset.state = state;
             notice.replaceChildren();
-            const message = document.createElement('span');
-            message.textContent = state === 'loading'
-                ? (currentLang === 'en' ? 'Loading map…' : 'Загрузка карты…')
-                : (currentLang === 'en' ? 'Could not load the map.' : 'Не удалось загрузить карту.');
-            notice.appendChild(message);
-            if (state === 'error') {
+            const symbol = document.createElement('span');
+            symbol.className = 'map-load-symbol';
+            symbol.setAttribute('aria-hidden', 'true');
+            symbol.textContent = state === 'loading' ? '🗺️' : '📍';
+            const title = document.createElement('strong');
+            title.className = 'map-load-title';
+            title.textContent = state === 'loading'
+                ? (currentLang === 'en' ? 'Loading the map' : 'Карта загружается')
+                : (currentLang === 'en' ? 'Could not load the map' : 'Не удалось загрузить карту');
+            notice.append(symbol, title);
+            if (state === 'loading') {
+                const caption = document.createElement('span');
+                caption.className = 'map-load-caption';
+                caption.textContent = currentLang === 'en' ? 'Please wait a moment' : 'Пожалуйста, подождите немного';
+                const spinner = document.createElement('span');
+                spinner.className = 'map-load-spinner';
+                spinner.setAttribute('aria-hidden', 'true');
+                notice.append(caption, spinner);
+            } else {
                 const retry = document.createElement('button');
                 retry.type = 'button';
                 retry.textContent = currentLang === 'en' ? 'Try again' : 'Попробовать снова';
-                retry.addEventListener('click', () => filterSightsMap(currentMapFilter));
+                retry.addEventListener('click', () => {
+                    if (sightsMap && sightsBaseLayer) { watchSightsBaseLayer(); sightsBaseLayer.redraw(); }
+                    else filterSightsMap(currentMapFilter);
+                });
                 notice.appendChild(retry);
             }
+        }
+
+        // Оставляем заставку до появления тайлов; при сбое предлагаем повторить.
+        let sightsBaseLoadTimer = null;
+        function watchSightsBaseLayer() {
+            const layer = sightsBaseLayer;
+            if (!layer) return;
+            setSightsMapLoadState('loading');
+            clearTimeout(sightsBaseLoadTimer);
+            layer.once('load', () => {
+                if (layer !== sightsBaseLayer) return;
+                clearTimeout(sightsBaseLoadTimer);
+                setSightsMapLoadState(null);
+            });
+            sightsBaseLoadTimer = setTimeout(() => {
+                if (layer === sightsBaseLayer) setSightsMapLoadState('error');
+            }, 20000);
+        }
+
+        // Офлайн-копию карты готовим после загрузки страницы, не в install Service Worker.
+        if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    navigator.serviceWorker.ready.then(reg => {
+                        if (reg.active) reg.active.postMessage({ type: 'PREFETCH_OFFLINE_MAP' });
+                    }).catch(() => {});
+                }, 8000);
+            }, { once: true });
         }
 
         function lazyInitSightsMap() {
@@ -4177,20 +4238,26 @@
             obs.observe(card);
         }
 
+        let pendingSightsMapInit = null;
         function initSightsMap() {
             const mapEl = document.getElementById('sights-leaflet-map');
             if (!mapEl) return;
             if (typeof L === 'undefined' || !window.protomapsL || !sightsPmtilesArchive) {
+                if (pendingSightsMapInit) return pendingSightsMapInit;
                 setSightsMapLoadState('loading');
-                return loadLeaflet().then(() => initSightsMap()).catch(err => {
+                pendingSightsMapInit = loadLeaflet().then(() => {
+                    pendingSightsMapInit = null;
+                    return initSightsMap();
+                }).catch(err => {
+                    pendingSightsMapInit = null;
                     console.warn('Map load notice:', err);
                     setSightsMapLoadState('error');
                     return null;
                 });
+                return pendingSightsMapInit;
             }
             if (sightsMap) {
                 sightsMap.invalidateSize();
-                setSightsMapLoadState(null);
                 return Promise.resolve(sightsMap);
             }
 
@@ -4216,6 +4283,7 @@
                 sightsBaseLayer = createSightsBaseLayer();
                 sightsBaseLayerKey = getSightsBaseLayerKey();
                 if (sightsBaseLayer) {
+                    watchSightsBaseLayer();
                     sightsBaseLayer.addTo(sightsMap);
                 } else {
                     mapEl.classList.add('map-base-unavailable');
@@ -4227,7 +4295,7 @@
 
                 sightsMarkersLayer = L.layerGroup().addTo(sightsMap);
                 renderSightsMapMarkers(currentMapFilter);
-                setSightsMapLoadState(null);
+                if (!sightsBaseLayer) setSightsMapLoadState('error');
                 // После изменения размера контейнера Leaflet пересчитывает размер и видимые тайлы.
                 if ('ResizeObserver' in window) {
                     let lastSize = '';

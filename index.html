@@ -516,6 +516,12 @@
             <!-- Контейнер карты Leaflet -->
             <div class="sights-leaflet-frame">
                 <div id="sights-leaflet-map" role="application" aria-label="Интерактивная карта достопримечательностей Красноуфимска"></div>
+                <div class="map-load-notice" data-state="loading" role="status" aria-live="polite">
+                    <span class="map-load-symbol" aria-hidden="true">🗺️</span>
+                    <strong class="map-load-title">Карта загружается</strong>
+                    <span class="map-load-caption">Пожалуйста, подождите немного</span>
+                    <span class="map-load-spinner" aria-hidden="true"></span>
+                </div>
             <p class="sights-map-alt" data-i18n="mapAltText">Текстовая альтернатива карте: тот же каталог из 27 объектов находится выше — выбирайте объект кнопками, поиском или списком. Маркеры карты доступны с клавиатуры клавишей Tab.</p>
             </div>
             
@@ -1106,7 +1112,7 @@
                 <button type="button" class="passport-close-btn" onclick="closePrivacyModal()" aria-label="Закрыть">✕</button>
             </div>
             <div class="passport-modal-body" style="font-size:0.88rem; line-height:1.6; color:var(--text-main);">
-                <p data-i18n="privacyP1"><strong>1. О проекте.</strong> «Красноуфимск: Сквозь эпохи» — некоммерческий образовательный сайт, созданный в ходе индивидуального проекта. По вопросам работы сайта и обработки данных: <a href="/cdn-cgi/l/email-protection#9cf7eefdeff2f3e9faf5f1eff7b2f4f5efe8f3eee5b2fff3f2e8fdffe8dcf1fdf5f0b2eee9"><span class="__cf_email__" data-cfemail="bbd0c9dac8d5d4ceddd2d6c8d095d3d2c8cfd4c9c295d8d4d5cfdad8cffbd6dad2d795c9ce">[email&#160;protected]</span></a>.</p>
+                <p data-i18n="privacyP1"><strong>1. О проекте.</strong> «Красноуфимск: Сквозь эпохи» — некоммерческий образовательный сайт, созданный в ходе индивидуального проекта. По вопросам работы сайта и обработки данных: <a href="/cdn-cgi/l/email-protection#365d445745585943505f5b455d185e5f454259444f1855595842575542765b575f5a184443"><span class="__cf_email__" data-cfemail="e9829b889a87869c8f80849a82c781809a9d869b90c78a86879d888a9da984888085c79b9c">[email&#160;protected]</span></a>.</p>
                 <p data-i18n="privacyP2"><strong>2. Данные в браузере.</strong> Локальное хранилище сохраняет настройки языка, темы и сезона, данные паспорта исследователя и достижения, отметки чек-листа, выбор о закрытии уведомления и некоторые временные данные, например погоду и результаты поиска. Для офлайн-доступа браузер может сохранять файлы сайта и карты. Удалить данные можно в настройках браузера, очистив данные сайта; настройки и достижения при этом могут быть потеряны. Срок хранения временных данных зависит от функции и настроек браузера.</p>
                 <p data-i18n="privacyP3"><strong>3. Имя для диплома.</strong> Имя обрабатывается в браузере для отображения и создания диплома. Имя в паспорте исследователя может сохраняться в локальном хранилище на устройстве. На общем устройстве не вводите сведения, которые не хотите оставлять другим пользователям.</p>
                 <p data-i18n="privacyP4"><strong>4. Внешние сервисы.</strong> Сайт размещён на GitHub Pages; GitHub сообщает, что записывает IP-адреса посетителей в целях безопасности. Для погоды используются Open-Meteo или Met.no с координатами Красноуфимска. При поиске населённого пункта введённый запрос отправляется в Open-Meteo; не вводите туда конфиденциальные сведения. Если локальная библиотека PDF недоступна, она может загружаться через Cloudflare CDN. Сторонние сервисы могут получать IP-адрес и другие технические сведения; сроки хранения и условия определяются соответствующими сервисами. При переходе на внешние сайты, в том числе Яндекс Карты и Яндекс Расписания, действуют их правила.</p>
@@ -1199,7 +1205,7 @@
     
     
     
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5a6916f7f60a2ec',t:'MTc5NDY2NTA5NQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5a6916f7f60a2ec',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5a6ea5e8acb9914',t:'MTc5NDY2ODczOA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5a6ea5e8acb9914',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 
 
 
