@@ -1,5 +1,5 @@
 /* Красноуфимск: Сквозь эпохи — Service Worker (полный офлайн-пакет, 2026-10-19) */
-const CACHE = 'kuf-history-v105-offline-20261018';
+const CACHE = 'kuf-history-v115-offline-20261018';
 const PMTILES_PATH = '/assets/maps/krasnoufimsk.pmtiles';
 const FONT_FILES = [
   'inter-cyrillic-ext-wght-normal.woff2',
@@ -39,8 +39,8 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
-    // Сохраняем прежнюю офлайн-карту при обновлении с v104 или v103.
-    for (const oldCacheName of ['kuf-history-v104-offline-20261018', 'kuf-history-v103-offline-20261018']) {
+    // Сохраняем прежнюю офлайн-карту при обновлении с v114, v113, v112, v111, v110, v109, v108, v107, v106, v105, v104 или v103.
+    for (const oldCacheName of ['kuf-history-v114-offline-20261018', 'kuf-history-v113-offline-20261018', 'kuf-history-v112-offline-20261018', 'kuf-history-v111-offline-20261018', 'kuf-history-v110-offline-20261018', 'kuf-history-v109-offline-20261018', 'kuf-history-v108-offline-20261018', 'kuf-history-v107-offline-20261018', 'kuf-history-v106-offline-20261018', 'kuf-history-v105-offline-20261018', 'kuf-history-v104-offline-20261018', 'kuf-history-v103-offline-20261018']) {
       if (!keys.includes(oldCacheName)) continue;
       const oldCache = await caches.open(oldCacheName);
       const previousMap = await oldCache.match(PMTILES_PATH, { ignoreSearch: true });

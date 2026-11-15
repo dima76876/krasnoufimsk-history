@@ -2092,12 +2092,15 @@
         }
 
         .routes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 24px;
         }
 
+        /* Последняя карточка заполняет строку при любом доступном размере. */
         .route-card {
+            flex: 1 1 290px;
+            min-width: 0;
             background: var(--bg-card);
             border: 1.5px solid var(--border-card);
             border-radius: var(--radius-md);
@@ -2188,6 +2191,12 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
+        }
+
+        /* Светлый пунктир виден на тёмных карточках и сохраняет исходный стиль. */
+        body.dark-theme .route-meta-list,
+        body.dark-theme .address-map-btn-wrap {
+            border-color: rgba(203, 213, 225, 0.38);
         }
 
         .route-meta-list li strong {
@@ -5460,7 +5469,7 @@
         body.dark-theme .sights-map-badge,
         body.dark-theme .sight-meta-pill {
             background: color-mix(in srgb, var(--main-color) 22%, rgba(30, 41, 59, 0.7)) !important;
-            color: var(--main-color) !important;
+            color: var(--timeline-dark-accent, #ffb279) !important;
             border: 1.5px solid color-mix(in srgb, var(--main-color) 45%, transparent) !important;
             backdrop-filter: blur(10px) !important;
             -webkit-backdrop-filter: blur(10px) !important;
@@ -7418,6 +7427,23 @@ body.dark-theme.season-autumn { --timeline-dark-accent: #ffb279; }
 body.dark-theme.season-winter { --timeline-dark-accent: #86d5ff; }
 body.dark-theme.season-spring { --timeline-dark-accent: #86e8a6; }
 body.dark-theme.season-summer { --timeline-dark-accent: #72e4d6; }
+/* Подпись планировщика использует тот же сезонный светлый акцент. */
+body.dark-theme .planner-cta-badge,
+body.dark-theme .pwa-badge,
+body.dark-theme .route-meta-list li strong,
+body.dark-theme .historical-fact-box strong,
+body.dark-theme .sight-fact-label,
+body.dark-theme .map-title,
+body.dark-theme .map-popup-badge,
+body.dark-theme .intro-card h2,
+body.dark-theme .sights-trigger-num,
+body.dark-theme .quiz-counter-pill strong,
+body.dark-theme .quiz-percent-pill,
+body.dark-theme .guide-history-list li strong,
+body.dark-theme .guide-places-list li strong { color: var(--timeline-dark-accent, #ffb279); }
+/* В покое текст на тёмной кнопке светлый; при наведении сохраняем белый. */
+body.dark-theme .btn-open-map:not(:hover),
+body.dark-theme .quiz-nav-btn:not(.quiz-nav-finish):not(:hover) { color: var(--timeline-dark-accent, #ffb279) !important; }
 body.dark-theme .timeline-heading-kicker,
 body.dark-theme .sights-custom-opt-item.selected .sights-opt-item-title,
 body.dark-theme .sights-custom-opt-item.selected .sights-opt-num-badge,
