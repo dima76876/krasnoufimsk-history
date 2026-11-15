@@ -1531,6 +1531,9 @@
                 }
             });
 
+            // Сохраняем и переводим актуальную подсказку установки, а не возвращаем её к инструкции для iPhone.
+            updatePwaHintLanguage();
+
             // Обновляем все placeholder-ы с атрибутом data-i18n-placeholder
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
                 const k = el.getAttribute('data-i18n-placeholder');
@@ -6359,20 +6362,41 @@
            PWA: ОБРАБОТЧИК УСТАНОВКИ ВЕБ-ПРИЛОЖЕНИЯ
            ========================================================================= */
         let pwaDeferredPrompt = null;
+        // var доступен при ранней инициализации языка до DOMContentLoaded.
+        var pwaHintState = 'default';
+
+        function updatePwaHintLanguage() {
+            const hint = document.getElementById('pwa-install-hint');
+            if (!hint || !pwaHintState || pwaHintState === 'default') return;
+            const en = currentLang === 'en';
+            if (pwaHintState === 'ready') {
+                hint.textContent = en ? 'Click the button above to install the app on your device!' : 'Нажмите кнопку выше, чтобы установить путеводитель на ваше устройство!';
+            } else if (pwaHintState === 'installed') {
+                hint.textContent = en ? '✅ The app has been successfully installed!' : '✅ Приложение успешно установлено на ваше устройство!';
+            } else if (pwaHintState === 'standalone') {
+                hint.textContent = en ? '✅ The app is already installed and running!' : '✅ Приложение уже установлено и запущено на вашем устройстве!';
+            } else if (pwaHintState === 'ios') {
+                hint.innerHTML = en
+                    ? '📲 In Safari, tap the <strong>Share</strong> button ⎋ (bottom of screen), then select <strong>«Add to Home Screen ➕»</strong>.'
+                    : '📲 В Safari нажмите кнопку <strong>«Поделиться» ⎋</strong> (внизу экрана) и выберите <strong>«На экран "Домой" ➕»</strong>.';
+            } else if (pwaHintState === 'local') {
+                hint.innerHTML = en
+                    ? '🌐 1-click install works on the live site (<a href="https://krasnoufimsk-history.site" target="_blank" rel="noopener noreferrer" style="color:var(--main-color);font-weight:600;text-decoration:underline;">krasnoufimsk-history.site</a>). Browsers restrict PWA installation from local disk files.'
+                    : '🌐 Установка в 1 клик работает на опубликованном сайте (<a href="https://krasnoufimsk-history.site" target="_blank" rel="noopener noreferrer" style="color:var(--main-color);font-weight:600;text-decoration:underline;">krasnoufimsk-history.site</a>). Локальные файлы с диска браузер блокирует ради безопасности.';
+            } else if (pwaHintState === 'browser') {
+                hint.innerHTML = en
+                    ? '🖥️ Click the <strong>Install icon ⬇️</strong> in the browser address bar (top right) or open menu (⋮) ➔ <strong>«Install app»</strong>.'
+                    : '🖥️ Нажмите на <strong>значок установки ⬇️</strong> в адресной строке браузера (вверху справа) или откройте меню (⋮) ➔ <strong>«Установить приложение»</strong>.';
+            }
+        }
 
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             pwaDeferredPrompt = e;
             const btn = document.getElementById('btn-install-pwa');
-            const hint = document.getElementById('pwa-install-hint');
-            if (btn) {
-                btn.classList.add('ready');
-            }
-            if (hint) {
-                hint.textContent = (currentLang === 'en')
-                    ? 'Click the button above to install the app on your device!'
-                    : 'Нажмите кнопку выше, чтобы установить путеводитель на ваше устройство!';
-            }
+            if (btn) btn.classList.add('ready');
+            pwaHintState = 'ready';
+            updatePwaHintLanguage();
         });
 
         window.handlePwaInstallClick = function() {
@@ -6380,59 +6404,29 @@
                 pwaDeferredPrompt.prompt();
                 pwaDeferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        const hint = document.getElementById('pwa-install-hint');
                         const btn = document.getElementById('btn-install-pwa');
                         if (btn) btn.style.display = 'none';
-                        if (hint) {
-                            hint.textContent = (currentLang === 'en')
-                                ? '✅ The app has been successfully installed!'
-                                : '✅ Приложение успешно установлено на ваше устройство!';
-                        }
+                        pwaHintState = 'installed';
+                    } else {
+                        pwaHintState = 'browser';
                     }
                     pwaDeferredPrompt = null;
+                    updatePwaHintLanguage();
                 });
             } else {
                 const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
                 const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
                 const isLocal = window.location.protocol === 'file:';
-                const hint = document.getElementById('pwa-install-hint');
-                if (isStandalone) {
-                    if (hint) {
-                        hint.textContent = (currentLang === 'en')
-                            ? '✅ The app is already installed and running!'
-                            : '✅ Приложение уже установлено и запущено на вашем устройстве!';
-                    }
-                } else if (isIos) {
-                    if (hint) {
-                        hint.innerHTML = (currentLang === 'en')
-                            ? '📲 In Safari, tap the <strong>Share</strong> button ⎋ (bottom of screen), then select <strong>«Add to Home Screen ➕»</strong>.'
-                            : '📲 В Safari нажмите кнопку <strong>«Поделиться» ⎋</strong> (внизу экрана) и выберите <strong>«На экран "Домой" ➕»</strong>.';
-                    }
-                } else if (isLocal) {
-                    if (hint) {
-                        hint.innerHTML = (currentLang === 'en')
-                            ? '🌐 1-click install works on the live site (<a href="https://krasnoufimsk-history.site" target="_blank" rel="noopener noreferrer" style="color:var(--main-color);font-weight:600;text-decoration:underline;">krasnoufimsk-history.site</a>). Browsers restrict PWA installation from local disk files.'
-                            : '🌐 Установка в 1 клик работает на опубликованном сайте (<a href="https://krasnoufimsk-history.site" target="_blank" rel="noopener noreferrer" style="color:var(--main-color);font-weight:600;text-decoration:underline;">krasnoufimsk-history.site</a>). Локальные файлы с диска браузер блокирует ради безопасности.';
-                    }
-                } else {
-                    if (hint) {
-                        hint.innerHTML = (currentLang === 'en')
-                            ? '🖥️ Click the <strong>Install icon ⬇️</strong> in the browser address bar (top right) or open menu (⋮) ➔ <strong>«Install app»</strong>.'
-                            : '🖥️ Нажмите на <strong>значок установки ⬇️</strong> в адресной строке браузера (вверху справа) или откройте меню (⋮) ➔ <strong>«Установить приложение»</strong>.';
-                    }
-                }
+                pwaHintState = isStandalone ? 'standalone' : isIos ? 'ios' : isLocal ? 'local' : 'browser';
+                updatePwaHintLanguage();
             }
         };
         window.addEventListener('appinstalled', () => {
             pwaDeferredPrompt = null;
             const btn = document.getElementById('btn-install-pwa');
-            const hint = document.getElementById('pwa-install-hint');
             if (btn) btn.style.display = 'none';
-            if (hint) {
-                hint.textContent = (currentLang === 'en')
-                    ? '✅ The app has been successfully installed!'
-                    : '✅ Приложение успешно установлено на ваше устройство!';
-            }
+            pwaHintState = 'installed';
+            updatePwaHintLanguage();
         });
 
         /* ===== Фит-гард шапки: если навигация не помещается по ширине —
