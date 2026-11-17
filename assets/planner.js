@@ -1026,7 +1026,7 @@
                 labelDaysExact: 'Точное количество (1–14):',
                 skipLink: 'Перейти к выбору города',
                 labelTripDate: '📆 Дата поездки:',
-                tripDateNote: 'Цены ниже — диапазоны-ориентиры. Выберите дату и проверьте расписание и тариф у перевозчика.',
+                tripDateNote: 'Без даты показаны базовые ориентиры. Выберите дату для условного пересчёта транспорта по сезону и выходным. Реальные тарифы и расписание проверяйте у перевозчика.',
                 shareCopiedToast: 'Смета и план поездки скопированы в буфер обмена!',
                 popularCitiesHeader: 'Города-миллионники России (быстрый выбор):',
                 otherCitiesHintTitle: 'Другие города можно найти через поиск',
@@ -1123,7 +1123,7 @@
                 labelDaysExact: 'Exact number (1–14):',
                 skipLink: 'Skip to city selection',
                 labelTripDate: '📆 Trip date:',
-                tripDateNote: 'Prices below are guide ranges. Pick a date and check the timetable and fare with the carrier.',
+                tripDateNote: 'Without a date, base estimates are shown. Select a date for a hypothetical transport adjustment by season and weekend. Check actual fares and schedules with the carrier.',
                 shareCopiedToast: 'Trip itinerary and budget copied to clipboard!',
                 popularCitiesHeader: 'Russian million-plus cities (quick select):',
                 otherCitiesHintTitle: 'Other cities can be found via search',
@@ -1278,6 +1278,7 @@
             // Перерендериваем города и смету под текущий язык
             renderCitySelectors();
             updateCityView(currentCityId);
+            updateTripDateNote();
         }
 
         /* =========================================================================
@@ -2564,9 +2565,10 @@
                 const badge = opt.badge[currentLang] || opt.badge.ru;
                 const time = opt.time[currentLang] || opt.time.ru;
                 const desc = opt.desc[currentLang] || opt.desc.ru;
-                const priceLabel = (opt.priceOneWay == null)
-                    ? (currentLang === 'en' ? 'fare depends on date' : 'тариф зависит от даты')
-                    : `${(opt.priceMin || opt.priceOneWay).toLocaleString(currentLang === 'en' ? 'en-US' : 'ru-RU')}–${(opt.priceMax || opt.priceOneWay).toLocaleString(currentLang === 'en' ? 'en-US' : 'ru-RU')} ₽${tripDate ? '' : (currentLang === 'en' ? ' (pick a date)' : ' (выберите дату)')}`;
+                const range = getEstimatedTransportRange(opt);
+                const priceLabel = !range
+                    ? (currentLang === 'en' ? 'check actual fare' : 'уточните тариф')
+                    : `${range.min.toLocaleString(currentLang === 'en' ? 'en-US' : 'ru-RU')}–${range.max.toLocaleString(currentLang === 'en' ? 'en-US' : 'ru-RU')} ₽`;
 
                 html += `
                     <div class="transport-card ${isActive ? 'active' : ''}" role="button" tabindex="0" aria-pressed="${isActive}" onclick="selectTransport(${idx})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectTransport(${idx});}">
@@ -2655,12 +2657,48 @@
             recalculateBudget();
         }
 
+        // Условная модель, а не реальные тарифы. Автомобиль, проживание и питание не меняются.
+        // Один коэффициент применяется к обоим направлениям по дате начала поездки.
+        function getDateAdjustment() {
+            const d = parseIsoLocal(tripDate);
+            if (!d || toIsoLocal(d) !== tripDate) return null;
+            const month = d.getMonth() + 1;
+            const seasonPercent = (month >= 6 && month <= 8) ? 15
+                : (month === 12 || month <= 2) ? 10
+                : (month >= 3 && month <= 5) ? -5 : 5;
+            const weekendPercent = (d.getDay() === 0 || d.getDay() === 6) ? 5 : 0;
+            return seasonPercent + weekendPercent;
+        }
+
+        function getEstimatedTransportRange(opt) {
+            if (!opt || opt.priceOneWay == null) return null;
+            const adjustment = getDateAdjustment();
+            const percent = (adjustment != null && opt.type !== 'car') ? adjustment : 0;
+            // Целочисленный процент исключает погрешность округления на границе 25 ₽.
+            const roundFare = value => Math.max(0, Math.round(value * (100 + percent) / 5000) * 50);
+            const min = opt.priceMin != null ? opt.priceMin : opt.priceOneWay;
+            const max = opt.priceMax != null ? opt.priceMax : opt.priceOneWay;
+            // Без даты и для личного автомобиля исходные значения не округляются повторно.
+            return percent === 0 ? { min, max } : { min: roundFare(min), max: roundFare(max) };
+        }
+
+        function updateTripDateNote() {
+            const note = document.getElementById('trip-date-note');
+            if (!note) return;
+            const percent = getDateAdjustment();
+            if (percent == null) {
+                note.textContent = i18nPlanner[currentLang].tripDateNote;
+                return;
+            }
+            const change = (percent > 0 ? '+' : '') + percent + '%';
+            note.textContent = currentLang === 'en'
+                ? `Selected: ${formatTripDateDisplay(tripDate)}. Hypothetical transport adjustment: ${change} by season and weekend, applied both ways. Car, lodging and food are unchanged. Not actual fares: check with carriers.`
+                : `Выбрано: ${formatTripDateDisplay(tripDate)}. Условная поправка к транспорту: ${change} по сезону и выходным, в обе стороны. Автомобиль, проживание и питание не меняются. Это не реальные тарифы — уточняйте у перевозчика.`;
+        }
+
         function onTripDateChange(val) {
             tripDate = val || '';
-            const note = document.getElementById('trip-date-note');
-            if (note) note.textContent = tripDate
-                ? (currentLang === 'en' ? `Selected date: ${formatTripDateDisplay(tripDate)}. Fares below remain estimates — confirm the timetable and price for this date with the carrier.` : `Выбрана дата: ${formatTripDateDisplay(tripDate)}. Суммы ниже остаются оценками — подтвердите расписание и тариф на эту дату у перевозчика.`)
-                : (currentLang === 'en' ? 'Prices below are guide ranges. Pick a date and check the timetable and fare with the carrier.' : 'Цены ниже — диапазоны-ориентиры. Выберите дату и проверьте расписание и тариф у перевозчика.');
+            updateTripDateNote();
             const city = CITIES_DATA.find(c => c.id === currentCityId);
             if (city) { renderTransportCards(city); updateNavigatorLink(city); }
             recalculateBudget();
@@ -2972,8 +3010,9 @@
             const city = CITIES_DATA.find(c => c.id === currentCityId) || CITIES_DATA[0];
             const transportOpt = city.options[selectedTransportIndex] || city.options[0];
             const hasFare = !!(transportOpt && transportOpt.priceOneWay != null);
-            const unitMin = hasFare ? (transportOpt.priceMin != null ? transportOpt.priceMin : transportOpt.priceOneWay) : 0;
-            const unitMax = hasFare ? (transportOpt.priceMax != null ? transportOpt.priceMax : transportOpt.priceOneWay) : 0;
+            const estimatedRange = getEstimatedTransportRange(transportOpt);
+            const unitMin = estimatedRange ? estimatedRange.min : 0;
+            const unitMax = estimatedRange ? estimatedRange.max : 0;
             let transportMultiplier = tripPersons;
             if (transportOpt && transportOpt.priceUnit === 'perVehicle') transportMultiplier = Math.ceil(tripPersons / (transportOpt.vehicleCapacity || 5));
             else if (transportOpt && transportOpt.type === 'car') transportMultiplier = Math.ceil(tripPersons / 5);
