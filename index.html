@@ -222,10 +222,15 @@
                     </div>
                     <a href="#routes" class="nav-link" data-i18n="navRoutes"
                         onclick="scrollToSection('routes'); return false;">Маршруты</a>
-                    <a href="#guide" class="nav-link" data-i18n="navGuide"
-                        onclick="scrollToSection('guide'); return false;">Памятка</a>
-                    <a href="#quiz" class="nav-link" data-i18n="navQuiz"
-                        onclick="scrollToSection('quiz'); return false;">Викторина</a>
+                    <div class="nav-more" id="nav-more">
+                        <button type="button" class="nav-link nav-more-button" id="nav-more-button" aria-expanded="false" aria-controls="nav-more-menu"><span data-i18n="navMore">На сайте</span><span aria-hidden="true"> ▾</span></button>
+                        <div class="nav-more-menu" id="nav-more-menu" hidden>
+                            <a href="#sights-map-card" onclick="scrollToSection('sights-map-card'); return false;"><span class="nav-more-icon" aria-hidden="true">🗺️</span><span data-i18n="navMapShort">Карта</span></a>
+                            <a href="planner.html"><span class="nav-more-icon" aria-hidden="true">🧭</span><span data-i18n="navPlanner">Планировщик</span></a>
+                            <a href="#guide" onclick="scrollToSection('guide'); return false;"><span class="nav-more-icon" aria-hidden="true">💡</span><span data-i18n="navGuide">Памятка</span></a>
+                            <a href="#quiz" onclick="scrollToSection('quiz'); return false;"><span class="nav-more-icon" aria-hidden="true">🎯</span><span data-i18n="navQuiz">Викторина</span></a>
+                        </div>
+                    </div>
                 </nav>
 
                 <!-- Кнопка мобильного меню (Гамбургер для экранов смартфонов) -->
@@ -300,7 +305,7 @@
         <canvas id="particle-canvas"></canvas>
 
         <div class="hero-content">
-            <div class="hero-badge" data-i18n="heroBadge">🏛️ Краеведческий веб-проект • 2026</div>
+            <div class="hero-badge" data-i18n="heroBadge">🏛️ Индивидуальный веб-проект • 2026</div>
             <h1 id="hero-title">
                 <span data-i18n="heroMain">КРАСНОУФИМСК</span>
                 <span class="season-title" id="hero-season-title" data-i18n="heroSeason">СКВОЗЬ ЭПОХИ</span>
@@ -929,7 +934,7 @@
             <div class="footer-legal">
                 <a href="#privacy-modal" onclick="openPrivacyModal(); return false;" class="footer-legal-link" data-i18n="footerPrivacyLink">🔒 Политика конфиденциальности и 152-ФЗ</a>
                 <span class="footer-legal-sep">•</span>
-                <a href="#sources-modal" onclick="openSourcesModal(); return false;" class="footer-legal-link" data-i18n="footerSourcesLink">📚 Источники и кредиты</a>
+                <a href="#sources-modal" onclick="openSourcesModal(); return false;" class="footer-legal-link" data-i18n="footerSourcesLink">📚 Источники</a>
             </div>
         </div>
     </footer>
@@ -1109,7 +1114,7 @@
                 <button type="button" class="passport-close-btn" onclick="closePrivacyModal()" aria-label="Закрыть">✕</button>
             </div>
             <div class="passport-modal-body" style="font-size:0.88rem; line-height:1.6; color:var(--text-main);">
-                <p data-i18n="privacyP1"><strong>1. О проекте.</strong> «Красноуфимск: Сквозь эпохи» — некоммерческий образовательный сайт, созданный в ходе индивидуального проекта. По вопросам работы сайта и обработки данных: <a href="/cdn-cgi/l/email-protection#eb80998a9885849e8d82869880c58382989f849992c58884859f8a889fab868a8287c5999e"><span class="__cf_email__" data-cfemail="d4bfa6b5a7babba1b2bdb9a7bffabcbda7a0bba6adfab7bbbaa0b5b7a094b9b5bdb8faa6a1">[email&#160;protected]</span></a>.</p>
+                <p data-i18n="privacyP1"><strong>1. О проекте.</strong> «Красноуфимск: Сквозь эпохи» — некоммерческий образовательный сайт, созданный в ходе индивидуального проекта. По вопросам работы сайта и обработки данных: <a href="/cdn-cgi/l/email-protection#1e756c7f6d70716b7877736d753076776d6a716c67307d71706a7f7d6a5e737f7772306c6b"><span class="__cf_email__" data-cfemail="0e657c6f7d60617b6867637d652066677d7a617c77206d61607a6f6d7a4e636f6762207c7b">[email&#160;protected]</span></a>.</p>
                 <p data-i18n="privacyP2"><strong>2. Данные в браузере.</strong> Локальное хранилище сохраняет настройки языка, темы и сезона, данные паспорта исследователя и достижения, отметки чек-листа, выбор о закрытии уведомления и некоторые временные данные, например погоду и результаты поиска. Для офлайн-доступа браузер может сохранять файлы сайта и карты. Удалить данные можно в настройках браузера, очистив данные сайта; настройки и достижения при этом могут быть потеряны. Срок хранения временных данных зависит от функции и настроек браузера.</p>
                 <p data-i18n="privacyP3"><strong>3. Имя для диплома.</strong> Имя обрабатывается в браузере для отображения и создания диплома. Имя в паспорте исследователя может сохраняться в локальном хранилище на устройстве. На общем устройстве не вводите сведения, которые не хотите оставлять другим пользователям.</p>
                 <p data-i18n="privacyP4"><strong>4. Внешние сервисы.</strong> Сайт размещён на GitHub Pages; GitHub сообщает, что записывает IP-адреса посетителей в целях безопасности. Для погоды используются Open-Meteo или Met.no с координатами Красноуфимска. При поиске населённого пункта введённый запрос отправляется в Open-Meteo; не вводите туда конфиденциальные сведения. Если локальная библиотека PDF недоступна, она может загружаться через Cloudflare CDN. Сторонние сервисы могут получать IP-адрес и другие технические сведения; сроки хранения и условия определяются соответствующими сервисами. При переходе на внешние сайты, в том числе Яндекс Карты и Яндекс Расписания, действуют их правила.</p>
@@ -1133,7 +1138,7 @@
                 <div class="passport-title-wrap">
                     <span class="passport-emblem">📚</span>
                     <div>
-                        <h3 id="sources-modal-title" data-i18n="sourcesModalTitle">Источники и кредиты</h3>
+                        <h3 id="sources-modal-title" data-i18n="sourcesModalTitle">Источники</h3>
                         <span class="passport-subtitle" data-i18n="sourcesModalSub">Красноуфимск: Сквозь эпохи • 2026</span>
                     </div>
                 </div>
@@ -1202,7 +1207,8 @@
     
     
     
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5abec6eaae4f3ac',t:'MTc5NDcyMTI1MQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5abec6eaae4f3ac',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f","spa":2}' crossorigin="anonymous"></script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5d610c5ed4a7255',t:'MTc5NTE2MzE0Mg=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5d610c5ed4a7255',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 
 
 

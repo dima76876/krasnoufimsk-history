@@ -93,12 +93,13 @@
                 navIntro: 'О городе',
                 navTimeline: 'Лента',
                 navRoutes: 'Маршруты',
+                navMore: 'На сайте',
                 navMapShort: 'Карта',
                 navPlanner: 'Планировщик',
                 navGuide: 'Памятка',
                 navQuiz: 'Викторина',
                 navMenuTitle: 'Разделы путеводителя',
-                heroBadge: '🏛️ Краеведческий веб-проект • 2026',
+                heroBadge: '🏛️ Индивидуальный веб-проект • 2026',
                 heroMain: 'КРАСНОУФИМСК',
                 heroSeason: 'СКВОЗЬ ЭПОХИ',
                 heroDesc: 'Интерактивное путешествие сквозь века: от пограничной казачьей крепости на берегах реки Уфы до уютного современного города с уникальным архитектурным и природным наследием.',
@@ -243,8 +244,8 @@
 
                 // Юридическая информация и конфиденциальность (152-ФЗ / GDPR)
                 footerPrivacyLink: '🔒 Политика конфиденциальности и 152-ФЗ',
-                footerSourcesLink: '📚 Источники и кредиты',
-                sourcesModalTitle: 'Источники и кредиты',
+                footerSourcesLink: '📚 Источники',
+                sourcesModalTitle: 'Источники',
                 sourcesModalSub: 'Красноуфимск: Сквозь эпохи • 2026',
                 sourcesModalIntro: 'Для проекта использованы открытые источники, в том числе перечисленные ниже. Даты, адреса и юридический статус объектов следует уточнять по актуальным официальным сведениям.',
                 sourceOfficial: 'Официальная историческая справка городского округа Красноуфимск',
@@ -344,6 +345,7 @@
                 navIntro: 'About',
                 navTimeline: 'Timeline',
                 navRoutes: 'Routes',
+                navMore: 'On this site',
                 navMapShort: 'Map',
                 navPlanner: 'Trip Planner',
                 plannerCtaBadge: '🧭 Trip Planning • 2026',
@@ -353,7 +355,7 @@
                 navGuide: 'Tourist Guide',
                 navQuiz: 'Quiz',
                 navMenuTitle: 'Navigation Menu',
-                heroBadge: '🏛️ Educational Web Project • 2026',
+                heroBadge: '🏛️ Individual Web Project • 2026',
                 heroMain: 'KRASNOUFIMSK',
                 heroSeason: 'THROUGH THE AGES',
                 heroDesc: 'An interactive journey through centuries: from a frontier wooden fortress on the banks of the Ufa River to a charming modern city with rich cultural and natural heritage.',
@@ -494,8 +496,8 @@
 
                 // Legal & Privacy Compliance (152-FZ / GDPR)
                 footerPrivacyLink: '🔒 Privacy Policy & 152-FZ',
-                footerSourcesLink: '📚 Sources & Credits',
-                sourcesModalTitle: 'Sources & Credits',
+                footerSourcesLink: '📚 Sources',
+                sourcesModalTitle: 'Sources',
                 sourcesModalSub: 'Krasnoufimsk: Through the Ages • 2026',
                 sourcesModalIntro: 'The project uses open sources, including those listed below. Dates, addresses and legal heritage statuses should be confirmed against current official records.',
                 sourceOfficial: 'Official historical note of the Krasnoufimsk urban district',
@@ -1556,7 +1558,7 @@
             setAria('#btn-close-weather', 'Закрыть окно погоды', 'Close weather dialog');
             setAria('.passport-close-btn', 'Закрыть', 'Close');
             setAria('.passport-done-btn', 'Закрыть паспорт исследователя', 'Close Explorer Passport');
-            setAria('.sources-done-btn', 'Закрыть источники и кредиты', 'Close Sources & Credits');
+            setAria('.sources-done-btn', 'Закрыть источники', 'Close Sources');
             setAria('#passport-avatar-current', 'Сменить аватар', 'Change avatar');
             setAria('#sights-search-clear-btn', 'Очистить поиск', 'Clear search');
             setAria('#sights-custom-trigger', 'Открыть список достопримечательностей', 'Open the list of attractions');
@@ -4077,7 +4079,23 @@
                 return window.protomapsL.leafletLayer({
                     ...baseOptions,
                     paintRules: window.protomapsL.paintRules(flavor),
-                    labelRules: window.protomapsL.labelRules(flavor, lang),
+                    // Номера домов уже содержатся в локальных данных OSM на z15.
+                    // Показываем их только при сильном приближении, чтобы не загромождать карту.
+                    labelRules: [
+                        ...window.protomapsL.labelRules(flavor, lang),
+                        {
+                            dataLayer: 'buildings',
+                            minzoom: 17,
+                            filter: (zoom, feature) => feature.props.kind === 'address' && !!feature.props.addr_housenumber,
+                            symbolizer: new window.protomapsL.CenteredTextSymbolizer({
+                                labelProps: ['addr_housenumber'],
+                                font: '600 12px sans-serif',
+                                fill: flavor.address_label,
+                                stroke: flavor.address_label_halo,
+                                width: 1.5
+                            })
+                        }
+                    ],
                     backgroundColor: flavor.background
                 });
             }
@@ -6505,3 +6523,16 @@
                     .observe(headerForObserver, { subtree: true, childList: true, characterData: true });
             }
         }
+
+// Дополнительные разделы настольной навигации.
+(() => {
+    const root = document.getElementById('nav-more');
+    const button = document.getElementById('nav-more-button');
+    const menu = document.getElementById('nav-more-menu');
+    if (!root || !button || !menu) return;
+    function closeMenu() { menu.hidden = true; button.setAttribute('aria-expanded', 'false'); }
+    button.addEventListener('click', () => { const open = menu.hidden; menu.hidden = !open; button.setAttribute('aria-expanded', String(open)); });
+    menu.addEventListener('click', e => { if (e.target.closest('a')) closeMenu(); });
+    document.addEventListener('click', e => { if (!root.contains(e.target)) closeMenu(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { closeMenu(); button.focus(); } });
+})();

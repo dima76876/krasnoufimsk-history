@@ -81,12 +81,12 @@
                 options: [
                     {
                         type: 'plane_train', icon: '✈️+🚆',
-                        title: { ru: 'Самолёт до Кольцово + экспресс «Финист»', en: 'Flight to Koltsovo + Finist express' },
+                        title: { ru: 'Самолёт до Екатеринбурга (Кольцово) + экспресс «Финист»', en: 'Flight to Yekaterinburg (Koltsovo) + Finist express' },
                         badge: { ru: 'Самый быстрый способ', en: 'Fastest Travel Option' },
                         time: { ru: 'зависит от стыковки', en: 'depends on the connection' },
                         priceOneWay: 5400,
                         priceMin: 4300, priceMax: 6750,
-                        desc: { ru: 'Перелёт Москва → Екатеринбург (2 ч 20 мин, от 4 600 ₽) + скорый «Финист» в Красноуфимск (~3 ч 22 мин, ~650 ₽).', en: 'Flight to Yekaterinburg Koltsovo Airport + connecting express train to Krasnoufimsk (~3 h 22 min).' }
+                        desc: { ru: 'Перелёт Москва → Екатеринбург (2 ч 20 мин, от 4 600 ₽) + скорый «Финист» в Красноуфимск (~3 ч 22 мин, ~650 ₽).', en: 'Flight to Yekaterinburg (Koltsovo) Airport + connecting express train to Krasnoufimsk (~3 h 22 min).' }
                     },
                     {
                         type: 'train_direct', icon: '🚆',
@@ -99,12 +99,12 @@
                     },
                     {
                         type: 'plane_bus', icon: '✈️+🚌',
-                        title: { ru: 'Самолёт в Кольцово + автобус/такси', en: 'Flight to Koltsovo + Bus' },
+                        title: { ru: 'Самолёт в Екатеринбург (Кольцово) + автобус/такси', en: 'Flight to Yekaterinburg (Koltsovo) + Bus' },
                         badge: { ru: 'Гибкий график', en: 'Flexible departure' },
                         time: { ru: 'зависит от стыковки', en: 'depends on the connection' },
                         priceOneWay: 5600,
                         priceMin: 4500, priceMax: 7000,
-                        desc: { ru: 'Перелёт до Кольцово + междугородний автобус от Южного автовокзала или трансфер.', en: 'Flight to Koltsovo Airport plus intercity bus or car transfer.' }
+                        desc: { ru: 'Перелёт до Екатеринбурга (Кольцово) + междугородний автобус от Южного автовокзала или трансфер.', en: 'Flight to Yekaterinburg (Koltsovo Airport) plus intercity bus or car transfer.' }
                     },
                     {
                         type: 'car', icon: '🚗',
@@ -123,7 +123,7 @@
                 options: [
                     {
                         type: 'plane_train', icon: '✈️+🚆',
-                        title: { ru: 'Самолёт до Кольцово + экспресс «Финист»', en: 'Flight to Koltsovo + Finist express' },
+                        title: { ru: 'Самолёт до Екатеринбурга (Кольцово) + экспресс «Финист»', en: 'Flight to Yekaterinburg (Koltsovo) + Finist express' },
                         badge: { ru: 'Оптимально по времени', en: 'Best travel time' },
                         time: { ru: 'зависит от стыковки', en: 'depends on the connection' },
                         priceOneWay: 6200,
@@ -276,7 +276,7 @@
                 options: [
                     {
                         type: 'plane_train', icon: '✈️+🚆',
-                        title: { ru: 'Самолёт до Кольцово + экспресс «Финист»', en: 'Flight to Koltsovo + Train' },
+                        title: { ru: 'Самолёт до Екатеринбурга (Кольцово) + экспресс «Финист»', en: 'Flight to Yekaterinburg (Koltsovo) + Train' },
                         badge: { ru: 'Быстро через Урал', en: 'Quick flight' },
                         time: { ru: 'зависит от стыковки', en: 'depends on the connection' },
                         priceOneWay: 6800,
@@ -323,7 +323,7 @@
                         time: { ru: 'зависит от стыковки', en: 'depends on the connection' },
                         priceOneWay: 5200,
                         priceMin: 4150, priceMax: 6500,
-                        desc: { ru: 'Авиарейс Стригино → Кольцово (1 ч 45 мин) + комфортный электропоезд до Красноуфимска.', en: 'Flight from Strigino to Koltsovo + Finist express electric train.' }
+                        desc: { ru: 'Авиарейс Стригино → Екатеринбург (Кольцово) (1 ч 45 мин) + комфортный электропоезд до Красноуфимска.', en: 'Flight from Strigino to Yekaterinburg (Koltsovo) + Finist express electric train.' }
                     }
                 ]
             },
@@ -342,7 +342,7 @@
                     },
                     {
                         type: 'plane_train', icon: '✈️+🚆',
-                        title: { ru: 'Самолёт до Кольцово + экспресс «Финист»', en: 'Flight to Koltsovo + Train' },
+                        title: { ru: 'Самолёт до Екатеринбурга (Кольцово) + экспресс «Финист»', en: 'Flight to Yekaterinburg (Koltsovo) + Train' },
                         badge: { ru: 'Быстро по воздуху', en: 'Fast air connection' },
                         time: { ru: 'зависит от стыковки', en: 'depends on the connection' },
                         priceOneWay: 6200,
@@ -357,7 +357,7 @@
                 options: [
                     {
                         type: 'plane_train', icon: '✈️+🚆',
-                        title: { ru: 'Самолёт в Екатеринбург + экспресс «Финист»', en: 'Flight to Koltsovo + Train' },
+                        title: { ru: 'Самолёт в Екатеринбург + экспресс «Финист»', en: 'Flight to Yekaterinburg (Koltsovo) + Train' },
                         badge: { ru: 'Оптимально по времени', en: 'Best travel time' },
                         time: { ru: 'зависит от стыковки', en: 'depends on the connection' },
                         priceOneWay: 7900,
@@ -390,7 +390,7 @@
                     },
                     {
                         type: 'plane_train', icon: '✈️+🚆',
-                        title: { ru: 'Самолёт в Кольцово + экспресс «Финист»', en: 'Flight to Koltsovo + Finist express' },
+                        title: { ru: 'Самолёт в Екатеринбург (Кольцово) + экспресс «Финист»', en: 'Flight to Yekaterinburg (Koltsovo) + Finist express' },
                         badge: { ru: 'Оптимально по времени', en: 'Fastest connection' },
                         time: { ru: 'зависит от стыковки', en: 'depends on the connection' },
                         priceOneWay: 7200,
@@ -428,7 +428,7 @@
                         time: { ru: 'зависит от стыковки', en: 'depends on the connection' },
                         priceOneWay: 7500,
                         priceMin: 6000, priceMax: 9400,
-                        desc: { ru: 'Перелёт до Екатеринбурга (Кольцово) + пересадка на скорый электропоезд «Финист».', en: 'Flight to Yekaterinburg Koltsovo + fast Finist express train to Krasnoufimsk.' }
+                        desc: { ru: 'Перелёт до Екатеринбурга (Кольцово) + пересадка на скорый электропоезд «Финист».', en: 'Flight to Yekaterinburg (Koltsovo) + fast Finist express train to Krasnoufimsk.' }
                     },
                     {
                         type: 'car', icon: '🚗',
@@ -489,7 +489,7 @@
                     },
                     {
                         type: 'plane_train', icon: '✈️+🚆',
-                        title: { ru: 'Самолёт Волгоград → Кольцово + экспресс «Финист»', en: 'Flight to Koltsovo + Finist express' },
+                        title: { ru: 'Самолёт Волгоград → Екатеринбург (Кольцово) + экспресс «Финист»', en: 'Flight to Yekaterinburg (Koltsovo) + Finist express' },
                         badge: { ru: 'Оптимально по времени', en: 'Best travel time' },
                         time: { ru: 'зависит от стыковки', en: 'depends on the connection' },
                         priceOneWay: 6400,
@@ -529,8 +529,8 @@
             if (restricted) {
                 const otherRu = city.id === 'rostov' ? 'Краснодара' : 'Москвы';
                 const otherEn = city.id === 'rostov' ? 'Krasnodar' : 'Moscow';
-                ru = `В аэропорту «${airport[0]}» действовали длительные ограничения. Проверьте его текущий статус или наземную дорогу до аэропорта ${otherRu} и возможный перелёт в Кольцово. Далее — трансфер до вокзала Екатеринбурга и поезд до Красноуфимска. Все этапы и стоимость проверяйте на дату.`;
-                en = `${airport[1]} has faced long-term restrictions. Check its current status or ground transport to ${otherEn} airport and possible flights to Koltsovo. Then transfer to Yekaterinburg station and check a train to Krasnoufimsk. Verify each leg and fare for your date.`;
+                ru = `В аэропорту «${airport[0]}» действовали длительные ограничения. Проверьте его текущий статус или наземную дорогу до аэропорта ${otherRu} и возможный перелёт в Екатеринбург (Кольцово). Далее — трансфер до вокзала Екатеринбурга и поезд до Красноуфимска. Все этапы и стоимость проверяйте на дату.`;
+                en = `${airport[1]} has faced long-term restrictions. Check its current status or ground transport to ${otherEn} airport and possible flights to Yekaterinburg (Koltsovo). Then transfer to Yekaterinburg station and check a train to Krasnoufimsk. Verify each leg and fare for your date.`;
             } else {
                 const fromRu = airport ? `Аэропорт отправления: ${airport[0]}. ` : 'Если рядом есть аэропорт, ';
                 const fromEn = airport ? `Departure airport: ${airport[1]}. ` : 'If an airport is available nearby, ';
@@ -539,7 +539,7 @@
             }
             return {
                 type: 'plane_train', icon: '✈️+🚆',
-                title: { ru: restricted ? 'Возможный перелёт из другого аэропорта + поезд' : 'Возможный перелёт до Кольцово + поезд', en: restricted ? 'Possible flight from another airport + train' : 'Possible flight to Koltsovo + train' },
+                title: { ru: restricted ? 'Возможный перелёт из другого аэропорта + поезд' : 'Возможный перелёт до Екатеринбурга (Кольцово) + поезд', en: restricted ? 'Possible flight from another airport + train' : 'Possible flight to Yekaterinburg (Koltsovo) + train' },
                 badge: { ru: 'Возможность нужно проверить', en: 'Availability must be checked' },
                 time: { ru: 'зависит от рейсов и пересадок', en: 'depends on flights and connections' },
                 priceOneWay: null, priceMin: null, priceMax: null,
@@ -580,7 +580,7 @@
                     opt.priceOneWay = null; opt.priceMin = null; opt.priceMax = null;
                     opt.badge = { ru: 'Проверьте рейсы и пересадки', en: 'Check flights and connections' };
                     opt.time = { ru: 'уточняйте на дату', en: 'check your travel date' };
-                    opt.desc = { ru: 'Проверьте перелёт до Кольцово, трансфер до автовокзала Екатеринбурга и автобус до Красноуфимска. Наличие и стоимость уточняйте на дату.', en: 'Check flights to Koltsovo, the transfer to Yekaterinburg bus terminal and the bus to Krasnoufimsk. Verify availability and fares for your date.' };
+                    opt.desc = { ru: 'Проверьте перелёт до Екатеринбурга (Кольцово), трансфер до автовокзала Екатеринбурга и автобус до Красноуфимска. Наличие и стоимость уточняйте на дату.', en: 'Check flights to Yekaterinburg (Koltsovo), the transfer to Yekaterinburg bus terminal and the bus to Krasnoufimsk. Verify availability and fares for your date.' };
                 }
                 opt.priceUnit = opt.priceUnit || (opt.type === 'car' ? 'perVehicle' : 'perPerson');
                 if (opt.type === 'car' && !opt.vehicleCapacity) opt.vehicleCapacity = 5;
@@ -994,7 +994,7 @@
                 footerCopy: '© 2026 «Красноуфимск: Сквозь эпохи». Выполнен в ходе индивидуального проекта.',
                 footerSchool: 'Школьный образовательный краеведческий проект',
                 footerLinkPrivacy: '🔒 Политика конфиденциальности и 152-ФЗ',
-                footerLinkSources: '📚 Источники и кредиты',
+                footerLinkSources: '📚 Источники',
                 daysOpt1: '1 день',
                 daysOpt2: '2 дня',
                 daysOpt3: '3 дня',
@@ -1091,7 +1091,7 @@
                 footerCopy: '© 2026 "Krasnoufimsk: Through the Ages". Completed as part of an individual project.',
                 footerSchool: 'School educational local history project',
                 footerLinkPrivacy: '🔒 Privacy Policy & 152-FZ',
-                footerLinkSources: '📚 Sources & Credits',
+                footerLinkSources: '📚 Sources',
                 daysOpt1: '1 day',
                 daysOpt2: '2 days',
                 daysOpt3: '3 days',
